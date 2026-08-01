@@ -1,0 +1,13 @@
+node_modules/
+npm-debug.log
+
+admin-config.json
+mail-config.json
+
+data/orders.json
+data/enquiries.json
+data/orders/
+data/enquiries/
+uploads/
+
+*.log

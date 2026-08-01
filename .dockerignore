@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+data/orders
+data/enquiries
+data/orders.json
+data/enquiries.json
+admin-config.json
+mail-config.json
+uploads
+*.md

@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "host": "smtp.gmail.com",
+  "port": 465,
+  "secure": true,
+  "user": "amitwebdev163@gmail.com",
+  "appPassword": "PASTE_YOUR_16_CHAR_GMAIL_APP_PASSWORD_HERE",
+  "to": "amitwebdev163@gmail.com"
+}
