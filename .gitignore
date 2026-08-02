@@ -10,6 +10,7 @@ data/vendors.json
 data/visitors.json
 data/orders/
 data/enquiries/
+data/backups/
 uploads/
 
 *.log
