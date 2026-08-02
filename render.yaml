@@ -2,11 +2,13 @@ services:
   - type: web
     name: giftora
     runtime: node
+    repo: https://github.com/Amit1296/giftora
+    branch: master
     plan: free
-    buildCommand: npm install --omit=dev
+    buildCommand: npm install
     startCommand: node server.js
-    healthCheckPath: /
-    autoDeploy: true
     envVars:
-      - key: NODE_ENV
-        value: production
+      - key: ADMIN_USER
+        value: admin
+      - key: ADMIN_PASS
+        sync: false
