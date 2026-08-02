@@ -5,9 +5,13 @@ services:
     repo: https://github.com/Amit1296/giftora
     branch: master
     plan: free
-    buildCommand: npm install
+    buildCommand: npm install --omit=dev
     startCommand: node server.js
+    healthCheckPath: /
+    autoDeploy: true
     envVars:
+      - key: NODE_ENV
+        value: production
       - key: ADMIN_USER
         value: admin
       - key: ADMIN_PASS
