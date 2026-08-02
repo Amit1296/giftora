@@ -12,5 +12,6 @@ data/orders/
 data/enquiries/
 data/backups/
 uploads/
+backups/
 
 *.log
