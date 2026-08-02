@@ -2,6 +2,15 @@
 
 Standalone HTML copy of the Giftora WordPress theme. No WordPress, PHP, or database required.
 
+## Live Site
+
+- **Live URL:** https://giftora.onrender.com
+- **Admin panel:** https://giftora.onrender.com/admin.html (username `admin`, password `giftora2026`)
+- **Source repo:** https://github.com/Amit1296/giftora
+- **Local:** http://localhost:8080 (`node server.js`)
+
+Deployed on Render (free tier, Node). Data persists in a linked PostgreSQL database when `DATABASE_URL` is set; otherwise it falls back to JSON files in `data/`.
+
 ## Project Structure
 
 ```
