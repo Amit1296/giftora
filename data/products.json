@@ -8,7 +8,15 @@
     "oldPrice": 1799,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#f8fafc,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CLO-001",
+    "stock": 13,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
   },
   {
     "id": 2,
@@ -19,7 +27,15 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#fce7f3,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CLO-002",
+    "stock": 0,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ]
   },
   {
     "id": 3,
@@ -30,7 +46,15 @@
     "oldPrice": 1299,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#fef3c7,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CLO-003",
+    "stock": 15,
+    "sizes": [
+      "2-3Y",
+      "4-5Y",
+      "6-7Y",
+      "8-9Y"
+    ]
   },
   {
     "id": 4,
@@ -41,7 +65,12 @@
     "oldPrice": 0,
     "badge": "Premium",
     "gradient": "linear-gradient(135deg,#ede9fe,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CLO-004",
+    "stock": 16,
+    "sizes": [
+      "Free Size"
+    ]
   },
   {
     "id": 5,
@@ -52,7 +81,10 @@
     "oldPrice": 999,
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#fef9c3,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-TOY-005",
+    "stock": 17,
+    "sizes": []
   },
   {
     "id": 6,
@@ -63,7 +95,10 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#cffafe,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-TOY-006",
+    "stock": 18,
+    "sizes": []
   },
   {
     "id": 7,
@@ -74,7 +109,10 @@
     "oldPrice": 1599,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#fee2e2,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-TOY-007",
+    "stock": 19,
+    "sizes": []
   },
   {
     "id": 8,
@@ -85,7 +123,10 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#fce7f3,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-TOY-008",
+    "stock": 20,
+    "sizes": []
   },
   {
     "id": 9,
@@ -96,7 +137,10 @@
     "oldPrice": 1099,
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#ffd1d1,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-FLW-009",
+    "stock": 21,
+    "sizes": []
   },
   {
     "id": 10,
@@ -107,7 +151,10 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#fef3c7,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-FLW-010",
+    "stock": 22,
+    "sizes": []
   },
   {
     "id": 11,
@@ -118,7 +165,10 @@
     "oldPrice": 0,
     "badge": "Premium",
     "gradient": "linear-gradient(135deg,#fbcfe8,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-FLW-011",
+    "stock": 23,
+    "sizes": []
   },
   {
     "id": 12,
@@ -129,7 +179,10 @@
     "oldPrice": 1899,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#ddd6fe,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-FLW-012",
+    "stock": 24,
+    "sizes": []
   },
   {
     "id": 13,
@@ -140,7 +193,10 @@
     "oldPrice": 0,
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#e7d8c9,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CKE-013",
+    "stock": 25,
+    "sizes": []
   },
   {
     "id": 14,
@@ -151,7 +207,10 @@
     "oldPrice": 1049,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#ffe4e6,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CKE-014",
+    "stock": 26,
+    "sizes": []
   },
   {
     "id": 15,
@@ -162,7 +221,10 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#fecaca,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CKE-015",
+    "stock": 4,
+    "sizes": []
   },
   {
     "id": 16,
@@ -173,7 +235,10 @@
     "oldPrice": 0,
     "badge": "Premium",
     "gradient": "linear-gradient(135deg,#fce7f3,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CKE-016",
+    "stock": 28,
+    "sizes": []
   },
   {
     "id": 17,
@@ -184,7 +249,10 @@
     "oldPrice": 1999,
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#fef3c7,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-TDY-017",
+    "stock": 29,
+    "sizes": []
   },
   {
     "id": 18,
@@ -195,7 +263,10 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#fef9c3,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-TDY-018",
+    "stock": 30,
+    "sizes": []
   },
   {
     "id": 19,
@@ -206,7 +277,10 @@
     "oldPrice": 0,
     "badge": "Premium",
     "gradient": "linear-gradient(135deg,#fce7f3,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-TDY-019",
+    "stock": 31,
+    "sizes": []
   },
   {
     "id": 20,
@@ -217,7 +291,10 @@
     "oldPrice": 1399,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#ffd1d1,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-TDY-020",
+    "stock": 12,
+    "sizes": []
   },
   {
     "id": 21,
@@ -228,7 +305,16 @@
     "oldPrice": 1999,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#f8fafc,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-SHO-021",
+    "stock": 13,
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10"
+    ]
   },
   {
     "id": 22,
@@ -239,7 +325,16 @@
     "oldPrice": 0,
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#dcfce7,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-SHO-022",
+    "stock": 14,
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10"
+    ]
   },
   {
     "id": 23,
@@ -250,7 +345,16 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#fef3c7,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-SHO-023",
+    "stock": 15,
+    "sizes": [
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11",
+      "UK 12"
+    ]
   },
   {
     "id": 24,
@@ -261,7 +365,16 @@
     "oldPrice": 0,
     "badge": "Premium",
     "gradient": "linear-gradient(135deg,#e7d8c9,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-SHO-024",
+    "stock": 16,
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10"
+    ]
   },
   {
     "id": 25,
@@ -272,7 +385,10 @@
     "oldPrice": 0,
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#dcfce7,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-PLT-025",
+    "stock": 17,
+    "sizes": []
   },
   {
     "id": 26,
@@ -283,7 +399,10 @@
     "oldPrice": 799,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#ccfbf1,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-PLT-026",
+    "stock": 18,
+    "sizes": []
   },
   {
     "id": 27,
@@ -294,7 +413,10 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#d9f99d,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-PLT-027",
+    "stock": 19,
+    "sizes": []
   },
   {
     "id": 28,
@@ -305,7 +427,10 @@
     "oldPrice": 0,
     "badge": "Premium",
     "gradient": "linear-gradient(135deg,#bbf7d0,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-PLT-028",
+    "stock": 20,
+    "sizes": []
   },
   {
     "id": 29,
@@ -316,7 +441,10 @@
     "oldPrice": 2199,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#fce7f3,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CMB-029",
+    "stock": 21,
+    "sizes": []
   },
   {
     "id": 30,
@@ -327,7 +455,10 @@
     "oldPrice": 0,
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#fef9c3,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CMB-030",
+    "stock": 22,
+    "sizes": []
   },
   {
     "id": 31,
@@ -338,7 +469,10 @@
     "oldPrice": 2999,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#fbcfe8,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CMB-031",
+    "stock": 23,
+    "sizes": []
   },
   {
     "id": 32,
@@ -349,7 +483,10 @@
     "oldPrice": 0,
     "badge": "Premium",
     "gradient": "linear-gradient(135deg,#ddd6fe,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CMB-032",
+    "stock": 24,
+    "sizes": []
   },
   {
     "id": 33,
@@ -360,7 +497,12 @@
     "oldPrice": 1699,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#e2e8f0,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-SUN-033",
+    "stock": 25,
+    "sizes": [
+      "One Size"
+    ]
   },
   {
     "id": 34,
@@ -371,7 +513,12 @@
     "oldPrice": 0,
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#fef3c7,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-SUN-034",
+    "stock": 26,
+    "sizes": [
+      "One Size"
+    ]
   },
   {
     "id": 35,
@@ -382,7 +529,12 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#fce7f3,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-SUN-035",
+    "stock": 27,
+    "sizes": [
+      "One Size"
+    ]
   },
   {
     "id": 36,
@@ -393,7 +545,12 @@
     "oldPrice": 1299,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#cffafe,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-SUN-036",
+    "stock": 28,
+    "sizes": [
+      "One Size"
+    ]
   },
   {
     "id": 37,
@@ -404,7 +561,12 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#e2e8f0,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CAP-037",
+    "stock": 29,
+    "sizes": [
+      "One Size"
+    ]
   },
   {
     "id": 38,
@@ -415,7 +577,12 @@
     "oldPrice": 899,
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#fbcfe8,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CAP-038",
+    "stock": 30,
+    "sizes": [
+      "One Size"
+    ]
   },
   {
     "id": 39,
@@ -426,7 +593,12 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#fef3c7,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CAP-039",
+    "stock": 31,
+    "sizes": [
+      "One Size"
+    ]
   },
   {
     "id": 40,
@@ -437,7 +609,12 @@
     "oldPrice": 799,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#ddd6fe,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-CAP-040",
+    "stock": 12,
+    "sizes": [
+      "One Size"
+    ]
   },
   {
     "id": 41,
@@ -448,7 +625,16 @@
     "oldPrice": 0,
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#e7d8c9,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-BLT-041",
+    "stock": 13,
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36"
+    ]
   },
   {
     "id": 42,
@@ -459,7 +645,16 @@
     "oldPrice": 899,
     "badge": "Sale",
     "gradient": "linear-gradient(135deg,#334155,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-BLT-042",
+    "stock": 14,
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36"
+    ]
   },
   {
     "id": 43,
@@ -470,7 +665,16 @@
     "oldPrice": 0,
     "badge": null,
     "gradient": "linear-gradient(135deg,#d9f99d,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-BLT-043",
+    "stock": 15,
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36"
+    ]
   },
   {
     "id": 44,
@@ -481,6 +685,15 @@
     "oldPrice": 0,
     "badge": "Premium",
     "gradient": "linear-gradient(135deg,#fef9c3,#f1f5f9)",
-    "image": ""
+    "image": "",
+    "sku": "GFT-BLT-044",
+    "stock": 16,
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36"
+    ]
   }
 ]

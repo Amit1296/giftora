@@ -164,7 +164,9 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
         "@type": "Offer",
         price: String(product.price),
         priceCurrency: site.currency,
-        availability: "https://schema.org/InStock",
+        availability: typeof product.stock === "number" && product.stock <= 0
+          ? "https://schema.org/OutOfStock"
+          : "https://schema.org/InStock",
         itemCondition: "https://schema.org/NewCondition",
         url,
       },
@@ -181,6 +183,12 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
   ];
 }
 
+function sizeSelectHtml(p) {
+  return `<select class="product-size" data-size="${p.id}" aria-label="Size of ${esc(p.name)}">
+    ${(p.sizes || []).map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join("")}
+  </select>`;
+}
+
 function relatedCards(product, products) {
   const same = products.filter((p) => p.category === product.category && p.id !== product.id);
   const others = products.filter((p) => p.category !== product.category);
@@ -189,6 +197,12 @@ function relatedCards(product, products) {
     const discount = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
     const badge = p.oldPrice && discount > 0 ? `${discount}% OFF` : p.badge;
     const slug = slugify(p.name);
+    const stock = typeof p.stock === "number" && p.stock >= 0 ? p.stock : Infinity;
+    const oos = stock <= 0;
+    const lowStock = !oos && stock !== Infinity && stock <= 5;
+    const addControl = oos
+      ? `<button class="add-to-cart" data-id="${p.id}" disabled>Out of Stock</button>`
+      : `${p.sizes && p.sizes.length ? sizeSelectHtml(p) : ""}<button class="add-to-cart" data-id="${p.id}">Add to Cart</button>`;
     return `
       <article class="product-card reveal">
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
@@ -202,7 +216,8 @@ function relatedCards(product, products) {
             <span class="price">${fmtPrice(p.price)}</span>
             ${p.oldPrice ? `<span class="old-price">${fmtPrice(p.oldPrice)}</span>` : ""}
           </div>
-          <button class="add-to-cart" data-id="${p.id}">Add to Cart</button>
+          ${lowStock ? `<span class="stock-note">Only ${stock} left</span>` : ""}
+          <div class="product-buy">${addControl}</div>
         </div>
       </article>
     `;
@@ -234,6 +249,23 @@ function productBody(product, slug, catMeta, site, products, faqs) {
     ? `<img class="product-detail-img" src="${product.image}" alt="${esc(product.name)}">`
     : `<span class="product-detail-emoji">${product.emoji || "🎁"}</span>`;
 
+  const stock = typeof product.stock === "number" && product.stock >= 0 ? product.stock : Infinity;
+  const oos = stock <= 0;
+  const stockLine = oos
+    ? `<p class="stock-line out">Out of stock</p>`
+    : stock <= 5
+      ? `<p class="stock-line low">Only ${stock} left in stock</p>`
+      : `<p class="stock-line ok">In stock</p>`;
+  const sizeSelector = product.sizes && product.sizes.length
+    ? `<div class="size-selector" role="group" aria-label="Select size">
+        <span class="size-label">Size:</span>
+        ${product.sizes.map((s, i) => `<button type="button" class="size-btn${i === 0 ? " selected" : ""}" data-size="${esc(s)}">${esc(s)}</button>`).join("")}
+      </div>`
+    : "";
+  const addBtn = oos
+    ? `<button class="add-to-cart" id="addToCartBtn" disabled>Out of Stock</button>`
+    : `<button class="add-to-cart" id="addToCartBtn">Add to Cart</button>`;
+
   return `
 <section class="category-hero product-hero">
   <div class="container">
@@ -248,14 +280,16 @@ function productBody(product, slug, catMeta, site, products, faqs) {
         <div class="product-price">
           <span class="price">${fmtPrice(product.price)}</span>${oldPrice}
         </div>
+        ${stockLine}
         <p class="product-detail-desc">${esc(productDescription(product, site))}</p>
+        ${sizeSelector}
         <div class="product-detail-actions">
           <div class="qty-selector" data-id="${product.id}">
             <button type="button" data-action="dec" aria-label="Decrease quantity">−</button>
             <span>1</span>
             <button type="button" data-action="inc" aria-label="Increase quantity">+</button>
           </div>
-          <button class="add-to-cart" id="addToCartBtn">Add to Cart</button>
+          ${addBtn}
         </div>
         <div class="product-perks">
           <span>🚚 Same-day delivery</span>
@@ -308,13 +342,29 @@ function pageScript(product) {
       qty = Math.max(1, Math.min(50, qty + (btn.dataset.action === "inc" ? 1 : -1)));
       qtyEl.textContent = qty;
     });
+    var sizeSel = document.querySelector(".size-selector");
+    var size = "";
+    if (sizeSel) {
+      var sizeBtns = sizeSel.querySelectorAll(".size-btn");
+      sizeBtns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          sizeBtns.forEach(function (x) { x.classList.remove("selected"); });
+          b.classList.add("selected");
+          size = b.dataset.size;
+        });
+      });
+      size = sizeBtns.length ? sizeBtns[0].dataset.size : "";
+    }
     var addBtn = document.getElementById("addToCartBtn");
-    if (addBtn) addBtn.addEventListener("click", function () {
-      window.Giftora.addToCartQty(${product.id}, qty);
+    if (addBtn && !addBtn.disabled) addBtn.addEventListener("click", function () {
+      window.Giftora.addToCartQty(${product.id}, qty, size);
     });
     document.addEventListener("click", function (e) {
       var btn = e.target.closest(".add-to-cart[data-id]");
-      if (btn && btn.id !== "addToCartBtn") window.Giftora.addToCart(btn.dataset.id);
+      if (btn && btn.id !== "addToCartBtn" && !btn.disabled) {
+        var s = document.querySelector('.product-size[data-size="' + btn.dataset.id + '"]');
+        window.Giftora.addToCart(btn.dataset.id, s ? s.value : "");
+      }
     });
   })();
 </script>

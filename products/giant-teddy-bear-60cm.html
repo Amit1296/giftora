@@ -161,14 +161,17 @@
       <a href="../index.html">Home</a> &rsaquo; <a href="../teddy.html">Teddy Bears</a> &rsaquo; <span>Giant Teddy Bear - 60cm</span>
     </nav>
     <div class="product-detail">
-      <div class="product-detail-media" style="background:#f1f5f9"><span class="product-detail-emoji">🎁</span></div>
+      <div class="product-detail-media" style="background:linear-gradient(135deg,#fef3c7,#f1f5f9)"><span class="product-detail-emoji">🧸</span></div>
       <div class="product-detail-info">
         <span class="product-category">Teddy Bears</span>
         <h1>Giant Teddy Bear - 60cm</h1>
         <div class="product-price">
           <span class="price">₹1,499</span>
+            <span class="old-price">₹1,999</span>
         </div>
+        <p class="stock-line ok">In stock</p>
         <p class="product-detail-desc">Giant Teddy Bear - 60cm for just ₹1,499 with same-day delivery at Giftora. Free gift wrapping, cash on delivery and easy returns. Order online now!</p>
+        
         <div class="product-detail-actions">
           <div class="qty-selector" data-id="17">
             <button type="button" data-action="dec" aria-label="Decrease quantity">−</button>
@@ -198,9 +201,9 @@
     <div class="products-grid">
       
       <article class="product-card reveal">
-        <div class="product-media" style="background:#f1f5f9">
+        <div class="product-media" style="background:linear-gradient(135deg,#fef9c3,#f1f5f9)">
           
-          <a class="product-card-link" href="products/huggable-teddy-bear-40cm.html" aria-label="View Huggable Teddy Bear - 40cm"><span class="product-emoji">🎁</span></a>
+          <a class="product-card-link" href="products/huggable-teddy-bear-40cm.html" aria-label="View Huggable Teddy Bear - 40cm"><span class="product-emoji">🐻</span></a>
         </div>
         <div class="product-info">
           <span class="product-category">Teddy Bears</span>
@@ -209,13 +212,14 @@
             <span class="price">₹999</span>
             
           </div>
-          <button class="add-to-cart" data-id="18">Add to Cart</button>
+          
+          <div class="product-buy"><button class="add-to-cart" data-id="18">Add to Cart</button></div>
         </div>
       </article>
     
       <article class="product-card reveal">
-        <div class="product-media" style="background:#f1f5f9">
-          
+        <div class="product-media" style="background:linear-gradient(135deg,#fce7f3,#f1f5f9)">
+          <span class="product-badge premium">Premium</span>
           <a class="product-card-link" href="products/teddy-bear-gift-basket.html" aria-label="View Teddy Bear Gift Basket"><span class="product-emoji">🎁</span></a>
         </div>
         <div class="product-info">
@@ -225,39 +229,44 @@
             <span class="price">₹1,799</span>
             
           </div>
-          <button class="add-to-cart" data-id="19">Add to Cart</button>
+          
+          <div class="product-buy"><button class="add-to-cart" data-id="19">Add to Cart</button></div>
         </div>
       </article>
     
       <article class="product-card reveal">
-        <div class="product-media" style="background:#f1f5f9">
-          
-          <a class="product-card-link" href="products/heart-teddy-bear-with-card.html" aria-label="View Heart Teddy Bear with Card"><span class="product-emoji">🎁</span></a>
+        <div class="product-media" style="background:linear-gradient(135deg,#ffd1d1,#f1f5f9)">
+          <span class="product-badge">14% OFF</span>
+          <a class="product-card-link" href="products/heart-teddy-bear-with-card.html" aria-label="View Heart Teddy Bear with Card"><span class="product-emoji">🧸</span></a>
         </div>
         <div class="product-info">
           <span class="product-category">Teddy Bears</span>
           <a class="product-card-link" href="products/heart-teddy-bear-with-card.html"><h3 class="product-name">Heart Teddy Bear with Card</h3></a>
           <div class="product-price">
             <span class="price">₹1,199</span>
-            
+            <span class="old-price">₹1,399</span>
           </div>
-          <button class="add-to-cart" data-id="20">Add to Cart</button>
+          
+          <div class="product-buy"><button class="add-to-cart" data-id="20">Add to Cart</button></div>
         </div>
       </article>
     
       <article class="product-card reveal">
-        <div class="product-media" style="background:#f1f5f9">
-          
-          <a class="product-card-link" href="products/classic-white-dress-shirt.html" aria-label="View Classic White Dress Shirt"><span class="product-emoji">🎁</span></a>
+        <div class="product-media" style="background:linear-gradient(135deg,#f8fafc,#f1f5f9)">
+          <span class="product-badge">28% OFF</span>
+          <a class="product-card-link" href="products/classic-white-dress-shirt.html" aria-label="View Classic White Dress Shirt"><span class="product-emoji">👔</span></a>
         </div>
         <div class="product-info">
           <span class="product-category">Clothes</span>
           <a class="product-card-link" href="products/classic-white-dress-shirt.html"><h3 class="product-name">Classic White Dress Shirt</h3></a>
           <div class="product-price">
             <span class="price">₹1,299</span>
-            
+            <span class="old-price">₹1,799</span>
           </div>
-          <button class="add-to-cart" data-id="1">Add to Cart</button>
+          
+          <div class="product-buy"><select class="product-size" data-size="1" aria-label="Size of Classic White Dress Shirt">
+    <option value="S">S</option><option value="M">M</option><option value="L">L</option><option value="XL">XL</option>
+  </select><button class="add-to-cart" data-id="1">Add to Cart</button></div>
         </div>
       </article>
     
@@ -445,13 +454,29 @@
       qty = Math.max(1, Math.min(50, qty + (btn.dataset.action === "inc" ? 1 : -1)));
       qtyEl.textContent = qty;
     });
+    var sizeSel = document.querySelector(".size-selector");
+    var size = "";
+    if (sizeSel) {
+      var sizeBtns = sizeSel.querySelectorAll(".size-btn");
+      sizeBtns.forEach(function (b) {
+        b.addEventListener("click", function () {
+          sizeBtns.forEach(function (x) { x.classList.remove("selected"); });
+          b.classList.add("selected");
+          size = b.dataset.size;
+        });
+      });
+      size = sizeBtns.length ? sizeBtns[0].dataset.size : "";
+    }
     var addBtn = document.getElementById("addToCartBtn");
-    if (addBtn) addBtn.addEventListener("click", function () {
-      window.Giftora.addToCartQty(17, qty);
+    if (addBtn && !addBtn.disabled) addBtn.addEventListener("click", function () {
+      window.Giftora.addToCartQty(17, qty, size);
     });
     document.addEventListener("click", function (e) {
       var btn = e.target.closest(".add-to-cart[data-id]");
-      if (btn && btn.id !== "addToCartBtn") window.Giftora.addToCart(btn.dataset.id);
+      if (btn && btn.id !== "addToCartBtn" && !btn.disabled) {
+        var s = document.querySelector('.product-size[data-size="' + btn.dataset.id + '"]');
+        window.Giftora.addToCart(btn.dataset.id, s ? s.value : "");
+      }
     });
   })();
 </script>

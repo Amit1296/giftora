@@ -29,6 +29,13 @@ function loadProducts() {
   const file = path.join(ROOT, "js", "products.js");
   if (!fs.existsSync(file)) return [];
   const src = fs.readFileSync(file, "utf8");
+  const arr = src.match(/window\.GIFT_PRODUCTS\s*=\s*(\[[\s\S]*?\]);/);
+  if (arr) {
+    try {
+      const parsed = JSON.parse(arr[1]);
+      if (Array.isArray(parsed)) return parsed;
+    } catch (e) {}
+  }
   const products = [];
   const re = /{ id: (\d+), name: "([^"]+)", category: "([^"]+)", price: (\d+)/g;
   let m;

@@ -62,11 +62,30 @@
   }
 
   function formatPrice(n) {
-    return CURRENCY + n.toLocaleString("en-IN");
+    return CURRENCY + Number(n || 0).toLocaleString("en-IN");
   }
 
   function escAttr(s) {
     return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function normEntry(e) {
+    if (e && typeof e === "object") {
+      return { qty: Math.max(0, parseInt(e.qty, 10) || 0), size: String(e.size || "") };
+    }
+    return { qty: Math.max(0, parseInt(e, 10) || 0), size: "" };
+  }
+
+  function stockOf(p) {
+    return p && typeof p.stock === "number" && p.stock >= 0 ? p.stock : Infinity;
+  }
+
+  function sizeOf(p, requested, fallback) {
+    const sizes = (p && p.sizes) || [];
+    if (!sizes.length) return "";
+    if (requested && sizes.includes(requested)) return requested;
+    if (fallback && sizes.includes(fallback)) return fallback;
+    return sizes[0];
   }
 
   let festivalDiscount = 0;
@@ -81,7 +100,7 @@
   }
 
   function countItems() {
-    return Object.values(cart).reduce((sum, q) => sum + q, 0);
+    return Object.values(cart).reduce((sum, e) => sum + normEntry(e).qty, 0);
   }
 
   function updateBadge() {
@@ -91,17 +110,19 @@
   }
 
   function cartTotal() {
-    return Object.entries(cart).reduce((sum, [id, q]) => {
+    return Object.entries(cart).reduce((sum, [id, e]) => {
+      const n = normEntry(e);
       const p = PRODUCTS.find((x) => x.id === Number(id));
-      return sum + (p ? effPrice(p) * q : 0);
+      return sum + (p ? effPrice(p) * n.qty : 0);
     }, 0);
   }
 
   function festivalSaving() {
     if (festivalDiscount <= 0) return 0;
-    return Object.entries(cart).reduce((sum, [id, q]) => {
+    return Object.entries(cart).reduce((sum, [id, e]) => {
+      const n = normEntry(e);
       const p = PRODUCTS.find((x) => x.id === Number(id));
-      return sum + (p ? (p.price - effPrice(p)) * q : 0);
+      return sum + (p ? (p.price - effPrice(p)) * n.qty : 0);
     }, 0);
   }
 
@@ -138,6 +159,7 @@
   function openCheckout() {
     if (countItems() === 0) return;
     renderOrderSummary();
+    loadPaymentConfig();
     checkoutModal.classList.add("open");
     checkoutOverlay.classList.add("open");
     checkoutForm.style.display = "";
@@ -155,12 +177,14 @@
   function renderOrderSummary() {
     const ids = Object.keys(cart);
     orderSummary.innerHTML = ids.map((id) => {
+      const n = normEntry(cart[id]);
       const p = PRODUCTS.find((x) => x.id === Number(id));
       if (!p) return "";
+      const size = n.size ? ` <span class="os-muted">(${escAttr(n.size)})</span>` : "";
       return `
         <div class="os-row">
-          <span class="os-name">${p.name} <span class="os-muted">&times; ${cart[id]}</span></span>
-          <span class="os-muted">${formatPrice(effPrice(p) * cart[id])}</span>
+          <span class="os-name">${p.name}${size} <span class="os-muted">&times; ${n.qty}</span></span>
+          <span class="os-muted">${formatPrice(effPrice(p) * n.qty)}</span>
         </div>
       `;
     }).join("");
@@ -169,28 +193,42 @@
     checkoutTotal.previousElementSibling.textContent = saving > 0 ? `Total to pay (${festivalDiscount}% off)` : "Total to pay";
   }
 
-  async function submitOrder() {
-    const items = Object.entries(cart).map(([id, qty]) => {
+  function buildItems() {
+    return Object.entries(cart).map(([id, e]) => {
+      const n = normEntry(e);
       const p = PRODUCTS.find((x) => x.id === Number(id));
-      return { id: Number(id), name: p.name, qty, price: effPrice(p) };
-    });
+      if (!p) return null;
+      return { id: Number(id), name: p.name, qty: n.qty, size: n.size, price: effPrice(p) };
+    }).filter(Boolean);
+  }
 
+  async function placeOrder(payment, rzp) {
+    const items = buildItems();
     const name = $("#oName").value.trim();
     const phone = $("#oPhone").value.trim();
     const address = $("#oAddress").value.trim();
     const city = $("#oCity").value.trim();
     const state = $("#oState").value.trim();
     const pincode = $("#oPincode").value.trim();
-    const payment = document.querySelector('input[name="payment"]:checked')?.value || "Cash on Delivery";
     const shippingAddress = [address, city, state, "PIN " + pincode].filter(Boolean).join(", ");
-
-    if (!name || !phone || !address || !city || !state || !pincode || items.length === 0) {
-      toast("Please fill in all details and try again.");
-      return;
-    }
 
     let vid = "";
     try { vid = localStorage.getItem("giftora_vid") || ""; } catch {}
+
+    const payload = {
+      name,
+      phone,
+      address: shippingAddress,
+      payment,
+      items,
+      total: cartTotal(),
+      vid,
+    };
+    if (rzp) {
+      payload.razorpayOrderId = rzp.orderId;
+      payload.razorpayPaymentId = rzp.paymentId;
+      payload.razorpaySignature = rzp.signature;
+    }
 
     placeOrderBtn.disabled = true;
     placeOrderBtn.textContent = "Placing order...";
@@ -199,7 +237,7 @@
       const res = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, address: shippingAddress, payment, items, total: cartTotal(), vid }),
+        body: JSON.stringify(payload),
       }).then((r) => r.json());
 
       if (!res.success) {
@@ -213,11 +251,92 @@
       saveCart();
       updateBadge();
       renderCart();
-    } catch {
-      toast("Could not reach the server. Please try again.");
+    } catch (e) {
+      toast(e.message || "Could not reach the server. Please try again.");
     } finally {
       placeOrderBtn.disabled = false;
       placeOrderBtn.textContent = "Place Order";
+    }
+  }
+
+  let rzpScriptPromise = null;
+  function loadRazorpay() {
+    if (window.Razorpay) return Promise.resolve();
+    if (rzpScriptPromise) return rzpScriptPromise;
+    rzpScriptPromise = new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src = "https://checkout.razorpay.com/v1/checkout.js";
+      s.async = true;
+      s.onload = () => resolve();
+      s.onerror = () => { rzpScriptPromise = null; reject(new Error("Could not load payment gateway.")); };
+      document.head.appendChild(s);
+    });
+    return rzpScriptPromise;
+  }
+
+  async function startOnlinePayment(method) {
+    const items = buildItems();
+    if (!items.length) { toast("Your cart is empty."); return; }
+    placeOrderBtn.disabled = true;
+    placeOrderBtn.textContent = "Connecting to payment...";
+    try {
+      const res = await fetch("/api/payment/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items }),
+      }).then((r) => r.json());
+      if (!res.success) throw new Error(res.message || "Could not start payment.");
+
+      await loadRazorpay();
+      const name = $("#oName").value.trim();
+      const phone = $("#oPhone").value.trim();
+      const rzp = new window.Razorpay({
+        key: res.key,
+        amount: res.amount,
+        currency: "INR",
+        name: "Giftora",
+        description: "Gift order " + (res.receipt || ""),
+        order_id: res.orderId,
+        prefill: { name: name || "", contact: phone || "" },
+        theme: { color: "#c2410c" },
+        handler: (r) => {
+          placeOrder(method, {
+            orderId: r.razorpay_order_id,
+            paymentId: r.razorpay_payment_id,
+            signature: r.razorpay_signature,
+          });
+        },
+        modal: { ondismiss: () => { placeOrderBtn.disabled = false; placeOrderBtn.textContent = "Place Order"; } },
+      });
+      rzp.open();
+    } catch (e) {
+      placeOrderBtn.disabled = false;
+      placeOrderBtn.textContent = "Place Order";
+      toast(e.message || "Could not start payment. Try Cash on Delivery.");
+    }
+  }
+
+  async function submitOrder() {
+    const items = buildItems();
+    if (!items.length) {
+      toast("Your cart is empty.");
+      return;
+    }
+    const name = $("#oName").value.trim();
+    const phone = $("#oPhone").value.trim();
+    const address = $("#oAddress").value.trim();
+    const city = $("#oCity").value.trim();
+    const state = $("#oState").value.trim();
+    const pincode = $("#oPincode").value.trim();
+    if (!name || !phone || !address || !city || !state || !pincode) {
+      toast("Please fill in all details and try again.");
+      return;
+    }
+    const payment = document.querySelector('input[name="payment"]:checked')?.value || "Cash on Delivery";
+    if (payment === "Cash on Delivery") {
+      await placeOrder("Cash on Delivery", null);
+    } else {
+      await startOnlinePayment(payment);
     }
   }
 
@@ -235,6 +354,30 @@
   });
 
   const paymentMethods = document.getElementById("paymentMethods");
+  let paymentEnabled = false;
+  async function loadPaymentConfig() {
+    try {
+      const r = await fetch("/api/payment/config");
+      const d = await r.json();
+      paymentEnabled = !!(d && d.enabled);
+    } catch {
+      paymentEnabled = false;
+    }
+    if (!paymentMethods) return;
+    paymentMethods.querySelectorAll(".payment-option").forEach((opt) => {
+      const inp = opt.querySelector("input");
+      if (!inp) return;
+      const online = inp.value !== "Cash on Delivery";
+      inp.disabled = online && !paymentEnabled;
+      opt.classList.toggle("disabled", online && !paymentEnabled);
+    });
+    if (!paymentEnabled && !paymentMethods.querySelector(".payment-note")) {
+      const note = document.createElement("p");
+      note.className = "payment-note";
+      note.textContent = "Online payments are currently unavailable — please use Cash on Delivery.";
+      paymentMethods.appendChild(note);
+    }
+  }
   if (paymentMethods) {
     paymentMethods.addEventListener("change", (e) => {
       paymentMethods.querySelectorAll(".payment-option").forEach((opt) => {
@@ -272,6 +415,12 @@
     productsGrid.innerHTML = list.map((p) => {
       const discount = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
       const badge = PAGE_CATEGORY === "special" && discount > 0 ? `${discount}% OFF` : p.badge;
+      const stock = stockOf(p);
+      const oos = stock <= 0;
+      const lowStock = !oos && stock !== Infinity && stock <= 5;
+      const addControl = oos
+        ? `<button class="add-to-cart" data-id="${p.id}" disabled>Out of Stock</button>`
+        : `${p.sizes && p.sizes.length ? sizeSelectHtml(p) : ""}<button class="add-to-cart" data-id="${p.id}">Add to Cart</button>`;
       return `
       <article class="product-card reveal">
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
@@ -289,7 +438,8 @@
             <span class="price">${formatPrice(effPrice(p))}</span>
             ${p.oldPrice ? `<span class="old-price">${formatPrice(effOldPrice(p))}</span>` : ""}
           </div>
-          <button class="add-to-cart" data-id="${p.id}">Add to Cart</button>
+          ${lowStock ? `<span class="stock-note">Only ${stock} left</span>` : ""}
+          <div class="product-buy">${addControl}</div>
         </div>
       </article>
     `;
@@ -310,10 +460,20 @@
     $$(".reveal:not(.visible)").forEach((el) => io.observe(el));
   }
 
-  function addToCart(id) {
-    const p = PRODUCTS.find((x) => x.id === id);
+  function addToCart(id, size) {
+    const p = PRODUCTS.find((x) => x.id === Number(id));
     if (!p) return;
-    cart[id] = (cart[id] || 0) + 1;
+    const n = normEntry(cart[Number(id)]);
+    const cap = stockOf(p);
+    if (cap <= 0) {
+      toast(`${p.name} is out of stock`);
+      return;
+    }
+    if (cap !== Infinity && n.qty >= cap) {
+      toast(`Only ${cap} of ${p.name} in stock`);
+      return;
+    }
+    cart[Number(id)] = { qty: n.qty + 1, size: sizeOf(p, size, n.size) };
     saveCart();
     updateBadge();
     toast(`${p.name} added to cart`);
@@ -321,12 +481,26 @@
   }
 
   window.Giftora = {
-    addToCart: (id) => addToCart(Number(id)),
-    addToCartQty: (id, qty) => {
+    addToCart: (id, size) => addToCart(Number(id), size),
+    addToCartQty: (id, qty, size) => {
       const p = PRODUCTS.find((x) => x.id === Number(id));
       if (!p) return;
-      const n = Math.max(1, parseInt(qty, 10) || 1);
-      cart[Number(id)] = (cart[Number(id)] || 0) + n;
+      const n = normEntry(cart[Number(id)]);
+      const cap = stockOf(p);
+      let add = Math.max(1, parseInt(qty, 10) || 1);
+      if (cap <= 0) {
+        toast(`${p.name} is out of stock`);
+        return;
+      }
+      if (cap !== Infinity && n.qty + add > cap) {
+        add = Math.max(0, cap - n.qty);
+        if (add <= 0) {
+          toast(`Only ${cap} of ${p.name} in stock`);
+          return;
+        }
+        toast(`Only ${cap} of ${p.name} in stock — added ${add}`);
+      }
+      cart[Number(id)] = { qty: n.qty + add, size: sizeOf(p, size, n.size) };
       saveCart();
       updateBadge();
       toast(`${p.name} added to cart`);
@@ -341,9 +515,19 @@
   }
 
   function changeQty(id, delta) {
-    const next = (cart[id] || 0) + delta;
+    const p = PRODUCTS.find((x) => x.id === Number(id));
+    const n = normEntry(cart[id]);
+    const cap = p ? stockOf(p) : Infinity;
+    let next = n.qty + delta;
+    if (delta > 0 && cap !== Infinity && next > cap) {
+      next = cap;
+      if (n.qty >= cap) {
+        toast(`Only ${cap} of ${p.name} in stock`);
+        return;
+      }
+    }
     if (next <= 0) delete cart[id];
-    else cart[id] = next;
+    else cart[id] = { qty: next, size: n.size };
     saveCart();
     updateBadge();
     renderCart();
@@ -366,19 +550,25 @@
     }
     checkoutBtn.style.display = "";
     cartItemsEl.innerHTML = ids.map((id) => {
+      const n = normEntry(cart[id]);
       const p = PRODUCTS.find((x) => x.id === Number(id));
       if (!p) return "";
+      const size = p.sizes && p.sizes.length
+        ? `<select class="cart-item-size" data-size="${id}" aria-label="Size">
+             ${p.sizes.map((s) => `<option value="${escAttr(s)}"${s === n.size ? " selected" : ""}>${escAttr(s)}</option>`).join("")}
+           </select>`
+        : "";
       return `
         <div class="cart-item">
           <div class="cart-item-thumb" style="background:${p.gradient}">${p.emoji}</div>
           <div class="cart-item-info">
             <p class="cart-item-name">${p.name}</p>
             <p class="cart-item-price">${formatPrice(effPrice(p))}</p>
-            <div class="cart-item-qty">
+            <div class="cart-item-row">${size}<div class="cart-item-qty">
               <button class="qty-btn" data-action="dec" data-id="${p.id}">−</button>
-              <span>${cart[id]}</span>
+              <span>${n.qty}</span>
               <button class="qty-btn" data-action="inc" data-id="${p.id}">+</button>
-            </div>
+            </div></div>
           </div>
           <button class="cart-item-remove" data-action="remove" data-id="${p.id}" aria-label="Remove">✕</button>
         </div>
@@ -397,11 +587,20 @@
     }
   }
 
+  function sizeSelectHtml(p) {
+    return `<select class="product-size" data-size="${p.id}" aria-label="Size of ${escAttr(p.name)}">
+      ${(p.sizes || []).map((s) => `<option value="${escAttr(s)}">${escAttr(s)}</option>`).join("")}
+    </select>`;
+  }
+
   /* ---------- Event wiring ---------- */
   if (productsGrid) {
     productsGrid.addEventListener("click", (e) => {
       const btn = e.target.closest(".add-to-cart");
-      if (btn) addToCart(Number(btn.dataset.id));
+      if (!btn || btn.disabled) return;
+      const id = Number(btn.dataset.id);
+      const sel = productsGrid.querySelector(`.product-size[data-size="${id}"]`);
+      addToCart(id, sel ? sel.value : "");
     });
   }
 
@@ -413,6 +612,16 @@
     if (action === "inc") changeQty(id, 1);
     if (action === "dec") changeQty(id, -1);
     if (action === "remove") removeItem(id);
+  });
+
+  cartItemsEl.addEventListener("change", (e) => {
+    const sel = e.target.closest(".cart-item-size");
+    if (!sel) return;
+    const id = Number(sel.dataset.size);
+    const n = normEntry(cart[id]);
+    cart[id] = { qty: n.qty, size: sel.value };
+    saveCart();
+    renderCart();
   });
 
   if (filterBtns) {

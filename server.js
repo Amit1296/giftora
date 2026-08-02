@@ -1,4 +1,5 @@
 const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
@@ -12,6 +13,14 @@ const PORT = process.env.PORT || 8080;
 const DATA_DIR = db.DATA_DIR;
 const UPLOADS_DIR = process.env.UPLOADS_DIR ? path.resolve(process.env.UPLOADS_DIR) : path.join(ROOT, "uploads");
 const ADMIN_CONFIG = path.join(ROOT, "admin-config.json");
+
+const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || "";
+const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || "";
+
+const MAX_BODY = 6 * 1024 * 1024;
+const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
+const LOGIN_MAX_FAILS = 10;
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -33,7 +42,8 @@ const MIME = {
 
 const ALLOWED_IMAGE_EXT = [".png", ".jpg", ".jpeg", ".gif", ".webp"];
 
-const sessions = new Set();
+const sessions = new Map();
+const loginFails = new Map();
 
 function timestamp() {
   const d = new Date();
@@ -44,11 +54,24 @@ function timestamp() {
   );
 }
 
+function clientIp(req) {
+  const fwd = (req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  return fwd || req.socket.remoteAddress || "unknown";
+}
+
 function readBody(req) {
   return new Promise((resolve, reject) => {
     let raw = "";
-    req.on("data", (c) => (raw += c));
-    req.on("end", () => resolve(raw));
+    let over = false;
+    req.on("data", (c) => {
+      raw += c;
+      if (raw.length > MAX_BODY) {
+        over = true;
+        reject(new Error("Body too large"));
+        req.destroy();
+      }
+    });
+    req.on("end", () => { if (!over) resolve(raw); });
     req.on("error", reject);
   });
 }
@@ -56,6 +79,13 @@ function readBody(req) {
 function sendJson(res, status, payload) {
   res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
   res.end(JSON.stringify(payload));
+}
+
+function badRequest(res, e, fallbackMsg) {
+  if (e && e.message === "Body too large") {
+    return sendJson(res, 413, { success: false, message: "Request too large." });
+  }
+  return sendJson(res, 400, { success: false, message: fallbackMsg || "Invalid request." });
 }
 
 function readAdminConfig() {
@@ -85,10 +115,13 @@ function readAdminConfig() {
 function requireAuth(req, res) {
   const header = req.headers["authorization"] || "";
   const token = header.startsWith("Bearer ") ? header.slice(7) : "";
-  if (!token || !sessions.has(token)) {
+  const created = sessions.get(token);
+  if (!token || !created || Date.now() - created > SESSION_TTL_MS) {
+    sessions.delete(token);
     sendJson(res, 401, { success: false, message: "Unauthorized. Please log in." });
     return null;
   }
+  sessions.set(token, Date.now());
   return token;
 }
 
@@ -119,37 +152,60 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === "/api/order") {
       try {
         const data = JSON.parse(await readBody(req));
-        const orderId = "order_" + timestamp();
-        await db.addOrder({ ...data, orderId, _file: orderId, status: "New", date: new Date().toISOString() });
-        sendOrderEmail(data, orderId);
-        return sendJson(res, 200, { success: true, orderId });
+        const result = await placeOrder(data);
+        return sendJson(res, 200, result);
       } catch (e) {
         console.error("Order error:", e.message);
-        return sendJson(res, 400, { success: false, message: "Could not save your order." });
+        const msg = e && e.message && e.message.startsWith("ORDER:") ? e.message.slice(6) : "Could not save your order.";
+        return sendJson(res, 400, { success: false, message: msg });
+      }
+    }
+
+    if (url.pathname === "/api/payment/order") {
+      try {
+        const data = JSON.parse(await readBody(req));
+        const result = await createRazorpayOrder(data);
+        return sendJson(res, 200, result);
+      } catch (e) {
+        console.error("Payment order error:", e.message);
+        return badRequest(res, e, e && e.message ? e.message : "Could not start payment.");
       }
     }
 
     if (url.pathname === "/api/enquiry") {
       try {
         const data = JSON.parse(await readBody(req));
+        data.name = String(data.name || "").trim().slice(0, 100);
+        data.email = String(data.email || "").trim().slice(0, 150);
+        data.message = String(data.message || "").trim().slice(0, 3000);
+        if (!data.name || !data.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(data.email) || !data.message) {
+          return sendJson(res, 400, { success: false, message: "Please provide your name, email and message." });
+        }
         await db.addEnquiry({ ...data, _file: "enquiry_" + timestamp(), date: new Date().toISOString() });
         sendEnquiryEmail(data);
         return sendJson(res, 200, { success: true });
       } catch (e) {
         console.error("Enquiry error:", e.message);
-        return sendJson(res, 400, { success: false, message: "Could not save your message." });
+        return badRequest(res, e, "Could not save your message.");
       }
     }
 
     if (url.pathname === "/api/vendor") {
       try {
         const data = JSON.parse(await readBody(req));
+        data.businessName = String(data.businessName || "").trim().slice(0, 100);
+        data.contactName = String(data.contactName || "").trim().slice(0, 100);
+        data.email = String(data.email || "").trim().slice(0, 150);
+        data.phone = String(data.phone || "").trim().slice(0, 20);
+        if (!data.businessName || !data.contactName || !data.email || !data.phone) {
+          return sendJson(res, 400, { success: false, message: "Please fill in all required fields." });
+        }
         await db.addVendor({ ...data, _file: "vendor_" + timestamp(), date: new Date().toISOString() });
         sendVendorEmail(data);
         return sendJson(res, 200, { success: true });
       } catch (e) {
         console.error("Vendor error:", e.message);
-        return sendJson(res, 400, { success: false, message: "Could not save your application." });
+        return badRequest(res, e, "Could not save your application.");
       }
     }
 
@@ -173,6 +229,11 @@ const server = http.createServer(async (req, res) => {
 
     /* ---------- Admin auth ---------- */
     if (url.pathname === "/api/admin/login") {
+      const ip = clientIp(req);
+      const fail = loginFails.get(ip);
+      if (fail && fail.count >= LOGIN_MAX_FAILS && Date.now() - fail.first < LOGIN_WINDOW_MS) {
+        return sendJson(res, 429, { success: false, message: "Too many failed attempts. Try again in 15 minutes." });
+      }
       try {
         const { username, password } = JSON.parse(await readBody(req));
         const cfg = readAdminConfig();
@@ -180,9 +241,15 @@ const server = http.createServer(async (req, res) => {
           return sendJson(res, 500, { success: false, message: "Admin not configured. Set ADMIN_USER and ADMIN_PASS environment variables." });
         }
         if (username === cfg.username && password === cfg.password) {
+          loginFails.delete(ip);
           const token = crypto.randomBytes(24).toString("hex");
-          sessions.add(token);
+          sessions.set(token, Date.now());
           return sendJson(res, 200, { success: true, token });
+        }
+        if (fail && Date.now() - fail.first < LOGIN_WINDOW_MS) {
+          fail.count += 1;
+        } else {
+          loginFails.set(ip, { count: 1, first: Date.now() });
         }
         return sendJson(res, 401, { success: false, message: "Invalid username or password." });
       } catch (e) {
@@ -230,6 +297,15 @@ const server = http.createServer(async (req, res) => {
 
   if (method === "GET" && url.pathname === "/api/festival") {
     return sendJson(res, 200, { success: true, festival: await db.getFestival() });
+  }
+
+  if (method === "GET" && url.pathname === "/api/payment/config") {
+    return sendJson(res, 200, {
+      success: true,
+      enabled: !!(RAZORPAY_KEY_ID && RAZORPAY_KEY_SECRET),
+      key: RAZORPAY_KEY_ID || "",
+      name: "Giftora",
+    });
   }
 
   /* ---------- Admin GET/PUT endpoints ---------- */
@@ -444,8 +520,162 @@ function buildVisitorsReport(store, orders) {
   };
 }
 
+function razorpayRequest(path, body) {
+  return new Promise((resolve, reject) => {
+    const payload = JSON.stringify(body);
+    const auth = "Basic " + Buffer.from(RAZORPAY_KEY_ID + ":" + RAZORPAY_KEY_SECRET).toString("base64");
+    const options = {
+      hostname: "api.razorpay.com",
+      port: 443,
+      path,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Content-Length": Buffer.byteLength(payload),
+        Authorization: auth,
+      },
+    };
+    const req = https.request(options, (res) => {
+      let raw = "";
+      res.on("data", (c) => (raw += c));
+      res.on("end", () => {
+        try {
+          const data = JSON.parse(raw);
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            resolve(data);
+          } else {
+            reject(new Error((data.error && data.error.description) || ("Razorpay error " + res.statusCode)));
+          }
+        } catch (e) {
+          reject(new Error("Razorpay error " + res.statusCode));
+        }
+      });
+    });
+    req.on("error", reject);
+    req.write(payload);
+    req.end();
+  });
+}
+
+async function createRazorpayOrder(data) {
+  if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
+    throw new Error("Online payments are not configured yet. Please use Cash on Delivery.");
+  }
+  const rawItems = Array.isArray(data.items) ? data.items.slice(0, 50) : [];
+  if (!rawItems.length) throw new Error("Your cart is empty.");
+  const products = await db.getProducts();
+  const festival = await db.getFestival();
+  const discount = festival && festival.active ? (Number(festival.discount) || 0) : 0;
+  let total = 0;
+  for (const it of rawItems) {
+    const id = Number(it.id);
+    const qty = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 1));
+    const p = products.find((x) => x.id === id);
+    if (!p) throw new Error("A product in your cart is no longer available.");
+    const cap = typeof p.stock === "number" && p.stock >= 0 ? p.stock : Infinity;
+    if (qty > cap) throw new Error("Only " + cap + " of " + p.name + " in stock.");
+    if (p.sizes && p.sizes.length) {
+      const size = String(it.size || "");
+      if (!p.sizes.includes(size)) {
+        if (p.sizes.length !== 1) throw new Error("Please select a size for " + p.name + ".");
+      }
+    }
+    const price = discount > 0 ? Math.round((p.price * (100 - discount)) / 100) : p.price;
+    total += price * qty;
+  }
+  const order = await razorpayRequest("/v1/orders", {
+    amount: Math.round(total * 100),
+    currency: "INR",
+    receipt: "gift_" + timestamp().replace(/[^0-9]/g, "").slice(0, 12),
+    notes: { source: "giftora-store" },
+  });
+  return { success: true, key: RAZORPAY_KEY_ID, orderId: order.id, amount: order.amount, currency: order.currency, receipt: order.receipt };
+}
+
+async function placeOrder(data) {
+  const name = String(data.name || "").trim().slice(0, 100);
+  const phone = String(data.phone || "").trim().slice(0, 20);
+  const address = String(data.address || "").trim().slice(0, 600);
+  const payment = ["Cash on Delivery", "UPI", "Card"].includes(data.payment) ? data.payment : "Cash on Delivery";
+  if (!name || !phone || !/^[0-9+\-()\s]{7,20}$/.test(phone) || !address) {
+    throw new Error("ORDER:Please provide a valid name, phone and address.");
+  }
+
+  const rawItems = Array.isArray(data.items) ? data.items.slice(0, 50) : [];
+  if (!rawItems.length) throw new Error("ORDER:Your cart is empty.");
+
+  const products = await db.getProducts();
+  const festival = await db.getFestival();
+  const discount = festival && festival.active ? (Number(festival.discount) || 0) : 0;
+  const items = [];
+  let total = 0;
+
+  for (const it of rawItems) {
+    const id = Number(it.id);
+    const qty = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 1));
+    const p = products.find((x) => x.id === id);
+    if (!p) throw new Error("ORDER:A product in your cart is no longer available.");
+    const cap = typeof p.stock === "number" && p.stock >= 0 ? p.stock : Infinity;
+    if (qty > cap) throw new Error("ORDER:Only " + cap + " of " + p.name + " in stock.");
+    let size = "";
+    if (p.sizes && p.sizes.length) {
+      size = String(it.size || "");
+      if (!p.sizes.includes(size)) {
+        if (p.sizes.length === 1) size = p.sizes[0];
+        else throw new Error("ORDER:Please select a size for " + p.name + ".");
+      }
+    }
+    const price = discount > 0 ? Math.round((p.price * (100 - discount)) / 100) : p.price;
+    total += price * qty;
+    items.push({ id, name: p.name, qty, size, price });
+  }
+
+  const isOnline = payment === "UPI" || payment === "Card";
+  let rzpPaymentId = "";
+  if (isOnline) {
+    if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
+      throw new Error("ORDER:Online payments are not configured yet. Please use Cash on Delivery.");
+    }
+    const rzpOrderId = String(data.razorpayOrderId || "").trim();
+    rzpPaymentId = String(data.razorpayPaymentId || "").trim();
+    const rzpSignature = String(data.razorpaySignature || "").trim();
+    if (!rzpOrderId || !rzpPaymentId || !rzpSignature) {
+      throw new Error("ORDER:Payment was not completed.");
+    }
+    const expected = crypto.createHmac("sha256", RAZORPAY_KEY_SECRET).update(rzpOrderId + "|" + rzpPaymentId).digest("hex");
+    if (expected !== rzpSignature) {
+      throw new Error("ORDER:Payment verification failed.");
+    }
+  }
+
+  for (const it of items) {
+    const p = products.find((x) => x.id === it.id);
+    if (p && typeof p.stock === "number" && p.stock >= 0) {
+      p.stock = Math.max(0, p.stock - it.qty);
+    }
+  }
+  await db.saveProducts(products);
+
+  const orderId = "order_" + timestamp();
+  await db.addOrder({
+    name,
+    phone,
+    address,
+    payment,
+    items,
+    total,
+    vid: String(data.vid || "").slice(0, 64),
+    razorpayPaymentId: rzpPaymentId,
+    _file: orderId,
+    status: "New",
+    date: new Date().toISOString(),
+  });
+  sendOrderEmail({ name, phone, address, payment, items, total }, orderId);
+  return { success: true, orderId, total };
+}
+
 function sendOrderEmail(order, orderId) {
-  const lines = order.items.map((i) => `- ${i.qty} x ${i.name} @ Rs.${i.price}`).join("\n");
+  const lines = order.items.map((i) => `- ${i.qty} x ${i.name}${i.size ? " (" + i.size + ")" : ""} @ Rs.${i.price}`).join("\n");
   mailer.send({
     subject: `New Order #${orderId}`,
     text:

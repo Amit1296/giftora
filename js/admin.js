@@ -122,9 +122,10 @@
         const media = p.image
           ? `<img src="${p.image}" alt="">`
           : `<span>${p.emoji || "🎁"}</span>`;
+        const badge = stockBadge(p.stock);
         return `
         <div class="product-row" data-id="${p.id}">
-          <div class="product-page-label">Appears on: <a href="${esc(p.category)}.html" target="_blank">${esc(pageName(p.category))}</a></div>
+          <div class="product-page-label">Appears on: <a href="${esc(p.category)}.html" target="_blank">${esc(pageName(p.category))}</a> ${badge}</div>
           <div class="product-thumb" style="background:${grad}">${media}</div>
           <div class="product-fields">
             <div class="form-group field-full">
@@ -150,6 +151,14 @@
               <input type="number" class="f-oldprice" value="${p.oldPrice || 0}" min="0">
             </div>
             <div class="form-group">
+              <label>Stock</label>
+              <input type="number" class="f-stock" value="${p.stock == null ? "" : p.stock}" min="0" placeholder="∞ (unlimited)">
+            </div>
+            <div class="form-group">
+              <label>SKU</label>
+              <input type="text" class="f-sku" value="${esc(p.sku || "")}" placeholder="GFT-CLO-001">
+            </div>
+            <div class="form-group">
               <label>Badge</label>
               <select class="f-badge">
                 ${badgeOptions(p.badge)}
@@ -158,6 +167,10 @@
             <div class="form-group">
               <label>Background Color</label>
               <input type="color" class="f-gradient" value="${toHex(grad)}" title="Pick a background color">
+            </div>
+            <div class="form-group field-full">
+              <label>Sizes (comma separated)</label>
+              <input type="text" class="f-sizes" value="${esc((p.sizes || []).join(", "))}" placeholder="S, M, L, XL — leave empty if no sizes">
             </div>
             <div class="form-group field-full">
               <label>Image</label>
@@ -202,6 +215,9 @@
       emoji: "🎁",
       price: 0,
       oldPrice: 0,
+      stock: 10,
+      sku: "",
+      sizes: [],
       badge: null,
       gradient: "linear-gradient(135deg,#f1f5f9,#e2e8f0)",
       image: "",
@@ -249,6 +265,13 @@
     return PAGE_NAMES[cat] || cat || "—";
   }
 
+  function stockBadge(stock) {
+    if (stock == null || stock === "") return "";
+    const cls = stock <= 0 ? "stock-badge out" : stock <= 5 ? "stock-badge low" : "stock-badge ok";
+    const txt = stock <= 0 ? "Out of stock" : stock <= 5 ? `Low: ${stock} left` : `${stock} in stock`;
+    return `<span class="${cls}">${txt}</span>`;
+  }
+
   function toHex(gradient) {
     const m = String(gradient || "").match(/#[0-9a-fA-F]{6}/);
     return m ? m[0] : "#f1f5f9";
@@ -266,6 +289,7 @@
       const original = products;
       products = Array.from(rows).map((row) => {
         const id = Number(row.dataset.id);
+        const stockVal = row.querySelector(".f-stock").value.trim();
         return {
           id,
           name: row.querySelector(".f-name").value.trim() || "Untitled",
@@ -273,6 +297,9 @@
           emoji: row.querySelector(".f-emoji").value.trim() || "🎁",
           price: Number(row.querySelector(".f-price").value) || 0,
           oldPrice: Number(row.querySelector(".f-oldprice").value) || 0,
+          stock: stockVal === "" ? null : Math.max(0, parseInt(stockVal, 10) || 0),
+          sku: row.querySelector(".f-sku").value.trim(),
+          sizes: row.querySelector(".f-sizes").value.split(",").map((s) => s.trim()).filter(Boolean),
           badge: row.querySelector(".f-badge").value || null,
           gradient: "linear-gradient(135deg," + row.querySelector(".f-gradient").value + ",#f1f5f9)",
           image: (original.find((p) => p.id === id) || {}).image || "",
