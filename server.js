@@ -124,6 +124,18 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
+    if (url.pathname === "/api/vendor") {
+      try {
+        const data = JSON.parse(await readBody(req));
+        db.addVendor({ ...data, _file: "vendor_" + timestamp(), date: new Date().toISOString() });
+        sendVendorEmail(data);
+        return sendJson(res, 200, { success: true });
+      } catch (e) {
+        console.error("Vendor error:", e.message);
+        return sendJson(res, 400, { success: false, message: "Could not save your application." });
+      }
+    }
+
     /* ---------- Admin auth ---------- */
     if (url.pathname === "/api/admin/login") {
       try {
@@ -178,6 +190,10 @@ const server = http.createServer(async (req, res) => {
     return sendJson(res, 200, { success: true, products: db.getProducts() });
   }
 
+  if (method === "GET" && url.pathname === "/api/festival") {
+    return sendJson(res, 200, { success: true, festival: db.getFestival() });
+  }
+
   /* ---------- Admin GET/PUT endpoints ---------- */
   if (url.pathname.startsWith("/api/admin")) {
     const auth = requireAuth(req, res);
@@ -198,6 +214,21 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
+    if (url.pathname === "/api/admin/festival" && method === "GET") {
+      return sendJson(res, 200, { success: true, festival: db.getFestival() });
+    }
+
+    if (url.pathname === "/api/admin/festival" && method === "PUT") {
+      try {
+        const { festival } = JSON.parse(await readBody(req));
+        if (!festival || typeof festival !== "object") throw new Error("bad payload");
+        db.saveFestival(festival);
+        return sendJson(res, 200, { success: true });
+      } catch (e) {
+        return sendJson(res, 400, { success: false, message: "Could not save festival offer." });
+      }
+    }
+
     if (url.pathname === "/api/admin/orders" && method === "GET") {
       return sendJson(res, 200, { success: true, orders: db.getOrders() });
     }
@@ -214,6 +245,10 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname === "/api/admin/enquiries" && method === "GET") {
       return sendJson(res, 200, { success: true, enquiries: db.getEnquiries() });
+    }
+
+    if (url.pathname === "/api/admin/vendors" && method === "GET") {
+      return sendJson(res, 200, { success: true, vendors: db.getVendors() });
     }
 
     return sendJson(res, 404, { success: false, message: "Not found." });
@@ -302,5 +337,22 @@ function sendEnquiryEmail(enquiry) {
       `Email: ${enquiry.email}\n` +
       `Date: ${enquiry.date}\n\n` +
       `Message:\n${enquiry.message}`,
+  });
+}
+
+function sendVendorEmail(vendor) {
+  mailer.send({
+    subject: `New Vendor Application from ${vendor.businessName || "Unknown Business"}`,
+    text:
+      `New vendor / partner application:\n\n` +
+      `Business: ${vendor.businessName}\n` +
+      `Contact Person: ${vendor.contactName}\n` +
+      `Email: ${vendor.email}\n` +
+      `Phone: ${vendor.phone}\n` +
+      `City: ${vendor.city || "-"}\n` +
+      `Category: ${vendor.category || "-"}\n` +
+      `Website/Social: ${vendor.website || "-"}\n` +
+      `Date: ${vendor.date}\n\n` +
+      `Message:\n${vendor.message}`,
   });
 }

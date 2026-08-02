@@ -44,8 +44,10 @@
 	<div class="admin-layout">
 		<nav class="admin-tabs">
 			<button class="tab active" data-tab="products">Products</button>
+			<button class="tab" data-tab="festival">Festival Offer</button>
 			<button class="tab" data-tab="orders">Orders <span id="orderCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="enquiries">Enquiries <span id="enquiryCount" class="tab-count"></span></button>
+			<button class="tab" data-tab="vendors">Vendors <span id="vendorCount" class="tab-count"></span></button>
 		</nav>
 
 		<main class="admin-main">
@@ -77,6 +79,59 @@
 				<div class="product-edit-list" id="productList"></div>
 			</section>
 
+			<!-- Festival Offer tab -->
+			<section id="tab-festival" class="tab-panel">
+				<div class="panel-head">
+					<h2>Festival Offer</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="saveFestivalBtn">Save Changes</button>
+					</div>
+				</div>
+				<p class="save-msg" id="festivalMsg"></p>
+				<div class="festival-form">
+					<div class="form-group field-full">
+						<label class="checkbox-label"><input type="checkbox" id="fActive"> Offer is active and shown on the site</label>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Title</label>
+							<input type="text" id="fTitle" placeholder="Raksha Bandhan Special">
+						</div>
+						<div class="form-group">
+							<label>Emoji (shown when no banner image)</label>
+							<input type="text" id="fEmoji" placeholder="🪢">
+						</div>
+					</div>
+					<div class="form-group field-full">
+						<label>Subtitle / Tagline</label>
+						<input type="text" id="fSubtitle" placeholder="Celebrate the beautiful bond of love this Raksha Bandhan">
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Discount (%)</label>
+							<input type="number" id="fDiscount" min="0" max="100" placeholder="15">
+						</div>
+						<div class="form-group">
+							<label>Promo Code</label>
+							<input type="text" id="fCode" placeholder="RAKHI15">
+						</div>
+					</div>
+					<div class="form-group field-full">
+						<label>Note</label>
+						<input type="text" id="fNote" placeholder="Limited period offer across all gifts">
+					</div>
+					<div class="form-group field-full">
+						<label>Banner Image</label>
+						<div class="upload-row">
+							<input type="file" id="fImageInput" class="upload-input" accept="image/png,image/jpeg,image/gif,image/webp">
+							<button type="button" class="upload-label" id="fUploadBtn">📁 Upload Banner</button>
+							<span class="upload-status" id="fImageStatus"></span>
+						</div>
+						<div class="festival-preview" id="fPreview"></div>
+					</div>
+				</div>
+			</section>
+
 			<!-- Orders tab -->
 			<section id="tab-orders" class="tab-panel">
 				<div class="panel-head">
@@ -91,6 +146,14 @@
 					<h2>Enquiries</h2>
 				</div>
 				<div class="enquiries-list" id="enquiriesList"></div>
+			</section>
+
+			<!-- Vendors tab -->
+			<section id="tab-vendors" class="tab-panel">
+				<div class="panel-head">
+					<h2>Vendor / Partner Applications</h2>
+				</div>
+				<div class="vendors-list" id="vendorsList"></div>
 			</section>
 		</main>
 	</div>

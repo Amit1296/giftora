@@ -33,11 +33,15 @@
 					<li><a href="cakes.html">Cakes</a></li>
 					<li><a href="toys.html">Toys</a></li>
 					<li><a href="combo.html">Combo Offers</a></li>
+					<li><a href="special-offers.html">Special Offers</a></li>
+					<li><a href="festival.html">Festival Offer</a></li>
 				</ul>
 			</li>
 			<li><a href="#shop">Shop</a></li>
+			<li><a href="special-offers.html" class="nav-highlight">Special Offer</a></li>
 			<li><a href="about.html">About</a></li>
 			<li><a href="#contact">Contact</a></li>
+			<li><a href="vendors.html">Become a Vendor</a></li>
 		</ul>
 		<div class="nav-actions">
 			<button class="cart-btn" id="cartBtn" aria-label="Open cart">
@@ -52,6 +56,24 @@
 </nav>
 
 <main>
+	<section class="festival-banner" id="festivalBanner">
+		<div class="container">
+			<a class="festival-banner-inner" href="festival.html">
+				<span class="festival-banner-float f1">🎁</span>
+				<span class="festival-banner-float f2">🎉</span>
+				<span class="festival-banner-float f3">🪢</span>
+				<span class="festival-banner-media" id="festivalBannerMedia"><span class="festival-banner-emoji">🪢</span></span>
+				<span class="festival-banner-copy">
+					<span class="festival-flag">🎉 Festival Offer</span>
+					<span class="festival-banner-title" id="festivalBannerTitle">Raksha Bandhan Special</span>
+					<span class="festival-banner-subtitle" id="festivalBannerSubtitle">Celebrate the beautiful bond of love this Raksha Bandhan</span>
+				</span>
+				<span class="festival-banner-discount"><strong id="festivalBannerDiscount">15</strong><span>% OFF</span></span>
+				<span class="festival-banner-cta">Shop Now &rarr;</span>
+			</a>
+		</div>
+	</section>
+
 	<section class="hero" id="home">
 		<div class="hero-bg">
 			<div class="hero-gradient"></div>
@@ -126,6 +148,12 @@
 					<div class="category-emoji">🎁</div>
 					<h3>Combo Offers</h3>
 					<p>Perfect gift bundles at unbeatable prices.</p>
+					<span class="category-count">View items</span>
+				</a>
+				<a href="special-offers.html" class="category-card">
+					<div class="category-emoji">🔥</div>
+					<h3>Special Offers</h3>
+					<p>Hot discounts across every category.</p>
 					<span class="category-count">View items</span>
 				</a>
 				<a href="sunglasses.html" class="category-card">
@@ -300,6 +328,8 @@
 					<li><a href="cakes.html">Cakes</a></li>
 					<li><a href="toys.html">Toys</a></li>
 					<li><a href="combo.html">Combo Offers</a></li>
+					<li><a href="special-offers.html">Special Offers</a></li>
+					<li><a href="festival.html">Festival Offer</a></li>
 				</ul>
 			</div>
 			<div class="footer-col">
@@ -308,6 +338,7 @@
 					<li><a href="index.html">Home</a></li>
 					<li><a href="about.html">About</a></li>
 					<li><a href="contact.html">Contact</a></li>
+					<li><a href="vendors.html">Become a Vendor</a></li>
 					<li><a href="terms.html">Terms &amp; Conditions</a></li>
 					<li><a href="privacy-policy.html">Privacy Policy</a></li>
 				</ul>
@@ -328,6 +359,7 @@
 	<div class="cart-items" id="cartItems"></div>
 	<div class="cart-footer">
 		<div class="cart-total"><span>Total</span><strong id="cartTotal">₹0</strong></div>
+		<div class="cart-discount" id="cartDiscount"></div>
 		<button class="btn btn-primary btn-block" id="checkoutBtn">Checkout</button>
 	</div>
 </aside>

@@ -443,9 +443,158 @@
       .join("");
   }
 
+  /* ---------- Vendors ---------- */
+  async function loadVendors() {
+    try {
+      const data = await api("/api/admin/vendors");
+      if (!data.success) return;
+      const vendors = data.vendors || [];
+      $("#vendorCount").textContent = vendors.length;
+      renderVendors(vendors);
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function renderVendors(vendors) {
+    const el = $("#vendorsList");
+    if (vendors.length === 0) {
+      el.innerHTML = '<p class="empty-state">No vendor applications yet.</p>';
+      return;
+    }
+    el.innerHTML = vendors
+      .map(
+        (v) => `
+        <div class="enquiry-card">
+          <div class="enquiry-head">
+            <h3>${esc(v.businessName || "Unknown Business")} — <a href="mailto:${esc(v.email || "")}">${esc(v.email || "")}</a></h3>
+            <span class="enquiry-date">${esc(v.date || "")}</span>
+          </div>
+          <p class="enquiry-msg">
+            <strong>Contact:</strong> ${esc(v.contactName || "")} &middot; ${esc(v.phone || "")}
+            ${v.city ? " &middot; " + esc(v.city) : ""}
+          </p>
+          <p class="enquiry-msg">${v.category ? `<strong>Category:</strong> ${esc(v.category)}` : ""} ${v.website ? ` &middot; <a href="${esc(v.website)}" target="_blank" rel="noopener">${esc(v.website)}</a>` : ""}</p>
+          <p class="enquiry-msg">${esc(v.message || "")}</p>
+        </div>`
+      )
+      .join("");
+  }
+
+  /* ---------- Festival Offer ---------- */
+  function renderFestivalPreview() {
+    const url = $("#fImageInput").dataset.url || "";
+    const preview = $("#fPreview");
+    if (url) {
+      preview.innerHTML = `<img src="${url}" alt="Banner preview">`;
+      preview.style.display = "";
+    } else {
+      preview.innerHTML = "";
+      preview.style.display = "none";
+    }
+  }
+
+  async function loadFestival() {
+    try {
+      const data = await api("/api/admin/festival");
+      if (!data.success) return;
+      const f = data.festival || {};
+      $("#fActive").checked = !!f.active;
+      $("#fTitle").value = f.title || "";
+      $("#fEmoji").value = f.emoji || "";
+      $("#fSubtitle").value = f.subtitle || "";
+      $("#fDiscount").value = f.discount || 0;
+      $("#fCode").value = f.code || "";
+      $("#fNote").value = f.note || "";
+      $("#fImageInput").dataset.url = f.image || "";
+      renderFestivalPreview();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  async function uploadBanner() {
+    const input = $("#fImageInput");
+    const file = input.files && input.files[0];
+    const status = $("#fImageStatus");
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      status.textContent = "Max 5 MB.";
+      status.className = "upload-status err";
+      return;
+    }
+    status.textContent = "Uploading...";
+    status.className = "upload-status";
+    try {
+      const dataUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const base64 = dataUrl.split(",")[1];
+      const res = await api("/api/admin/upload", {
+        method: "POST",
+        body: JSON.stringify({ name: file.name, data: base64 }),
+      });
+      if (res.success) {
+        input.dataset.url = res.url;
+        renderFestivalPreview();
+        status.textContent = "Uploaded ✓";
+        status.className = "upload-status ok";
+      } else {
+        status.textContent = res.message || "Upload failed.";
+        status.className = "upload-status err";
+      }
+    } catch (e) {
+      status.textContent = e.message;
+      status.className = "upload-status err";
+    }
+    input.value = "";
+  }
+
+  async function saveFestival() {
+    const btn = $("#saveFestivalBtn");
+    const msg = $("#festivalMsg");
+    const payload = {
+      active: $("#fActive").checked,
+      title: $("#fTitle").value.trim() || "Festival Offer",
+      emoji: $("#fEmoji").value.trim() || "🎁",
+      subtitle: $("#fSubtitle").value.trim(),
+      discount: Number($("#fDiscount").value) || 0,
+      code: $("#fCode").value.trim().toUpperCase(),
+      note: $("#fNote").value.trim(),
+      image: $("#fImageInput").dataset.url || "",
+    };
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+    msg.className = "save-msg";
+    msg.textContent = "";
+    try {
+      const res = await api("/api/admin/festival", {
+        method: "PUT",
+        body: JSON.stringify({ festival: payload }),
+      });
+      if (res.success) {
+        msg.className = "save-msg ok";
+        msg.textContent = "Festival offer saved. It's live on the site.";
+        toast("Festival offer saved ✓");
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not save.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Save Changes";
+    }
+  }
+
   /* ---------- Load all ---------- */
   async function loadAll() {
-    await Promise.all([loadProducts(), loadOrders(), loadEnquiries()]);
+    await Promise.all([loadProducts(), loadFestival(), loadOrders(), loadEnquiries(), loadVendors()]);
   }
 
   $("#productSearch").addEventListener("input", (e) => {
@@ -458,6 +607,9 @@
   });
   $("#saveProductsBtn").addEventListener("click", saveProducts);
   $("#addProductBtn").addEventListener("click", addProduct);
+  $("#saveFestivalBtn").addEventListener("click", saveFestival);
+  $("#fUploadBtn").addEventListener("click", () => $("#fImageInput").click());
+  $("#fImageInput").addEventListener("change", uploadBanner);
   loginBtn.addEventListener("click", doLogin);
   loginPass.addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
   logoutBtn.addEventListener("click", () => {
