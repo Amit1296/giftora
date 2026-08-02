@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex, nofollow">
+	<title>Giftora Admin Dashboard</title>
+	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
+	<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- Login screen -->
+<div id="loginView" class="admin-login">
+	<div class="login-card">
+		<div class="login-logo">Gift<span>ora</span></div>
+		<h1>Admin Login</h1>
+		<p>Sign in to manage products, orders and enquiries.</p>
+		<div class="form-group">
+			<label for="loginUser">Username</label>
+			<input type="text" id="loginUser" autocomplete="username" placeholder="admin">
+		</div>
+		<div class="form-group">
+			<label for="loginPass">Password</label>
+			<input type="password" id="loginPass" autocomplete="current-password" placeholder="••••••••">
+		</div>
+		<button class="btn btn-primary" id="loginBtn">Sign In</button>
+		<p class="login-msg" id="loginMsg"></p>
+	</div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboardView" class="admin-dash" hidden>
+	<header class="admin-topbar">
+		<div class="admin-topbar-inner">
+			<div class="admin-logo">Gift<span>ora</span> <em>Admin</em></div>
+			<div class="admin-top-actions">
+				<a class="admin-back" href="index.html">← View Site</a>
+				<button class="btn btn-ghost" id="logoutBtn">Logout</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="admin-layout">
+		<nav class="admin-tabs">
+			<button class="tab active" data-tab="products">Products</button>
+			<button class="tab" data-tab="festival">Festival Offer</button>
+			<button class="tab" data-tab="orders">Orders <span id="orderCount" class="tab-count"></span></button>
+			<button class="tab" data-tab="enquiries">Enquiries <span id="enquiryCount" class="tab-count"></span></button>
+			<button class="tab" data-tab="vendors">Vendors <span id="vendorCount" class="tab-count"></span></button>
+		</nav>
+
+		<main class="admin-main">
+			<!-- Products tab -->
+			<section id="tab-products" class="tab-panel active">
+				<div class="panel-head">
+					<h2>Products</h2>
+					<div class="panel-tools">
+						<select id="categoryFilter" class="search-input">
+							<option value="all">All Categories (All Pages)</option>
+							<option value="clothes">👗 Clothes</option>
+							<option value="shoes">👟 Shoes</option>
+							<option value="teddy">🧸 Teddy Bears</option>
+							<option value="sunglasses">🕶️ Sunglasses</option>
+							<option value="caps">🧢 Caps & Hats</option>
+							<option value="belts">🪢 Belts</option>
+							<option value="flowers">💐 Flowers</option>
+							<option value="plants">🪴 Plants</option>
+							<option value="cakes">🎂 Cakes</option>
+							<option value="toys">🚗 Toys</option>
+							<option value="combo">🎁 Combo Offers</option>
+						</select>
+						<input type="text" id="productSearch" placeholder="Search products..." class="search-input">
+						<button class="btn btn-add" id="addProductBtn">+ Add Product</button>
+						<button class="btn btn-primary" id="saveProductsBtn">Save Changes</button>
+					</div>
+				</div>
+				<p class="save-msg" id="saveMsg"></p>
+				<div class="product-edit-list" id="productList"></div>
+			</section>
+
+			<!-- Festival Offer tab -->
+			<section id="tab-festival" class="tab-panel">
+				<div class="panel-head">
+					<h2>Festival Offer</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="saveFestivalBtn">Save Changes</button>
+					</div>
+				</div>
+				<p class="save-msg" id="festivalMsg"></p>
+				<div class="festival-form">
+					<div class="form-group field-full">
+						<label class="checkbox-label"><input type="checkbox" id="fActive"> Offer is active and shown on the site</label>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Title</label>
+							<input type="text" id="fTitle" placeholder="Raksha Bandhan Special">
+						</div>
+						<div class="form-group">
+							<label>Emoji (shown when no banner image)</label>
+							<input type="text" id="fEmoji" placeholder="🪢">
+						</div>
+					</div>
+					<div class="form-group field-full">
+						<label>Subtitle / Tagline</label>
+						<input type="text" id="fSubtitle" placeholder="Celebrate the beautiful bond of love this Raksha Bandhan">
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Discount (%)</label>
+							<input type="number" id="fDiscount" min="0" max="100" placeholder="15">
+						</div>
+						<div class="form-group">
+							<label>Promo Code</label>
+							<input type="text" id="fCode" placeholder="RAKHI15">
+						</div>
+					</div>
+					<div class="form-group field-full">
+						<label>Note</label>
+						<input type="text" id="fNote" placeholder="Limited period offer across all gifts">
+					</div>
+					<div class="form-group field-full">
+						<label>Banner Image</label>
+						<div class="upload-row">
+							<input type="file" id="fImageInput" class="upload-input" accept="image/png,image/jpeg,image/gif,image/webp">
+							<button type="button" class="upload-label" id="fUploadBtn">📁 Upload Banner</button>
+							<span class="upload-status" id="fImageStatus"></span>
+						</div>
+						<div class="festival-preview" id="fPreview"></div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Orders tab -->
+			<section id="tab-orders" class="tab-panel">
+				<div class="panel-head">
+					<h2>Orders</h2>
+				</div>
+				<div class="orders-list" id="ordersList"></div>
+			</section>
+
+			<!-- Enquiries tab -->
+			<section id="tab-enquiries" class="tab-panel">
+				<div class="panel-head">
+					<h2>Enquiries</h2>
+				</div>
+				<div class="enquiries-list" id="enquiriesList"></div>
+			</section>
+
+			<!-- Vendors tab -->
+			<section id="tab-vendors" class="tab-panel">
+				<div class="panel-head">
+					<h2>Vendor / Partner Applications</h2>
+				</div>
+				<div class="vendors-list" id="vendorsList"></div>
+			</section>
+		</main>
+	</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
