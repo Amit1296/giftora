@@ -15,3 +15,5 @@ uploads/
 backups/
 
 *.log
+
+razorpay-config.json

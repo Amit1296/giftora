@@ -14,8 +14,17 @@ const DATA_DIR = db.DATA_DIR;
 const UPLOADS_DIR = process.env.UPLOADS_DIR ? path.resolve(process.env.UPLOADS_DIR) : path.join(ROOT, "uploads");
 const ADMIN_CONFIG = path.join(ROOT, "admin-config.json");
 
-const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || "";
-const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || "";
+const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || readLocalSecret("razorpay-key-id");
+const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || readLocalSecret("razorpay-key-secret");
+
+function readLocalSecret(name) {
+  try {
+    const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, "razorpay-config.json"), "utf8"));
+    return String(cfg[name] || "");
+  } catch {
+    return "";
+  }
+}
 
 const MAX_BODY = 6 * 1024 * 1024;
 const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
