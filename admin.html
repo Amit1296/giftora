@@ -3,6 +3,19 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- SEO-BLOCK-START -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://giftora.onrender.com/admin.html">
+<meta property="og:site_name" content="Giftora">
+<meta property="og:title" content="Giftora Admin Dashboard">
+<meta property="og:description" content="Giftora admin dashboard — manage products, orders, enquiries, vendors and festival offers.">
+<meta property="og:url" content="https://giftora.onrender.com/admin.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Giftora Admin Dashboard">
+<meta name="twitter:description" content="Giftora admin dashboard — manage products, orders, enquiries, vendors and festival offers.">
+<!-- SEO-BLOCK-END -->
 	<meta name="robots" content="noindex, nofollow">
 	<title>Giftora Admin Dashboard</title>
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
@@ -48,6 +61,7 @@
 			<button class="tab" data-tab="orders">Orders <span id="orderCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="enquiries">Enquiries <span id="enquiryCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="vendors">Vendors <span id="vendorCount" class="tab-count"></span></button>
+			<button class="tab" data-tab="visitors">Visitors <span id="visitorCount" class="tab-count"></span></button>
 		</nav>
 
 		<main class="admin-main">
@@ -155,6 +169,24 @@
 				</div>
 				<div class="vendors-list" id="vendorsList"></div>
 			</section>
+
+			<!-- Visitors tab -->
+			<section id="tab-visitors" class="tab-panel">
+				<div class="panel-head">
+					<h2>Visitors &amp; Buying Interest</h2>
+					<div class="panel-tools">
+						<input type="text" id="visitorSearch" placeholder="Search visitor, product, page..." class="search-input">
+						<button class="btn btn-add" id="exportVisitorsBtn">Export CSV</button>
+						<button class="btn btn-danger" id="clearVisitorsBtn">Clear Data</button>
+					</div>
+				</div>
+				<div class="visitor-stats" id="visitorStats"></div>
+				<div class="visitor-insight">
+					<div class="visitor-interest" id="visitorInterest"></div>
+					<div class="visitor-top" id="visitorTop"></div>
+				</div>
+				<div class="visitors-list" id="visitorsList"></div>
+			</section>
 		</main>
 	</div>
 </div>
@@ -162,5 +194,23 @@
 <div class="toast" id="toast"></div>
 
 <script src="js/admin.js"></script>
+
+
+<!-- COOKIE-START -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent" aria-hidden="true">
+	<div class="cookie-banner-inner">
+		<div class="cookie-banner-text">
+			<span class="cookie-banner-icon" aria-hidden="true">🍪</span>
+			<p>We use cookies to keep your cart saved and improve your experience. <a href="privacy-policy.html">See our Privacy Policy</a>.</p>
+		</div>
+		<div class="cookie-banner-actions">
+			<button type="button" class="cookie-btn cookie-btn-ghost" data-cookie-decline>Decline</button>
+			<button type="button" class="cookie-btn cookie-btn-primary" data-cookie-accept>Accept All</button>
+		</div>
+	</div>
+</div>
+<script src="js/cookies.js"></script>
+<!-- COOKIE-END -->
+
 </body>
 </html>

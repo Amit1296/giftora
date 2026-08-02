@@ -9,6 +9,7 @@ const FESTIVAL_FILE = path.join(DATA_DIR, "festival.json");
 const ORDERS_FILE = path.join(DATA_DIR, "orders.json");
 const ENQUIRIES_FILE = path.join(DATA_DIR, "enquiries.json");
 const VENDORS_FILE = path.join(DATA_DIR, "vendors.json");
+const VISITORS_FILE = path.join(DATA_DIR, "visitors.json");
 const LEGACY_ORDERS = path.join(DATA_DIR, "orders");
 const LEGACY_ENQUIRIES = path.join(DATA_DIR, "enquiries");
 
@@ -226,6 +227,93 @@ async function addVendor(vendor) {
   return writeJson(VENDORS_FILE, list);
 }
 
+/* ---------- Visitor tracking ---------- */
+const EMPTY_VISITORS = { sessions: [], events: [] };
+
+function newSession(vid, meta, nowIso) {
+  return {
+    vid,
+    firstSeen: nowIso,
+    lastSeen: nowIso,
+    views: 0,
+    device: (meta && meta.device) || "",
+    browser: (meta && meta.browser) || "",
+    os: (meta && meta.os) || "",
+    country: (meta && meta.country) || "",
+    referrer: (meta && meta.referrer) || "",
+    ipHash: (meta && meta.ipHash) || "",
+    pages: [],
+    productViews: {},
+    cartAdds: [],
+    cartOpened: 0,
+    checkoutStarted: 0,
+  };
+}
+
+async function getVisitors() {
+  if (USE_PG) return pgGet("visitors", EMPTY_VISITORS);
+  return readJson(VISITORS_FILE, EMPTY_VISITORS);
+}
+
+async function saveVisitors(store) {
+  if (USE_PG) return pgSet("visitors", store);
+  return writeJson(VISITORS_FILE, store);
+}
+
+async function addVisitorBatch(vid, meta, events, nowIso) {
+  if (!vid || typeof vid !== "string") return;
+  vid = vid.slice(0, 64);
+  const store = await getVisitors();
+  let session = store.sessions.find((s) => s.vid === vid);
+  if (!session) {
+    session = newSession(vid, meta, nowIso);
+    store.sessions.unshift(session);
+  }
+  session.lastSeen = nowIso;
+  if (meta) {
+    if (!session.device && meta.device) session.device = String(meta.device).slice(0, 24);
+    if (!session.browser && meta.browser) session.browser = String(meta.browser).slice(0, 24);
+    if (!session.os && meta.os) session.os = String(meta.os).slice(0, 24);
+    if (!session.country && meta.country) session.country = String(meta.country).slice(0, 8);
+    if (!session.referrer && meta.referrer) session.referrer = String(meta.referrer).slice(0, 300);
+    if (!session.ipHash && meta.ipHash) session.ipHash = String(meta.ipHash).slice(0, 16);
+  }
+  const list = Array.isArray(events) ? events.slice(0, 30) : [];
+  for (const ev of list) {
+    if (!ev || typeof ev.type !== "string") continue;
+    if (ev.type === "pageview") {
+      session.views += 1;
+      session.pages.push({ path: String(ev.path || "").slice(0, 120), time: nowIso });
+      if (session.pages.length > 60) session.pages.shift();
+    } else if (ev.type === "product_view") {
+      session.views += 1;
+      const name = String(ev.name || "").slice(0, 120);
+      if (name) session.productViews[name] = (session.productViews[name] || 0) + 1;
+    } else if (ev.type === "cart_add") {
+      session.cartAdds.push({
+        product: String(ev.product || "").slice(0, 120),
+        qty: Math.min(99, parseInt(ev.qty, 10) || 1),
+        price: Math.max(0, Number(ev.price) || 0),
+        time: nowIso,
+      });
+      if (session.cartAdds.length > 30) session.cartAdds.shift();
+    } else if (ev.type === "cart_open") {
+      session.cartOpened += 1;
+    } else if (ev.type === "checkout_start") {
+      session.checkoutStarted += 1;
+    }
+  }
+  if (store.sessions.length > 5000) store.sessions.length = 5000;
+  store.events.push({ vid, events: list, time: nowIso });
+  if (store.events.length > 5000) store.events.splice(0, store.events.length - 5000);
+  await saveVisitors(store);
+}
+
+async function clearVisitors() {
+  if (USE_PG) return pgSet("visitors", EMPTY_VISITORS);
+  return writeJson(VISITORS_FILE, EMPTY_VISITORS);
+}
+
 module.exports = {
   getProducts,
   saveProducts,
@@ -238,6 +326,9 @@ module.exports = {
   addEnquiry,
   getVendors,
   addVendor,
+  getVisitors,
+  addVisitorBatch,
+  clearVisitors,
   DATA_DIR,
   USE_PG,
 };

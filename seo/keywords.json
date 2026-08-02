@@ -1,0 +1,368 @@
+{
+  "site": {
+    "name": "Giftora",
+    "url": "https://giftora.onrender.com",
+    "locale": "en_IN",
+    "currency": "INR",
+    "email": "amitwebdev163@gmail.com",
+    "phone": "+91 70880 84046",
+    "phoneHref": "+917088084046",
+    "address": "Dilshad Colony, Delhi - 110095",
+    "googleVerification": "",
+    "bingVerification": ""
+  },
+  "pages": {
+    "index.html": {
+      "type": "home",
+      "title": "Giftora — Online Gift Shop | Same-Day Gift Delivery",
+      "description": "Order gifts online at Giftora — clothes, toys, flowers, cakes, teddy bears and more. Same-day delivery, gift wrapping and easy checkout for every occasion.",
+      "keywords": [
+        "online gift shop India",
+        "buy gifts online",
+        "same day gift delivery",
+        "gift delivery India",
+        "birthday gifts online",
+        "anniversary gifts online",
+        "gifts for every occasion",
+        "personalised gifts online",
+        "flower and cake delivery",
+        "gift wrapping service",
+        "send gifts online",
+        "gift store near me"
+      ],
+      "sitemap": { "priority": "1.0", "changefreq": "daily" }
+    },
+    "clothes.html": {
+      "type": "category",
+      "category": "Clothes",
+      "title": "Clothes Gifts Online — Buy Clothes as Gifts | Giftora",
+      "description": "Shop clothes as gifts online — shirts, dresses, sarees, kids' outfits and more with same-day delivery and beautiful gift wrapping.",
+      "keywords": [
+        "clothes gifts online",
+        "gift clothes India",
+        "shirts gifts online",
+        "saree gift pack",
+        "kids clothing gift",
+        "dress gift online",
+        "fashion gift hampers",
+        "same day clothes delivery",
+        "buy clothes online as gift",
+        "premium silk saree gift"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "shoes.html": {
+      "type": "category",
+      "category": "Shoes",
+      "title": "Shoes as Gifts Online — Footwear Gift Delivery | Giftora",
+      "description": "Buy shoes as gifts online — sneakers, sports shoes, sandals and formal footwear with same-day delivery. Perfect footwear gifts for every step.",
+      "keywords": [
+        "shoes gift online",
+        "footwear gifts India",
+        "gift sneakers online",
+        "sports shoes gift",
+        "formal shoes online",
+        "kids sandals online",
+        "buy shoes online as gift",
+        "same day shoe delivery",
+        "leather shoes gift",
+        "running shoes gift"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "teddy.html": {
+      "type": "category",
+      "category": "Teddy Bears",
+      "title": "Teddy Bear Gifts Online — Soft & Cuddly Bears | Giftora",
+      "description": "Buy teddy bear gifts online — giant, heart and huggable teddy bears with gift baskets and same-day delivery for birthdays and anniversaries.",
+      "keywords": [
+        "teddy bear gifts online",
+        "buy teddy bear online India",
+        "giant teddy bear 60cm",
+        "cuddly teddy bears",
+        "teddy bear gift basket",
+        "heart teddy bear with card",
+        "huggable teddy bear",
+        "teddy same day delivery",
+        "teddy bear for girlfriend",
+        "teddy gift for birthday"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "sunglasses.html": {
+      "type": "category",
+      "category": "Sunglasses",
+      "title": "Sunglasses Online — Trendy Shades as Gifts | Giftora",
+      "description": "Shop sunglasses online — aviator, wayfarer, round retro and sports shades with UV protection. Trendy sunglasses gift delivery the same day.",
+      "keywords": [
+        "sunglasses online India",
+        "buy sunglasses online",
+        "aviator sunglasses gift",
+        "wayfarer sunglasses",
+        "polarized sunglasses online",
+        "sports shades online",
+        "retro round sunglasses",
+        "UV protection sunglasses",
+        "trendy sunglasses gift",
+        "same day sunglasses delivery"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "caps.html": {
+      "type": "category",
+      "category": "Caps & Hats",
+      "title": "Caps & Hats Online — Headwear Gifts | Giftora",
+      "description": "Buy caps and hats online — snapbacks, baseball caps, bucket hats and beanies with same-day delivery. Stylish headwear gifts for everyone.",
+      "keywords": [
+        "caps and hats online",
+        "baseball cap gift",
+        "snapback cap online India",
+        "bucket hat summer",
+        "winter beanie online",
+        "embroidered cap online",
+        "headwear gifts India",
+        "buy cap online",
+        "hat gift delivery",
+        "same day caps delivery"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "belts.html": {
+      "type": "category",
+      "category": "Belts",
+      "title": "Belts Online — Leather & Formal Belts as Gifts | Giftora",
+      "description": "Shop belts online — leather, formal, canvas and reversible belts with same-day delivery. Premium belt gifts crafted to last.",
+      "keywords": [
+        "belts online India",
+        "leather belt gift",
+        "formal belt online",
+        "canvas belt online",
+        "reversible belt premium",
+        "men accessories gift",
+        "buy belt online India",
+        "same day belts delivery",
+        "brown leather belt",
+        "black formal belt"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "flowers.html": {
+      "type": "category",
+      "category": "Flowers",
+      "title": "Flower Delivery Online — Same-Day Fresh Bouquets | Giftora",
+      "description": "Order fresh flower bouquets online — roses, tulips, sunflowers and orchids with same-day delivery. Send flowers for birthdays, anniversaries and more.",
+      "keywords": [
+        "flower delivery online",
+        "send flowers same day",
+        "rose bouquet delivery",
+        "tulip bouquet online",
+        "sunflower bouquet India",
+        "orchid plant delivery",
+        "birthday flowers online",
+        "anniversary flowers delivery",
+        "flower shop online India",
+        "fresh flowers gift"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "plants.html": {
+      "type": "category",
+      "category": "Plants",
+      "title": "Plants Online Delivery — Plant Gifts for Home | Giftora",
+      "description": "Buy indoor plants online — money plants, lucky bamboo, snake plants and peace lilies with same-day delivery. Green gifts that keep on giving.",
+      "keywords": [
+        "plants online delivery",
+        "indoor plants gift",
+        "money plant online",
+        "lucky bamboo plant",
+        "snake plant delivery",
+        "peace lily plant online",
+        "plant gifts for home",
+        "buy plants online India",
+        "same day plant delivery",
+        "office desk plants"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "cakes.html": {
+      "type": "category",
+      "category": "Cakes",
+      "title": "Cake Delivery Online — Birthday Cakes Same-Day | Giftora",
+      "description": "Order cake delivery online — chocolate truffle, red velvet, vanilla and strawberry cakes baked fresh with same-day birthday cake delivery.",
+      "keywords": [
+        "cake delivery online",
+        "birthday cake same day",
+        "order cake online India",
+        "chocolate truffle cake 1kg",
+        "red velvet cake online",
+        "strawberry cream cake",
+        "celebration cakes online",
+        "vanilla birthday cake",
+        "same day cake delivery",
+        "cake shop online"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "toys.html": {
+      "type": "category",
+      "category": "Toys",
+      "title": "Toys Online India — Kids' Toy Gifts | Giftora",
+      "description": "Buy toys online in India — teddy bears, STEM building blocks, remote control cars and baby doll sets with same-day delivery. Safe, fun toys for kids.",
+      "keywords": [
+        "toys online India",
+        "buy kids toys online",
+        "STEM building blocks",
+        "remote control car toy",
+        "baby doll gift set",
+        "educational toys for kids",
+        "teddy bear toy",
+        "kids toys gift",
+        "same day toys delivery",
+        "toy shop online"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "combo.html": {
+      "type": "category",
+      "category": "Combo Offers",
+      "title": "Gift Combos Online — Cake, Flowers & More Bundles | Giftora",
+      "description": "Shop combo gift offers online — cake and flower combos, teddy and chocolate bundles, and birthday surprise boxes at unbeatable prices.",
+      "keywords": [
+        "gift combos online",
+        "cake and flowers combo",
+        "teddy and chocolates combo",
+        "birthday surprise box",
+        "perfume and flowers combo",
+        "gift hampers combo India",
+        "combo gift deals",
+        "value gift bundles",
+        "buy gift combo online",
+        "same day combo delivery"
+      ],
+      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+    },
+    "special-offers.html": {
+      "type": "category",
+      "category": "Special Offers",
+      "title": "Special Gift Offers — Discounted Gifts Online | Giftora",
+      "description": "Shop special gift offers online — discounted products across all categories at unbeatable prices. Grab sale gifts and deals on Giftora today.",
+      "keywords": [
+        "gift offers online",
+        "gift sale India",
+        "discounted gifts online",
+        "gift deals and offers",
+        "cheap gifts online",
+        "gift discount codes",
+        "sale gifts India",
+        "clearance gifts online",
+        "best gift deals",
+        "affordable gifts online"
+      ],
+      "sitemap": { "priority": "0.9", "changefreq": "weekly" }
+    },
+    "festival.html": {
+      "type": "category",
+      "category": "Festival Offer",
+      "title": "Festival Gift Offers — Raksha Bandhan, Diwali & More | Giftora",
+      "description": "Giftora festival offer — special discounts and gifts for Raksha Bandhan, Diwali, Rakhi and every festival celebration with same-day delivery.",
+      "keywords": [
+        "rakhi gifts online",
+        "festival gifts India",
+        "diwali gifts online",
+        "raksha bandhan special gifts",
+        "festival gift offers",
+        "gift for festivals India",
+        "rakhi gift hampers",
+        "festive gift discounts",
+        "online festival shopping gifts",
+        "send festival gifts"
+      ],
+      "sitemap": { "priority": "0.9", "changefreq": "weekly" }
+    },
+    "about.html": {
+      "type": "about",
+      "title": "About Giftora — Our Story of Thoughtful Gifting",
+      "description": "Learn about Giftora — a trusted online gift shop delivering thoughtful gifts since 2020. Discover our mission, values and what makes gifting with us special.",
+      "keywords": [
+        "about Giftora",
+        "online gift shop India",
+        "trusted gifting company",
+        "gift delivery service India",
+        "why choose Giftora",
+        "gift store story",
+        "online gift company",
+        "gifting made easy"
+      ],
+      "sitemap": { "priority": "0.6", "changefreq": "monthly" }
+    },
+    "contact.html": {
+      "type": "contact",
+      "title": "Contact Giftora — Gift Experts Help & Support",
+      "description": "Contact Giftora — our gift experts reply within a few hours. Email, call or send us a message for help choosing the perfect gift.",
+      "keywords": [
+        "contact Giftora",
+        "gift shop contact number",
+        "online gift customer care",
+        "gift enquiry India",
+        "gift experts help",
+        "gift store support",
+        "order gifts contact",
+        "giftora help"
+      ],
+      "sitemap": { "priority": "0.6", "changefreq": "monthly" }
+    },
+    "vendors.html": {
+      "type": "page",
+      "title": "Become a Giftora Vendor — Sell Gifts Online | Partner Program",
+      "description": "Sell your products on Giftora. Join our vendor and partner network to reach thousands of customers, get fast payments and easy onboarding.",
+      "keywords": [
+        "become a gift vendor",
+        "sell gifts online India",
+        "vendor partner program",
+        "sell products online India",
+        "gift marketplace vendor",
+        "online seller India",
+        "partner with gift shop",
+        "sell gifts earn online"
+      ],
+      "sitemap": { "priority": "0.5", "changefreq": "monthly" }
+    },
+    "terms.html": {
+      "type": "page",
+      "title": "Terms & Conditions — Giftora",
+      "description": "Read the Giftora Terms & Conditions — ordering, delivery, payments, returns and more. Understand the rules that keep gifting simple and safe.",
+      "keywords": [
+        "terms and conditions",
+        "gift shop terms",
+        "Giftora terms of service",
+        "ordering policy India",
+        "delivery terms gifts",
+        "return policy gifts",
+        "payment terms online"
+      ],
+      "sitemap": { "priority": "0.3", "changefreq": "yearly" }
+    },
+    "privacy-policy.html": {
+      "type": "page",
+      "title": "Privacy Policy — Giftora",
+      "description": "Read the Giftora Privacy Policy — how we collect, use and protect your personal information when you order gifts online.",
+      "keywords": [
+        "privacy policy",
+        "gift shop privacy policy",
+        "Giftora data protection",
+        "secure payments online",
+        "personal data policy India",
+        "online store privacy",
+        "giftora security"
+      ],
+      "sitemap": { "priority": "0.3", "changefreq": "yearly" }
+    },
+    "admin.html": {
+      "type": "admin",
+      "title": "Giftora Admin Dashboard",
+      "description": "Giftora admin dashboard — manage products, orders, enquiries, vendors and festival offers.",
+      "keywords": [],
+      "sitemap": null
+    }
+  }
+}

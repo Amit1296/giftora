@@ -18,6 +18,8 @@ const MIME = {
   ".css": "text/css; charset=utf-8",
   ".js": "application/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
+  ".txt": "text/plain; charset=utf-8",
+  ".xml": "application/xml; charset=utf-8",
   ".svg": "image/svg+xml",
   ".png": "image/png",
   ".jpg": "image/jpeg",
@@ -63,7 +65,20 @@ function readAdminConfig() {
   try {
     return JSON.parse(fs.readFileSync(ADMIN_CONFIG, "utf8"));
   } catch {
-    return { username: "admin", password: "giftora2026" };
+    const generated = {
+      username: "admin",
+      password: crypto.randomBytes(9).toString("hex"),
+    };
+    try {
+      fs.writeFileSync(ADMIN_CONFIG, JSON.stringify(generated, null, 2), "utf8");
+      console.warn("[ADMIN] No ADMIN_USER/ADMIN_PASS env vars and no admin-config.json found.");
+      console.warn("[ADMIN] Generated admin credentials: " + generated.username + " / " + generated.password);
+      console.warn("[ADMIN] Set ADMIN_USER and ADMIN_PASS env vars (Render dashboard) to lock in your own credentials.");
+    } catch (e) {
+      console.warn("[ADMIN] Could not persist generated admin config (" + e.message + "). Login disabled until env vars are set.");
+      return null;
+    }
+    return generated;
   }
 }
 
@@ -82,6 +97,8 @@ const CACHE_EXTENSIONS = {
   ".js": "no-cache, must-revalidate",
   ".css": "no-cache, must-revalidate",
   ".json": "no-cache, must-revalidate",
+  ".txt": "no-cache, must-revalidate",
+  ".xml": "no-cache, must-revalidate",
   ".svg": "public, max-age=86400",
   ".png": "public, max-age=86400",
   ".jpg": "public, max-age=86400",
@@ -136,11 +153,32 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
+    /* ---------- Public tracking (visitor analytics) ---------- */
+    if (url.pathname === "/api/track") {
+      try {
+        const body = JSON.parse(await readBody(req));
+        const forwarded = (req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+        const rawIp = forwarded || req.socket.remoteAddress || "0.0.0.0";
+        const ipHash = crypto.createHash("sha256").update(rawIp + "|giftora_track").digest("hex").slice(0, 16);
+        const country =
+          req.headers["cf-ipcountry"] || req.headers["x-country"] || req.headers["x-geo-country"] || "";
+        const meta = { ...(body.meta || {}), country, ipHash };
+        await db.addVisitorBatch(body.vid, meta, body.events, new Date().toISOString());
+        return sendJson(res, 200, { success: true });
+      } catch (e) {
+        console.error("Track error:", e.message);
+        return sendJson(res, 400, { success: false, message: "Invalid tracking payload." });
+      }
+    }
+
     /* ---------- Admin auth ---------- */
     if (url.pathname === "/api/admin/login") {
       try {
         const { username, password } = JSON.parse(await readBody(req));
         const cfg = readAdminConfig();
+        if (!cfg) {
+          return sendJson(res, 500, { success: false, message: "Admin not configured. Set ADMIN_USER and ADMIN_PASS environment variables." });
+        }
         if (username === cfg.username && password === cfg.password) {
           const token = crypto.randomBytes(24).toString("hex");
           sessions.add(token);
@@ -251,6 +289,15 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, { success: true, vendors: await db.getVendors() });
     }
 
+    if (url.pathname === "/api/admin/visitors" && method === "GET") {
+      return sendJson(res, 200, buildVisitorsReport(await db.getVisitors(), await db.getOrders()));
+    }
+
+    if (url.pathname === "/api/admin/visitors" && method === "DELETE") {
+      await db.clearVisitors();
+      return sendJson(res, 200, { success: true });
+    }
+
     return sendJson(res, 404, { success: false, message: "Not found." });
   }
 
@@ -311,6 +358,91 @@ server.listen(PORT, () => {
   console.log("Data saved to: " + DATA_DIR);
   console.log("Uploads saved to: " + UPLOADS_DIR);
 });
+
+function visitorInterest(session, orderCount) {
+  if (orderCount > 0) return "converted";
+  if (session.checkoutStarted > 0) return "checkout";
+  if ((session.cartAdds || []).length > 0) return "hot";
+  if (Object.keys(session.productViews || {}).length > 0 || session.cartOpened > 0) return "warm";
+  return "cold";
+}
+
+function buildVisitorsReport(store, orders) {
+  const sessions = store.sessions || [];
+  const orderByVid = {};
+  for (const o of orders || []) {
+    if (!o.vid) continue;
+    orderByVid[o.vid] = orderByVid[o.vid] || { count: 0, ids: [] };
+    orderByVid[o.vid].count += 1;
+    orderByVid[o.vid].ids.push(o._file || o.orderId || "");
+  }
+
+  const enriched = sessions.map((s) => {
+    const ord = orderByVid[s.vid];
+    const orderCount = ord ? ord.count : 0;
+    return {
+      vid: s.vid,
+      firstSeen: s.firstSeen,
+      lastSeen: s.lastSeen,
+      views: s.views || 0,
+      device: s.device || "",
+      browser: s.browser || "",
+      os: s.os || "",
+      country: s.country || "",
+      referrer: s.referrer || "",
+      ipHash: s.ipHash || "",
+      pages: (s.pages || []).slice(-8),
+      productViews: s.productViews || {},
+      cartAdds: (s.cartAdds || []).slice(-5),
+      cartOpened: s.cartOpened || 0,
+      checkoutStarted: s.checkoutStarted || 0,
+      orderCount,
+      lastOrderId: ord ? ord.ids[ord.ids.length - 1] : "",
+      interest: visitorInterest(s, orderCount),
+    };
+  });
+
+  const today = new Date().toISOString().slice(0, 10);
+  const pageCounts = {};
+  const productCounts = {};
+  const interestBuckets = { converted: 0, checkout: 0, hot: 0, warm: 0, cold: 0 };
+  let views = 0;
+  let cartAdds = 0;
+  let checkouts = 0;
+  let conversions = 0;
+  let activeToday = 0;
+
+  for (const s of enriched) {
+    views += s.views;
+    cartAdds += s.cartAdds.length;
+    checkouts += s.checkoutStarted;
+    conversions += s.orderCount;
+    interestBuckets[s.interest] += 1;
+    if ((s.lastSeen || "").slice(0, 10) === today) activeToday += 1;
+    for (const p of s.pages) pageCounts[p.path] = (pageCounts[p.path] || 0) + 1;
+    for (const [name, n] of Object.entries(s.productViews)) {
+      productCounts[name] = (productCounts[name] || 0) + n;
+    }
+  }
+
+  const sortDesc = (obj, n) => Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, n).map(([k, v]) => ({ key: k, count: v }));
+
+  return {
+    success: true,
+    sessions: enriched.slice(0, 2000),
+    summary: {
+      totalSessions: sessions.length,
+      activeToday,
+      views,
+      cartAdds,
+      checkouts,
+      conversions,
+      topPages: sortDesc(pageCounts, 10),
+      topProducts: sortDesc(productCounts, 10),
+      interestBuckets,
+    },
+  };
+}
 
 function sendOrderEmail(order, orderId) {
   const lines = order.items.map((i) => `- ${i.qty} x ${i.name} @ Rs.${i.price}`).join("\n");

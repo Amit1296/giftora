@@ -189,6 +189,9 @@
       return;
     }
 
+    let vid = "";
+    try { vid = localStorage.getItem("giftora_vid") || ""; } catch {}
+
     placeOrderBtn.disabled = true;
     placeOrderBtn.textContent = "Placing order...";
 
@@ -196,7 +199,7 @@
       const res = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, address: shippingAddress, payment, items, total: cartTotal() }),
+        body: JSON.stringify({ name, phone, address: shippingAddress, payment, items, total: cartTotal(), vid }),
       }).then((r) => r.json());
 
       if (!res.success) {
@@ -241,7 +244,18 @@
   }
 
   /* ---------- Products ---------- */
+  function slugify(s) {
+    return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+
+  function productPageUrl(p) {
+    if (!window.GIFT_PRODUCT_PAGES) return null;
+    const slug = slugify(p.name);
+    return window.GIFT_PRODUCT_PAGES.includes(slug) ? "products/" + slug + ".html" : null;
+  }
+
   function renderProducts() {
+    if (!productsGrid) return;
     const query = searchQuery.trim().toLowerCase();
     const list = PRODUCTS.filter((p) => {
       const matchPage = !PAGE_CATEGORY
@@ -262,11 +276,15 @@
       <article class="product-card reveal">
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
           ${badge ? `<span class="product-badge${badge === "Premium" ? " premium" : ""}">${badge}</span>` : ""}
-          ${p.image ? `<img class="product-img" src="${p.image}" alt="${p.name}" loading="lazy">` : `<span class="product-emoji">${p.emoji || "🎁"}</span>`}
+          ${p.image
+            ? `${productPageUrl(p) ? `<a class="product-card-link" href="${productPageUrl(p)}" aria-label="View ${p.name}"><img class="product-img" src="${p.image}" alt="${p.name}" loading="lazy"></a>` : `<img class="product-img" src="${p.image}" alt="${p.name}" loading="lazy">`}`
+            : `${productPageUrl(p) ? `<a class="product-card-link" href="${productPageUrl(p)}" aria-label="View ${p.name}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>` : `<span class="product-emoji">${p.emoji || "🎁"}</span>`}`}
         </div>
         <div class="product-info">
           <span class="product-category">${p.category}</span>
-          <h3 class="product-name">${p.name}</h3>
+          ${productPageUrl(p)
+            ? `<a class="product-card-link" href="${productPageUrl(p)}"><h3 class="product-name">${p.name}</h3></a>`
+            : `<h3 class="product-name">${p.name}</h3>`}
           <div class="product-price">
             <span class="price">${formatPrice(effPrice(p))}</span>
             ${p.oldPrice ? `<span class="old-price">${formatPrice(effOldPrice(p))}</span>` : ""}
@@ -301,6 +319,21 @@
     toast(`${p.name} added to cart`);
     animateCartBtn();
   }
+
+  window.Giftora = {
+    addToCart: (id) => addToCart(Number(id)),
+    addToCartQty: (id, qty) => {
+      const p = PRODUCTS.find((x) => x.id === Number(id));
+      if (!p) return;
+      const n = Math.max(1, parseInt(qty, 10) || 1);
+      cart[Number(id)] = (cart[Number(id)] || 0) + n;
+      saveCart();
+      updateBadge();
+      toast(`${p.name} added to cart`);
+      animateCartBtn();
+    },
+    openCart,
+  };
 
   function animateCartBtn() {
     cartBtn.style.transform = "scale(1.15)";

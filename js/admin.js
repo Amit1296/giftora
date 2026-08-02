@@ -481,6 +481,198 @@
       .join("");
   }
 
+  /* ---------- Visitors & buying interest ---------- */
+  let visitors = [];
+  let visitorSearchTerm = "";
+
+  const INTEREST_LABEL = {
+    converted: "Converted",
+    checkout: "Checkout",
+    hot: "Hot 🔥",
+    warm: "Warm",
+    cold: "Cold",
+  };
+
+  const COUNTRY_FLAGS = {
+    IN: "🇮🇳", US: "🇺🇸", GB: "🇬🇧", AE: "🇦🇪", PK: "🇵🇰", BD: "🇧🇩", AU: "🇦🇺",
+    CA: "🇨🇦", SG: "🇸🇬", DE: "🇩🇪", FR: "🇫🇷", JP: "🇯🇵", QA: "🇶🇦", SA: "🇸🇦",
+  };
+
+  function fmtTime(iso) {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    if (isNaN(d)) return iso;
+    return d.toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    if (isNaN(d)) return iso;
+    return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+  }
+
+  function countryChip(code) {
+    if (!code) return "";
+    return `<span class="v-chip">${COUNTRY_FLAGS[code] || ""} ${esc(code)}</span>`;
+  }
+
+  async function loadVisitors() {
+    try {
+      const data = await api("/api/admin/visitors");
+      if (!data.success) return;
+      visitors = data.sessions || [];
+      renderVisitorSummary(data.summary || {});
+      renderVisitors();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function renderVisitorSummary(summary) {
+    $("#visitorCount").textContent = summary.totalSessions || 0;
+    const stats = [
+      { label: "Total Visitors", value: summary.totalSessions || 0 },
+      { label: "Active Today", value: summary.activeToday || 0 },
+      { label: "Page Views", value: summary.views || 0 },
+      { label: "Cart Adds", value: summary.cartAdds || 0 },
+      { label: "Checkouts", value: summary.checkouts || 0 },
+      { label: "Converted (Orders)", value: summary.conversions || 0 },
+    ];
+    $("#visitorStats").innerHTML = stats
+      .map((s) => `<div class="stat-card"><span class="stat-value">${s.value.toLocaleString("en-IN")}</span><span class="stat-label">${s.label}</span></div>`)
+      .join("");
+
+    const buckets = summary.interestBuckets || {};
+    $("#visitorInterest").innerHTML =
+      '<div class="insight-title">Interest levels</div>' +
+      ["converted", "checkout", "hot", "warm", "cold"]
+        .filter((k) => buckets[k])
+        .map((k) => `<span class="interest-badge interest-${k}">${INTEREST_LABEL[k]}: ${buckets[k]}</span>`)
+        .join("");
+
+    const topHtml = [];
+    const pages = summary.topPages || [];
+    const products = summary.topProducts || [];
+    if (pages.length) {
+      topHtml.push(
+        '<div class="top-col"><div class="insight-title">Top pages</div><ul>' +
+        pages.map((p) => `<li><span>${esc(p.key)}</span><b>${p.count}</b></li>`).join("") +
+        "</ul></div>"
+      );
+    }
+    if (products.length) {
+      topHtml.push(
+        '<div class="top-col"><div class="insight-title">Most viewed products</div><ul>' +
+        products.map((p) => `<li><span>${esc(p.key)}</span><b>${p.count}</b></li>`).join("") +
+        "</ul></div>"
+      );
+    }
+    $("#visitorTop").innerHTML = topHtml.join("");
+  }
+
+  function renderVisitors() {
+    const term = visitorSearchTerm.toLowerCase();
+    const list = visitors.filter((v) => {
+      if (!term) return true;
+      const hay = [
+        v.vid, v.device, v.browser, v.os, v.country, v.referrer,
+        ...Object.keys(v.productViews || {}),
+        ...(v.cartAdds || []).map((a) => a.product),
+        ...(v.pages || []).map((p) => p.path),
+      ].join(" ").toLowerCase();
+      return hay.includes(term);
+    });
+
+    const el = $("#visitorsList");
+    if (list.length === 0) {
+      el.innerHTML = '<p class="empty-state">No visitor data yet. Visitors are tracked after they accept cookies on the site.</p>';
+      return;
+    }
+
+    el.innerHTML = list.map((v) => {
+      const products = [...Object.keys(v.productViews || {})];
+      const added = (v.cartAdds || []).map((a) => `${a.product}${a.qty > 1 ? " ×" + a.qty : ""}`);
+      const pages = (v.pages || []).map((p) => p.path).join(", ") || "—";
+      const interest = INTEREST_LABEL[v.interest] || "Cold";
+      return `
+      <div class="visitor-card interest-${v.interest}">
+        <div class="visitor-head">
+          <h3>${esc(v.device || "Device")} · ${esc(v.browser || "Browser")} ${countryChip(v.country)} ${v.orderCount ? `<span class="interest-badge interest-converted">🛍 ${v.orderCount} order${v.orderCount > 1 ? "s" : ""}</span>` : ""}</h3>
+          <div class="visitor-meta">
+            <span>Last seen: ${fmtTime(v.lastSeen)}</span>
+            <span>First visit: ${fmtDate(v.firstSeen)}</span>
+            <span class="interest-badge interest-${v.interest}">${interest}</span>
+          </div>
+        </div>
+        <div class="visitor-counters">
+          <span>👁 ${v.views} views</span>
+          <span>🛒 ${(v.cartAdds || []).length} cart adds</span>
+          <span>💳 ${v.checkoutStarted} checkouts</span>
+          ${v.lastOrderId ? `<span class="order-id">Order: ${esc(v.lastOrderId)}</span>` : ""}
+        </div>
+        ${added.length ? `<div class="visitor-row"><b>Added to cart:</b> ${added.map(esc).join(" · ")}</div>` : ""}
+        ${products.length ? `<div class="visitor-row"><b>Interested in:</b> ${products.map(esc).join(" · ")}</div>` : ""}
+        <div class="visitor-row"><b>Pages:</b> ${esc(pages)}</div>
+        ${v.referrer ? `<div class="visitor-row"><b>Referrer:</b> ${esc(v.referrer)}</div>` : ""}
+      </div>`;
+    }).join("");
+  }
+
+  function exportVisitorsCsv() {
+    if (!visitors.length) {
+      toast("No visitor data to export.");
+      return;
+    }
+    const escCsv = (s) => '"' + String(s == null ? "" : s).replace(/"/g, '""') + '"';
+    const rows = visitors.map((v) => [
+      v.vid,
+      v.firstSeen,
+      v.lastSeen,
+      v.device,
+      v.browser,
+      v.os,
+      v.country,
+      v.referrer,
+      v.views,
+      (v.cartAdds || []).length,
+      v.checkoutStarted,
+      v.orderCount,
+      v.interest,
+      Object.keys(v.productViews || {}).join(" | "),
+      (v.cartAdds || []).map((a) => a.product).join(" | "),
+      (v.pages || []).map((p) => p.path).join(" | "),
+    ].map(escCsv).join(","));
+    const csv = [
+      "vid,firstSeen,lastSeen,device,browser,os,country,referrer,views,cartAdds,checkouts,orders,interest,viewedProducts,addedProducts,pages",
+      ...rows,
+    ].join("\n");
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "giftora-visitors-" + new Date().toISOString().slice(0, 10) + ".csv";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(a.href);
+    toast("CSV exported ✓");
+  }
+
+  async function clearVisitorsData() {
+    if (!confirm("Delete ALL visitor tracking data? This cannot be undone.")) return;
+    try {
+      const res = await api("/api/admin/visitors", { method: "DELETE" });
+      if (res.success) {
+        visitors = [];
+        renderVisitorSummary({});
+        renderVisitors();
+        toast("Visitor data cleared ✓");
+      }
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
   /* ---------- Festival Offer ---------- */
   function renderFestivalPreview() {
     const url = $("#fImageInput").dataset.url || "";
@@ -594,7 +786,7 @@
 
   /* ---------- Load all ---------- */
   async function loadAll() {
-    await Promise.all([loadProducts(), loadFestival(), loadOrders(), loadEnquiries(), loadVendors()]);
+    await Promise.all([loadProducts(), loadFestival(), loadOrders(), loadEnquiries(), loadVendors(), loadVisitors()]);
   }
 
   $("#productSearch").addEventListener("input", (e) => {
@@ -610,6 +802,12 @@
   $("#saveFestivalBtn").addEventListener("click", saveFestival);
   $("#fUploadBtn").addEventListener("click", () => $("#fImageInput").click());
   $("#fImageInput").addEventListener("change", uploadBanner);
+  $("#visitorSearch").addEventListener("input", (e) => {
+    visitorSearchTerm = e.target.value;
+    renderVisitors();
+  });
+  $("#exportVisitorsBtn").addEventListener("click", exportVisitorsCsv);
+  $("#clearVisitorsBtn").addEventListener("click", clearVisitorsData);
   loginBtn.addEventListener("click", doLogin);
   loginPass.addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
   logoutBtn.addEventListener("click", () => {

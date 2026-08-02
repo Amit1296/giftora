@@ -5,7 +5,7 @@ Standalone HTML copy of the Giftora WordPress theme. No WordPress, PHP, or datab
 ## Live Site
 
 - **Live URL:** https://giftora.onrender.com
-- **Admin panel:** https://giftora.onrender.com/admin.html (username `admin`, password `giftora2026`)
+- **Admin panel:** https://giftora.onrender.com/admin.html (credentials from `ADMIN_USER` / `ADMIN_PASS` env vars, then local `admin-config.json` [gitignored]; if neither exists the server generates a random password on first boot and prints it in the startup logs)
 - **Source repo:** https://github.com/Amit1296/giftora
 - **Local:** http://localhost:8080 (`node server.js`)
 
@@ -29,6 +29,10 @@ static-giftora/
 ├── combo.html          Category page: Combo Offers
 ├── about.html          About page
 ├── contact.html        Contact page
+├── products/           Generated SEO product pages (one per product, 44 pages)
+├── seo/                SEO automation (keywords.json, apply-seo.js, generate-products.js)
+├── robots.txt          Generated crawler rules
+├── sitemap.xml         Generated sitemap (63 URLs incl. product pages)
 ├── server.js           Local server (serves site + saves data)
 ├── css/
 │   └── style.css       All styles
@@ -102,3 +106,11 @@ Zero-dependency Node server. Serves static files, handles `POST /api/order` and 
 
 - Cart persists in browser `localStorage`.
 - Orders and enquiries require the server to be running; otherwise forms show a "could not reach server" message.
+
+## SEO Automation
+
+- `seo/keywords.json` is the single source of truth for page keywords/titles/descriptions.
+- `node seo/apply-seo.js` applies meta/OG/Twitter/canonical + JSON-LD to all HTML pages and writes `robots.txt` + `sitemap.xml`.
+- `node seo/generate-products.js` (run after the above) generates one SEO page per product in `products/`, writes `js/product-pages.js`, and adds product URLs to the sitemap.
+- See `seo/README.md` for the full workflow.
+- `seo/google-search-console-guide.md` walks through submitting the site to Google Search Console + Bing (paste the verification code into `seo/keywords.json` → `googleVerification` / `bingVerification`, then re-run the two scripts).

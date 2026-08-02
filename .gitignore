@@ -7,6 +7,7 @@ mail-config.json
 data/orders.json
 data/enquiries.json
 data/vendors.json
+data/visitors.json
 data/orders/
 data/enquiries/
 uploads/
