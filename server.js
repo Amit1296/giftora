@@ -103,7 +103,7 @@ const server = http.createServer(async (req, res) => {
       try {
         const data = JSON.parse(await readBody(req));
         const orderId = "order_" + timestamp();
-        db.addOrder({ ...data, orderId, _file: orderId, status: "New", date: new Date().toISOString() });
+        await db.addOrder({ ...data, orderId, _file: orderId, status: "New", date: new Date().toISOString() });
         sendOrderEmail(data, orderId);
         return sendJson(res, 200, { success: true, orderId });
       } catch (e) {
@@ -115,7 +115,7 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === "/api/enquiry") {
       try {
         const data = JSON.parse(await readBody(req));
-        db.addEnquiry({ ...data, _file: "enquiry_" + timestamp(), date: new Date().toISOString() });
+        await db.addEnquiry({ ...data, _file: "enquiry_" + timestamp(), date: new Date().toISOString() });
         sendEnquiryEmail(data);
         return sendJson(res, 200, { success: true });
       } catch (e) {
@@ -127,7 +127,7 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === "/api/vendor") {
       try {
         const data = JSON.parse(await readBody(req));
-        db.addVendor({ ...data, _file: "vendor_" + timestamp(), date: new Date().toISOString() });
+        await db.addVendor({ ...data, _file: "vendor_" + timestamp(), date: new Date().toISOString() });
         sendVendorEmail(data);
         return sendJson(res, 200, { success: true });
       } catch (e) {
@@ -187,11 +187,11 @@ const server = http.createServer(async (req, res) => {
 
   /* ---------- Public GET endpoints ---------- */
   if (method === "GET" && url.pathname === "/api/products") {
-    return sendJson(res, 200, { success: true, products: db.getProducts() });
+    return sendJson(res, 200, { success: true, products: await db.getProducts() });
   }
 
   if (method === "GET" && url.pathname === "/api/festival") {
-    return sendJson(res, 200, { success: true, festival: db.getFestival() });
+    return sendJson(res, 200, { success: true, festival: await db.getFestival() });
   }
 
   /* ---------- Admin GET/PUT endpoints ---------- */
@@ -200,14 +200,14 @@ const server = http.createServer(async (req, res) => {
     if (!auth) return;
 
     if (url.pathname === "/api/admin/products" && method === "GET") {
-      return sendJson(res, 200, { success: true, products: db.getProducts() });
+      return sendJson(res, 200, { success: true, products: await db.getProducts() });
     }
 
     if (url.pathname === "/api/admin/products" && method === "PUT") {
       try {
         const { products } = JSON.parse(await readBody(req));
         if (!Array.isArray(products)) throw new Error("bad payload");
-        db.saveProducts(products);
+        await db.saveProducts(products);
         return sendJson(res, 200, { success: true });
       } catch (e) {
         return sendJson(res, 400, { success: false, message: "Could not save products." });
@@ -215,14 +215,14 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (url.pathname === "/api/admin/festival" && method === "GET") {
-      return sendJson(res, 200, { success: true, festival: db.getFestival() });
+      return sendJson(res, 200, { success: true, festival: await db.getFestival() });
     }
 
     if (url.pathname === "/api/admin/festival" && method === "PUT") {
       try {
         const { festival } = JSON.parse(await readBody(req));
         if (!festival || typeof festival !== "object") throw new Error("bad payload");
-        db.saveFestival(festival);
+        await db.saveFestival(festival);
         return sendJson(res, 200, { success: true });
       } catch (e) {
         return sendJson(res, 400, { success: false, message: "Could not save festival offer." });
@@ -230,13 +230,13 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (url.pathname === "/api/admin/orders" && method === "GET") {
-      return sendJson(res, 200, { success: true, orders: db.getOrders() });
+      return sendJson(res, 200, { success: true, orders: await db.getOrders() });
     }
 
     if (url.pathname === "/api/admin/orders" && method === "PUT") {
       try {
         const { file, status } = JSON.parse(await readBody(req));
-        db.updateOrder(file, { status });
+        await db.updateOrder(file, { status });
         return sendJson(res, 200, { success: true });
       } catch (e) {
         return sendJson(res, 400, { success: false, message: "Could not update order." });
@@ -244,11 +244,11 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (url.pathname === "/api/admin/enquiries" && method === "GET") {
-      return sendJson(res, 200, { success: true, enquiries: db.getEnquiries() });
+      return sendJson(res, 200, { success: true, enquiries: await db.getEnquiries() });
     }
 
     if (url.pathname === "/api/admin/vendors" && method === "GET") {
-      return sendJson(res, 200, { success: true, vendors: db.getVendors() });
+      return sendJson(res, 200, { success: true, vendors: await db.getVendors() });
     }
 
     return sendJson(res, 404, { success: false, message: "Not found." });
