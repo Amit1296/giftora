@@ -25,6 +25,7 @@ const DEFAULT_FESTIVAL = {
   code: "RAKHI15",
   note: "Limited period offer across all gifts",
   image: "",
+  productIds: [],
 };
 
 /* ---------- Postgres storage (production) ---------- */

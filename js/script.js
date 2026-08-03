@@ -54,6 +54,7 @@
   const upiPaidBtn = $("#upiPaidBtn");
 
   const PAGE_CATEGORY = window.PAGE_CATEGORY || null;
+  const PAGE_FESTIVAL = document.body && document.body.getAttribute("data-page") === "festival";
 
   let cart = loadCart();
   let activeFilter = "all";
@@ -96,13 +97,18 @@
   }
 
   let festivalDiscount = 0;
+  let festivalProductIds = new Set();
+
+  function isFestivalProduct(p) {
+    return festivalProductIds.size === 0 || festivalProductIds.has(p.id);
+  }
 
   function effPrice(p) {
-    return festivalDiscount > 0 ? Math.round((p.price * (100 - festivalDiscount)) / 100) : p.price;
+    return festivalDiscount > 0 && isFestivalProduct(p) ? Math.round((p.price * (100 - festivalDiscount)) / 100) : p.price;
   }
 
   function effOldPrice(p) {
-    if (festivalDiscount <= 0 || !p.oldPrice) return p.oldPrice || 0;
+    if (festivalDiscount <= 0 || !isFestivalProduct(p) || !p.oldPrice) return p.oldPrice || 0;
     return Math.round((p.oldPrice * (100 - festivalDiscount)) / 100);
   }
 
@@ -471,11 +477,13 @@
     if (!productsGrid) return;
     const query = searchQuery.trim().toLowerCase();
     const list = PRODUCTS.filter((p) => {
-      const matchPage = !PAGE_CATEGORY
-        ? true
-        : PAGE_CATEGORY === "special"
-          ? p.oldPrice > 0
-          : p.category === PAGE_CATEGORY;
+      const matchPage = PAGE_FESTIVAL
+        ? festivalProductIds.size === 0 || festivalProductIds.has(p.id)
+        : !PAGE_CATEGORY
+          ? true
+          : PAGE_CATEGORY === "special"
+            ? p.oldPrice > 0
+            : p.category === PAGE_CATEGORY;
       const matchCat = activeFilter === "all" || p.category === activeFilter;
       const matchQuery = !query || p.name.toLowerCase().includes(query) || p.category.includes(query);
       return matchPage && matchCat && matchQuery;
@@ -504,6 +512,7 @@
           ${productPageUrl(p)
             ? `<a class="product-card-link" href="${productPageUrl(p)}"><h3 class="product-name">${p.name}</h3></a>`
             : `<h3 class="product-name">${p.name}</h3>`}
+          ${p.description ? `<p class="product-desc">${escAttr(p.description)}</p>` : ""}
           <div class="product-price">
             <span class="price">${formatPrice(effPrice(p))}</span>
             ${p.oldPrice ? `<span class="old-price">${formatPrice(effOldPrice(p))}</span>` : ""}
@@ -850,7 +859,8 @@
       const f = data.festival;
       if (!f) return;
       festivalDiscount = f.active ? (f.discount || 0) : 0;
-      if (festivalDiscount > 0 && productsGrid) renderProducts();
+      festivalProductIds = f.active && Array.isArray(f.productIds) ? new Set(f.productIds.map(Number)) : new Set();
+      if (productsGrid) renderProducts();
       if (!banner && !heroTitle) return;
       if (!f.active) {
         if (banner) banner.style.display = "none";

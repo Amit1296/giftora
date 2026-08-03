@@ -160,6 +160,9 @@ body {
 .upload-status { font-size: 0.82rem; color: var(--muted); }
 .upload-status.ok { color: var(--green); }
 .upload-status.err { color: var(--red); }
+.price-preview { display: block; font-size: 0.8rem; color: var(--green); margin-top: 3px; }
+.price-preview.off { color: #92400e; }
+.f-desc { width: 100%; padding: 9px 11px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 0.9rem; resize: vertical; }
 
 /* ---------- Festival offer ---------- */
 .festival-form { max-width: 680px; }
@@ -175,6 +178,33 @@ body {
 @media (max-width: 620px) {
   .festival-form .form-row { grid-template-columns: 1fr; }
 }
+
+.festival-picker-head { display: flex; align-items: center; gap: 8px; margin: 8px 0; flex-wrap: wrap; }
+.festival-picker-head .search-input { flex: 1; min-width: 180px; }
+.festival-picker-head .btn-ghost {
+  color: var(--primary); border-color: var(--border); background: #fff;
+  padding: 8px 12px; font-size: 0.85rem;
+}
+.festival-picker-head .btn-ghost:hover { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+.festival-product-list {
+  border: 1.5px solid var(--border); border-radius: 12px;
+  max-height: 340px; overflow-y: auto; background: #fff; padding: 6px;
+}
+.fp-row {
+  display: flex; align-items: center; gap: 10px; padding: 7px 8px;
+  border-radius: 8px; cursor: pointer; font-size: 0.9rem;
+}
+.fp-row:hover { background: var(--primary-light); }
+.fp-row input { width: 17px; height: 17px; accent-color: var(--primary); flex-shrink: 0; }
+.fp-thumb {
+  width: 34px; height: 34px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  font-size: 1rem; border: 1px solid var(--border);
+}
+.fp-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.fp-name { flex: 1; font-weight: 600; }
+.fp-cat { font-size: 0.78rem; color: var(--muted); text-transform: capitalize; }
+.field-note { font-size: 0.85rem; color: var(--muted); margin: 4px 0 0; }
 
 /* ---------- Orders ---------- */
 .orders-list, .enquiries-list { display: flex; flex-direction: column; gap: 14px; }

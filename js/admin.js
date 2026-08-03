@@ -16,6 +16,9 @@
   let products = [];
   let productSearchTerm = "";
   let productFilter = "all";
+  let festivalProductIds = new Set();
+  let festivalProductSearch = "";
+  let festivalDiscount = 0;
 
   function toast(msg) {
     toastEl.textContent = msg;
@@ -98,6 +101,7 @@
       if (data.success) {
         products = data.products;
         renderProductList();
+        renderFestivalProductList();
       }
     } catch (e) {
       toast(e.message);
@@ -145,6 +149,7 @@
             <div class="form-group">
               <label>Price (₹)</label>
               <input type="number" class="f-price" value="${p.price}" min="0">
+              <span class="price-preview" data-preview="${p.id}"></span>
             </div>
             <div class="form-group">
               <label>Old Price (₹)</label>
@@ -181,6 +186,10 @@
                 <span class="upload-status" data-status="${p.id}"></span>
               </div>
             </div>
+            <div class="form-group field-full">
+              <label>Description</label>
+              <textarea class="f-desc" rows="3" placeholder="Product description, details and quantities (shown on product page)">${esc(p.description || "")}</textarea>
+            </div>
           </div>
           <div class="product-actions">
             <button class="btn btn-danger" data-remove="${p.id}">Remove</button>
@@ -197,21 +206,52 @@
     el.querySelectorAll(".upload-input").forEach((input) => {
       input.addEventListener("change", () => uploadImage(input));
     });
+    el.querySelectorAll(".f-price, .f-oldprice").forEach((input) => {
+      input.addEventListener("input", updatePricePreviews);
+    });
     el.querySelectorAll("[data-remove]").forEach((btn) => {
       btn.addEventListener("click", () => {
         products = products.filter((p) => p.id !== Number(btn.dataset.remove));
+        festivalProductIds.delete(Number(btn.dataset.remove));
         renderProductList();
+        renderFestivalProductList();
       });
+    });
+    updatePricePreviews();
+  }
+
+  function updatePricePreviews() {
+    const rows = $$("#productList .product-row");
+    rows.forEach((row) => {
+      const id = Number(row.dataset.id);
+      const priceInput = row.querySelector(".f-price");
+      const oldInput = row.querySelector(".f-oldprice");
+      const preview = row.querySelector(".price-preview");
+      if (!priceInput || !preview) return;
+      const p = products.find((x) => x.id === id) || {};
+      const price = Number(priceInput.value) || 0;
+      const oldPrice = Number(oldInput.value) || 0;
+      if (festivalDiscount > 0 && isFestivalProduct(p)) {
+        const cust = customerPrice(p, price);
+        const custOld = oldPrice ? customerPrice(p, oldPrice) : 0;
+        preview.className = "price-preview off";
+        preview.textContent =
+          `Customers pay ${fmtINR(cust)}${custOld ? ` (was ${fmtINR(custOld)})` : ""} — ${festivalDiscount}% festival off`;
+      } else {
+        preview.className = "price-preview";
+        preview.textContent = `Customers pay ${fmtINR(price)}`;
+      }
     });
   }
 
   function addProduct() {
     const maxId = products.reduce((m, p) => Math.max(m, p.id || 0), 0);
     const id = maxId + 1;
+    const category = productFilter !== "all" ? productFilter : (products[0] ? products[0].category : "clothes");
     products.unshift({
       id,
       name: "New Product",
-      category: products[0] ? products[0].category : "clothes",
+      category,
       emoji: "🎁",
       price: 0,
       oldPrice: 0,
@@ -221,8 +261,10 @@
       badge: null,
       gradient: "linear-gradient(135deg,#f1f5f9,#e2e8f0)",
       image: "",
+      description: "",
     });
     renderProductList();
+    renderFestivalProductList();
     toast("New product added. Fill in details and click Save.");
     const nameInput = document.querySelector(`.product-row[data-id="${id}"] .f-name`);
     if (nameInput) {
@@ -245,6 +287,18 @@
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function fmtINR(n) {
+    return "₹" + Number(n || 0).toLocaleString("en-IN");
+  }
+
+  function isFestivalProduct(p) {
+    return festivalProductIds.size === 0 || festivalProductIds.has(p.id);
+  }
+
+  function customerPrice(p, price) {
+    return festivalDiscount > 0 && isFestivalProduct(p) ? Math.round((price * (100 - festivalDiscount)) / 100) : price;
   }
 
   const PAGE_NAMES = {
@@ -303,6 +357,7 @@
           badge: row.querySelector(".f-badge").value || null,
           gradient: "linear-gradient(135deg," + row.querySelector(".f-gradient").value + ",#f1f5f9)",
           image: (original.find((p) => p.id === id) || {}).image || "",
+          description: row.querySelector(".f-desc").value.trim(),
         };
       });
       const res = await api("/api/admin/products", {
@@ -726,6 +781,10 @@
       $("#fCode").value = f.code || "";
       $("#fNote").value = f.note || "";
       $("#fImageInput").dataset.url = f.image || "";
+      festivalProductIds = new Set(Array.isArray(f.productIds) ? f.productIds.map(Number) : []);
+      festivalDiscount = f.active ? (Number(f.discount) || 0) : 0;
+      renderFestivalProductList();
+      renderProductList();
       renderFestivalPreview();
     } catch (e) {
       toast(e.message);
@@ -772,6 +831,38 @@
     input.value = "";
   }
 
+  function renderFestivalProductList() {
+    const listEl = $("#fProductList");
+    if (!listEl) return;
+    const term = festivalProductSearch.toLowerCase();
+    const list = products.filter(
+      (p) =>
+        !term ||
+        p.name.toLowerCase().includes(term) ||
+        p.category.toLowerCase().includes(term)
+    );
+    if (list.length === 0) {
+      listEl.innerHTML = '<p class="empty-state">No products match.</p>';
+      return;
+    }
+    listEl.innerHTML = list
+      .map((p) => {
+        const checked = festivalProductIds.has(p.id) ? " checked" : "";
+        const grad = p.gradient || "#f1f5f9";
+        const media = p.image
+          ? `<img src="${p.image}" alt="">`
+          : `<span>${p.emoji || "🎁"}</span>`;
+        return `
+        <label class="fp-row">
+          <input type="checkbox" class="fp-check" data-id="${p.id}"${checked}>
+          <span class="fp-thumb" style="background:${grad}">${media}</span>
+          <span class="fp-name">${esc(p.name)}</span>
+          <span class="fp-cat">${esc(pageName(p.category))}</span>
+        </label>`;
+      })
+      .join("");
+  }
+
   async function saveFestival() {
     const btn = $("#saveFestivalBtn");
     const msg = $("#festivalMsg");
@@ -784,6 +875,7 @@
       code: $("#fCode").value.trim().toUpperCase(),
       note: $("#fNote").value.trim(),
       image: $("#fImageInput").dataset.url || "",
+      productIds: Array.from($$("#fProductList .fp-check:checked")).map((c) => Number(c.dataset.id)),
     };
     btn.disabled = true;
     btn.textContent = "Saving...";
@@ -930,6 +1022,29 @@
   $("#saveFestivalBtn").addEventListener("click", saveFestival);
   $("#fUploadBtn").addEventListener("click", () => $("#fImageInput").click());
   $("#fImageInput").addEventListener("change", uploadBanner);
+  $("#fProductSearch").addEventListener("input", (e) => {
+    festivalProductSearch = e.target.value;
+    renderFestivalProductList();
+  });
+  $("#fSelectAllBtn").addEventListener("click", () => {
+    $$("#fProductList .fp-check").forEach((c) => {
+      c.checked = true;
+      festivalProductIds.add(Number(c.dataset.id));
+    });
+  });
+  $("#fClearAllBtn").addEventListener("click", () => {
+    $$("#fProductList .fp-check").forEach((c) => {
+      c.checked = false;
+      festivalProductIds.delete(Number(c.dataset.id));
+    });
+  });
+  $("#fProductList").addEventListener("change", (e) => {
+    if (e.target.classList.contains("fp-check")) {
+      const id = Number(e.target.dataset.id);
+      if (e.target.checked) festivalProductIds.add(id);
+      else festivalProductIds.delete(id);
+    }
+  });
   $("#saveUpiBtn").addEventListener("click", saveUpi);
   $("#upiQrUploadBtn").addEventListener("click", () => $("#upiQrInput").click());
   $("#upiQrInput").addEventListener("change", uploadUpiQr);

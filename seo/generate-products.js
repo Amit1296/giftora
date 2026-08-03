@@ -234,6 +234,7 @@ function faqHtml(faqs) {
 }
 
 function productDescription(product, site) {
+  if (product.description) return fit(product.description, 160);
   return fit(
     `${product.name} for just ${fmtPrice(product.price)} with same-day delivery at ${site.name}. Free gift wrapping, cash on delivery and easy returns. Order online now!`,
     160
@@ -281,7 +282,7 @@ function productBody(product, slug, catMeta, site, products, faqs) {
           <span class="price">${fmtPrice(product.price)}</span>${oldPrice}
         </div>
         ${stockLine}
-        <p class="product-detail-desc">${esc(productDescription(product, site))}</p>
+        <p class="product-detail-desc">${esc(product.description || productDescription(product, site))}</p>
         ${sizeSelector}
         <div class="product-detail-actions">
           <div class="qty-selector" data-id="${product.id}">
