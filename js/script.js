@@ -45,6 +45,13 @@
   const checkoutSuccess = $("#checkoutSuccess");
   const successOrderId = $("#successOrderId");
   const successDone = $("#successDone");
+  const upiOverlay = $("#upiOverlay");
+  const upiModal = $("#upiModal");
+  const upiClose = $("#upiClose");
+  const upiQr = $("#upiQr");
+  const upiAmount = $("#upiAmount");
+  const upiIdText = $("#upiIdText");
+  const upiPaidBtn = $("#upiPaidBtn");
 
   const PAGE_CATEGORY = window.PAGE_CATEGORY || null;
 
@@ -333,7 +340,9 @@
       return;
     }
     const payment = document.querySelector('input[name="payment"]:checked')?.value || "Cash on Delivery";
-    if (payment === "Cash on Delivery") {
+    if (payment === "UPI QR") {
+      await startDirectUpi();
+    } else if (payment === "Cash on Delivery") {
       await placeOrder("Cash on Delivery", null);
     } else {
       await startOnlinePayment(payment);
@@ -353,8 +362,45 @@
     submitOrder();
   });
 
+  async function startDirectUpi() {
+    if (!upiConfig || !upiConfig.upiId) {
+      toast("UPI payments are unavailable right now.");
+      return;
+    }
+    const amt = cartTotal();
+    upiAmount.textContent = formatPrice(amt);
+    upiIdText.textContent = upiConfig.upiId;
+    let src = upiConfig.qrImage || "";
+    if (!src) {
+      const uri = "upi://pay?pa=" + encodeURIComponent(upiConfig.upiId) +
+        "&pn=" + encodeURIComponent(upiConfig.payeeName || "Giftora") +
+        "&am=" + Math.round(amt) + "&cu=INR";
+      src = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(uri);
+    }
+    upiQr.src = src;
+    upiOverlay.classList.add("open");
+    upiModal.classList.add("open");
+    lockScroll();
+  }
+
+  function closeUpi() {
+    upiModal.classList.remove("open");
+    upiOverlay.classList.remove("open");
+    if (!checkoutModal.classList.contains("open") && !cartDrawer.classList.contains("open")) unlockScroll();
+  }
+
+  if (upiClose) upiClose.addEventListener("click", closeUpi);
+  if (upiOverlay) upiOverlay.addEventListener("click", closeUpi);
+  if (upiPaidBtn) {
+    upiPaidBtn.addEventListener("click", () => {
+      closeUpi();
+      placeOrder("UPI QR", null);
+    });
+  }
+
   const paymentMethods = document.getElementById("paymentMethods");
   let paymentEnabled = false;
+  let upiConfig = null;
   async function loadPaymentConfig() {
     try {
       const r = await fetch("/api/payment/config");
@@ -363,15 +409,24 @@
     } catch {
       paymentEnabled = false;
     }
+    try {
+      const r = await fetch("/api/upi/config");
+      const d = await r.json();
+      upiConfig = d && d.enabled ? d : null;
+    } catch {
+      upiConfig = null;
+    }
     if (!paymentMethods) return;
     paymentMethods.querySelectorAll(".payment-option").forEach((opt) => {
       const inp = opt.querySelector("input");
       if (!inp) return;
-      const online = inp.value !== "Cash on Delivery";
-      inp.disabled = online && !paymentEnabled;
-      opt.classList.toggle("disabled", online && !paymentEnabled);
+      const val = inp.value;
+      const isDirectUpi = val === "UPI QR";
+      const available = isDirectUpi ? !!upiConfig : (val === "Cash on Delivery" ? true : paymentEnabled);
+      inp.disabled = !available;
+      opt.classList.toggle("disabled", !available);
     });
-    if (!paymentEnabled && !paymentMethods.querySelector(".payment-note")) {
+    if (!paymentEnabled && !upiConfig && !paymentMethods.querySelector(".payment-note")) {
       const note = document.createElement("p");
       note.className = "payment-note";
       note.textContent = "Online payments are currently unavailable — please use Cash on Delivery.";

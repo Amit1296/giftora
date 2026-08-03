@@ -26,6 +26,19 @@ function readLocalSecret(name) {
   }
 }
 
+function readUpiConfig() {
+  try {
+    const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, "upi-config.json"), "utf8"));
+    return {
+      upiId: String(cfg["upi-id"] || "").trim(),
+      payeeName: String(cfg["payee-name"] || "Giftora").trim(),
+      qrImage: String(cfg["qr-image"] || "").trim(),
+    };
+  } catch {
+    return { upiId: "", payeeName: "Giftora", qrImage: "" };
+  }
+}
+
 const MAX_BODY = 6 * 1024 * 1024;
 const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
 const LOGIN_MAX_FAILS = 10;
@@ -317,6 +330,17 @@ const server = http.createServer(async (req, res) => {
     });
   }
 
+  if (method === "GET" && url.pathname === "/api/upi/config") {
+    const upi = readUpiConfig();
+    return sendJson(res, 200, {
+      success: true,
+      enabled: !!upi.upiId,
+      upiId: upi.upiId,
+      payeeName: upi.payeeName,
+      qrImage: upi.qrImage,
+    });
+  }
+
   /* ---------- Admin GET/PUT endpoints ---------- */
   if (url.pathname.startsWith("/api/admin")) {
     const auth = requireAuth(req, res);
@@ -349,6 +373,35 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 200, { success: true });
       } catch (e) {
         return sendJson(res, 400, { success: false, message: "Could not save festival offer." });
+      }
+    }
+
+    if (url.pathname === "/api/admin/upi" && method === "GET") {
+      return sendJson(res, 200, { success: true, upi: readUpiConfig() });
+    }
+
+    if (url.pathname === "/api/admin/upi" && method === "PUT") {
+      try {
+        const { upi } = JSON.parse(await readBody(req));
+        const current = readUpiConfig();
+        const pick = (key, fallback) => (upi && upi[key] !== undefined ? String(upi[key]).trim() : fallback);
+        const merged = {
+          upiId: pick("upiId", current.upiId),
+          payeeName: pick("payeeName", current.payeeName || "Giftora"),
+          qrImage: pick("qrImage", current.qrImage),
+        };
+        fs.writeFileSync(
+          path.join(ROOT, "upi-config.json"),
+          JSON.stringify({
+            "upi-id": merged.upiId,
+            "payee-name": merged.payeeName,
+            "qr-image": merged.qrImage,
+          }, null, 2),
+          "utf8"
+        );
+        return sendJson(res, 200, { success: true });
+      } catch (e) {
+        return sendJson(res, 400, { success: false, message: "Could not save UPI settings." });
       }
     }
 
@@ -605,7 +658,7 @@ async function placeOrder(data) {
   const name = String(data.name || "").trim().slice(0, 100);
   const phone = String(data.phone || "").trim().slice(0, 20);
   const address = String(data.address || "").trim().slice(0, 600);
-  const payment = ["Cash on Delivery", "UPI", "Card"].includes(data.payment) ? data.payment : "Cash on Delivery";
+  const payment = ["Cash on Delivery", "UPI", "Card", "UPI QR"].includes(data.payment) ? data.payment : "Cash on Delivery";
   if (!name || !phone || !/^[0-9+\-()\s]{7,20}$/.test(phone) || !address) {
     throw new Error("ORDER:Please provide a valid name, phone and address.");
   }

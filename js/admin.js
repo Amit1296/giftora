@@ -811,9 +811,110 @@
     }
   }
 
+  /* ---------- UPI QR ---------- */
+  function renderUpiPreview() {
+    const url = $("#upiQrInput").dataset.url || "";
+    const preview = $("#upiQrPreview");
+    if (url) {
+      preview.innerHTML = `<img src="${url}" alt="UPI QR preview">`;
+      preview.style.display = "";
+    } else {
+      preview.innerHTML = "";
+      preview.style.display = "none";
+    }
+  }
+
+  async function loadUpi() {
+    try {
+      const data = await api("/api/admin/upi");
+      if (!data.success) return;
+      const u = data.upi || {};
+      $("#upiId").value = u.upiId || "";
+      $("#upiPayee").value = u.payeeName || "Giftora";
+      $("#upiQrInput").dataset.url = u.qrImage || "";
+      renderUpiPreview();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  async function uploadUpiQr() {
+    const input = $("#upiQrInput");
+    const file = input.files && input.files[0];
+    const status = $("#upiQrStatus");
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      status.textContent = "Max 5 MB.";
+      status.className = "upload-status err";
+      return;
+    }
+    status.textContent = "Uploading...";
+    status.className = "upload-status";
+    try {
+      const dataUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const base64 = dataUrl.split(",")[1];
+      const res = await api("/api/admin/upload", {
+        method: "POST",
+        body: JSON.stringify({ name: file.name, data: base64 }),
+      });
+      if (res.success) {
+        input.dataset.url = res.url;
+        renderUpiPreview();
+        status.textContent = "Uploaded ✓";
+        status.className = "upload-status ok";
+      } else {
+        status.textContent = res.message || "Upload failed.";
+        status.className = "upload-status err";
+      }
+    } catch (e) {
+      status.textContent = e.message;
+      status.className = "upload-status err";
+    }
+    input.value = "";
+  }
+
+  async function saveUpi() {
+    const btn = $("#saveUpiBtn");
+    const msg = $("#upiMsg");
+    const payload = {
+      upiId: $("#upiId").value.trim(),
+      payeeName: $("#upiPayee").value.trim(),
+      qrImage: $("#upiQrInput").dataset.url || "",
+    };
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+    msg.className = "save-msg";
+    msg.textContent = "";
+    try {
+      const res = await api("/api/admin/upi", {
+        method: "PUT",
+        body: JSON.stringify({ upi: payload }),
+      });
+      if (res.success) {
+        msg.className = "save-msg ok";
+        msg.textContent = "UPI settings saved.";
+        toast("UPI settings saved ✓");
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not save.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Save Changes";
+    }
+  }
+
   /* ---------- Load all ---------- */
   async function loadAll() {
-    await Promise.all([loadProducts(), loadFestival(), loadOrders(), loadEnquiries(), loadVendors(), loadVisitors()]);
+    await Promise.all([loadProducts(), loadFestival(), loadUpi(), loadOrders(), loadEnquiries(), loadVendors(), loadVisitors()]);
   }
 
   $("#productSearch").addEventListener("input", (e) => {
@@ -829,6 +930,9 @@
   $("#saveFestivalBtn").addEventListener("click", saveFestival);
   $("#fUploadBtn").addEventListener("click", () => $("#fImageInput").click());
   $("#fImageInput").addEventListener("change", uploadBanner);
+  $("#saveUpiBtn").addEventListener("click", saveUpi);
+  $("#upiQrUploadBtn").addEventListener("click", () => $("#upiQrInput").click());
+  $("#upiQrInput").addEventListener("change", uploadUpiQr);
   $("#visitorSearch").addEventListener("input", (e) => {
     visitorSearchTerm = e.target.value;
     renderVisitors();

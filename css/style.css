@@ -1075,3 +1075,16 @@ body.admin-bar .navbar { top: 32px; }
 .payment-option.disabled { opacity: 0.55; }
 .payment-option.disabled input { cursor: not-allowed; }
 .payment-note { font-size: 0.78rem; color: #b91c1c; font-weight: 500; width: 100%; }
+
+.upi-body { text-align: center; }
+.upi-qr-wrap {
+  display: inline-block;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px;
+  margin-bottom: 16px;
+}
+.upi-qr-wrap img { display: block; width: 220px; height: 220px; border-radius: 6px; }
+.upi-id { font-size: 0.95rem; margin: 6px 0 4px; }
+.upi-note { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
