@@ -44,6 +44,71 @@ const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
 const LOGIN_MAX_FAILS = 10;
 const LOGIN_WINDOW_MS = 15 * 60 * 1000;
 
+/* ---------- Rate limiting ---------- */
+const RATE_WINDOW_MS = 60 * 1000;
+const RATE_LIMITS = {
+  api: { limit: 150, window: RATE_WINDOW_MS },
+  post: { limit: 50, window: RATE_WINDOW_MS },
+  track: { limit: 120, window: RATE_WINDOW_MS },
+  admin: { limit: 90, window: RATE_WINDOW_MS },
+  login: { limit: 20, window: RATE_WINDOW_MS },
+};
+const rateBuckets = new Map();
+
+function rateLimit(key, limit, windowMs) {
+  const now = Date.now();
+  const b = rateBuckets.get(key);
+  if (!b || now - b.start >= windowMs) {
+    if (rateBuckets.size > 5000) {
+      for (const [k, v] of rateBuckets) {
+        if (now - v.start >= windowMs) rateBuckets.delete(k);
+      }
+    }
+    rateBuckets.set(key, { start: now, count: 1 });
+    return true;
+  }
+  b.count += 1;
+  return b.count <= limit;
+}
+
+/* ---------- Security headers ---------- */
+const SECURITY_HEADERS = {
+  "Content-Security-Policy":
+    "default-src 'self'; " +
+    "script-src 'self' https://checkout.razorpay.com; " +
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+    "font-src 'self' data: https://fonts.gstatic.com; " +
+    "img-src 'self' data: blob: https:; " +
+    "connect-src 'self' https://api.razorpay.com https://checkout.razorpay.com; " +
+    "frame-src https://checkout.razorpay.com https://api.razorpay.com; " +
+    "object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'",
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "SAMEORIGIN",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "X-XSS-Protection": "0",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
+};
+
+function applySecurityHeaders(res, req) {
+  for (const [k, v] of Object.entries(SECURITY_HEADERS)) {
+    res.setHeader(k, v);
+  }
+  const proto = String(req.headers["x-forwarded-proto"] || "").toLowerCase();
+  if (req.socket.encrypted || proto === "https") {
+    res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
+  }
+}
+
+/* ---------- Image signature validation ---------- */
+function sniffImageExt(buffer) {
+  if (!buffer || buffer.length < 12) return "";
+  if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4e && buffer[3] === 0x47 && buffer[4] === 0x0d && buffer[5] === 0x0a && buffer[6] === 0x1a && buffer[7] === 0x0a) return ".png";
+  if (buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) return ".jpg";
+  if (buffer[0] === 0x47 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x38) return ".gif";
+  if (buffer[0] === 0x52 && buffer[1] === 0x49 && buffer[2] === 0x46 && buffer[3] === 0x46 && buffer[8] === 0x57 && buffer[9] === 0x45 && buffer[10] === 0x42 && buffer[11] === 0x50) return ".webp";
+  return "";
+}
+
 const MIME = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css; charset=utf-8",
@@ -168,6 +233,23 @@ const CACHE_EXTENSIONS = {
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
   const method = req.method;
+  const ip = clientIp(req);
+
+  applySecurityHeaders(res, req);
+
+  if (!["GET", "HEAD", "POST", "PUT"].includes(method)) {
+    return sendJson(res, 405, { success: false, message: "Method not allowed." });
+  }
+
+  if (url.pathname.startsWith("/api/")) {
+    let allowed = true;
+    if (url.pathname === "/api/track") allowed = rateLimit("track:" + ip, RATE_LIMITS.track.limit, RATE_LIMITS.track.window);
+    else if (url.pathname === "/api/admin/login") allowed = rateLimit("login:" + ip, RATE_LIMITS.login.limit, RATE_LIMITS.login.window);
+    else if (url.pathname.startsWith("/api/admin")) allowed = rateLimit("admin:" + ip, RATE_LIMITS.admin.limit, RATE_LIMITS.admin.window);
+    else if (method === "POST" || method === "PUT") allowed = rateLimit("post:" + ip, RATE_LIMITS.post.limit, RATE_LIMITS.post.window);
+    else allowed = rateLimit("api:" + ip, RATE_LIMITS.api.limit, RATE_LIMITS.api.window);
+    if (!allowed) return sendJson(res, 429, { success: false, message: "Too many requests. Please try again later." });
+  }
 
   /* ---------- Public POST endpoints ---------- */
   if (method === "POST") {
@@ -299,7 +381,11 @@ const server = http.createServer(async (req, res) => {
         if (buffer.length === 0 || buffer.length > 5 * 1024 * 1024) {
           return sendJson(res, 400, { success: false, message: "Image must be between 1 byte and 5 MB." });
         }
-        const file = "img_" + timestamp().replace(/[^0-9]/g, "_") + crypto.randomBytes(3).toString("hex") + ext;
+        const sniffed = sniffImageExt(buffer);
+        if (!sniffed) {
+          return sendJson(res, 400, { success: false, message: "File content does not look like an image." });
+        }
+        const file = "img_" + timestamp().replace(/[^0-9]/g, "_") + crypto.randomBytes(3).toString("hex") + sniffed;
         fs.mkdirSync(UPLOADS_DIR, { recursive: true });
         fs.writeFileSync(path.join(UPLOADS_DIR, file), buffer);
         return sendJson(res, 200, { success: true, url: "/uploads/" + file });
@@ -440,10 +526,22 @@ const server = http.createServer(async (req, res) => {
   }
 
   /* ---------- Static files ---------- */
-  const pathname = url.pathname === "/" ? "/index.html" : url.pathname;
+  let pathname;
+  try {
+    pathname = decodeURIComponent(url.pathname === "/" ? "/index.html" : url.pathname);
+  } catch {
+    res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
+    return res.end("Bad request");
+  }
+  if (/[\u0000-\u001f]/.test(pathname)) {
+    res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
+    return res.end("Bad request");
+  }
+  pathname = pathname.replace(/\\/g, "/");
 
   const blocked = ["/data/", "/admin-config.json", "/mail-config.json", "/node_modules/"];
-  if (blocked.some((b) => pathname.startsWith(b))) {
+  const lowerPath = pathname.toLowerCase();
+  if (blocked.some((b) => lowerPath.startsWith(b))) {
     res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Forbidden");
   }
@@ -496,6 +594,11 @@ server.listen(PORT, () => {
   console.log("Data saved to: " + DATA_DIR);
   console.log("Uploads saved to: " + UPLOADS_DIR);
 });
+
+server.requestTimeout = 30 * 1000;
+server.headersTimeout = 15 * 1000;
+server.keepAliveTimeout = 5 * 1000;
+server.maxHeadersCount = 80;
 
 function visitorInterest(session, orderCount) {
   if (orderCount > 0) return "converted";

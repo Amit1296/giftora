@@ -1086,5 +1086,9 @@ body.admin-bar .navbar { top: 32px; }
   margin-bottom: 16px;
 }
 .upi-qr-wrap img { display: block; width: 220px; height: 220px; border-radius: 6px; }
+.upi-official-wrap { margin-top: 4px; }
+.upi-official-wrap .upi-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+.upi-official-wrap .upi-qr-wrap { padding: 8px; margin-bottom: 8px; }
+.upi-official-wrap #upiOfficialQr { width: 170px; height: 170px; }
 .upi-id { font-size: 0.95rem; margin: 6px 0 4px; }
 .upi-note { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }

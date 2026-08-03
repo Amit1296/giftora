@@ -451,53 +451,22 @@
 		<button class="cart-close" id="upiClose" aria-label="Close UPI payment">&times;</button>
 	</div>
 	<div class="checkout-body upi-body">
-		<div class="upi-qr-wrap"><img id="upiQr" alt="UPI QR code"></div>
-		<p>Scan this QR with any UPI app (GPay, PhonePe, Paytm) and pay <strong id="upiAmount"></strong>.</p>
+		<div class="upi-qr-wrap"><img id="upiQr" alt="UPI QR code with amount"></div>
+<p>Scan this QR with any UPI app (GPay, PhonePe, Paytm) and pay <strong id="upiAmount"></strong> - the amount will be filled in automatically.</p>
+<div class="upi-official-wrap" id="upiOfficialWrap" hidden>
+	<p class="upi-sub">Or scan your official bank/UPI QR:</p>
+	<div class="upi-qr-wrap"><img id="upiOfficialQr" alt="Official UPI QR code"></div>
+</div>
 		<p class="upi-id">UPI ID: <strong id="upiIdText"></strong></p>
 		<p class="upi-note">Your order will be confirmed after we verify your payment.</p>
 		<button class="btn btn-primary" id="upiPaidBtn">I have paid</button>
 	</div>
 </div>
 
+<script src="../js/qrcode.min.js"></script>
 <script src="../js/script.js"></script>
 
-<script>
-  (function () {
-    var qty = 1;
-    var sel = document.querySelector(".qty-selector");
-    var qtyEl = sel && sel.querySelector("span");
-    if (sel) sel.addEventListener("click", function (e) {
-      var btn = e.target.closest("button[data-action]");
-      if (!btn) return;
-      qty = Math.max(1, Math.min(50, qty + (btn.dataset.action === "inc" ? 1 : -1)));
-      qtyEl.textContent = qty;
-    });
-    var sizeSel = document.querySelector(".size-selector");
-    var size = "";
-    if (sizeSel) {
-      var sizeBtns = sizeSel.querySelectorAll(".size-btn");
-      sizeBtns.forEach(function (b) {
-        b.addEventListener("click", function () {
-          sizeBtns.forEach(function (x) { x.classList.remove("selected"); });
-          b.classList.add("selected");
-          size = b.dataset.size;
-        });
-      });
-      size = sizeBtns.length ? sizeBtns[0].dataset.size : "";
-    }
-    var addBtn = document.getElementById("addToCartBtn");
-    if (addBtn && !addBtn.disabled) addBtn.addEventListener("click", function () {
-      window.Giftora.addToCartQty(18, qty, size);
-    });
-    document.addEventListener("click", function (e) {
-      var btn = e.target.closest(".add-to-cart[data-id]");
-      if (btn && btn.id !== "addToCartBtn" && !btn.disabled) {
-        var s = document.querySelector('.product-size[data-size="' + btn.dataset.id + '"]');
-        window.Giftora.addToCart(btn.dataset.id, s ? s.value : "");
-      }
-    });
-  })();
-</script>
+<script src="../js/product-page.js"></script>
 
 <!-- COOKIE-START -->
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent" aria-hidden="true">

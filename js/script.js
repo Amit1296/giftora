@@ -370,14 +370,29 @@
     const amt = cartTotal();
     upiAmount.textContent = formatPrice(amt);
     upiIdText.textContent = upiConfig.upiId;
-    let src = upiConfig.qrImage || "";
-    if (!src) {
-      const uri = "upi://pay?pa=" + encodeURIComponent(upiConfig.upiId) +
-        "&pn=" + encodeURIComponent(upiConfig.payeeName || "Giftora") +
-        "&am=" + Math.round(amt) + "&cu=INR";
-      src = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(uri);
+    const uri = "upi://pay?pa=" + upiConfig.upiId +
+      "&pn=" + encodeURIComponent(upiConfig.payeeName || "Giftora") +
+      "&am=" + Math.round(amt) + "&cu=INR" +
+      "&tn=" + encodeURIComponent("Giftora");
+    if (typeof qrcode === "function") {
+      const qr = qrcode(0, "M");
+      qr.addData(uri);
+      qr.make();
+      upiQr.src = qr.createDataURL(8, 2);
+    } else {
+      upiQr.src = "https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=" + encodeURIComponent(uri);
     }
-    upiQr.src = src;
+    upiQr.alt = "UPI QR code for " + formatPrice(amt);
+    const officialWrap = document.getElementById("upiOfficialWrap");
+    const officialQr = document.getElementById("upiOfficialQr");
+    if (officialWrap && officialQr) {
+      if (upiConfig.qrImage) {
+        officialQr.src = upiConfig.qrImage;
+        officialWrap.hidden = false;
+      } else {
+        officialWrap.hidden = true;
+      }
+    }
     upiOverlay.classList.add("open");
     upiModal.classList.add("open");
     lockScroll();

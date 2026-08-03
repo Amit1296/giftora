@@ -122,7 +122,7 @@
 </script>
 <!-- SEO-JSONLD-END -->
 </head>
-<body>
+<body data-category="shoes">
 
 <nav class="navbar" id="navbar">
 	<div class="container nav-container">
@@ -372,7 +372,7 @@
 
 <script src="js/products.js"></script>
 <script src="js/product-pages.js"></script>
-<script>window.PAGE_CATEGORY = "shoes";</script>
+<script src="js/page-category.js"></script>
 <div class="checkout-overlay" id="upiOverlay"></div>
 <div class="checkout-modal" id="upiModal" role="dialog" aria-label="Pay via UPI QR">
 	<div class="checkout-header">
@@ -380,14 +380,19 @@
 		<button class="cart-close" id="upiClose" aria-label="Close UPI payment">&times;</button>
 	</div>
 	<div class="checkout-body upi-body">
-		<div class="upi-qr-wrap"><img id="upiQr" alt="UPI QR code"></div>
-		<p>Scan this QR with any UPI app (GPay, PhonePe, Paytm) and pay <strong id="upiAmount"></strong>.</p>
+		<div class="upi-qr-wrap"><img id="upiQr" alt="UPI QR code with amount"></div>
+<p>Scan this QR with any UPI app (GPay, PhonePe, Paytm) and pay <strong id="upiAmount"></strong> - the amount will be filled in automatically.</p>
+<div class="upi-official-wrap" id="upiOfficialWrap" hidden>
+	<p class="upi-sub">Or scan your official bank/UPI QR:</p>
+	<div class="upi-qr-wrap"><img id="upiOfficialQr" alt="Official UPI QR code"></div>
+</div>
 		<p class="upi-id">UPI ID: <strong id="upiIdText"></strong></p>
 		<p class="upi-note">Your order will be confirmed after we verify your payment.</p>
 		<button class="btn btn-primary" id="upiPaidBtn">I have paid</button>
 	</div>
 </div>
 
+<script src="js/qrcode.min.js"></script>
 <script src="js/script.js"></script>
 
 
