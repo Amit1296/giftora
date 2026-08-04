@@ -1,11 +1,14 @@
 {
   "active": true,
   "title": "Raksha Bandhan Special",
+  "emoji": "🪢",
   "subtitle": "Celebrate the beautiful bond of love this Raksha Bandhan",
   "discount": 15,
-  "emoji": "🪢",
   "code": "RAKHI15",
   "note": "Limited period offer across all gifts",
-  "image": "",
-  "productIds": []
+  "image": "/uploads/img_2026_08_04_00_11_0445861a.jpg",
+  "productIds": [
+    46,
+    45
+  ]
 }

@@ -468,9 +468,10 @@
   }
 
   function productPageUrl(p) {
-    if (!window.GIFT_PRODUCT_PAGES) return null;
+    const dynamic = "product.html?id=" + p.id;
+    if (!window.GIFT_PRODUCT_PAGES) return dynamic;
     const slug = slugify(p.name);
-    return window.GIFT_PRODUCT_PAGES.includes(slug) ? "products/" + slug + ".html" : null;
+    return window.GIFT_PRODUCT_PAGES.includes(slug) ? "products/" + slug + ".html" : dynamic;
   }
 
   function renderProducts() {
@@ -584,6 +585,9 @@
       updateBadge();
       toast(`${p.name} added to cart`);
       animateCartBtn();
+    },
+    updateCatalog: (products) => {
+      if (Array.isArray(products)) PRODUCTS = products;
     },
     openCart,
   };
