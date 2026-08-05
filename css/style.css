@@ -1335,3 +1335,18 @@ body.admin-bar .navbar { top: 32px; }
   .chatbot-fab { right: 16px; bottom: 16px; width: 54px; height: 54px; }
   .chatbot-widget { right: 12px; bottom: 80px; width: calc(100vw - 24px); height: min(480px, 70vh); }
 }
+
+/* Blog */
+.blog-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.blog-card .blog-meta { justify-content: center; }
+.blog-hero { padding: 48px 0 10px; }
+.blog-article { padding: 40px 0 10px; background: #fff; }
+.blog-article-container { max-width: 780px; }
+.blog-article p { font-size: 1rem; line-height: 1.8; color: var(--text); margin: 0 0 18px; }
+.blog-article h2 { font-family: var(--font-head); font-size: clamp(1.4rem, 2.5vw, 1.9rem); margin: 34px 0 14px; color: var(--text); }
+.blog-article h3 { font-size: 1.15rem; margin: 24px 0 10px; color: var(--text); }
+.blog-article ul { margin: 0 0 18px; padding-left: 22px; }
+.blog-article ul li { font-size: 1rem; line-height: 1.8; color: var(--text); margin-bottom: 8px; }
+.blog-article .steps-grid { margin-bottom: 24px; }
+.blog-article .faq { margin-top: 34px; }
+.blog-article .faq .section-header { margin-bottom: 22px; }
