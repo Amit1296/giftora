@@ -56,8 +56,9 @@
   const PAGE_CATEGORY = window.PAGE_CATEGORY || null;
   const PAGE_FESTIVAL = document.body && document.body.getAttribute("data-page") === "festival";
   const PAGE_RAKHI = document.body && document.body.getAttribute("data-page") === "rakhi";
-  const RAKHI_CATEGORIES = ["combo"];
+  const PAGE_NRI = document.body && document.body.getAttribute("data-page") === "nri";
 
+  const RAKHI_CATEGORIES = ["combo"];
   let cart = loadCart();
   let activeFilter = "all";
   let searchQuery = "";
@@ -482,7 +483,7 @@
     const list = PRODUCTS.filter((p) => {
       const matchPage = PAGE_FESTIVAL
         ? festivalProductIds.size === 0 || festivalProductIds.has(p.id)
-        : PAGE_RAKHI
+        : PAGE_RAKHI || PAGE_NRI
           ? RAKHI_CATEGORIES.includes(p.category)
           : !PAGE_CATEGORY
             ? true

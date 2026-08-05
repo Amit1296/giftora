@@ -1148,3 +1148,54 @@ body.admin-bar .navbar { top: 32px; }
 .upi-official-wrap #upiOfficialQr { width: 170px; height: 170px; }
 .upi-id { font-size: 0.95rem; margin: 6px 0 4px; }
 .upi-note { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px; }
+
+/* ---------- International (Send Gifts to India) ---------- */
+.intl-flag { font-size: 2.6rem; line-height: 1; }
+.country-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 8px; }
+.country-card {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px 22px;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.country-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(124, 58, 237, 0.12); border-color: var(--primary); }
+.country-card .intl-flag { display: block; margin-bottom: 12px; }
+.country-card h3 { margin: 0 0 6px; color: var(--text); }
+.country-card p { margin: 0; font-size: 0.85rem; color: var(--text-muted); }
+.steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; margin-top: 8px; }
+.step-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px 20px 20px; }
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+.step-card h4 { margin: 0 0 6px; }
+.step-card p { margin: 0; font-size: 0.88rem; color: var(--text-muted); }
+.faq-list { max-width: 860px; margin: 0 auto; display: grid; gap: 12px; }
+.faq-item { background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.faq-item summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 16px 18px; font-weight: 600; font-size: 0.95rem; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: "+"; font-size: 1.3rem; color: var(--primary); transition: transform 0.2s; }
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { margin: 0; padding: 0 18px 16px; font-size: 0.88rem; color: var(--text-muted); }
+.intl-banner {
+  margin-top: 70px;
+  padding: 70px 0;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+}
+.intl-banner .container { display: grid; gap: 18px; text-align: center; justify-items: center; }
+.intl-banner h2 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.3rem); }
+.intl-banner p { margin: 0; max-width: 640px; opacity: 0.92; }
