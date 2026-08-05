@@ -64,4 +64,4 @@ instead of duplicating them.
   the sitemap.
 - After deploying, verify with Google Search Console (or any rich-result
   validator) that the new sitemap URL is picked up:
-  `https://giftora.onrender.com/sitemap.xml`
+  `https://gift-ora.online/sitemap.xml`

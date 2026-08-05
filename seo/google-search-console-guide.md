@@ -16,7 +16,7 @@ Giftora runs on Render's free tier, which sleeps after inactivity and returns
 Do one of these:
 
 - Create a free account at **UptimeRobot** (uptimerobot.com) → *New monitor* →
-  URL: `https://giftora.onrender.com` → check every 5 minutes. Free pings keep
+  URL: `https://gift-ora.online` → check every 5 minutes. Free pings keep
   the site warm.
 - Or set **Render** to the paid tier (no sleep at all).
 
@@ -27,7 +27,7 @@ Do one of these:
 1. Go to **search.google.com/search-console** and sign in with a Google account.
 2. Click **Add property**.
 3. Choose **URL prefix** (not "Domain").
-4. Paste: `https://giftora.onrender.com`
+4. Paste: `https://gift-ora.online`
 5. Click **Continue**.
 
 ## Step 2 — Verify ownership (use the meta tag)
@@ -69,13 +69,13 @@ You'll be shown verification options. Pick the one that gives you a meta tag:
 ## Step 4 — Request indexing of your best pages
 
 1. Top bar → **URL Inspection** tool.
-2. Paste `https://giftora.onrender.com/index.html` → press Enter.
+2. Paste `https://gift-ora.online/index.html` → press Enter.
 3. If it shows "URL is not on Google" (or not indexed), click
    **Request Indexing**.
 4. Repeat for a few key pages, e.g.:
-   - `https://giftora.onrender.com/cakes.html`
-   - `https://giftora.onrender.com/flower-delivery-online-same-day.html` (any product page)
-   - `https://giftora.onrender.com/sitemap.xml`
+   - `https://gift-ora.online/cakes.html`
+   - `https://gift-ora.online/flower-delivery-online-same-day.html` (any product page)
+   - `https://gift-ora.online/sitemap.xml`
 
 Do not spam — a handful of requests a day is plenty.
 

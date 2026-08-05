@@ -4,8 +4,8 @@ Standalone HTML copy of the Giftora WordPress theme. No WordPress, PHP, or datab
 
 ## Live Site
 
-- **Live URL:** https://giftora.onrender.com
-- **Admin panel:** https://giftora.onrender.com/admin.html (credentials from `ADMIN_USER` / `ADMIN_PASS` env vars, then local `admin-config.json` [gitignored]; if neither exists the server generates a random password on first boot and prints it in the startup logs)
+- **Live URL:** https://gift-ora.online
+- **Admin panel:** https://gift-ora.online/admin.html (credentials from `ADMIN_USER` / `ADMIN_PASS` env vars, then local `admin-config.json` [gitignored]; if neither exists the server generates a random password on first boot and prints it in the startup logs)
 - **Source repo:** https://github.com/Amit1296/giftora
 - **Local:** http://localhost:8080 (`node server.js`)
 

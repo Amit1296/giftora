@@ -1,8 +1,8 @@
-﻿User-agent: *
+User-agent: *
 Allow: /
 
 Disallow: /admin.html
 Disallow: /data/
 Disallow: /seo/
 
-Sitemap: https://giftora-1.onrender.com/sitemap.xml
+Sitemap: https://gift-ora.online/sitemap.xml
