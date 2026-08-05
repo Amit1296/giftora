@@ -158,37 +158,62 @@
 				<h2>Choose an <span class="text-gradient">occasion</span></h2>
 				<p>Tap an occasion for a dedicated page with handpicked gift ideas.</p>
 			</div>
-			<div class="country-grid">
-				<a href="birthday-gifts.html" class="country-card">
-					<span class="intl-flag">🎂</span>
-					<h3>Birthday Gifts</h3>
-					<p>Cakes, flowers, teddy bears &amp; combos</p>
-				</a>
-				<a href="anniversary-gifts.html" class="country-card">
-					<span class="intl-flag">💕</span>
-					<h3>Anniversary Gifts</h3>
-					<p>Cakes, roses, teddy bears &amp; more</p>
-				</a>
-				<a href="wedding-gifts.html" class="country-card">
-					<span class="intl-flag">💍</span>
-					<h3>Wedding Gifts</h3>
-					<p>Combos, flowers &amp; home surprises</p>
-				</a>
-				<a href="housewarming-gifts.html" class="country-card">
-					<span class="intl-flag">🏡</span>
-					<h3>Housewarming Gifts</h3>
-					<p>Plants, combos &amp; new-home gifts</p>
-				</a>
-				<a href="baby-shower-gifts.html" class="country-card">
-					<span class="intl-flag">🍼</span>
-					<h3>Baby Shower Gifts</h3>
-					<p>Teddy bears, toys &amp; combos</p>
-				</a>
-				<a href="corporate-gifts.html" class="country-card">
-					<span class="intl-flag">💼</span>
-					<h3>Corporate Gifts</h3>
-					<p>Bulk gifting for businesses</p>
-				</a>
+			<div class="occasion-slider" data-slider data-autoplay="4000">
+				<div class="slider-viewport">
+					<div class="slider-track">
+						<a href="birthday-gifts.html" class="slide">
+							<img src="/uploads/occasion-birthday.jpg" alt="Birthday Gifts at Giftora">
+							<div class="slide-overlay">
+								<span class="slide-emoji">🎂</span>
+								<h3>Birthday Gifts</h3>
+								<p>Cakes, flowers, teddy bears &amp; combos</p>
+							</div>
+						</a>
+						<a href="anniversary-gifts.html" class="slide">
+							<img src="/uploads/occasion-anniversary.jpg" alt="Anniversary Gifts at Giftora">
+							<div class="slide-overlay">
+								<span class="slide-emoji">💕</span>
+								<h3>Anniversary Gifts</h3>
+								<p>Cakes, roses, teddy bears &amp; more</p>
+							</div>
+						</a>
+						<a href="wedding-gifts.html" class="slide">
+							<img src="/uploads/occasion-wedding.jpg" alt="Wedding Gifts at Giftora">
+							<div class="slide-overlay">
+								<span class="slide-emoji">💍</span>
+								<h3>Wedding Gifts</h3>
+								<p>Combos, flowers &amp; home surprises</p>
+							</div>
+						</a>
+						<a href="housewarming-gifts.html" class="slide">
+							<img src="/uploads/occasion-housewarming.jpg" alt="Housewarming Gifts at Giftora">
+							<div class="slide-overlay">
+								<span class="slide-emoji">🏡</span>
+								<h3>Housewarming Gifts</h3>
+								<p>Plants, combos &amp; new-home gifts</p>
+							</div>
+						</a>
+						<a href="baby-shower-gifts.html" class="slide">
+							<img src="/uploads/occasion-baby-shower.jpg" alt="Baby Shower Gifts at Giftora">
+							<div class="slide-overlay">
+								<span class="slide-emoji">🍼</span>
+								<h3>Baby Shower Gifts</h3>
+								<p>Teddy bears, toys &amp; combos</p>
+							</div>
+						</a>
+						<a href="corporate-gifts.html" class="slide">
+							<img src="/uploads/occasion-corporate.jpg" alt="Corporate Gifts at Giftora">
+							<div class="slide-overlay">
+								<span class="slide-emoji">💼</span>
+								<h3>Corporate Gifts</h3>
+								<p>Bulk gifting for businesses</p>
+							</div>
+						</a>
+					</div>
+				</div>
+				<button class="slider-arrow slider-prev" type="button" data-slider-prev aria-label="Previous slide">&#8249;</button>
+				<button class="slider-arrow slider-next" type="button" data-slider-next aria-label="Next slide">&#8250;</button>
+				<div class="slider-dots" role="tablist" aria-label="Occasion slides"></div>
 			</div>
 		</div>
 	</section>
@@ -419,6 +444,7 @@
 
 <script src="js/qrcode.min.js"></script>
 <script src="js/script.js"></script>
+<script src="js/slider.js"></script>
 
 
 <!-- COOKIE-START -->
