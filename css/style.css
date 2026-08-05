@@ -94,7 +94,7 @@ input, textarea { font-family: inherit; }
   text-shadow: 0 2px 12px rgba(124,58,237,0.15);
   transition: transform 0.25s;
 }
-.logo-mark { width: 48px; height: 41px; flex: none; }
+.logo-mark { width: 66px; height: 56px; flex: none; }
 .logo:hover { transform: scale(1.05) rotate(-2deg); }
 .logo span {
   color: var(--accent); font-family: var(--font-script); font-size: 1.35em; font-weight: 700;
