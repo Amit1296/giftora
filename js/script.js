@@ -56,7 +56,7 @@
   const PAGE_CATEGORY = window.PAGE_CATEGORY || null;
   const PAGE_FESTIVAL = document.body && document.body.getAttribute("data-page") === "festival";
   const PAGE_RAKHI = document.body && document.body.getAttribute("data-page") === "rakhi";
-  const RAKHI_CATEGORIES = ["Combo Offers", "Teddy Bears", "Flowers", "Cakes", "Plants", "Belts", "Sunglasses", "Caps & Hats"];
+  const RAKHI_CATEGORIES = ["combo"];
 
   let cart = loadCart();
   let activeFilter = "all";

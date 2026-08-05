@@ -650,6 +650,29 @@ input, textarea { font-family: inherit; }
 }
 .wa-btn:hover { transform: scale(1.1); box-shadow: 0 12px 30px rgba(37,211,102,0.6); }
 
+.rakhi-banner { padding: 0 0 10px; }
+.rakhi-banner-inner {
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: 28px; align-items: center;
+  background: linear-gradient(120deg, #fdf6f8, #f3e9ff 50%, #fff4e2);
+  border: 1px solid var(--border); border-radius: 24px; padding: 22px;
+  box-shadow: var(--shadow-md);
+}
+.rakhi-banner-media {
+  border-radius: 18px; overflow: hidden; min-height: 220px;
+  background: linear-gradient(135deg, #f5b301, #7c3aed);
+}
+.rakhi-banner-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rakhi-banner-copy { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.rakhi-banner-copy h2 { font-family: var(--font-head); font-size: clamp(1.5rem, 3vw, 2.1rem); line-height: 1.15; }
+.rakhi-banner-copy p { color: var(--text-muted); max-width: 480px; }
+.rakhi-banner-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+.rakhi-banner-code { font-size: 0.95rem; font-weight: 600; color: var(--primary); }
+.rakhi-banner-code strong { color: var(--accent-dark); }
+@media (max-width: 760px) {
+  .rakhi-banner-inner { grid-template-columns: 1fr; }
+  .rakhi-banner-media { min-height: 180px; }
+}
+
 .festival-hero {
   padding: 150px 0 40px;
   background: linear-gradient(135deg, #fdf6f8 0%, #f3e9ff 45%, #fff4e2 100%);
