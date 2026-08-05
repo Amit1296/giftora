@@ -87,14 +87,14 @@ input, textarea { font-family: inherit; }
   box-shadow: 0 10px 30px rgba(124,58,237,0.14);
   border-color: rgba(124,58,237,0.15);
 }
-.nav-container { display: flex; align-items: center; justify-content: space-between; height: 84px; }
+.nav-container { display: flex; align-items: center; justify-content: space-between; height: 96px; }
 .logo {
   display: inline-flex; align-items: center; gap: 10px;
   font-family: var(--font-head); font-size: 1.85rem; font-weight: 800; color: var(--text);
   text-shadow: 0 2px 12px rgba(124,58,237,0.15);
   transition: transform 0.25s;
 }
-.logo-mark { width: 66px; height: 56px; flex: none; }
+.logo-mark { width: 84px; height: 71px; flex: none; }
 .logo:hover { transform: scale(1.05) rotate(-2deg); }
 .logo span {
   color: var(--accent); font-family: var(--font-script); font-size: 1.35em; font-weight: 700;
