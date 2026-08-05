@@ -57,8 +57,20 @@
   const PAGE_FESTIVAL = document.body && document.body.getAttribute("data-page") === "festival";
   const PAGE_RAKHI = document.body && document.body.getAttribute("data-page") === "rakhi";
   const PAGE_NRI = document.body && document.body.getAttribute("data-page") === "nri";
+  const PAGE_OCCASION = document.body && document.body.getAttribute("data-page") === "occasion";
 
   const RAKHI_CATEGORIES = ["combo"];
+  const OCCASION_FILTERS = {
+    "birthday-gifts": ["combo", "cakes", "flowers", "teddy", "toys"],
+    "anniversary-gifts": ["combo", "cakes", "flowers", "teddy"],
+    "wedding-gifts": ["combo", "flowers", "plants"],
+    "housewarming-gifts": ["plants", "combo", "flowers"],
+    "baby-shower-gifts": ["teddy", "toys", "combo"],
+    "corporate-gifts": ["combo", "plants"]
+  };
+  const OCCASION_CATEGORIES = PAGE_OCCASION
+    ? OCCASION_FILTERS[document.body.getAttribute("data-occasion")] || null
+    : null;
   let cart = loadCart();
   let activeFilter = "all";
   let searchQuery = "";
@@ -485,11 +497,13 @@
         ? festivalProductIds.size === 0 || festivalProductIds.has(p.id)
         : PAGE_RAKHI || PAGE_NRI
           ? RAKHI_CATEGORIES.includes(p.category)
-          : !PAGE_CATEGORY
-            ? true
-            : PAGE_CATEGORY === "special"
-              ? p.oldPrice > 0
-              : p.category === PAGE_CATEGORY;
+          : PAGE_OCCASION
+            ? OCCASION_CATEGORIES === null || OCCASION_CATEGORIES.includes(p.category)
+            : !PAGE_CATEGORY
+              ? true
+              : PAGE_CATEGORY === "special"
+                ? p.oldPrice > 0
+                : p.category === PAGE_CATEGORY;
       const matchCat = activeFilter === "all" || p.category === activeFilter;
       const matchQuery = !query || p.name.toLowerCase().includes(query) || p.category.includes(query);
       return matchPage && matchCat && matchQuery;
