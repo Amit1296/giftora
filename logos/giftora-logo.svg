@@ -1,0 +1,50 @@
+<svg width="260" height="220" viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .anim { animation: pulse 2.4s ease-in-out infinite; transform-origin: 130px 110px; }
+    @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+    .orbit { animation: spin 30s linear infinite; transform-origin: 130px 110px; }
+    .counter { animation: spin 30s linear infinite reverse; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .sway { animation: sway 2.8s ease-in-out infinite; transform-origin: center; }
+    .sway2 { animation: sway 2.8s ease-in-out .6s infinite; transform-origin: center; }
+    @keyframes sway { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+    .twinkle { animation: twinkle 2s ease-in-out infinite; opacity: 0; }
+    @keyframes twinkle { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+  </style>
+  <defs>
+    <linearGradient id="g6" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#5b21b6"/>
+    </linearGradient>
+    <linearGradient id="g6b" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbbf24"/>
+      <stop offset="1" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <g class="orbit">
+    <circle cx="130" cy="110" r="80" fill="none" stroke="#d8b4fe" stroke-width="1.5" stroke-dasharray="3 7"/>
+    <text class="counter" style="transform-origin:130px 30px" x="130" y="30" font-size="22" text-anchor="middle" dominant-baseline="central">👗</text>
+    <text class="counter" style="transform-origin:90px 40.7px" x="90" y="40.7" font-size="22" text-anchor="middle" dominant-baseline="central">🧸</text>
+    <text class="counter" style="transform-origin:199.3px 70px" x="199.3" y="70" font-size="22" text-anchor="middle" dominant-baseline="central">💐</text>
+    <text class="counter" style="transform-origin:210px 110px" x="210" y="110" font-size="22" text-anchor="middle" dominant-baseline="central">🎂</text>
+    <text class="counter" style="transform-origin:199.3px 150px" x="199.3" y="150" font-size="22" text-anchor="middle" dominant-baseline="central">👟</text>
+    <text class="counter" style="transform-origin:170px 179.3px" x="170" y="179.3" font-size="22" text-anchor="middle" dominant-baseline="central">🐻</text>
+    <text class="counter" style="transform-origin:130px 190px" x="130" y="190" font-size="22" text-anchor="middle" dominant-baseline="central">🪴</text>
+    <text class="counter" style="transform-origin:90px 179.3px" x="90" y="179.3" font-size="22" text-anchor="middle" dominant-baseline="central">🎁</text>
+    <text class="counter" style="transform-origin:60.7px 150px" x="60.7" y="150" font-size="22" text-anchor="middle" dominant-baseline="central">🔥</text>
+    <text class="counter" style="transform-origin:50px 110px" x="50" y="110" font-size="22" text-anchor="middle" dominant-baseline="central">🕶️</text>
+    <text class="counter" style="transform-origin:60.7px 70px" x="60.7" y="70" font-size="22" text-anchor="middle" dominant-baseline="central">🧢</text>
+    <text class="counter" style="transform-origin:90px 40.7px" x="90" y="40.7" font-size="22" text-anchor="middle" dominant-baseline="central">🪢</text>
+  </g>
+  <g class="anim">
+    <rect x="105" y="98" width="50" height="40" rx="8" fill="url(#g6)"/>
+    <rect x="105" y="98" width="50" height="15" rx="8" fill="#7c3aed"/>
+    <rect x="127" y="92" width="6" height="46" fill="url(#g6b)"/>
+    <rect x="105" y="107" width="50" height="5" fill="url(#g6b)"/>
+    <ellipse class="sway" cx="116" cy="88" rx="6" ry="4.5" fill="none" stroke="url(#g6b)" stroke-width="4" transform="rotate(-20 116 88)"/>
+    <ellipse class="sway2" cx="144" cy="88" rx="6" ry="4.5" fill="none" stroke="url(#g6b)" stroke-width="4" transform="rotate(20 144 88)"/>
+    <circle cx="130" cy="90" r="2.5" fill="#f5b301"/>
+  </g>
+  <path class="twinkle" style="animation-delay:.5s" fill="#f5b301" d="M238 34 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+  <path class="twinkle" style="animation-delay:1.2s" fill="#f5b301" d="M22 190 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+</svg>
