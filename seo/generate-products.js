@@ -404,7 +404,8 @@ function buildPage(product, slug, catMeta, site, chrome, products) {
 <html lang="en">
 <head>
 \t<meta charset="UTF-8">
-\t<meta name="viewport" content="width=device-width, initial-scale=1.0">
+\t<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+\t<meta name="theme-color" content="#7c3aed">
 ${meta.block}
 \t<meta name="description" content="${esc(description)}">
 \t<link rel="icon" href="../logo.svg">

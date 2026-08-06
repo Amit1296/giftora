@@ -231,10 +231,11 @@ function escapeRegExp(s) {
 }
 
 function injectMeta(html, block) {
-  const anchor = '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
-  const idx = html.indexOf(anchor);
-  if (idx === -1) throw new Error("viewport meta not found");
-  return html.slice(0, idx + anchor.length) + "\n" + block + html.slice(idx + anchor.length);
+  const re = /<meta name="viewport" content="[^"]+">(\r?\n\t<meta name="theme-color" content="[^"]+">)?/;
+  const m = html.match(re);
+  if (!m) throw new Error("viewport meta not found");
+  const next = '<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">';
+  return html.replace(m[0], next + '\n\t<meta name="theme-color" content="#7c3aed">\n' + block);
 }
 
 function todayIso() {

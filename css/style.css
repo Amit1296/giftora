@@ -1351,3 +1351,85 @@ body.admin-bar .navbar { top: 32px; }
 .blog-article .steps-grid { margin-bottom: 24px; }
 .blog-article .faq { margin-top: 34px; }
 .blog-article .faq .section-header { margin-bottom: 22px; }
+
+/* =========================================================
+   Mobile UX — Android & iOS
+   ========================================================= */
+:root { --mnav-h: 60px; }
+
+/* Kill tap-highlight flash and double-tap-zoom lag on touch */
+a, button, .menu-toggle, .cart-btn, .qty-selector button, .size-btn,
+.slider-arrow, .slider-dot, .cookie-btn, .mnav-item, .chatbot-fab, .wa-btn {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Anchor targets clear the fixed navbar when navigated to */
+main [id], .hero [id] { scroll-margin-top: 120px; }
+
+/* ---------- Mobile bottom navigation bar ---------- */
+.mnav {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 200;
+  display: none;
+  height: calc(var(--mnav-h) + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: rgba(255, 255, 255, 0.97);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -8px 24px rgba(43, 31, 34, 0.08);
+}
+.mnav-inner { display: flex; align-items: stretch; height: var(--mnav-h); }
+.mnav-item {
+  position: relative;
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+}
+.mnav-item svg { width: 22px; height: 22px; }
+.mnav-item:active { color: var(--primary); }
+.mnav-badge {
+  position: absolute; top: 6px; right: calc(50% - 26px);
+  min-width: 18px; height: 18px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--primary); color: #fff;
+  font-size: 0.65rem; font-weight: 700; border-radius: 999px; padding: 0 4px;
+}
+.mnav-badge.hidden { display: none; }
+
+@media (max-width: 640px) {
+  .mnav { display: block; }
+  body { padding-bottom: calc(var(--mnav-h) + env(safe-area-inset-bottom)); }
+
+  /* Tighter navbar so content gets more screen space */
+  .navbar { padding-top: env(safe-area-inset-top); }
+  .nav-container { height: 68px; }
+  .logo { font-size: 1.5rem; }
+  .logo-mark { width: 56px; height: 47px; }
+  .cart-btn { width: 42px; height: 42px; }
+  .nav-links { top: calc(68px + env(safe-area-inset-top)); padding-bottom: calc(var(--mnav-h) + env(safe-area-inset-bottom) + 16px); }
+  .menu-toggle span { width: 26px; height: 3px; }
+  .hero { padding-top: 96px; }
+
+  /* iOS zooms in when a form control is focused if its font-size < 16px */
+  input, select, textarea { font-size: 16px; }
+  .chatbot-input input { font-size: 16px; }
+  .product-size, .cart-item-size { min-height: 44px; font-size: 16px; }
+
+  /* Touch targets: at least 44x44px */
+  .qty-selector button { width: 44px; height: 44px; }
+  .qty-selector { padding: 6px; }
+  .size-btn { min-width: 44px; min-height: 44px; padding: 10px 16px; }
+  .slider-dot { width: 14px; height: 14px; }
+
+  /* Keep fixed widgets above the bottom nav */
+  .chatbot-fab { right: 16px; bottom: calc(var(--mnav-h) + 12px + env(safe-area-inset-bottom)); width: 54px; height: 54px; }
+  .chatbot-widget { right: 12px; bottom: calc(var(--mnav-h) + 12px + env(safe-area-inset-bottom)); width: calc(100vw - 24px); height: min(480px, calc(70vh - var(--mnav-h))); }
+  .wa-btn { display: none; }
+  .cookie-banner { bottom: calc(var(--mnav-h) + 12px + env(safe-area-inset-bottom)); }
+  .toast { bottom: calc(var(--mnav-h) + 20px + env(safe-area-inset-bottom)); }
+
+  /* Product detail actions take full width on small screens */
+  .product-detail-actions .add-to-cart { flex: 1; justify-content: center; }
+}
+
