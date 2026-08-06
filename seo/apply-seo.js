@@ -77,11 +77,16 @@ function buildMetaBlock(page, cfg, site) {
   lines.push(`<meta property="og:url" content="${url}">`);
   lines.push(`<meta property="og:type" content="website">`);
   lines.push(`<meta property="og:locale" content="${site.locale}">`);
-  if (cfg.ogImage) lines.push(`<meta property="og:image" content="${cfg.ogImage}">`);
+  const ogImage = cfg.ogImage || site.ogImage;
+  if (ogImage) {
+    lines.push(`<meta property="og:image" content="${ogImage}">`);
+    lines.push(`<meta property="og:image:width" content="1200">`);
+    lines.push(`<meta property="og:image:height" content="800">`);
+  }
   lines.push('<meta name="twitter:card" content="summary_large_image">');
   lines.push(`<meta name="twitter:title" content="${esc(title)}">`);
   lines.push(`<meta name="twitter:description" content="${esc(desc)}">`);
-  if (cfg.ogImage) lines.push(`<meta name="twitter:image" content="${cfg.ogImage}">`);
+  if (ogImage) lines.push(`<meta name="twitter:image" content="${ogImage}">`);
 
   lines.push(MARKER_END);
   return lines.join("\n");
@@ -253,37 +258,63 @@ function writeRobots(site) {
   console.log("  robots.txt written");
 }
 
-function writeSitemap(site, pages, extraUrls = []) {
+function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
   const lastmod = todayIso();
-  const urls = Object.entries(pages)
-    .filter(([, c]) => c.sitemap)
-    .sort((a, b) => {
-      const pa = a[1].sitemap.priority || "0";
-      const pb = b[1].sitemap.priority || "0";
-      return Number(pb) - Number(pa);
-    })
-    .map(([file, c]) => {
-      const loc = site.url + "/" + file;
-      return [
-        "  <url>",
-        `    <loc>${esc(loc)}</loc>`,
-        `    <lastmod>${lastmod}</lastmod>`,
-        `    <changefreq>${c.sitemap.changefreq}</changefreq>`,
-        `    <priority>${c.sitemap.priority}</priority>`,
-        "  </url>",
-      ].join("\n");
-    });
+  const urlSet = new Map();
+
+  const addUrl = (loc, priority, changefreq) => {
+    urlSet.set(loc, { priority: String(priority || "0.5"), changefreq: changefreq || "weekly" });
+  };
+
+  for (const [file, c] of Object.entries(pages)) {
+    if (!c.sitemap) continue;
+    addUrl(site.url + "/" + file, c.sitemap.priority, c.sitemap.changefreq);
+  }
 
   for (const u of extraUrls) {
-    urls.push([
-      "  <url>",
-      `    <loc>${esc(u.loc)}</loc>`,
-      `    <lastmod>${lastmod}</lastmod>`,
-      `    <changefreq>${u.changefreq}</changefreq>`,
-      `    <priority>${u.priority}</priority>`,
-      "  </url>",
-    ].join("\n"));
+    addUrl(u.loc, u.priority, u.changefreq);
   }
+
+  for (const [file, c] of Object.entries(sitemapOnly)) {
+    addUrl(site.url + "/" + file, c.priority, c.changefreq);
+  }
+
+  const excluded = ["admin.html", "product.html", "logos/logo-concepts.html"];
+  const walk = (dir) => {
+    for (const f of fs.readdirSync(dir)) {
+      const full = path.join(dir, f);
+      if (fs.statSync(full).isDirectory()) {
+        if (["node_modules", "backups", "data", "uploads", "seo", ".git"].includes(f)) continue;
+        walk(full);
+      } else if (f.endsWith(".html")) {
+        const rel = path.relative(ROOT, full).replace(/\\/g, "/");
+        if (!excluded.includes(rel) && !urlSet.has(site.url + "/" + rel)) {
+          addUrl(site.url + "/" + rel, "0.5", "weekly");
+        }
+      }
+    }
+  };
+  try {
+    walk(ROOT);
+  } catch (e) {
+    console.error("  sitemap filesystem scan error:", e.message);
+  }
+
+  const sorted = [...urlSet.entries()].sort((a, b) => {
+    const pa = parseFloat(a[1].priority) || 0;
+    const pb = parseFloat(b[1].priority) || 0;
+    if (pb !== pa) return pb - pa;
+    return a[0].localeCompare(b[0]);
+  });
+
+  const urls = sorted.map(([loc, m]) => [
+    "  <url>",
+    `    <loc>${esc(loc)}</loc>`,
+    `    <lastmod>${lastmod}</lastmod>`,
+    `    <changefreq>${m.changefreq}</changefreq>`,
+    `    <priority>${m.priority}</priority>`,
+    "  </url>",
+  ].join("\n"));
 
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
@@ -293,7 +324,7 @@ function writeSitemap(site, pages, extraUrls = []) {
     "",
   ].join("\n");
   fs.writeFileSync(path.join(ROOT, "sitemap.xml"), xml, "utf8");
-  console.log("  sitemap.xml written (" + urls.length + " URLs)");
+  console.log("  sitemap.xml written (" + sorted.length + " URLs)");
 }
 
 function injectTitleDescription(html, cfg) {
@@ -381,7 +412,7 @@ function apply() {
   }
 
   writeRobots(site);
-  writeSitemap(site, pages);
+  writeSitemap(site, pages, [], cfg.sitemapOnly || {});
   console.log("Done. Re-run this script any time after editing seo/keywords.json.");
 }
 

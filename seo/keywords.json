@@ -8,6 +8,7 @@
     "phone": "+91 70880 84046",
     "phoneHref": "+917088084046",
     "address": "Dilshad Colony, Delhi - 110095",
+    "ogImage": "https://gift-ora.online/uploads/occasion-gifts.jpg",
     "googleVerification": "",
     "bingVerification": ""
   },
@@ -30,7 +31,10 @@
         "send gifts online",
         "gift store near me"
       ],
-      "sitemap": { "priority": "1.0", "changefreq": "daily" }
+      "sitemap": {
+        "priority": "1.0",
+        "changefreq": "daily"
+      }
     },
     "clothes.html": {
       "type": "category",
@@ -49,7 +53,10 @@
         "buy clothes online as gift",
         "premium silk saree gift"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "shoes.html": {
       "type": "category",
@@ -68,7 +75,10 @@
         "leather shoes gift",
         "running shoes gift"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "teddy.html": {
       "type": "category",
@@ -87,7 +97,10 @@
         "teddy bear for girlfriend",
         "teddy gift for birthday"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "sunglasses.html": {
       "type": "category",
@@ -106,7 +119,10 @@
         "trendy sunglasses gift",
         "same day sunglasses delivery"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "caps.html": {
       "type": "category",
@@ -125,7 +141,10 @@
         "hat gift delivery",
         "same day caps delivery"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "belts.html": {
       "type": "category",
@@ -144,7 +163,10 @@
         "brown leather belt",
         "black formal belt"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "flowers.html": {
       "type": "category",
@@ -163,7 +185,10 @@
         "flower shop online India",
         "fresh flowers gift"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "plants.html": {
       "type": "category",
@@ -182,7 +207,10 @@
         "same day plant delivery",
         "office desk plants"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "cakes.html": {
       "type": "category",
@@ -201,7 +229,10 @@
         "same day cake delivery",
         "cake shop online"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "toys.html": {
       "type": "category",
@@ -220,12 +251,15 @@
         "same day toys delivery",
         "toy shop online"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "combo.html": {
       "type": "category",
       "category": "Combo Offers",
-      "title": "Gift Combos Online — Cake, Flowers & More Bundles | Giftora",
+      "title": "Gift Combos Online — Cake & Flower Bundles | Giftora",
       "description": "Shop combo gift offers online — cake and flower combos, teddy and chocolate bundles, and birthday surprise boxes at unbeatable prices.",
       "keywords": [
         "gift combos online",
@@ -239,7 +273,10 @@
         "buy gift combo online",
         "same day combo delivery"
       ],
-      "sitemap": { "priority": "0.8", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
     },
     "special-offers.html": {
       "type": "category",
@@ -258,12 +295,15 @@
         "best gift deals",
         "affordable gifts online"
       ],
-      "sitemap": { "priority": "0.9", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.9",
+        "changefreq": "weekly"
+      }
     },
     "festival.html": {
       "type": "category",
       "category": "Festival Offer",
-      "title": "Festival Gift Offers — Raksha Bandhan, Diwali & More | Giftora",
+      "title": "Festival Gift Offers — Rakhi, Diwali & More | Giftora",
       "description": "Giftora festival offer — special discounts and gifts for Raksha Bandhan, Diwali, Rakhi and every festival celebration with same-day delivery.",
       "keywords": [
         "rakhi gifts online",
@@ -277,12 +317,15 @@
         "online festival shopping gifts",
         "send festival gifts"
       ],
-      "sitemap": { "priority": "0.9", "changefreq": "weekly" }
+      "sitemap": {
+        "priority": "0.9",
+        "changefreq": "weekly"
+      }
     },
     "about.html": {
       "type": "about",
       "title": "About Giftora — Our Story of Thoughtful Gifting",
-      "description": "Learn about Giftora — a trusted online gift shop delivering thoughtful gifts since 2020. Discover our mission, values and what makes gifting with us special.",
+      "description": "Learn about Giftora — a trusted online gift shop delivering thoughtful gifts since 2020. Discover our mission, values and what makes gifting with us…",
       "keywords": [
         "about Giftora",
         "online gift shop India",
@@ -293,7 +336,10 @@
         "online gift company",
         "gifting made easy"
       ],
-      "sitemap": { "priority": "0.6", "changefreq": "monthly" }
+      "sitemap": {
+        "priority": "0.6",
+        "changefreq": "monthly"
+      }
     },
     "contact.html": {
       "type": "contact",
@@ -309,11 +355,14 @@
         "order gifts contact",
         "giftora help"
       ],
-      "sitemap": { "priority": "0.6", "changefreq": "monthly" }
+      "sitemap": {
+        "priority": "0.6",
+        "changefreq": "monthly"
+      }
     },
     "vendors.html": {
       "type": "page",
-      "title": "Become a Giftora Vendor — Sell Gifts Online | Partner Program",
+      "title": "Become a Giftora Vendor — Sell Gifts Online | Giftora",
       "description": "Sell your products on Giftora. Join our vendor and partner network to reach thousands of customers, get fast payments and easy onboarding.",
       "keywords": [
         "become a gift vendor",
@@ -325,7 +374,10 @@
         "partner with gift shop",
         "sell gifts earn online"
       ],
-      "sitemap": { "priority": "0.5", "changefreq": "monthly" }
+      "sitemap": {
+        "priority": "0.5",
+        "changefreq": "monthly"
+      }
     },
     "terms.html": {
       "type": "page",
@@ -340,7 +392,10 @@
         "return policy gifts",
         "payment terms online"
       ],
-      "sitemap": { "priority": "0.3", "changefreq": "yearly" }
+      "sitemap": {
+        "priority": "0.3",
+        "changefreq": "yearly"
+      }
     },
     "privacy-policy.html": {
       "type": "page",
@@ -355,7 +410,10 @@
         "online store privacy",
         "giftora security"
       ],
-      "sitemap": { "priority": "0.3", "changefreq": "yearly" }
+      "sitemap": {
+        "priority": "0.3",
+        "changefreq": "yearly"
+      }
     },
     "admin.html": {
       "type": "admin",
@@ -363,6 +421,508 @@
       "description": "Giftora admin dashboard — manage products, orders, enquiries, vendors and festival offers.",
       "keywords": [],
       "sitemap": null
+    }
+  },
+  "sitemapOnly": {
+    "gift-delivery-india.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "occasion-gifts.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "rakhi-gifts.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "send-gifts-to-india.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "anniversary-gifts.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "baby-shower-gifts.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "birthday-gifts.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "corporate-gifts.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-agra.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-ahmedabad.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-ambala.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-amravati.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-bengaluru.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-bhopal.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-bhubaneswar.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-chandigarh.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-chennai.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-coimbatore.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-cuttack.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-dehradun.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-delhi.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-dhanbad.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-gaya.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-gurugram.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-guwahati.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-gwalior.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-haridwar.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-hubballi.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-hyderabad.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-indore.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-jabalpur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-jaipur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-jammu.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-jamshedpur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-kanpur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-kochi.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-kolhapur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-kolkata.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-kozhikode.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-lucknow.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-ludhiana.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-madurai.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-mathura.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-meerut.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-mumbai.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-mysuru.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-nagpur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-nashik.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-noida.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-panaji.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-patiala.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-patna.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-pune.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-raipur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-rajkot.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-ranchi.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-salem.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-shillong.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-siliguri.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-srinagar.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-surat.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-thiruvananthapuram.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-thrissur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-tiruchirappalli.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-tirupati.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-ujjain.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-varanasi.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-vijayawada.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-visakhapatnam.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-warangal.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gifts-to-india-from-africa.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gifts-to-india-from-australia.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gifts-to-india-from-canada.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gifts-to-india-from-uk.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gifts-to-india-from-usa.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "housewarming-gifts.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "wedding-gifts.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "blog-festival-gifts-nri.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "blog-nri-gift-guide.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "blog-rakhi-gifts-nri.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "blog.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/baby-doll-gift-set.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/birthday-surprise-box.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/cake-flowers-combo.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/casual-canvas-belt.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/chocolate-truffle-cake-1kg.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/classic-aviator-sunglasses.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/classic-baseball-cap.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/classic-vanilla-birthday-cake.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/classic-white-dress-shirt.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/classic-white-sneakers.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/cuddly-teddy-bear-40cm.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/embroidered-snapback-cap.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/floral-summer-midi-dress.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/formal-black-belt.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/formal-leather-shoes.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/fresh-red-rose-bouquet.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/giant-teddy-bear-60cm.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/heart-teddy-bear-with-card.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/huggable-teddy-bear-40cm.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/kids-cotton-hoodie-set.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/kids-summer-sandals.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/leather-belt-brown.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/lucky-bamboo-plant.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/mixed-tulip-hand-tied-bouquet.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/money-plant-in-ceramic-pot.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/orchid-planter-in-ceramic-pot.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/peace-lily-in-bloom-pot.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/perfume-flowers-combo.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/polarized-wayfarer-sunglasses.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/premium-reversible-belt.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/red-velvet-celebration-cake-1kg.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/remote-control-racing-car.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/round-retro-sunglasses.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/saree-gift-pack-premium-silk.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/snake-plant-in-decor-pot.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/sports-running-shoes.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/sports-uv-sunglasses.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/stem-building-blocks-set.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/strawberry-cream-cake-1kg.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/summer-bucket-hat.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/sunflower-bunch-12-stems.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/teddy-bear-gift-basket.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/teddy-chocolates-combo.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "products/woolen-winter-beanie.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
     }
   }
 }

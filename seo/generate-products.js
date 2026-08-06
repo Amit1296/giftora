@@ -83,10 +83,24 @@ function extractChrome() {
   const k2 = src.indexOf(chromeEnd, k1);
   const chrome = src.slice(k1, k2 + chromeEnd.length);
 
+  const upiStart = '<div class="checkout-overlay" id="upiOverlay"></div>';
+  const upiEnd = '<script src="js/qrcode.min.js"></script>';
+  const u1 = src.indexOf(upiStart);
+  const u2 = src.indexOf(upiEnd, u1);
+  const upi = u1 >= 0 && u2 >= 0 ? src.slice(u1, u2 + upiEnd.length) : "";
+
+  const chatStart = "<!-- CHATBOT-START -->";
+  const chatEnd = "<!-- CHATBOT-END -->";
+  const c1 = src.indexOf(chatStart);
+  const c2 = src.indexOf(chatEnd, c1);
+  const chatbot = c1 >= 0 && c2 >= 0 ? src.slice(c1, c2 + chatEnd.length) : "";
+
   return {
     navbar: fixPaths(navbar),
     footer: fixPaths(footer),
     chrome,
+    upi: fixPaths(upi),
+    chatbot: fixPaths(chatbot),
   };
 }
 
@@ -112,11 +126,18 @@ function buildMeta(product, slug, catMeta, site, description) {
     `<meta property="og:url" content="${url}">`,
     '<meta property="og:type" content="product">',
     `<meta property="og:locale" content="${site.locale}">`,
-    '<meta name="twitter:card" content="summary_large_image">',
-    `<meta name="twitter:title" content="${esc(title)}">`,
-    `<meta name="twitter:description" content="${esc(description)}">`,
-    "<!-- SEO-BLOCK-END -->",
   ];
+  const ogImage = site.ogImage;
+  if (ogImage) {
+    lines.push(`<meta property="og:image" content="${ogImage}">`);
+    lines.push(`<meta property="og:image:width" content="1200">`);
+    lines.push(`<meta property="og:image:height" content="800">`);
+  }
+  lines.push('<meta name="twitter:card" content="summary_large_image">');
+  lines.push(`<meta name="twitter:title" content="${esc(title)}">`);
+  lines.push(`<meta name="twitter:description" content="${esc(description)}">`);
+  if (ogImage) lines.push(`<meta name="twitter:image" content="${ogImage}">`);
+  lines.push("<!-- SEO-BLOCK-END -->");
   return { block: lines.join("\n"), url, title, description };
 }
 
@@ -207,11 +228,11 @@ function relatedCards(product, products) {
       <article class="product-card reveal">
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
           ${badge ? `<span class="product-badge${badge === "Premium" ? " premium" : ""}">${badge}</span>` : ""}
-          <a class="product-card-link" href="products/${slug}.html" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>
+          <a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>
         </div>
         <div class="product-info">
           <span class="product-category">${(CATEGORY_META[p.category] || {}).name || p.category}</span>
-          <a class="product-card-link" href="products/${slug}.html"><h3 class="product-name">${esc(p.name)}</h3></a>
+          <a class="product-card-link" href="${slug}.html"><h3 class="product-name">${esc(p.name)}</h3></a>
           <div class="product-price">
             <span class="price">${fmtPrice(p.price)}</span>
             ${p.oldPrice ? `<span class="old-price">${fmtPrice(p.oldPrice)}</span>` : ""}
@@ -386,7 +407,7 @@ function buildPage(product, slug, catMeta, site, chrome, products) {
 \t<meta name="viewport" content="width=device-width, initial-scale=1.0">
 ${meta.block}
 \t<meta name="description" content="${esc(description)}">
-\t<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>">
+\t<link rel="icon" href="../logo.svg">
 \t<title>${meta.title.replace(/&/g, "&amp;")}</title>
 \t${FONT_LINK}
 \t<link rel="stylesheet" href="../css/style.css">
@@ -408,10 +429,14 @@ ${chrome.footer}
 
 ${chrome.chrome}
 
+${chrome.upi}
+
 <script src="../js/products.js"></script>
 <script src="../js/product-pages.js"></script>
 <script src="../js/script.js"></script>
 ${pageScript(product)}
+
+${chrome.chatbot}
 </body>
 </html>
 `;
@@ -455,7 +480,7 @@ function generate() {
   fs.writeFileSync(PAGE_JS, `window.GIFT_PRODUCT_PAGES = [\n  ${slugs.map((s) => `"${s}"`).join(",\n  ")}\n];\n`, "utf8");
   console.log("  js/product-pages.js written (" + slugs.length + " slugs)");
 
-  apply.writeSitemap(site, cfg.pages, extraUrls);
+  apply.writeSitemap(site, cfg.pages, extraUrls, cfg.sitemapOnly || {});
   console.log(`Done. ${products.length} product pages generated.`);
 }
 
