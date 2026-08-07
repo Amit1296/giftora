@@ -51,12 +51,32 @@
     return p && typeof p.stock === "number" && p.stock >= 0 ? p.stock : Infinity;
   }
 
+  function defaultSize(p) {
+    const sizes = (p && p.sizes) || [];
+    return sizes.length ? sizes[0] : "";
+  }
+
+  function hasSizePrices(p) {
+    return !!(p && p.sizePrices && Object.keys(p.sizePrices).length);
+  }
+
+  function basePrice(p, size) {
+    const base = (p && p.price) || 0;
+    if (hasSizePrices(p) && size && p.sizePrices[size] != null) {
+      return Number(p.sizePrices[size]) || base;
+    }
+    return base;
+  }
+
   function sizeBtnsHtml(p, selected) {
     if (!p.sizes || !p.sizes.length) return "";
     return `
       <div class="size-selector" role="group" aria-label="Select size">
         <span class="size-label">Size:</span>
-        ${p.sizes.map((s, i) => `<button type="button" class="size-btn${i === 0 ? " selected" : ""}" data-size="${esc(s)}">${esc(s)}</button>`).join("")}
+        ${p.sizes.map((s, i) => {
+          const price = hasSizePrices(p) && p.sizePrices[s] != null ? Number(p.sizePrices[s]) : null;
+          return `<button type="button" class="size-btn${i === 0 ? " selected" : ""}" data-size="${esc(s)}"${price != null ? ` data-price="${price}"` : ""}>${esc(s)}${price != null ? `<span class="size-btn-price">${fmtPrice(price)}</span>` : ""}</button>`;
+        }).join("")}
       </div>`;
   }
 
@@ -74,8 +94,9 @@
       : low
         ? `<p class="stock-line low">Only ${stock} left in stock</p>`
         : `<p class="stock-line ok">In stock</p>`;
-    const price = effPrice(p, p.price);
-    const oldPrice = p.oldPrice ? effPrice(p, p.oldPrice) : 0;
+    const price = effPrice(p, basePrice(p, defaultSize(p)));
+    const showOld = !!p.oldPrice && (!hasSizePrices(p) || Number(p.sizePrices[defaultSize(p)]) === Number(p.price));
+    const oldPrice = showOld ? effPrice(p, p.oldPrice) : 0;
     const isFest = festival && festival.active && (festivalProductIds.size === 0 || festivalProductIds.has(p.id));
     const addBtn = oos
       ? `<button class="add-to-cart" id="addToCartBtn" disabled>Out of Stock</button>`
@@ -89,8 +110,8 @@
         <span class="product-category">${esc(PAGE_NAMES[p.category] || p.category)}</span>
         <h1>${esc(p.name)}</h1>
         <div class="product-price">
-          <span class="price">${fmtPrice(price)}</span>
-          ${oldPrice ? `<span class="old-price">${fmtPrice(oldPrice)}</span>` : ""}
+          <span class="price" id="detailPrice">${fmtPrice(price)}</span>
+          ${oldPrice ? `<span class="old-price" id="detailOldPrice">${fmtPrice(oldPrice)}</span>` : ""}
         </div>
         ${isFest && festival.discount ? `<p class="stock-line ok">Festival offer: ${festival.discount}% off applied</p>` : ""}
         ${stockLine}
@@ -107,8 +128,6 @@
         <div class="product-perks">
           <span>🚚 Same-day delivery</span>
           <span>🎁 Free gift wrapping</span>
-          <span>💳 Cash on delivery</span>
-          <span>↩️ 7-day returns</span>
         </div>
       </div>`;
 
@@ -126,6 +145,8 @@
 
     let size = "";
     const sizeSel = detail.querySelector(".size-selector");
+    const detailPrice = document.getElementById("detailPrice");
+    const detailOldPrice = document.getElementById("detailOldPrice");
     if (sizeSel) {
       const btns = sizeSel.querySelectorAll(".size-btn");
       btns.forEach((b) => {
@@ -133,6 +154,14 @@
           btns.forEach((x) => x.classList.remove("selected"));
           b.classList.add("selected");
           size = b.dataset.size;
+          if (detailPrice) {
+            const sp = basePrice(p, size);
+            detailPrice.textContent = fmtPrice(effPrice(p, sp));
+          }
+          if (detailOldPrice) {
+            const onBase = !hasSizePrices(p) || Number(p.sizePrices[size]) === Number(p.price);
+            detailOldPrice.style.display = onBase && p.oldPrice ? "" : "none";
+          }
         });
       });
       size = btns.length ? btns[0].dataset.size : "";

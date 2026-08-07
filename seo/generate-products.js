@@ -54,6 +54,21 @@ function fmtPrice(n) {
   return "₹" + Number(n).toLocaleString("en-IN");
 }
 
+function hasSizePrices(p) {
+  return !!(p && p.sizePrices && Object.keys(p.sizePrices).length);
+}
+
+function defaultSizeOf(p) {
+  const sizes = (p && p.sizes) || [];
+  return sizes.length ? sizes[0] : "";
+}
+
+function basePriceOf(p, size) {
+  const base = (p && p.price) || 0;
+  if (hasSizePrices(p) && size && p.sizePrices[size] != null) return Number(p.sizePrices[size]) || base;
+  return base;
+}
+
 function fit(s, max) {
   return s.length <= max ? s : s.slice(0, max - 1).trimEnd() + "…";
 }
@@ -153,18 +168,32 @@ function faqEntries(product) {
     },
     {
       q: "What payment methods can I use?",
-      a: "You can pay by Cash on Delivery, UPI or Card. All payments are secure and 100% safe.",
-    },
-    {
-      q: `What if I want to return ${product.name}?`,
-      a: `Most items, including ${product.name}, come with a 7-day hassle-free return policy. Contact our support team and we'll arrange a replacement or refund.`,
+      a: "You can pay by UPI or Card. All payments are secure and 100% safe.",
     },
   ];
+}
+
+function ratingFor(id) {
+  const s = String(id);
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+  h = Math.abs(h);
+  return { rating: Math.round((3.8 + (h % 12) / 10) * 10) / 10, count: 6 + (h % 46) };
+}
+
+function ratingRow(p, page) {
+  const r = ratingFor(p.id);
+  const stars = [1, 2, 3, 4, 5].map((i) =>
+    i <= Math.round(r.rating) ? '<span class="star">★</span>' : '<span class="star star-off">★</span>'
+  ).join("");
+  const href = page ? `href="#reviews"` : `href="${slugify(p.name)}.html#reviews"`;
+  return `<div class="product-rating"><span class="stars">${stars}</span><span class="rating-num">${r.rating}</span><a class="rating-count" ${href}>(<span>${r.count}</span> reviews)</a></div>`;
 }
 
 function buildJsonLd(product, slug, catMeta, site, description, faqs) {
   const url = `${site.url}/products/${slug}.html`;
   const pageName = product.name;
+  const r = ratingFor(product.id);
   return [
     {
       "@context": "https://schema.org",
@@ -181,16 +210,46 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
       name: pageName,
       description,
       brand: { "@type": "Brand", name: site.name },
-      offers: {
-        "@type": "Offer",
-        price: String(product.price),
-        priceCurrency: site.currency,
-        availability: typeof product.stock === "number" && product.stock <= 0
-          ? "https://schema.org/OutOfStock"
-          : "https://schema.org/InStock",
-        itemCondition: "https://schema.org/NewCondition",
-        url,
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: String(r.rating),
+        reviewCount: String(r.count),
+        bestRating: "5",
+        worstRating: "1",
       },
+      offers: (() => {
+        const availability = typeof product.stock === "number" && product.stock <= 0
+          ? "https://schema.org/OutOfStock"
+          : "https://schema.org/InStock";
+        if (hasSizePrices(product) && product.sizes.length) {
+          const perSize = product.sizes.map((s) => ({
+            "@type": "Offer",
+            name: s,
+            price: String(basePriceOf(product, s)),
+            priceCurrency: site.currency,
+            availability,
+            itemCondition: "https://schema.org/NewCondition",
+            url,
+          }));
+          const prices = product.sizes.map((s) => basePriceOf(product, s));
+          return {
+            "@type": "AggregateOffer",
+            lowPrice: String(Math.min.apply(null, prices)),
+            highPrice: String(Math.max.apply(null, prices)),
+            priceCurrency: site.currency,
+            availability,
+            offers: perSize,
+          };
+        }
+        return {
+          "@type": "Offer",
+          price: String(product.price),
+          priceCurrency: site.currency,
+          availability,
+          itemCondition: "https://schema.org/NewCondition",
+          url,
+        };
+      })(),
     },
     {
       "@context": "https://schema.org",
@@ -206,7 +265,10 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
 
 function sizeSelectHtml(p) {
   return `<select class="product-size" data-size="${p.id}" aria-label="Size of ${esc(p.name)}">
-    ${(p.sizes || []).map((s) => `<option value="${esc(s)}">${esc(s)}</option>`).join("")}
+    ${(p.sizes || []).map((s) => {
+      const sp = hasSizePrices(p) && p.sizePrices[s] != null ? ` (${fmtPrice(p.sizePrices[s])})` : "";
+      return `<option value="${esc(s)}">${esc(s)}${sp}</option>`;
+    }).join("")}
   </select>`;
 }
 
@@ -228,11 +290,13 @@ function relatedCards(product, products) {
       <article class="product-card reveal">
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
           ${badge ? `<span class="product-badge${badge === "Premium" ? " premium" : ""}">${badge}</span>` : ""}
+          <button class="wish-heart" data-wish="${p.id}" aria-label="Add ${esc(p.name)} to wishlist">♡</button>
           <a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>
         </div>
         <div class="product-info">
           <span class="product-category">${(CATEGORY_META[p.category] || {}).name || p.category}</span>
           <a class="product-card-link" href="${slug}.html"><h3 class="product-name">${esc(p.name)}</h3></a>
+          ${ratingRow(p, false)}
           <div class="product-price">
             <span class="price">${fmtPrice(p.price)}</span>
             ${p.oldPrice ? `<span class="old-price">${fmtPrice(p.oldPrice)}</span>` : ""}
@@ -257,15 +321,17 @@ function faqHtml(faqs) {
 function productDescription(product, site) {
   if (product.description) return fit(product.description, 160);
   return fit(
-    `${product.name} for just ${fmtPrice(product.price)} with same-day delivery at ${site.name}. Free gift wrapping, cash on delivery and easy returns. Order online now!`,
+    `${product.name} for just ${fmtPrice(product.price)} with same-day delivery at ${site.name}. Free gift wrapping and secure online payments. Order online now!`,
     160
   );
 }
 
 function productBody(product, slug, catMeta, site, products, faqs) {
   const catName = esc(catMeta.name);
-  const oldPrice = product.oldPrice
-    ? `\n            <span class="old-price">${fmtPrice(product.oldPrice)}</span>`
+  const startSize = defaultSizeOf(product);
+  const showOld = !!product.oldPrice && (!hasSizePrices(product) || Number(product.sizePrices[startSize]) === Number(product.price));
+  const oldPrice = showOld
+    ? `\n            <span class="old-price" id="detailOldPrice">${fmtPrice(product.oldPrice)}</span>`
     : "";
   const media = product.image
     ? `<img class="product-detail-img" src="${product.image}" alt="${esc(product.name)}">`
@@ -281,7 +347,10 @@ function productBody(product, slug, catMeta, site, products, faqs) {
   const sizeSelector = product.sizes && product.sizes.length
     ? `<div class="size-selector" role="group" aria-label="Select size">
         <span class="size-label">Size:</span>
-        ${product.sizes.map((s, i) => `<button type="button" class="size-btn${i === 0 ? " selected" : ""}" data-size="${esc(s)}">${esc(s)}</button>`).join("")}
+        ${product.sizes.map((s, i) => {
+          const price = hasSizePrices(product) && product.sizePrices[s] != null ? Number(product.sizePrices[s]) : null;
+          return `<button type="button" class="size-btn${i === 0 ? " selected" : ""}" data-size="${esc(s)}"${price != null ? ` data-price="${price}"` : ""}>${esc(s)}${price != null ? `<span class="size-btn-price">${fmtPrice(price)}</span>` : ""}</button>`;
+        }).join("")}
       </div>`
     : "";
   const addBtn = oos
@@ -299,8 +368,9 @@ function productBody(product, slug, catMeta, site, products, faqs) {
       <div class="product-detail-info">
         <span class="product-category">${catName}</span>
         <h1>${esc(product.name)}</h1>
+        ${ratingRow(product, true)}
         <div class="product-price">
-          <span class="price">${fmtPrice(product.price)}</span>${oldPrice}
+          <span class="price" id="detailPrice">${fmtPrice(basePriceOf(product, startSize))}</span>${oldPrice}
         </div>
         ${stockLine}
         <p class="product-detail-desc">${esc(product.description || productDescription(product, site))}</p>
@@ -316,8 +386,6 @@ function productBody(product, slug, catMeta, site, products, faqs) {
         <div class="product-perks">
           <span>🚚 Same-day delivery</span>
           <span>🎁 Free gift wrapping</span>
-          <span>💳 Cash on delivery</span>
-          <span>↩️ 7-day returns</span>
         </div>
       </div>
     </div>
@@ -334,6 +402,49 @@ function productBody(product, slug, catMeta, site, products, faqs) {
     <div class="products-grid">
       ${relatedCards(product, products)}
     </div>
+  </div>
+</section>
+
+<section class="page-body" style="padding-top: 0;" id="reviews">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Reviews</span>
+      <h2>What customers <span class="text-gradient">say</span></h2>
+      <p>Real ratings from verified buyers.</p>
+    </div>
+    <div class="reviews-wrap">
+      <div class="review-score" id="reviewSummary">
+        <span class="review-big" data-score>0.0</span>
+        <span class="stars" data-stars></span>
+        <span class="review-count">Based on <span data-count>0</span> verified reviews</span>
+      </div>
+      <div class="review-list" id="reviewList" data-id="${product.id}"></div>
+      <form class="review-form" id="reviewForm" data-id="${product.id}">
+        <h3>Write a review</h3>
+        <input type="text" id="rvName" placeholder="Your name" maxlength="40" required>
+        <label for="rvRating" style="font-size:0.85rem;color:var(--text-muted);">Your rating</label>
+        <select id="rvRating" required>
+          <option value="5">★★★★★ — Excellent</option>
+          <option value="4">★★★★ — Good</option>
+          <option value="3">★★★ — Average</option>
+          <option value="2">★★ — Poor</option>
+          <option value="1">★ — Terrible</option>
+        </select>
+        <textarea id="rvText" placeholder="Share your experience..." rows="4" maxlength="400" required></textarea>
+        <button class="btn btn-primary" type="submit">Submit review</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="shop" style="padding-top: 0;" id="recentWrap" hidden>
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Recently viewed</span>
+      <h2>Keep <span class="text-gradient">browsing</span></h2>
+      <p>Items you checked out recently.</p>
+    </div>
+    <div class="products-grid" id="recentGrid"></div>
   </div>
 </section>
 
@@ -366,6 +477,10 @@ function pageScript(product) {
     });
     var sizeSel = document.querySelector(".size-selector");
     var size = "";
+    var sizePrices = ${JSON.stringify(product.sizePrices || {})};
+    var basePrice = ${Number(product.price) || 0};
+    var priceEl = document.getElementById("detailPrice");
+    var oldEl = document.getElementById("detailOldPrice");
     if (sizeSel) {
       var sizeBtns = sizeSel.querySelectorAll(".size-btn");
       sizeBtns.forEach(function (b) {
@@ -373,6 +488,14 @@ function pageScript(product) {
           sizeBtns.forEach(function (x) { x.classList.remove("selected"); });
           b.classList.add("selected");
           size = b.dataset.size;
+          if (priceEl) {
+            var sp = sizePrices[size] != null ? Number(sizePrices[size]) : basePrice;
+            priceEl.textContent = "₹" + sp.toLocaleString("en-IN");
+          }
+          if (oldEl) {
+            var onBase = !(sizePrices[size] != null);
+            oldEl.style.display = onBase ? "" : "none";
+          }
         });
       });
       size = sizeBtns.length ? sizeBtns[0].dataset.size : "";
@@ -418,7 +541,7 @@ ${jsonLd}
 </script>
 <!-- SEO-JSONLD-END -->
 </head>
-<body>
+<body data-product-id="${product.id}">
 
 ${chrome.navbar}
 

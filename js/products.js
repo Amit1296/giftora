@@ -196,7 +196,16 @@ window.GIFT_PRODUCTS = [
     "image": "",
     "sku": "GFT-CKE-013",
     "stock": 25,
-    "sizes": []
+    "sizes": [
+      "0.5 Kg",
+      "1 Kg",
+      "2 Kg"
+    ],
+    "sizePrices": {
+      "0.5 Kg": 699,
+      "1 Kg": 999,
+      "2 Kg": 1699
+    }
   },
   {
     "id": 14,
@@ -210,7 +219,16 @@ window.GIFT_PRODUCTS = [
     "image": "",
     "sku": "GFT-CKE-014",
     "stock": 26,
-    "sizes": []
+    "sizes": [
+      "0.5 Kg",
+      "1 Kg",
+      "2 Kg"
+    ],
+    "sizePrices": {
+      "0.5 Kg": 599,
+      "1 Kg": 849,
+      "2 Kg": 1499
+    }
   },
   {
     "id": 15,
@@ -224,7 +242,16 @@ window.GIFT_PRODUCTS = [
     "image": "",
     "sku": "GFT-CKE-015",
     "stock": 4,
-    "sizes": []
+    "sizes": [
+      "0.5 Kg",
+      "1 Kg",
+      "2 Kg"
+    ],
+    "sizePrices": {
+      "0.5 Kg": 799,
+      "1 Kg": 1149,
+      "2 Kg": 1999
+    }
   },
   {
     "id": 16,
@@ -238,7 +265,16 @@ window.GIFT_PRODUCTS = [
     "image": "",
     "sku": "GFT-CKE-016",
     "stock": 28,
-    "sizes": []
+    "sizes": [
+      "0.5 Kg",
+      "1 Kg",
+      "2 Kg"
+    ],
+    "sizePrices": {
+      "0.5 Kg": 749,
+      "1 Kg": 1099,
+      "2 Kg": 1899
+    }
   },
   {
     "id": 17,

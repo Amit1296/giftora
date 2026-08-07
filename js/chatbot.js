@@ -20,7 +20,7 @@
     {
       label: "Payment",
       keywords: ["pay", "payment", "card", "upi", "cod", "cash", "visa", "mastercard", "amex", "international card", "bank", "debit", "credit"],
-      reply: "You can pay by international debit or credit cards (Visa, Mastercard, Amex), UPI, UPI QR or Cash on Delivery. No local Indian account is needed — even when ordering from abroad.",
+      reply: "You can pay by international debit or credit cards (Visa, Mastercard, Amex), UPI or UPI QR. No local Indian account is needed — even when ordering from abroad.",
       link: { url: "send-gifts-to-india.html", text: "Send Gifts to India" }
     },
     {

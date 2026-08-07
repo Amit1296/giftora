@@ -724,7 +724,7 @@ function razorpayRequest(path, body) {
 
 async function createRazorpayOrder(data) {
   if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
-    throw new Error("Online payments are not configured yet. Please use Cash on Delivery.");
+    throw new Error("Online payments are not configured yet. Please try again later.");
   }
   const rawItems = Array.isArray(data.items) ? data.items.slice(0, 50) : [];
   if (!rawItems.length) throw new Error("Your cart is empty.");
@@ -739,13 +739,16 @@ async function createRazorpayOrder(data) {
     if (!p) throw new Error("A product in your cart is no longer available.");
     const cap = typeof p.stock === "number" && p.stock >= 0 ? p.stock : Infinity;
     if (qty > cap) throw new Error("Only " + cap + " of " + p.name + " in stock.");
+    let size = "";
     if (p.sizes && p.sizes.length) {
-      const size = String(it.size || "");
+      size = String(it.size || "");
       if (!p.sizes.includes(size)) {
         if (p.sizes.length !== 1) throw new Error("Please select a size for " + p.name + ".");
       }
     }
-    const price = discount > 0 ? Math.round((p.price * (100 - discount)) / 100) : p.price;
+    let base = p.price;
+    if (size && p.sizePrices && p.sizePrices[size] != null) base = Number(p.sizePrices[size]) || p.price;
+    const price = discount > 0 ? Math.round((base * (100 - discount)) / 100) : base;
     total += price * qty;
   }
   const order = await razorpayRequest("/v1/orders", {
@@ -761,7 +764,7 @@ async function placeOrder(data) {
   const name = String(data.name || "").trim().slice(0, 100);
   const phone = String(data.phone || "").trim().slice(0, 20);
   const address = String(data.address || "").trim().slice(0, 600);
-  const payment = ["Cash on Delivery", "UPI", "Card", "UPI QR"].includes(data.payment) ? data.payment : "Cash on Delivery";
+  const payment = ["UPI", "Card", "UPI QR"].includes(data.payment) ? data.payment : "UPI";
   if (!name || !phone || !/^[0-9+\-()\s]{7,20}$/.test(phone) || !address) {
     throw new Error("ORDER:Please provide a valid name, phone and address.");
   }
@@ -790,7 +793,9 @@ async function placeOrder(data) {
         else throw new Error("ORDER:Please select a size for " + p.name + ".");
       }
     }
-    const price = discount > 0 ? Math.round((p.price * (100 - discount)) / 100) : p.price;
+    let base = p.price;
+    if (size && p.sizePrices && p.sizePrices[size] != null) base = Number(p.sizePrices[size]) || p.price;
+    const price = discount > 0 ? Math.round((base * (100 - discount)) / 100) : base;
     total += price * qty;
     items.push({ id, name: p.name, qty, size, price });
   }
@@ -799,7 +804,7 @@ async function placeOrder(data) {
   let rzpPaymentId = "";
   if (isOnline) {
     if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
-      throw new Error("ORDER:Online payments are not configured yet. Please use Cash on Delivery.");
+      throw new Error("ORDER:Online payments are not configured yet. Please try again later.");
     }
     const rzpOrderId = String(data.razorpayOrderId || "").trim();
     rzpPaymentId = String(data.razorpayPaymentId || "").trim();
@@ -849,7 +854,7 @@ function sendOrderEmail(order, orderId) {
       `Name: ${order.name}\n` +
       `Phone: ${order.phone}\n` +
       `Shipping Address: ${order.address}\n` +
-      `Payment Method: ${order.payment || "Cash on Delivery"}\n\n` +
+      `Payment Method: ${order.payment || "UPI"}\n\n` +
       `Items:\n${lines}\n\n` +
       `Total: Rs.${order.total}`,
   });

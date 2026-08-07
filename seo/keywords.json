@@ -397,6 +397,24 @@
         "changefreq": "yearly"
       }
     },
+    "track-order.html": {
+      "type": "page",
+      "title": "Track Order — Giftora",
+      "description": "Track your Giftora order in real time. Enter your order ID to see the current status — placed, confirmed, out for delivery or delivered.",
+      "keywords": [
+        "track order",
+        "order status",
+        "Giftora order tracking",
+        "where is my order",
+        "gift delivery status",
+        "track my gift",
+        "order timeline India"
+      ],
+      "sitemap": {
+        "priority": "0.5",
+        "changefreq": "monthly"
+      }
+    },
     "privacy-policy.html": {
       "type": "page",
       "title": "Privacy Policy — Giftora",

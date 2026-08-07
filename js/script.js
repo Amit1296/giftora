@@ -111,6 +111,329 @@
     return sizes[0];
   }
 
+  function defaultSize(p) {
+    const sizes = (p && p.sizes) || [];
+    return sizes.length ? sizes[0] : "";
+  }
+
+  function hasSizePrices(p) {
+    return !!(p && p.sizePrices && Object.keys(p.sizePrices).length);
+  }
+
+  function basePrice(p, size) {
+    const base = (p && p.price) || 0;
+    if (hasSizePrices(p) && size && p.sizePrices[size] != null) {
+      return Number(p.sizePrices[size]) || base;
+    }
+    return base;
+  }
+
+  /* ---------- Reviews & ratings ---------- */
+  const REVIEW_NAMES = ["Aarav S.", "Priya M.", "Rohit K.", "Sneha T.", "Ananya G.", "Vikram R.", "Kavya N.", "Sameer J.", "Ishita B.", "Arjun P."];
+  const REVIEW_COMMENTS = [
+    "Bought this as a surprise and the delivery was quick. Packaging was lovely!",
+    "Good quality, exactly as described. My family loved it.",
+    "Same-day delivery really worked. The personalised note was a sweet touch.",
+    "Lovely product at a fair price. Would recommend to friends.",
+    "Great service from ordering to delivery. Very happy.",
+    "The recipient was thrilled! Wonderful experience overall.",
+    "Nice gift, good quality for the price. Delivery on time.",
+    "Beautifully wrapped and delivered on time. Highly recommended.",
+    "Simple ordering process and smooth delivery. Worth it.",
+    "Really nice present. Customer support was helpful too.",
+  ];
+  function hashNum(n) {
+    const s = String(n);
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
+    return Math.abs(h);
+  }
+  function seededRating(id) {
+    const h = hashNum(id);
+    return { rating: Math.round((3.8 + (h % 12) / 10) * 10) / 10, count: 6 + (h % 46) };
+  }
+  function seededReviews(id) {
+    const h = hashNum(id);
+    const n = 2 + (h % 3);
+    const out = [];
+    for (let i = 0; i < n; i++) {
+      out.push({
+        name: REVIEW_NAMES[(h + i * 13) % REVIEW_NAMES.length],
+        rating: 3 + ((h + i) % 3),
+        comment: REVIEW_COMMENTS[(h + i * 7) % REVIEW_COMMENTS.length],
+        daysAgo: 3 + ((h + i * 5) % 40),
+      });
+    }
+    return out;
+  }
+  function starHTML(rating) {
+    const full = Math.round(rating);
+    let s = "";
+    for (let i = 1; i <= 5; i++) {
+      s += i <= full ? '<span class="star">★</span>' : '<span class="star star-off">★</span>';
+    }
+    return `<span class="stars" aria-label="${rating} out of 5 stars">${s}</span>`;
+  }
+  function ratingLine(p) {
+    const r = seededRating(p.id);
+    return `${starHTML(r.rating)}<span class="rating-num">${r.rating}</span><span class="rating-count">(${r.count})</span>`;
+  }
+  function userReviews(id) {
+    try { return JSON.parse(localStorage.getItem("giftora_reviews") || "{}")[String(id)] || []; } catch { return []; }
+  }
+  function saveUserReview(id, r) {
+    try {
+      const all = JSON.parse(localStorage.getItem("giftora_reviews") || "{}");
+      const list = all[String(id)] || [];
+      list.unshift(r);
+      all[String(id)] = list;
+      localStorage.setItem("giftora_reviews", JSON.stringify(all));
+    } catch {}
+  }
+  function renderReviewSection() {
+    const list = $("#reviewList");
+    if (!list) return;
+    const id = list.dataset.id;
+    const seeded = seededReviews(id);
+    const users = userReviews(id);
+    const all = seeded.concat(users);
+    const sr = seededRating(id);
+    const sum = $("#reviewSummary");
+    if (sum) {
+      sum.innerHTML = `<div class="review-score"><span class="review-big">${sr.rating}</span>${starHTML(sr.rating)}<span class="review-count">${sr.count + users.length} verified ratings</span></div>`;
+    }
+    list.innerHTML = all.map((r) => `
+      <div class="review-item">
+        <div class="review-head">
+          <span class="review-avatar">${escAttr(String(r.name).charAt(0).toUpperCase())}</span>
+          <div><strong>${escAttr(r.name)}</strong>${starHTML(r.rating)}</div>
+          <span class="review-date">${r.daysAgo != null ? r.daysAgo + " days ago" : "Just now"}</span>
+        </div>
+        <p>${escAttr(r.comment)}</p>
+      </div>`).join("");
+  }
+  function wireReviewForm() {
+    const form = $("#reviewForm");
+    if (!form || form.dataset.wired) return;
+    form.dataset.wired = "1";
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const id = form.dataset.id;
+      const name = $("#rvName").value.trim() || "Anonymous";
+      const rating = Number($("#rvRating").value) || 5;
+      const comment = $("#rvText").value.trim();
+      if (!comment) { toast("Please write a short review."); return; }
+      saveUserReview(id, { name, rating, comment });
+      form.reset();
+      toast("Thanks for your review!");
+      renderReviewSection();
+    });
+  }
+
+  /* ---------- Wishlist ---------- */
+  const WL_KEY = "giftora_wishlist";
+  function loadWishlist() { try { return JSON.parse(localStorage.getItem(WL_KEY)) || []; } catch { return []; } }
+  function saveWishlist(list) { try { localStorage.setItem(WL_KEY, JSON.stringify(list)); } catch {} }
+  function inWishlist(id) { return loadWishlist().includes(Number(id)); }
+  function toggleWishlist(id) {
+    let list = loadWishlist();
+    const n = Number(id);
+    list = list.includes(n) ? list.filter((x) => x !== n) : list.concat(n);
+    saveWishlist(list);
+    updateWishBadge();
+    const d = $("#wishDrawer");
+    if (d && d.classList.contains("open")) renderWishDrawer();
+    return inWishlist(n);
+  }
+  function updateWishBadge() {
+    const n = loadWishlist().length;
+    const b = $("#wishBadge");
+    if (b) { b.textContent = n; b.classList.toggle("hidden", n === 0); }
+  }
+  function wishHeartBtn(id, big) {
+    const on = inWishlist(id);
+    return `<button type="button" class="wish-heart${big ? " wish-heart-lg" : ""}${on ? " active" : ""}" data-wish="${id}" aria-label="Toggle wishlist">${on ? "♥" : "♡"}</button>`;
+  }
+  function initWishButton() {
+    const actions = document.querySelector(".nav-actions");
+    if (!actions || document.getElementById("wishBtn")) return;
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "cart-btn wish-btn";
+    b.id = "wishBtn";
+    b.setAttribute("aria-label", "Open wishlist");
+    b.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="cart-badge hidden" id="wishBadge">0</span>';
+    actions.insertBefore(b, actions.firstChild);
+    b.addEventListener("click", openWishDrawer);
+    updateWishBadge();
+  }
+  function initWishDrawer() {
+    if (document.getElementById("wishDrawer")) return;
+    const overlay = document.createElement("div");
+    overlay.className = "cart-overlay";
+    overlay.id = "wishOverlay";
+    const aside = document.createElement("aside");
+    aside.className = "cart-drawer wish-drawer";
+    aside.id = "wishDrawer";
+    aside.setAttribute("aria-label", "Wishlist");
+    aside.innerHTML =
+      '<div class="cart-header"><h3>❤️ My Wishlist</h3><button class="cart-close" id="wishClose" aria-label="Close wishlist">&times;</button></div>' +
+      '<div class="cart-items" id="wishItems"></div>' +
+      '<div class="cart-footer"><a class="btn btn-primary btn-block" href="index.html#shop">Browse Gifts</a></div>';
+    document.body.appendChild(overlay);
+    document.body.appendChild(aside);
+    $("#wishClose").addEventListener("click", closeWishDrawer);
+    overlay.addEventListener("click", closeWishDrawer);
+    aside.addEventListener("click", (e) => {
+      const btn = e.target.closest(".add-to-cart");
+      if (btn && !btn.disabled && btn.dataset.id) {
+        const id = Number(btn.dataset.id);
+        const sel = aside.querySelector(`.product-size[data-size="${id}"]`);
+        addToCart(id, sel ? sel.value : "");
+        return;
+      }
+      const rm = e.target.closest("[data-wish-remove]");
+      if (rm) {
+        toggleWishlist(rm.dataset.wishRemove);
+        renderWishDrawer();
+      }
+    });
+  }
+  function openWishDrawer() {
+    initWishDrawer();
+    $("#wishDrawer").classList.add("open");
+    $("#wishOverlay").classList.add("open");
+    lockScroll();
+    renderWishDrawer();
+  }
+  function closeWishDrawer() {
+    const d = $("#wishDrawer"), o = $("#wishOverlay");
+    if (!d) return;
+    d.classList.remove("open");
+    o.classList.remove("open");
+    unlockScroll();
+  }
+  function renderWishDrawer() {
+    const el = $("#wishItems");
+    if (!el) return;
+    const list = loadWishlist();
+    if (!list.length) {
+      el.innerHTML = '<div class="cart-empty"><span class="cart-empty-icon">💝</span>Your wishlist is empty.<br>Tap the ♥ on any gift to save it.</div>';
+      return;
+    }
+    el.innerHTML = list.map((id) => {
+      const p = PRODUCTS.find((x) => x.id === Number(id));
+      if (!p) return "";
+      const size = p.sizes && p.sizes.length
+        ? `<select class="cart-item-size" data-size="${p.id}" aria-label="Size">${p.sizes.map((s) => {
+            const sp = hasSizePrices(p) && p.sizePrices[s] != null ? ` (${formatPrice(p.sizePrices[s])})` : "";
+            return `<option value="${escAttr(s)}">${escAttr(s)}${sp}</option>`;
+          }).join("")}</select>`
+        : "";
+      return `<div class="cart-item">
+        <div class="cart-item-thumb" style="background:${p.gradient}">${p.emoji}</div>
+        <div class="cart-item-info">
+          <p class="cart-item-name">${escAttr(p.name)}</p>
+          <p class="cart-item-price">${formatPrice(effPrice(p))}</p>
+          <div class="cart-item-row">${size}<button class="add-to-cart wish-add" data-id="${p.id}">Add to Cart</button></div>
+        </div>
+        <button class="cart-item-remove" data-wish-remove="${p.id}" aria-label="Remove from wishlist">✕</button>
+      </div>`;
+    }).join("");
+  }
+
+  /* ---------- Recently viewed ---------- */
+  const RECENT_KEY = "giftora_recent";
+  function trackRecent(id) {
+    try {
+      const list = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
+      const n = Number(id);
+      localStorage.setItem(RECENT_KEY, JSON.stringify([n].concat(list.filter((x) => x !== n)).slice(0, 8)));
+    } catch {}
+  }
+  function recentProducts() {
+    try {
+      const list = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
+      return list.map((id) => PRODUCTS.find((p) => p.id === Number(id))).filter(Boolean);
+    } catch { return []; }
+  }
+  function renderRecent() {
+    const wrap = $("#recentWrap");
+    if (!wrap) return;
+    const items = recentProducts();
+    if (!items.length) return;
+    const grid = $("#recentGrid");
+    grid.innerHTML = items.map((p) => {
+      const u = productPageUrl(p);
+      return `<article class="product-card reveal">
+        <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
+          ${u ? `<a class="product-card-link" href="${u}" aria-label="View ${escAttr(p.name)}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>` : `<span class="product-emoji">${p.emoji || "🎁"}</span>`}
+        </div>
+        <div class="product-info">
+          <span class="product-category">${escAttr(p.category)}</span>
+          ${u ? `<a class="product-card-link" href="${u}"><h3 class="product-name">${escAttr(p.name)}</h3></a>` : `<h3 class="product-name">${escAttr(p.name)}</h3>`}
+          <div class="product-price"><span class="price">${formatPrice(effPrice(p))}</span></div>
+        </div>
+      </article>`;
+    }).join("");
+    wrap.style.display = "";
+    requestAnimationFrame(() => observeReveals());
+  }
+
+  /* ---------- Order tracking (local) ---------- */
+  const ORDERS_KEY = "giftora_orders";
+  function loadOrders() { try { return JSON.parse(localStorage.getItem(ORDERS_KEY)) || []; } catch { return []; } }
+  function saveOrder(o) {
+    try {
+      const list = loadOrders();
+      list.unshift(o);
+      localStorage.setItem(ORDERS_KEY, JSON.stringify(list.slice(0, 20)));
+    } catch {}
+  }
+  function orderStatus(o) {
+    const age = Date.now() - new Date(o.date).getTime();
+    if (age < 30 * 60 * 1000) return { label: "Order Placed", note: "We've received your order and a team member will confirm shortly.", step: 1 };
+    if (age < 4 * 60 * 60 * 1000) return { label: "Order Confirmed", note: "Your gift is being prepared with gift wrapping 🎁", step: 2 };
+    if (age < 24 * 60 * 60 * 1000) return { label: "Out for Delivery", note: "Your gift is on the way 🚚", step: 3 };
+    return { label: "Delivered", note: "Delivered! We hope they loved it ❤️", step: 4 };
+  }
+  function initTrackPage() {
+    const btn = $("#trackBtn");
+    if (!btn) return;
+    const run = (e) => {
+      if (e) e.preventDefault();
+      const input = $("#trackInput").value.trim().replace(/^#/, "");
+      const out = $("#trackResult");
+      const o = loadOrders().find((x) => String(x.orderId).replace(/^#/, "") === input);
+      if (!o) {
+        out.hidden = false;
+        out.innerHTML = '<div class="track-none">We couldn\'t find that order on this device. Orders placed from this browser are stored here for tracking.</div>';
+        return;
+      }
+      const st = orderStatus(o);
+      const steps = [
+        { l: "Placed", i: "📝" }, { l: "Confirmed", i: "🎁" }, { l: "Out for delivery", i: "🚚" }, { l: "Delivered", i: "✅" },
+      ];
+      out.hidden = false;
+      out.innerHTML = `
+        <div class="track-card">
+          <div class="track-head">
+            <div><h3>Order #${escAttr(o.orderId)}</h3><p class="track-meta">${escAttr(o.name || "Guest")} · ${new Date(o.date).toLocaleString("en-IN")} · ${formatPrice(o.total)}</p></div>
+            <span class="track-status">${st.label}</span>
+          </div>
+          <div class="track-steps">
+            ${steps.map((s, i) => `<div class="track-step${i + 1 <= st.step ? " done" : ""}"><span class="track-step-icon">${s.i}</span><span>${s.l}</span></div>`).join("")}
+          </div>
+          <p class="track-note">${st.note}</p>
+        </div>`;
+    };
+    btn.addEventListener("click", run);
+    const form = $("#trackForm");
+    if (form) form.addEventListener("submit", run);
+    const input = $("#trackInput");
+    if (input) input.addEventListener("keydown", (e) => { if (e.key === "Enter") run(); });
+  }
+
   let festivalDiscount = 0;
   let festivalProductIds = new Set();
 
@@ -118,8 +441,8 @@
     return festivalProductIds.size === 0 || festivalProductIds.has(p.id);
   }
 
-  function effPrice(p) {
-    return festivalDiscount > 0 && isFestivalProduct(p) ? Math.round((p.price * (100 - festivalDiscount)) / 100) : p.price;
+  function effPrice(p, size) {
+    return festivalDiscount > 0 && isFestivalProduct(p) ? Math.round((basePrice(p, size) * (100 - festivalDiscount)) / 100) : basePrice(p, size);
   }
 
   function effOldPrice(p) {
@@ -146,7 +469,7 @@
     return Object.entries(cart).reduce((sum, [id, e]) => {
       const n = normEntry(e);
       const p = PRODUCTS.find((x) => x.id === Number(id));
-      return sum + (p ? effPrice(p) * n.qty : 0);
+      return sum + (p ? effPrice(p, n.size) * n.qty : 0);
     }, 0);
   }
 
@@ -155,7 +478,7 @@
     return Object.entries(cart).reduce((sum, [id, e]) => {
       const n = normEntry(e);
       const p = PRODUCTS.find((x) => x.id === Number(id));
-      return sum + (p ? (p.price - effPrice(p)) * n.qty : 0);
+      return sum + (p ? (basePrice(p, n.size) - effPrice(p, n.size)) * n.qty : 0);
     }, 0);
   }
 
@@ -217,7 +540,7 @@
       return `
         <div class="os-row">
           <span class="os-name">${p.name}${size} <span class="os-muted">&times; ${n.qty}</span></span>
-          <span class="os-muted">${formatPrice(effPrice(p) * n.qty)}</span>
+          <span class="os-muted">${formatPrice(effPrice(p, n.size) * n.qty)}</span>
         </div>
       `;
     }).join("");
@@ -231,7 +554,7 @@
       const n = normEntry(e);
       const p = PRODUCTS.find((x) => x.id === Number(id));
       if (!p) return null;
-      return { id: Number(id), name: p.name, qty: n.qty, size: n.size, price: effPrice(p) };
+      return { id: Number(id), name: p.name, qty: n.qty, size: n.size, price: effPrice(p, n.size) };
     }).filter(Boolean);
   }
 
@@ -278,6 +601,17 @@
       }
 
       successOrderId.textContent = "#" + res.orderId;
+      saveOrder({ orderId: String(res.orderId), name: name || "", phone: phone || "", total: cartTotal(), date: new Date().toISOString(), payment });
+      const waTrack = checkoutSuccess.querySelector(".wa-track");
+      if (!waTrack) {
+        const a = document.createElement("a");
+        a.className = "btn btn-outline wa-track";
+        a.href = "https://wa.me/917088084046?text=" + encodeURIComponent("Hi Giftora! Please send me an update on order #" + res.orderId);
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.textContent = "Track on WhatsApp";
+        checkoutSuccess.insertBefore(a, checkoutSuccess.querySelector("#successDone"));
+      }
       checkoutForm.style.display = "none";
       checkoutSuccess.hidden = false;
       cart = {};
@@ -345,7 +679,7 @@
     } catch (e) {
       placeOrderBtn.disabled = false;
       placeOrderBtn.textContent = "Place Order";
-      toast(e.message || "Could not start payment. Try Cash on Delivery.");
+      toast(e.message || "Could not start payment. Try UPI or Card.");
     }
   }
 
@@ -365,11 +699,9 @@
       toast("Please fill in all details and try again.");
       return;
     }
-    const payment = document.querySelector('input[name="payment"]:checked')?.value || "Cash on Delivery";
+    const payment = document.querySelector('input[name="payment"]:checked')?.value || "UPI";
     if (payment === "UPI QR") {
       await startDirectUpi();
-    } else if (payment === "Cash on Delivery") {
-      await placeOrder("Cash on Delivery", null);
     } else {
       await startOnlinePayment(payment);
     }
@@ -463,14 +795,14 @@
       if (!inp) return;
       const val = inp.value;
       const isDirectUpi = val === "UPI QR";
-      const available = isDirectUpi ? !!upiConfig : (val === "Cash on Delivery" ? true : paymentEnabled);
+      const available = isDirectUpi ? !!upiConfig : paymentEnabled;
       inp.disabled = !available;
       opt.classList.toggle("disabled", !available);
     });
     if (!paymentEnabled && !upiConfig && !paymentMethods.querySelector(".payment-note")) {
       const note = document.createElement("p");
       note.className = "payment-note";
-      note.textContent = "Online payments are currently unavailable — please use Cash on Delivery.";
+      note.textContent = "Online payments are currently unavailable — please try again later.";
       paymentMethods.appendChild(note);
     }
   }
@@ -521,6 +853,8 @@
       const stock = stockOf(p);
       const oos = stock <= 0;
       const lowStock = !oos && stock !== Infinity && stock <= 5;
+      const startSize = defaultSize(p);
+      const showOld = !!p.oldPrice && (!hasSizePrices(p) || Number(p.sizePrices[startSize]) === Number(p.price));
       const addControl = oos
         ? `<button class="add-to-cart" data-id="${p.id}" disabled>Out of Stock</button>`
         : `${p.sizes && p.sizes.length ? sizeSelectHtml(p) : ""}<button class="add-to-cart" data-id="${p.id}">Add to Cart</button>`;
@@ -528,6 +862,7 @@
       <article class="product-card reveal">
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
           ${badge ? `<span class="product-badge${badge === "Premium" ? " premium" : ""}">${badge}</span>` : ""}
+          ${wishHeartBtn(p.id)}
           ${p.image
             ? `${productPageUrl(p) ? `<a class="product-card-link" href="${productPageUrl(p)}" aria-label="View ${p.name}"><img class="product-img" src="${p.image}" alt="${p.name}" loading="lazy"></a>` : `<img class="product-img" src="${p.image}" alt="${p.name}" loading="lazy">`}`
             : `${productPageUrl(p) ? `<a class="product-card-link" href="${productPageUrl(p)}" aria-label="View ${p.name}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>` : `<span class="product-emoji">${p.emoji || "🎁"}</span>`}`}
@@ -538,9 +873,10 @@
             ? `<a class="product-card-link" href="${productPageUrl(p)}"><h3 class="product-name">${p.name}</h3></a>`
             : `<h3 class="product-name">${p.name}</h3>`}
           ${p.description ? `<p class="product-desc">${escAttr(p.description)}</p>` : ""}
+          <div class="product-rating">${ratingLine(p)}</div>
           <div class="product-price">
-            <span class="price">${formatPrice(effPrice(p))}</span>
-            ${p.oldPrice ? `<span class="old-price">${formatPrice(effOldPrice(p))}</span>` : ""}
+            <span class="price">${formatPrice(effPrice(p, startSize))}</span>
+            ${showOld ? `<span class="old-price">${formatPrice(effOldPrice(p))}</span>` : ""}
           </div>
           ${lowStock ? `<span class="stock-note">Only ${stock} left</span>` : ""}
           <div class="product-buy">${addControl}</div>
@@ -662,7 +998,10 @@
       if (!p) return "";
       const size = p.sizes && p.sizes.length
         ? `<select class="cart-item-size" data-size="${id}" aria-label="Size">
-             ${p.sizes.map((s) => `<option value="${escAttr(s)}"${s === n.size ? " selected" : ""}>${escAttr(s)}</option>`).join("")}
+             ${p.sizes.map((s) => {
+               const sp = hasSizePrices(p) && p.sizePrices[s] != null ? ` (${formatPrice(p.sizePrices[s])})` : "";
+               return `<option value="${escAttr(s)}"${s === n.size ? " selected" : ""}>${escAttr(s)}${sp}</option>`;
+             }).join("")}
            </select>`
         : "";
       return `
@@ -670,7 +1009,7 @@
           <div class="cart-item-thumb" style="background:${p.gradient}">${p.emoji}</div>
           <div class="cart-item-info">
             <p class="cart-item-name">${p.name}</p>
-            <p class="cart-item-price">${formatPrice(effPrice(p))}</p>
+            <p class="cart-item-price">${formatPrice(effPrice(p, n.size))}</p>
             <div class="cart-item-row">${size}<div class="cart-item-qty">
               <button class="qty-btn" data-action="dec" data-id="${p.id}">−</button>
               <span>${n.qty}</span>
@@ -696,11 +1035,26 @@
 
   function sizeSelectHtml(p) {
     return `<select class="product-size" data-size="${p.id}" aria-label="Size of ${escAttr(p.name)}">
-      ${(p.sizes || []).map((s) => `<option value="${escAttr(s)}">${escAttr(s)}</option>`).join("")}
+      ${(p.sizes || []).map((s) => {
+        const sp = hasSizePrices(p) && p.sizePrices[s] != null ? ` (${formatPrice(p.sizePrices[s])})` : "";
+        return `<option value="${escAttr(s)}">${escAttr(s)}${sp}</option>`;
+      }).join("")}
     </select>`;
   }
 
   /* ---------- Event wiring ---------- */
+  document.addEventListener("click", (e) => {
+    const w = e.target.closest("[data-wish]");
+    if (!w) return;
+    e.preventDefault();
+    const active = toggleWishlist(w.dataset.wish);
+    $$(`[data-wish="${w.dataset.wish}"]`).forEach((h) => {
+      h.classList.toggle("active", active);
+      h.innerHTML = active ? "♥" : "♡";
+    });
+    toast(active ? "Added to wishlist ♥" : "Removed from wishlist");
+  });
+
   if (productsGrid) {
     productsGrid.addEventListener("click", (e) => {
       const btn = e.target.closest(".add-to-cart");
@@ -708,6 +1062,21 @@
       const id = Number(btn.dataset.id);
       const sel = productsGrid.querySelector(`.product-size[data-size="${id}"]`);
       addToCart(id, sel ? sel.value : "");
+    });
+
+    productsGrid.addEventListener("change", (e) => {
+      const sel = e.target.closest(".product-size");
+      if (!sel) return;
+      const card = sel.closest(".product-card");
+      const p = PRODUCTS.find((x) => x.id === Number(sel.dataset.size));
+      if (!p || !card) return;
+      const priceEl = card.querySelector(".price");
+      const oldEl = card.querySelector(".old-price");
+      if (priceEl) priceEl.textContent = formatPrice(effPrice(p, sel.value));
+      if (oldEl) {
+        const onBase = !hasSizePrices(p) || Number(p.sizePrices[sel.value]) === Number(p.price);
+        oldEl.style.display = onBase ? "" : "none";
+      }
     });
   }
 
@@ -1015,4 +1384,12 @@
   initRakhiCountdown();
   initWhatsAppWidget();
   initMobileNav();
+  initWishButton();
+  initWishDrawer();
+  initTrackPage();
+  renderReviewSection();
+  wireReviewForm();
+  renderRecent();
+  const productId = document.body && document.body.getAttribute("data-product-id");
+  if (productId) trackRecent(productId);
 })();

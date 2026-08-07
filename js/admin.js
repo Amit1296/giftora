@@ -174,8 +174,8 @@
               <input type="color" class="f-gradient" value="${toHex(grad)}" title="Pick a background color">
             </div>
             <div class="form-group field-full">
-              <label>Sizes (comma separated)</label>
-              <input type="text" class="f-sizes" value="${esc((p.sizes || []).join(", "))}" placeholder="S, M, L, XL — leave empty if no sizes">
+              <label>Sizes (comma separated, optional =price)</label>
+              <input type="text" class="f-sizes" value="${esc(sizeEntriesHtml(p))}" placeholder="0.5 Kg=799, 1 Kg=999, 2 Kg=1799 — or S, M, L for no pricing">
             </div>
             <div class="form-group field-full">
               <label>Image</label>
@@ -258,6 +258,7 @@
       stock: 10,
       sku: "",
       sizes: [],
+      sizePrices: {},
       badge: null,
       gradient: "linear-gradient(135deg,#f1f5f9,#e2e8f0)",
       image: "",
@@ -283,6 +284,30 @@
     return ["", "Sale", "Bestseller", "Premium"]
       .map((b) => `<option value="${b}"${b === selected ? " selected" : ""}>${b || "None"}</option>`)
       .join("");
+  }
+
+  function sizeEntriesHtml(p) {
+    const sp = (p && p.sizePrices) || {};
+    return (p && p.sizes || []).map((s) => (sp[s] != null ? `${s}=${sp[s]}` : s)).join(", ");
+  }
+
+  function parseSizeEntries(raw) {
+    const sizes = [];
+    const sizePrices = {};
+    String(raw || "").split(",").map((s) => s.trim()).filter(Boolean).forEach((token) => {
+      const eq = token.lastIndexOf("=");
+      if (eq > 0) {
+        const name = token.slice(0, eq).trim();
+        const price = Number(token.slice(eq + 1));
+        if (name && !isNaN(price)) {
+          sizes.push(name);
+          sizePrices[name] = price;
+          return;
+        }
+      }
+      sizes.push(token);
+    });
+    return { sizes, sizePrices };
   }
 
   function esc(s) {
@@ -344,6 +369,7 @@
       products = Array.from(rows).map((row) => {
         const id = Number(row.dataset.id);
         const stockVal = row.querySelector(".f-stock").value.trim();
+        const sizeData = parseSizeEntries(row.querySelector(".f-sizes").value);
         return {
           id,
           name: row.querySelector(".f-name").value.trim() || "Untitled",
@@ -353,7 +379,8 @@
           oldPrice: Number(row.querySelector(".f-oldprice").value) || 0,
           stock: stockVal === "" ? null : Math.max(0, parseInt(stockVal, 10) || 0),
           sku: row.querySelector(".f-sku").value.trim(),
-          sizes: row.querySelector(".f-sizes").value.split(",").map((s) => s.trim()).filter(Boolean),
+          sizes: sizeData.sizes,
+          sizePrices: sizeData.sizePrices,
           badge: row.querySelector(".f-badge").value || null,
           gradient: "linear-gradient(135deg," + row.querySelector(".f-gradient").value + ",#f1f5f9)",
           image: (original.find((p) => p.id === id) || {}).image || "",
@@ -465,7 +492,7 @@
           <div class="order-customer">
             <div><b>Phone</b>${esc(o.phone || "")}</div>
             <div><b>Address</b>${esc(o.address || "")}</div>
-            <div><b>Payment</b>${esc(o.payment || "Cash on Delivery")}</div>
+            <div><b>Payment</b>${esc(o.payment || "UPI")}</div>
           </div>
           <ul class="order-items">${items}</ul>
           <div class="order-foot">
