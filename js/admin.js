@@ -366,11 +366,17 @@
     try {
       const rows = $$("#productList .product-row");
       const original = products;
-      products = Array.from(rows).map((row) => {
+      if (rows.length === 0) {
+        msg.className = "save-msg err";
+        msg.textContent = "Nothing to save — no products are shown. Clear the search/filter or add a product first.";
+        return;
+      }
+      const edited = new Map();
+      Array.from(rows).forEach((row) => {
         const id = Number(row.dataset.id);
         const stockVal = row.querySelector(".f-stock").value.trim();
         const sizeData = parseSizeEntries(row.querySelector(".f-sizes").value);
-        return {
+        edited.set(id, {
           id,
           name: row.querySelector(".f-name").value.trim() || "Untitled",
           category: row.querySelector(".f-category").value,
@@ -385,8 +391,10 @@
           gradient: "linear-gradient(135deg," + row.querySelector(".f-gradient").value + ",#f1f5f9)",
           image: (original.find((p) => p.id === id) || {}).image || "",
           description: row.querySelector(".f-desc").value.trim(),
-        };
+        });
       });
+      const keep = original.filter((p) => p && typeof p.id !== "undefined" && !edited.has(p.id));
+      products = [...keep, ...edited.values()];
       const res = await api("/api/admin/products", {
         method: "PUT",
         body: JSON.stringify({ products }),

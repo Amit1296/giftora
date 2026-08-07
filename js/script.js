@@ -9,7 +9,7 @@
       const res = await fetch("/api/products");
       if (!res.ok) return;
       const data = await res.json();
-      if (data && Array.isArray(data.products)) {
+      if (data && Array.isArray(data.products) && data.products.length > 0) {
         PRODUCTS = data.products;
         renderProducts();
       }

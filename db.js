@@ -72,7 +72,15 @@ async function pgSet(key, value) {
 }
 
 async function seedPg() {
-  if (!(await existsPg("products"))) {
+  let storedProducts = null;
+  if (await existsPg("products")) {
+    try {
+      storedProducts = await pgGet("products", []);
+    } catch (e) {
+      storedProducts = null;
+    }
+  }
+  if (!storedProducts || !Array.isArray(storedProducts) || storedProducts.length === 0) {
     try {
       await pgSet("products", JSON.parse(fs.readFileSync(PRODUCTS_FILE, "utf8")));
       console.log("db: seeded products from data/products.json");
