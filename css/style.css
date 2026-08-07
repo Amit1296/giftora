@@ -943,6 +943,9 @@ body.admin-bar .navbar { top: 32px; }
 .payment-option:hover { border-color: var(--primary); }
 .payment-option input { accent-color: var(--primary); }
 .payment-option.selected { border-color: var(--primary); background: color-mix(in srgb, var(--primary) 6%, transparent); }
+.payment-option:has(input:checked) { border-color: var(--primary); background: color-mix(in srgb, var(--primary) 6%, transparent); }
+.midnight-option span { font-size: 0.88rem; font-weight: 600; }
+.midnight-option .midnight-note { font-size: 0.8rem; font-weight: 400; color: var(--muted, #64748b); margin-top: 2px; }
 @media (max-width: 520px) {
   .form-row { grid-template-columns: 1fr; }
 }

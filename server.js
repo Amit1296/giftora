@@ -17,6 +17,8 @@ const ADMIN_CONFIG = path.join(ROOT, "admin-config.json");
 const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || readLocalSecret("razorpay-key-id");
 const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || readLocalSecret("razorpay-key-secret");
 
+const MIDNIGHT_FEE = 300;
+
 function readLocalSecret(name) {
   try {
     const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, "razorpay-config.json"), "utf8"));
@@ -751,6 +753,8 @@ async function createRazorpayOrder(data) {
     const price = discount > 0 ? Math.round((base * (100 - discount)) / 100) : base;
     total += price * qty;
   }
+  const midnight = data.midnightDelivery === true || data.midnightDelivery === "true";
+  if (midnight) total += MIDNIGHT_FEE;
   const order = await razorpayRequest("/v1/orders", {
     amount: Math.round(total * 100),
     currency: "INR",
@@ -765,6 +769,9 @@ async function placeOrder(data) {
   const phone = String(data.phone || "").trim().slice(0, 20);
   const address = String(data.address || "").trim().slice(0, 600);
   const payment = ["UPI", "Card", "UPI QR"].includes(data.payment) ? data.payment : "UPI";
+  const deliveryDate = String(data.deliveryDate || "").trim().slice(0, 20);
+  const midnightDelivery = data.midnightDelivery === true || data.midnightDelivery === "true";
+  const midnightFee = midnightDelivery ? MIDNIGHT_FEE : 0;
   if (!name || !phone || !/^[0-9+\-()\s]{7,20}$/.test(phone) || !address) {
     throw new Error("ORDER:Please provide a valid name, phone and address.");
   }
@@ -799,6 +806,7 @@ async function placeOrder(data) {
     total += price * qty;
     items.push({ id, name: p.name, qty, size, price });
   }
+  if (midnightDelivery) total += midnightFee;
 
   const isOnline = payment === "UPI" || payment === "Card";
   let rzpPaymentId = "";
@@ -834,13 +842,16 @@ async function placeOrder(data) {
     payment,
     items,
     total,
+    deliveryDate,
+    midnightDelivery,
+    midnightFee,
     vid: String(data.vid || "").slice(0, 64),
     razorpayPaymentId: rzpPaymentId,
     _file: orderId,
     status: "New",
     date: new Date().toISOString(),
   });
-  sendOrderEmail({ name, phone, address, payment, items, total }, orderId);
+  sendOrderEmail({ name, phone, address, payment, items, total, deliveryDate, midnightDelivery }, orderId);
   return { success: true, orderId, total };
 }
 
@@ -854,7 +865,9 @@ function sendOrderEmail(order, orderId) {
       `Name: ${order.name}\n` +
       `Phone: ${order.phone}\n` +
       `Shipping Address: ${order.address}\n` +
-      `Payment Method: ${order.payment || "UPI"}\n\n` +
+      `Payment Method: ${order.payment || "UPI"}\n` +
+      `Delivery Date: ${order.deliveryDate || "Not set"}\n` +
+      `Midnight Delivery: ${order.midnightDelivery ? "Yes (+ Rs." + MIDNIGHT_FEE + ")" : "No"}\n\n` +
       `Items:\n${lines}\n\n` +
       `Total: Rs.${order.total}`,
   });

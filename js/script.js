@@ -2,6 +2,7 @@
   let PRODUCTS = (window.GIFT_PRODUCTS || []).slice();
   const PRODUCTS_KEY = "giftora_cart";
   const CURRENCY = "₹";
+  const MIDNIGHT_FEE = 300;
 
   async function refreshProducts() {
     try {
@@ -482,6 +483,15 @@
     }, 0);
   }
 
+  function deliveryFee() {
+    const el = $("#oMidnightDelivery");
+    return el && el.checked ? MIDNIGHT_FEE : 0;
+  }
+
+  function grandTotal() {
+    return cartTotal() + deliveryFee();
+  }
+
   function toast(msg) {
     toastEl.textContent = msg;
     toastEl.classList.add("show");
@@ -514,13 +524,15 @@
   /* ---------- Checkout modal ---------- */
   function openCheckout() {
     if (countItems() === 0) return;
+    checkoutForm.style.display = "";
+    checkoutSuccess.hidden = true;
+    checkoutForm.reset();
+    const dateInput = $("#oDeliveryDate");
+    if (dateInput) dateInput.min = new Date().toISOString().slice(0, 10);
     renderOrderSummary();
     loadPaymentConfig();
     checkoutModal.classList.add("open");
     checkoutOverlay.classList.add("open");
-    checkoutForm.style.display = "";
-    checkoutSuccess.hidden = true;
-    checkoutForm.reset();
     lockScroll();
   }
 
@@ -544,8 +556,12 @@
         </div>
       `;
     }).join("");
+    const fee = deliveryFee();
+    if (fee > 0) {
+      orderSummary.innerHTML += `<div class="os-row"><span class="os-name">🌙 Midnight Delivery</span><span class="os-muted">${formatPrice(fee)}</span></div>`;
+    }
     const saving = festivalSaving();
-    checkoutTotal.textContent = formatPrice(cartTotal());
+    checkoutTotal.textContent = formatPrice(grandTotal());
     checkoutTotal.previousElementSibling.textContent = saving > 0 ? `Total to pay (${festivalDiscount}% off)` : "Total to pay";
   }
 
@@ -567,6 +583,11 @@
     const state = $("#oState").value.trim();
     const pincode = $("#oPincode").value.trim();
     const shippingAddress = [address, city, state, "PIN " + pincode].filter(Boolean).join(", ");
+    const deliveryDateEl = $("#oDeliveryDate");
+    const midnightEl = $("#oMidnightDelivery");
+    const deliveryDate = deliveryDateEl ? String(deliveryDateEl.value || "").slice(0, 20) : "";
+    const midnightDelivery = !!(midnightEl && midnightEl.checked);
+    const fee = midnightDelivery ? MIDNIGHT_FEE : 0;
 
     let vid = "";
     try { vid = localStorage.getItem("giftora_vid") || ""; } catch {}
@@ -577,7 +598,10 @@
       address: shippingAddress,
       payment,
       items,
-      total: cartTotal(),
+      deliveryDate,
+      midnightDelivery,
+      midnightFee: fee,
+      total: grandTotal(),
       vid,
     };
     if (rzp) {
@@ -601,7 +625,7 @@
       }
 
       successOrderId.textContent = "#" + res.orderId;
-      saveOrder({ orderId: String(res.orderId), name: name || "", phone: phone || "", total: cartTotal(), date: new Date().toISOString(), payment });
+      saveOrder({ orderId: String(res.orderId), name: name || "", phone: phone || "", total: grandTotal(), date: new Date().toISOString(), payment });
       const waTrack = checkoutSuccess.querySelector(".wa-track");
       if (!waTrack) {
         const a = document.createElement("a");
@@ -699,6 +723,11 @@
       toast("Please fill in all details and try again.");
       return;
     }
+    const dateEl = $("#oDeliveryDate");
+    if (!dateEl || !dateEl.value) {
+      toast("Please choose a delivery date.");
+      return;
+    }
     const payment = document.querySelector('input[name="payment"]:checked')?.value || "UPI";
     if (payment === "UPI QR") {
       await startDirectUpi();
@@ -710,6 +739,10 @@
   checkoutBtn.addEventListener("click", openCheckout);
   checkoutClose.addEventListener("click", closeCheckout);
   checkoutOverlay.addEventListener("click", closeCheckout);
+  const midnightEl = $("#oMidnightDelivery");
+  if (midnightEl) midnightEl.addEventListener("change", renderOrderSummary);
+  const dateEl = $("#oDeliveryDate");
+  if (dateEl) dateEl.addEventListener("change", renderOrderSummary);
   successDone.addEventListener("click", () => {
     closeCheckout();
     closeCart();
@@ -725,7 +758,7 @@
       toast("UPI payments are unavailable right now.");
       return;
     }
-    const amt = cartTotal();
+    const amt = grandTotal();
     upiAmount.textContent = formatPrice(amt);
     upiIdText.textContent = upiConfig.upiId;
     const uri = "upi://pay?pa=" + upiConfig.upiId +

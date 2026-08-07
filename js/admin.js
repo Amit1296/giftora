@@ -493,6 +493,8 @@
             <div><b>Phone</b>${esc(o.phone || "")}</div>
             <div><b>Address</b>${esc(o.address || "")}</div>
             <div><b>Payment</b>${esc(o.payment || "UPI")}</div>
+            ${o.deliveryDate ? `<div><b>Delivery Date</b>${esc(o.deliveryDate)}</div>` : ""}
+            ${o.midnightDelivery ? `<div><b>Midnight Delivery</b>Yes (+₹${Number(o.midnightFee || 300)})</div>` : ""}
           </div>
           <ul class="order-items">${items}</ul>
           <div class="order-foot">
