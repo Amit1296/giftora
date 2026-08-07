@@ -390,6 +390,7 @@ const server = http.createServer(async (req, res) => {
         const file = "img_" + timestamp().replace(/[^0-9]/g, "_") + crypto.randomBytes(3).toString("hex") + sniffed;
         fs.mkdirSync(UPLOADS_DIR, { recursive: true });
         fs.writeFileSync(path.join(UPLOADS_DIR, file), buffer);
+        await db.saveUpload(file, buffer).catch(() => {});
         return sendJson(res, 200, { success: true, url: "/uploads/" + file });
       } catch (e) {
         console.error("Upload error:", e.message);
@@ -560,6 +561,21 @@ const server = http.createServer(async (req, res) => {
   }
 
   if (!fs.existsSync(filePath)) {
+    if (lowerPath.startsWith("/uploads/")) {
+      const key = pathname.slice("/uploads/".length).split("/")[0];
+      if (key) {
+        try {
+          const buf = await db.getUpload(key);
+          if (buf) {
+            const type = MIME[path.extname(key).toLowerCase()] || "application/octet-stream";
+            res.writeHead(200, { "Content-Type": type, "Cache-Control": "public, max-age=604800" });
+            return res.end(buf);
+          }
+        } catch (e) {
+          console.error("Upload DB read error:", e.message);
+        }
+      }
+    }
     res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Not found");
   }

@@ -42,6 +42,11 @@ if (USE_PG) {
       key TEXT PRIMARY KEY,
       value JSONB NOT NULL
     );
+    CREATE TABLE IF NOT EXISTS giftora_uploads (
+      key TEXT PRIMARY KEY,
+      data BYTEA NOT NULL,
+      created_at TIMESTAMPTZ DEFAULT now()
+    );
   `;
 
   pool
@@ -159,6 +164,25 @@ async function getProducts() {
 async function saveProducts(products) {
   if (USE_PG) return pgSet("products", products);
   return writeJson(PRODUCTS_FILE, products);
+}
+
+/* ---------- Uploads (persistent in Postgres on production) ---------- */
+async function saveUpload(key, buffer) {
+  if (USE_PG) {
+    await pool.query(
+      "INSERT INTO giftora_uploads (key, data) VALUES ($1, $2) ON CONFLICT (key) DO UPDATE SET data = EXCLUDED.data, created_at = now()",
+      [key, buffer]
+    );
+    return;
+  }
+  fs.mkdirSync(path.dirname(path.join(DATA_DIR, "uploads", key)), { recursive: true });
+  fs.writeFileSync(path.join(DATA_DIR, "uploads", key), buffer);
+}
+
+async function getUpload(key) {
+  if (!USE_PG) return null;
+  const res = await pool.query("SELECT data FROM giftora_uploads WHERE key = $1", [key]);
+  return res.rows.length ? res.rows[0].data : null;
 }
 
 /* ---------- Festival offer ---------- */
@@ -320,6 +344,8 @@ module.exports = {
   saveProducts,
   getFestival,
   saveFestival,
+  saveUpload,
+  getUpload,
   getOrders,
   addOrder,
   updateOrder,
