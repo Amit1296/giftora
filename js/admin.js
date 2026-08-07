@@ -417,6 +417,43 @@
     }
   }
 
+  async function restoreProducts() {
+    try {
+      const data = await api("/api/admin/products/history");
+      const history = (data.success && data.history) || [];
+      if (history.length === 0) {
+        toast("No backups found.");
+        return;
+      }
+      const label = (h, i) =>
+        `${i + 1}. ${new Date(h.savedAt).toLocaleString()} — ${h.count} product${h.count === 1 ? "" : "s"}`;
+      const pick = prompt(
+        "Choose a backup to restore (this replaces the current catalog):\n\n" +
+          history.map(label).join("\n") +
+          "\n\nEnter 1–" + history.length + ":",
+        "1"
+      );
+      if (pick === null) return;
+      const index = parseInt(pick, 10) - 1;
+      if (isNaN(index) || index < 0 || index >= history.length) {
+        toast("Invalid choice.");
+        return;
+      }
+      const res = await api("/api/admin/products/restore", {
+        method: "POST",
+        body: JSON.stringify({ index }),
+      });
+      if (res.success) {
+        toast("Catalog restored from backup ✓");
+        loadProducts();
+      } else {
+        toast(res.message || "Could not restore.");
+      }
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
   async function uploadImage(input) {
     const file = input.files && input.files[0];
     const id = Number(input.dataset.id);
@@ -1056,6 +1093,7 @@
   });
   $("#saveProductsBtn").addEventListener("click", saveProducts);
   $("#addProductBtn").addEventListener("click", addProduct);
+  $("#restoreProductsBtn").addEventListener("click", restoreProducts);
   $("#saveFestivalBtn").addEventListener("click", saveFestival);
   $("#fUploadBtn").addEventListener("click", () => $("#fImageInput").click());
   $("#fImageInput").addEventListener("change", uploadBanner);

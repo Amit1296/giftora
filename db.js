@@ -170,8 +170,52 @@ async function getProducts() {
 }
 
 async function saveProducts(products) {
-  if (USE_PG) return pgSet("products", products);
+  if (USE_PG) {
+    const prev = await pgGet("products", []);
+    if (Array.isArray(prev) && prev.length > 0) {
+      const history = await pgGet("products_history", []);
+      history.push({ savedAt: new Date().toISOString(), count: prev.length, snapshot: prev });
+      if (history.length > 20) history.splice(0, history.length - 20);
+      await pgSet("products_history", history).catch(() => {});
+    }
+    return pgSet("products", products);
+  }
+  const prev = readJson(PRODUCTS_FILE, []);
+  if (Array.isArray(prev) && prev.length > 0 && Array.isArray(products) && products.length !== prev.length) {
+    const backupDir = path.join(DATA_DIR, "backups");
+    fs.mkdirSync(backupDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(backupDir, "products-" + new Date().toISOString().replace(/[:.]/g, "-") + ".json"),
+      JSON.stringify(prev, null, 2)
+    );
+  }
   return writeJson(PRODUCTS_FILE, products);
+}
+
+async function getProductsHistory() {
+  if (USE_PG) return pgGet("products_history", []);
+  const backupDir = path.join(DATA_DIR, "backups");
+  if (!fs.existsSync(backupDir)) return [];
+  return fs
+    .readdirSync(backupDir)
+    .filter((f) => /^products-.*\.json$/.test(f))
+    .map((f) => {
+      try {
+        const snapshot = JSON.parse(fs.readFileSync(path.join(backupDir, f), "utf8"));
+        return { savedAt: f, count: Array.isArray(snapshot) ? snapshot.length : 0, snapshot };
+      } catch {
+        return null;
+      }
+    })
+    .filter(Boolean);
+}
+
+async function restoreProducts(index) {
+  const history = await getProductsHistory();
+  const entry = history[Number(index) || 0];
+  if (!entry || !Array.isArray(entry.snapshot)) return false;
+  await saveProducts(entry.snapshot);
+  return true;
 }
 
 /* ---------- Uploads (persistent in Postgres on production) ---------- */
@@ -350,6 +394,8 @@ async function clearVisitors() {
 module.exports = {
   getProducts,
   saveProducts,
+  getProductsHistory,
+  restoreProducts,
   getFestival,
   saveFestival,
   saveUpload,

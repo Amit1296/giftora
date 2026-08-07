@@ -398,6 +398,21 @@ const server = http.createServer(async (req, res) => {
       }
     }
 
+    if (url.pathname === "/api/admin/products/restore") {
+      const auth = requireAuth(req, res);
+      if (!auth) return;
+      try {
+        const { index } = JSON.parse(await readBody(req));
+        const ok = await db.restoreProducts(index);
+        return sendJson(res, ok ? 200 : 400, {
+          success: ok,
+          message: ok ? "Product catalog restored from backup." : "Backup not found.",
+        });
+      } catch (e) {
+        return sendJson(res, 400, { success: false, message: "Could not restore products." });
+      }
+    }
+
     return sendJson(res, 404, { success: false, message: "Not found." });
   }
 
@@ -443,11 +458,21 @@ const server = http.createServer(async (req, res) => {
       try {
         const { products } = JSON.parse(await readBody(req));
         if (!Array.isArray(products)) throw new Error("bad payload");
+        if (products.length === 0) {
+          return sendJson(res, 400, {
+            success: false,
+            message: "Refusing to save an empty product list. Restore from backups instead.",
+          });
+        }
         await db.saveProducts(products);
         return sendJson(res, 200, { success: true });
       } catch (e) {
         return sendJson(res, 400, { success: false, message: "Could not save products." });
       }
+    }
+
+    if (url.pathname === "/api/admin/products/history" && method === "GET") {
+      return sendJson(res, 200, { success: true, history: await db.getProductsHistory() });
     }
 
     if (url.pathname === "/api/admin/festival" && method === "GET") {
