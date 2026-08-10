@@ -288,6 +288,7 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
         if (["node_modules", "backups", "data", "uploads", "seo", ".git"].includes(f)) continue;
         walk(full);
       } else if (f.endsWith(".html")) {
+        if (/^google[0-9a-f]{8,}\.html$/i.test(f) || /^ms[0-9a-f]{8,}\.txt$/i.test(f)) continue;
         const rel = path.relative(ROOT, full).replace(/\\/g, "/");
         if (!excluded.includes(rel) && !urlSet.has(site.url + "/" + rel)) {
           addUrl(site.url + "/" + rel, "0.5", "weekly");
