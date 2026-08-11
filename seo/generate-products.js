@@ -37,6 +37,131 @@ const CATEGORY_META = {
   belts: { name: "Belts", file: "belts.html" },
 };
 
+// Product-specific long-tail keywords, keyed by product id (js/products.js).
+// These replace the generic "buy <category> online" keywords on the product page.
+const PRODUCT_KEYWORDS = {
+  9: [
+    "red rose bouquet price online",
+    "send red roses to Delhi same day",
+    "romantic rose bouquet for girlfriend",
+    "fresh red roses delivery India",
+    "rose bouquet under 1000",
+    "anniversary rose delivery online",
+    "red roses birthday gift",
+    "buy fresh red rose bouquet",
+  ],
+  10: [
+    "sunflower bouquet price India",
+    "send sunflowers to Delhi",
+    "sunflower bunch 12 stems",
+    "sunflower delivery online India",
+    "cheerful sunflower gift bouquet",
+    "sunflowers under 1000",
+    "buy sunflower bouquet online",
+    "sunflower gift same day delivery",
+  ],
+  11: [
+    "tulip bouquet online price",
+    "send tulips to India",
+    "hand tied tulip bouquet delivery",
+    "tulip flower delivery Delhi",
+    "premium tulip bouquet gift",
+    "tulips for anniversary",
+    "buy tulip bouquet online India",
+    "tulip bouquet same day delivery",
+  ],
+  12: [
+    "orchid plant online India",
+    "orchid in ceramic pot price",
+    "send orchid plant as gift",
+    "orchid planter delivery Delhi",
+    "orchid plant gift for housewarming",
+    "buy orchid plant online",
+    "orchid same day delivery",
+    "ceramic pot orchid plant price",
+  ],
+  13: [
+    "chocolate truffle cake 1kg price",
+    "order chocolate cake online India",
+    "best chocolate truffle cake online",
+    "chocolate cake same day delivery Delhi",
+    "birthday chocolate cake 1kg",
+    "eggless chocolate truffle cake online",
+    "send chocolate cake to Delhi",
+    "buy chocolate truffle cake 1kg",
+  ],
+  14: [
+    "vanilla birthday cake price",
+    "plain vanilla cake online India",
+    "eggless vanilla cake 1kg",
+    "vanilla birthday cake same day delivery",
+    "order vanilla cake online Delhi",
+    "best vanilla cake under 1000",
+    "classic vanilla cake for birthday",
+    "buy vanilla birthday cake online",
+  ],
+  15: [
+    "red velvet cake 1kg price",
+    "order red velvet cake online",
+    "red velvet birthday cake delivery Delhi",
+    "best red velvet cake India",
+    "red velvet celebration cake same day",
+    "send red velvet cake online",
+    "red velvet cake for anniversary",
+    "buy red velvet cake 1kg",
+  ],
+  16: [
+    "strawberry cream cake price 1kg",
+    "order strawberry cake online India",
+    "strawberry cake birthday delivery",
+    "fresh strawberry cake same day Delhi",
+    "best strawberry cake under 1500",
+    "strawberry cream cake for kids birthday",
+    "send strawberry cake online",
+    "buy strawberry cream cake 1kg",
+  ],
+  25: [
+    "money plant online price",
+    "money plant in ceramic pot delivery",
+    "buy money plant online Delhi",
+    "money plant gift for housewarming",
+    "money plant same day delivery",
+    "lucky money plant for home",
+    "money plant in pot under 500",
+    "buy money plant online India",
+  ],
+  26: [
+    "lucky bamboo plant price online",
+    "buy lucky bamboo plant India",
+    "lucky bamboo gift for office",
+    "feng shui lucky bamboo plant",
+    "lucky bamboo delivery Delhi",
+    "lucky bamboo under 1000",
+    "lucky bamboo plant same day",
+    "buy lucky bamboo online",
+  ],
+  27: [
+    "snake plant online price",
+    "buy snake plant online India",
+    "snake plant in decor pot delivery",
+    "air purifying snake plant gift",
+    "snake plant bedroom plant online",
+    "snake plant same day delivery",
+    "snake plant under 1000",
+    "buy snake plant in pot online",
+  ],
+  28: [
+    "peace lily plant online price",
+    "buy peace lily plant India",
+    "peace lily in bloom pot delivery",
+    "flowering plant gift for home",
+    "peace lily air purifying plant",
+    "peace lily delivery Delhi",
+    "peace lily plant same day",
+    "buy peace lily online",
+  ],
+};
+
 const FONT_LINK =
   '<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
   '\t<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
@@ -122,9 +247,10 @@ function extractChrome() {
 function buildMeta(product, slug, catMeta, site, description) {
   const url = `${site.url}/products/${slug}.html`;
   const title = `${product.name} — Buy Online at Giftora`;
-  const lines = [
-    "<!-- SEO-BLOCK-START -->",
-    `<meta name="keywords" content="${esc([
+  const custom = PRODUCT_KEYWORDS[product.id];
+  const keywords = custom && custom.length
+    ? custom
+    : [
       product.name,
       `${product.name} online`,
       `buy ${catMeta.name} online`,
@@ -133,7 +259,10 @@ function buildMeta(product, slug, catMeta, site, description) {
       `same day ${catMeta.name} delivery`,
       "online gift shop India",
       "gift delivery India",
-    ].join(", "))}">`,
+    ];
+  const lines = [
+    "<!-- SEO-BLOCK-START -->",
+    `<meta name="keywords" content="${esc(keywords.join(", "))}">`,
     `<link rel="canonical" href="${url}">`,
     `<meta property="og:site_name" content="${site.name}">`,
     `<meta property="og:title" content="${esc(title)}">`,
