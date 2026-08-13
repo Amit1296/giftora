@@ -9,7 +9,7 @@ Total time: ~10 minutes.
 ## Current status (last checked 2026-08-13)
 
 - [x] Site verified in Search Console (meta tag + `google7700e6aeefbc94c5.html`)
-- [x] `sitemap.xml` generated — **147 URLs** (44 products, 63 cities, 4 blogs + occasion/category/static)
+- [x] `sitemap.xml` generated — **145 URLs** (44 products, 63 cities, 4 blogs + occasion/category/static)
 - [x] `robots.txt` points to the sitemap
 - [x] `lastmod` refreshed to today via `apply-seo.js` / `generate-products.js`
 - [ ] Sitemap submitted in Search Console
@@ -21,7 +21,7 @@ Total time: ~10 minutes.
 
 1. [ ] Keep the site awake — add an UptimeRobot monitor (Step 0 below)
 2. [ ] Open Search Console → your `https://gift-ora.online` property
-3. [ ] **Sitemaps** → submit `sitemap.xml` (expect Success, 147 URLs)
+3. [ ] **Sitemaps** → submit `sitemap.xml` (expect Success, 145 URLs)
 4. [ ] **URL Inspection** → request indexing for `index.html` + 5 key pages
 5. [ ] Bing Webmaster Tools → Import from Google Search Console
 6. [ ] Wait 1–2 weeks, then check **Performance** report
@@ -84,7 +84,7 @@ You'll be shown verification options. Pick the one that gives you a meta tag:
    ```
     sitemap.xml
     ```
-4. Click **Submit**. You should see *Success* with 147 URLs discovered.
+4. Click **Submit**. You should see *Success* with 145 URLs discovered.
 
 ## Step 4 — Request indexing of your best pages
 

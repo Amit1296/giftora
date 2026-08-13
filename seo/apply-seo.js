@@ -285,7 +285,7 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
     for (const f of fs.readdirSync(dir)) {
       const full = path.join(dir, f);
       if (fs.statSync(full).isDirectory()) {
-        if (["node_modules", "backups", "data", "uploads", "seo", ".git"].includes(f)) continue;
+        if (["node_modules", "backups", "banners", "data", "uploads", "seo", ".git"].includes(f)) continue;
         walk(full);
       } else if (f.endsWith(".html")) {
         if (/^google[0-9a-f]{8,}\.html$/i.test(f) || /^ms[0-9a-f]{8,}\.txt$/i.test(f)) continue;
