@@ -12,9 +12,10 @@ Total time: ~10 minutes.
 - [x] `sitemap.xml` generated — **145 URLs** (44 products, 63 cities, 4 blogs + occasion/category/static)
 - [x] `robots.txt` points to the sitemap
 - [x] `lastmod` refreshed to today via `apply-seo.js` / `generate-products.js`
-- [ ] Sitemap submitted in Search Console
-- [ ] Key pages requested for indexing
-- [ ] Bing Webmaster Tools set up
+- [ ] Sitemap submitted in Search Console (Google)
+- [ ] Key pages requested for indexing (Google)
+- [x] **Bing Webmaster Tools** — verified via `BingSiteAuth.xml`, sitemap submitted
+- [x] **IndexNow** set up — key hosted, `seo/ping-indexnow.js` pings all URLs
 - [ ] UptimeRobot pinging the site (keeps Render free tier awake)
 
 ## Quick checklist (do in order)
@@ -23,8 +24,30 @@ Total time: ~10 minutes.
 2. [ ] Open Search Console → your `https://gift-ora.online` property
 3. [ ] **Sitemaps** → submit `sitemap.xml` (expect Success, 145 URLs)
 4. [ ] **URL Inspection** → request indexing for `index.html` + 5 key pages
-5. [ ] Bing Webmaster Tools → Import from Google Search Console
-6. [ ] Wait 1–2 weeks, then check **Performance** report
+5. [x] Bing Webmaster Tools — verified + sitemap submitted (done)
+6. [x] IndexNow — automated pings (done)
+7. [ ] Wait 1–2 weeks, then check **Performance** report
+
+---
+
+## Post-update routine (after every content/product change)
+
+Google and Bing are **independent** — one sitemap submission each, then they
+crawl on their own. To signal both engines after any update, run from the
+project folder:
+
+```
+npm run seo:apply
+npm run seo:ping
+```
+
+- `seo:apply` — refreshes meta tags + regenerates `sitemap.xml` (both engines read this)
+- `seo:ping` — pings **Bing/IndexNow instantly** (200 OK = accepted)
+
+Then, for **Google** only, re-submit the sitemap every few updates:
+Search Console → **Sitemaps** → enter `sitemap.xml` → **Submit** (Google
+re-crawls sooner when it sees a fresh sitemap). You do **not** need to do
+anything else in Bing — IndexNow covers it.
 
 ---
 
