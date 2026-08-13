@@ -19,6 +19,7 @@ function ping(urls) {
   const body = JSON.stringify({
     host: SITE.replace(/^https?:\/\//, ""),
     key: fs.readFileSync(KEY_FILE, "utf8").trim(),
+    keyLocation: SITE + "/" + fs.readFileSync(KEY_FILE, "utf8").trim() + ".txt",
     urlList: urls,
   });
   const req = https.request(
@@ -55,7 +56,7 @@ if (!fs.existsSync(KEY_FILE)) {
 }
 
 if (fs.existsSync(SITEMAP)) {
-  const urls = readXml(fs.readFileSync(SITEMAP, "utf8")).map((u) => u.replace(SITE, ""));
+  const urls = readXml(fs.readFileSync(SITEMAP, "utf8"));
   console.log("Found " + urls.length + " URLs in sitemap.");
   ping(urls);
 } else {
