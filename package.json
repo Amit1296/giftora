@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "seo:apply": "node seo/apply-seo.js && node seo/generate-products.js",
+    "seo:ping": "node seo/ping-indexnow.js"
   },
   "keywords": [],
   "author": "",
