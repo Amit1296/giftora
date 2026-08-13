@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Baloo+2:wght@500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { width: 1200px; height: 628px; overflow: hidden; }
+
+  .banner {
+    position: relative;
+    width: 1200px;
+    height: 628px;
+    background:
+      radial-gradient(800px 500px at 85% -10%, rgba(251,191,36,.45), transparent 60%),
+      radial-gradient(900px 600px at 0% 110%, rgba(236,72,153,.5), transparent 55%),
+      radial-gradient(700px 500px at 50% 110%, rgba(245,179,1,.3), transparent 60%),
+      linear-gradient(150deg, #4a044e 0%, #86198f 30%, #be185d 60%, #db2777 85%, #ec4899 100%);
+    font-family: 'Baloo 2', sans-serif;
+    color: #fff5f7;
+    display: flex;
+    flex-direction: column;
+    padding: 26px 66px 22px;
+    overflow: hidden;
+  }
+
+  /* ---------- background rangoli ---------- */
+  .rangoli { position: absolute; right: -260px; top: 50%; transform: translateY(-50%); width: 720px; height: 720px; opacity: .14; pointer-events: none; }
+  .rangoli2 { position: absolute; left: -300px; top: 50%; transform: translateY(-50%); width: 820px; height: 820px; opacity: .09; pointer-events: none; }
+
+  .orb { position: absolute; border-radius: 50%; pointer-events: none; }
+  .orb.o1 { width: 360px; height: 360px; background: radial-gradient(circle, rgba(251,191,36,.42), transparent 65%); top: -150px; left: 55%; }
+  .orb.o2 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(249,168,212,.4), transparent 65%); bottom: -140px; left: -80px; }
+
+  /* ---------- twinkles ---------- */
+  .sparkle { position: absolute; color: #fde68a; opacity: 0; animation: tw 2.8s ease-in-out infinite; pointer-events: none; }
+  @keyframes tw { 0%,100% { opacity: 0; transform: scale(.5) rotate(0); } 50% { opacity: 1; transform: scale(1.1) rotate(45deg); } }
+  .sparkle.s1 { font-size: 26px; top: 100px; left: 180px; animation-delay: .3s; }
+  .sparkle.s2 { font-size: 20px; top: 130px; right: 200px; animation-delay: 1s; }
+  .sparkle.s3 { font-size: 24px; bottom: 100px; left: 200px; animation-delay: 1.5s; }
+  .sparkle.s4 { font-size: 20px; bottom: 90px; right: 180px; animation-delay: .7s; }
+
+  /* floating petals */
+  .petal { position: absolute; font-size: 24px; opacity: .5; pointer-events: none; animation: float 5s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
+  .petal.p1 { top: 70px; right: 300px; }
+  .petal.p2 { bottom: 60px; left: 260px; animation-delay: 1.4s; }
+  .petal.p3 { top: 60px; left: 300px; animation-delay: .8s; }
+
+  /* ---------- frame ---------- */
+  .frame { position: absolute; top: 16px; left: 16px; right: 16px; bottom: 16px; border: 4px solid rgba(245,179,1,.6); border-radius: 34px; pointer-events: none; box-shadow: inset 0 0 0 2px rgba(255,255,255,.09), inset 0 0 60px rgba(245,179,1,.15); }
+  .corner { position: absolute; width: 38px; height: 38px; border: 5px solid #f5b301; }
+  .c1 { top: 9px; left: 9px; border-right: none; border-bottom: none; border-top-left-radius: 22px; }
+  .c2 { top: 9px; right: 9px; border-left: none; border-bottom: none; border-top-right-radius: 22px; }
+  .c3 { bottom: 9px; left: 9px; border-right: none; border-top: none; border-bottom-left-radius: 22px; }
+  .c4 { bottom: 9px; right: 9px; border-left: none; border-top: none; border-bottom-right-radius: 22px; }
+
+  /* ---------- garland ---------- */
+  .garland { position: absolute; display: flex; gap: 8px; pointer-events: none; }
+  .garland.g-top { top: 1px; left: 50%; transform: translateX(-50%); }
+  .garland.g-bot { bottom: 2px; left: 50%; transform: translateX(-50%); }
+  .garland span { font-size: 22px; filter: drop-shadow(0 2px 5px rgba(0,0,0,.35)); }
+  .garland .flip { transform: scaleX(-1); }
+
+  /* ---------- top bar ---------- */
+  .top { position: relative; z-index: 3; display: flex; align-items: center; gap: 18px; }
+  .logo { display: flex; align-items: baseline; font-family: 'Lilita One', sans-serif; font-size: 40px; font-weight: 400; letter-spacing: 1px; filter: drop-shadow(0 4px 14px rgba(0,0,0,.35)); }
+  .logo .ora { color: #fbbf24; display: inline-block; transform: rotate(-5deg); text-shadow: 0 4px 20px rgba(245,179,1,.6); }
+  .top-sep { width: 2px; height: 34px; background: linear-gradient(180deg, transparent, rgba(245,179,1,.9), transparent); }
+  .top-tag { font-family: 'Baloo 2', sans-serif; font-size: 23px; font-weight: 700; color: #fde68a; text-shadow: 0 2px 16px rgba(245,179,1,.55); }
+  .divider-top { position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, rgba(245,179,1,.8), transparent); }
+
+  /* ---------- main row ---------- */
+  .main { position: relative; z-index: 3; display: flex; align-items: center; gap: 42px; flex: 1; min-height: 0; }
+
+  .rakhi-wrap { position: relative; flex: none; filter: drop-shadow(0 18px 40px rgba(0,0,0,.45)); }
+  .halo { position: absolute; inset: -30px; background: radial-gradient(circle, rgba(251,191,36,.42), transparent 66%); border-radius: 50%; animation: halo 4s ease-in-out infinite; z-index: -1; }
+  @keyframes halo { 0%,100% { transform: scale(1); opacity: .7; } 50% { transform: scale(1.1); opacity: 1; } }
+
+  .content { flex: 1; min-width: 0; }
+  .eyebrow { font-family: 'Baloo 2', sans-serif; font-size: 21px; font-weight: 800; letter-spacing: 5px; text-transform: uppercase; color: #fde68a; text-shadow: 0 2px 12px rgba(0,0,0,.35); }
+  .content h1 { font-family: 'Lilita One', sans-serif; font-size: 78px; font-weight: 400; line-height: 1; letter-spacing: 2px; background: linear-gradient(180deg, #ffffff 0%, #fde68a 55%, #f5b301 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 8px 22px rgba(245,179,1,.45)); margin-top: 2px; }
+  .bandhan { font-family: 'Lilita One', sans-serif; font-size: 40px; font-weight: 400; color: #fde68a; line-height: 1.05; text-shadow: 0 5px 16px rgba(245,179,1,.5); }
+  .sub { margin-top: 6px; font-size: 19px; font-weight: 600; color: #ffe4ef; text-shadow: 0 2px 10px rgba(0,0,0,.3); }
+  .sub b { color: #fcd34d; font-weight: 800; }
+
+  .offer-row { display: flex; align-items: center; gap: 20px; margin-top: 14px; }
+  .starburst { position: relative; width: 104px; height: 104px; flex: none; filter: drop-shadow(0 10px 22px rgba(245,179,1,.5)); }
+  .starburst svg { animation: spin 18s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .starburst .text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Lilita One', sans-serif; color: #500724; text-align: center; }
+  .starburst .text .big { font-size: 42px; font-weight: 400; line-height: .9; }
+  .starburst .text .small { font-size: 16px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+  .offer-copy { text-align: left; }
+  .offer-copy .o1 { font-family: 'Baloo 2', sans-serif; font-size: 23px; font-weight: 800; color: #ffffff; line-height: 1.25; }
+  .offer-copy .o1 b { color: #fcd34d; }
+  .offer-copy .o2 { font-family: 'Baloo 2', sans-serif; font-size: 16px; font-weight: 600; color: #fbcfe8; margin-top: 4px; }
+  .offer-copy .o2 b { color: #fde68a; }
+
+  .cta-row { display: flex; align-items: center; gap: 20px; margin-top: 16px; }
+  .btn { display: inline-flex; align-items: center; gap: 12px; font-family: 'Baloo 2', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: .5px; color: #500724; background: linear-gradient(120deg, #ffffff, #fde68a 60%, #fbbf24); padding: 15px 42px; border-radius: 999px; box-shadow: 0 18px 44px rgba(0,0,0,.4), inset 0 2px 0 rgba(255,255,255,.9), 0 0 0 4px rgba(245,179,1,.4); }
+  .btn .arrow { font-size: 28px; }
+  .mini { font-size: 16px; color: #ffe4ef; line-height: 1.4; text-align: left; }
+  .mini b { color: #fcd34d; display: block; font-size: 19px; }
+
+  /* ---------- footer ---------- */
+  .foot { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; border-top: 2px solid rgba(245,179,1,.45); padding-top: 12px; }
+  .foot .web { font-family: 'Lilita One', sans-serif; font-size: 23px; font-weight: 400; letter-spacing: 1px; color: #fde68a; }
+  .foot .delivery { font-size: 17px; font-weight: 600; color: #ffe4ef; display: flex; align-items: center; gap: 9px; }
+  .foot .delivery .dot { width: 10px; height: 10px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 12px rgba(74,222,128,.9); animation: blink 1.6s infinite; }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+</style>
+</head>
+<body>
+  <div class="banner">
+
+    <svg class="rangoli" viewBox="0 0 880 880" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#fde68a" stroke-width="3">
+        <circle cx="440" cy="440" r="430" stroke-dasharray="10 14"/>
+        <circle cx="440" cy="440" r="360"/>
+        <circle cx="440" cy="440" r="360" stroke-dasharray="60 30"/>
+        <circle cx="440" cy="440" r="300" stroke-dasharray="8 18"/>
+        <g>
+          <path d="M440 80 l18 70 -18 34 -18 -34 z"/>
+          <path d="M440 800 l18 -70 -18 -34 -18 34 z"/>
+          <path d="M80 440 l70 18 34 -18 -34 -18 z"/>
+          <path d="M800 440 l-70 18 -34 -18 34 -18 z"/>
+        </g>
+        <circle cx="440" cy="440" r="120" stroke-dasharray="4 12"/>
+        <circle cx="440" cy="440" r="60" stroke-dasharray="14 10"/>
+      </g>
+    </svg>
+    <svg class="rangoli2" viewBox="0 0 1060 1060" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke="#f5b301" stroke-width="2">
+        <circle cx="530" cy="530" r="520" stroke-dasharray="30 22"/>
+        <circle cx="530" cy="530" r="440" stroke-dasharray="4 16"/>
+      </g>
+    </svg>
+
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+
+    <span class="sparkle s1">✦</span>
+    <span class="sparkle s2">✦</span>
+    <span class="sparkle s3">✦</span>
+    <span class="sparkle s4">✦</span>
+
+    <span class="petal p1">🌼</span>
+    <span class="petal p2">🌼</span>
+    <span class="petal p3">🌼</span>
+
+    <div class="frame"></div>
+    <div class="corner c1"></div>
+    <div class="corner c2"></div>
+    <div class="corner c3"></div>
+    <div class="corner c4"></div>
+
+    <div class="garland g-top">
+      <span>🏵️</span><span>🌺</span><span>🏵️</span><span>🌺</span><span>🏵️</span><span>🌺</span><span>🏵️</span>
+    </div>
+    <div class="garland g-bot">
+      <span>🌺</span><span class="flip">🏵️</span><span>🌺</span><span class="flip">🏵️</span><span>🌺</span><span class="flip">🏵️</span><span>🌺</span>
+    </div>
+
+    <header class="top">
+      <div class="logo">Gift<span class="ora">ora</span></div>
+      <div class="top-sep"></div>
+      <div class="top-tag">Love, wrapped &amp; delivered</div>
+      <div class="divider-top"></div>
+    </header>
+
+    <div class="main">
+      <div class="rakhi-wrap">
+        <div class="halo"></div>
+        <svg width="215" height="240" viewBox="0 0 300 330" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fde68a"/><stop offset=".5" stop-color="#f5b301"/><stop offset="1" stop-color="#d97706"/>
+            </linearGradient>
+            <linearGradient id="gold2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#fbbf24"/><stop offset="1" stop-color="#f59e0b"/>
+            </linearGradient>
+            <linearGradient id="magenta" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f472b6"/><stop offset="1" stop-color="#be185d"/>
+            </linearGradient>
+          </defs>
+          <circle cx="150" cy="150" r="122" fill="none" stroke="rgba(245,179,1,.35)" stroke-width="3" stroke-dasharray="3 7"/>
+          <circle cx="150" cy="150" r="112" fill="none" stroke="url(#gold)" stroke-width="11" stroke-dasharray="15 9"/>
+          <circle cx="150" cy="150" r="100" fill="none" stroke="rgba(245,179,1,.4)" stroke-width="3" stroke-dasharray="2 10"/>
+          <g stroke="url(#gold2)" stroke-width="7" stroke-linecap="round">
+            <path d="M150 262 C 150 282, 126 292, 112 306"/>
+            <path d="M150 262 C 150 284, 172 294, 188 308"/>
+            <path d="M150 262 C 150 290, 150 300, 150 316"/>
+          </g>
+          <g stroke="#f59e0b" stroke-width="4" stroke-linecap="round" opacity=".8">
+            <path d="M150 264 C 150 284, 104 294, 92 308"/>
+            <path d="M150 264 C 150 284, 196 294, 208 308"/>
+          </g>
+          <circle cx="150" cy="22" r="15" fill="url(#gold)"/>
+          <circle cx="146" cy="18" r="4" fill="#fff" opacity=".8"/>
+          <g fill="url(#gold)" opacity=".9">
+            <circle cx="150" cy="38" r="5"/>
+            <circle cx="88" cy="70" r="6"/>
+            <circle cx="212" cy="70" r="6"/>
+            <circle cx="58" cy="150" r="5"/>
+            <circle cx="242" cy="150" r="5"/>
+          </g>
+          <circle cx="150" cy="150" r="64" fill="url(#gold)"/>
+          <circle cx="150" cy="150" r="64" fill="none" stroke="rgba(123,58,237,.35)" stroke-width="6"/>
+          <circle cx="150" cy="150" r="50" fill="url(#magenta)"/>
+          <circle cx="150" cy="150" r="50" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+          <circle cx="150" cy="150" r="27" fill="url(#gold2)"/>
+          <text x="150" y="164" font-size="36" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" fill="#be185d">&#9829;</text>
+          <circle cx="120" cy="120" r="5" fill="#fff" opacity=".8"/>
+          <circle cx="178" cy="180" r="4" fill="#fff" opacity=".6"/>
+        </svg>
+      </div>
+
+      <div class="content">
+        <div class="eyebrow">Raksha Bandhan</div>
+        <h1>RAKHI</h1>
+        <div class="bandhan">&amp; the love that binds</div>
+        <p class="sub">Send <b>love</b> to your sibling&rsquo;s doorstep this Rakhi</p>
+
+        <div class="offer-row">
+          <div class="starburst">
+            <svg viewBox="0 0 196 196" width="104" height="104" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="sgold" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fde68a"/><stop offset=".5" stop-color="#f5b301"/><stop offset="1" stop-color="#d97706"/>
+                </linearGradient>
+              </defs>
+              <path fill="url(#sgold)" d="M98 0 L116 62 L184 34 L150 92 L196 98 L150 104 L184 162 L116 134 L98 196 L80 134 L12 162 L46 104 L0 98 L46 92 L12 34 L80 62 Z"/>
+            </svg>
+            <div class="text">
+              <span class="big">15%</span>
+              <span class="small">OFF</span>
+            </div>
+          </div>
+          <div class="offer-copy">
+            <div class="o1">Rakhi sets &bull; combos &bull; cakes &amp; flowers from just <b>&#8377;199</b></div>
+            <div class="o2">Festive gift wrapping &bull; free on all orders</div>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn" href="https://gift-ora.online/rakhi-gifts.html">Shop Rakhi Gifts <span class="arrow">&rarr;</span></a>
+          <div class="mini"><b>Same-Day Delivery</b>Delhi NCR &amp; Pan India*</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <div class="web">gift-ora.online</div>
+      <div class="delivery"><span class="dot"></span> Same-Day Delivery in Delhi NCR</div>
+    </footer>
+  </div>
+</body>
+</html>
