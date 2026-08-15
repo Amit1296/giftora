@@ -130,7 +130,8 @@ function ensureFile(file, fallback) {
 function readJson(file, fallback) {
   try {
     ensureFile(file, fallback);
-    return JSON.parse(fs.readFileSync(file, "utf8"));
+    const raw = fs.readFileSync(file, "utf8").replace(/^\uFEFF/, "");
+    return JSON.parse(raw);
   } catch {
     return JSON.parse(JSON.stringify(fallback));
   }
@@ -164,9 +165,46 @@ function mergeLegacy(current, legacyFiles, key) {
 }
 
 /* ---------- Products ---------- */
+function normalizeProductSizes(p) {
+  if (!p || !Array.isArray(p.sizes) || !p.sizes.length) return p;
+  const merged = p.sizePrices && typeof p.sizePrices === "object" ? { ...p.sizePrices } : {};
+  const clean = [];
+  const seen = new Set();
+  for (const entry of p.sizes) {
+    let raw = String(entry == null ? "" : entry).trim();
+    if (!raw) continue;
+    const eq = raw.lastIndexOf("=");
+    let name = raw;
+    let price = null;
+    if (eq > 0) {
+      name = raw.slice(0, eq).trim();
+      const n = Number(raw.slice(eq + 1));
+      if (name && !isNaN(n)) price = n;
+      else { name = raw; price = null; }
+    } else {
+      const m = /^(.*\S)\s+(\d+(?:\.\d+)?)$/.exec(raw);
+      if (m) {
+        const cand = Number(m[2]);
+        const nm = m[1].trim();
+        if (nm && /\d/.test(nm) && !isNaN(cand)) { name = nm; price = cand; }
+      }
+    }
+    if (!name || seen.has(name)) continue;
+    seen.add(name);
+    clean.push(name);
+    if (price != null) merged[name] = price;
+  }
+  if (clean.length) {
+    p.sizes = clean;
+    p.sizePrices = merged;
+  }
+  return p;
+}
+
 async function getProducts() {
-  if (USE_PG) return pgGet("products", []);
-  return readJson(PRODUCTS_FILE, []);
+  const list = USE_PG ? await pgGet("products", []) : readJson(PRODUCTS_FILE, []);
+  if (Array.isArray(list)) list.forEach(normalizeProductSizes);
+  return list;
 }
 
 async function saveProducts(products) {

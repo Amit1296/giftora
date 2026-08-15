@@ -625,6 +625,8 @@
       }
 
       successOrderId.textContent = "#" + res.orderId;
+      const scHead = checkoutSuccess.querySelector("h4");
+      if (scHead) scHead.textContent = "Your order is accepted";
       saveOrder({ orderId: String(res.orderId), name: name || "", phone: phone || "", total: grandTotal(), date: new Date().toISOString(), payment });
       const waTrack = checkoutSuccess.querySelector(".wa-track");
       if (!waTrack) {
@@ -761,10 +763,7 @@
     const amt = grandTotal();
     upiAmount.textContent = formatPrice(amt);
     upiIdText.textContent = upiConfig.upiId;
-    const uri = "upi://pay?pa=" + upiConfig.upiId +
-      "&pn=" + encodeURIComponent(upiConfig.payeeName || "Giftora") +
-      "&am=" + Math.round(amt) + "&cu=INR" +
-      "&tn=" + encodeURIComponent("Giftora");
+    const uri = upiPayUri();
     if (typeof qrcode === "function") {
       const qr = qrcode(0, "M");
       qr.addData(uri);
@@ -784,14 +783,106 @@
         officialWrap.hidden = true;
       }
     }
+    upiAutoLock = false;
+    ensureUpiDeepLinkButton();
+    upiQr.style.cursor = "pointer";
+    upiQr.title = "Tap to open in your UPI app";
+    upiQr.onclick = (e) => {
+      e.preventDefault();
+      armUpiDeepLink();
+    };
     upiOverlay.classList.add("open");
     upiModal.classList.add("open");
     lockScroll();
   }
 
+  function upiPayUri() {
+    if (!upiConfig || !upiConfig.upiId) return "";
+    const amt = grandTotal();
+    return "upi://pay?pa=" + upiConfig.upiId +
+      "&pn=" + encodeURIComponent(upiConfig.payeeName || "Giftora") +
+      "&am=" + Math.round(amt) + "&cu=INR" +
+      "&tn=" + encodeURIComponent("Giftora");
+  }
+
+  function armUpiDeepLink() {
+    if (!upiConfig || !upiConfig.upiId) return;
+    const uri = upiPayUri();
+    if (!uri) return;
+    const payload = JSON.stringify({
+      name: $("#oName") ? $("#oName").value.trim() : "",
+      phone: $("#oPhone") ? $("#oPhone").value.trim() : "",
+      address: $("#oAddress") ? $("#oAddress").value.trim() : "",
+      city: $("#oCity") ? $("#oCity").value.trim() : "",
+      state: $("#oState") ? $("#oState").value.trim() : "",
+      pincode: $("#oPincode") ? $("#oPincode").value.trim() : "",
+      deliveryDate: $("#oDeliveryDate") ? String($("#oDeliveryDate").value || "").slice(0, 20) : "",
+      midnightDelivery: !!(document.getElementById("oMidnightDelivery") && document.getElementById("oMidnightDelivery").checked),
+    });
+    try { sessionStorage.setItem("giftora_upi_pending", payload); } catch {}
+    window.location.href = uri;
+  }
+
+  function upiAutoConfirm() {
+    if (upiAutoLock) return;
+    upiAutoLock = true;
+    let saved = null;
+    try { saved = sessionStorage.getItem("giftora_upi_pending"); } catch {}
+    try { sessionStorage.removeItem("giftora_upi_pending"); } catch {}
+    if (saved) {
+      let f = null;
+      try { f = JSON.parse(saved); } catch {}
+      if (!checkoutModal.classList.contains("open")) openCheckout();
+      closeUpi();
+      if (f) {
+        if ($("#oName")) $("#oName").value = f.name || "";
+        if ($("#oPhone")) $("#oPhone").value = f.phone || "";
+        if ($("#oAddress")) $("#oAddress").value = f.address || "";
+        if ($("#oCity")) $("#oCity").value = f.city || "";
+        if ($("#oState")) $("#oState").value = f.state || "";
+        if ($("#oPincode")) $("#oPincode").value = f.pincode || "";
+        if ($("#oDeliveryDate")) $("#oDeliveryDate").value = f.deliveryDate || "";
+        if ($("#oMidnightDelivery")) $("#oMidnightDelivery").checked = !!f.midnightDelivery;
+        renderOrderSummary();
+      }
+      placeOrder("UPI QR", null);
+    }
+  }
+
+  function onUpiReturn() {
+    if (upiAutoLock) return;
+    let pending = false;
+    try { pending = !!sessionStorage.getItem("giftora_upi_pending"); } catch {}
+    if (pending) upiAutoConfirm();
+  }
+
+  window.addEventListener("pageshow", onUpiReturn);
+  window.addEventListener("focus", onUpiReturn);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") onUpiReturn();
+  });
+
+  function ensureUpiDeepLinkButton() {
+    if (document.getElementById("upiOpenBtn")) return;
+    const wrap = document.querySelector("#upiModal .upi-body");
+    if (!wrap) return;
+    const btn = document.createElement("a");
+    btn.id = "upiOpenBtn";
+    btn.className = "btn btn-outline upi-open-btn";
+    btn.href = "#";
+    btn.setAttribute("role", "button");
+    btn.textContent = "Open in UPI App";
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      armUpiDeepLink();
+    });
+    wrap.appendChild(btn);
+  }
+
   function closeUpi() {
     upiModal.classList.remove("open");
     upiOverlay.classList.remove("open");
+    try { sessionStorage.removeItem("giftora_upi_pending"); } catch {}
     if (!checkoutModal.classList.contains("open") && !cartDrawer.classList.contains("open")) unlockScroll();
   }
 
@@ -807,6 +898,7 @@
   const paymentMethods = document.getElementById("paymentMethods");
   let paymentEnabled = false;
   let upiConfig = null;
+  let upiAutoLock = false;
   async function loadPaymentConfig() {
     try {
       const r = await fetch("/api/payment/config");

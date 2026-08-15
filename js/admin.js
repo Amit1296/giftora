@@ -305,6 +305,16 @@
           return;
         }
       }
+      const m = /^(.*\S)\s+(\d+(?:\.\d+)?)$/.exec(token);
+      if (m) {
+        const name = m[1].trim();
+        const price = Number(m[2]);
+        if (name && /\d/.test(name) && !isNaN(price)) {
+          sizes.push(name);
+          sizePrices[name] = price;
+          return;
+        }
+      }
       sizes.push(token);
     });
     return { sizes, sizePrices };
