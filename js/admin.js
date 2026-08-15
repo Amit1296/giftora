@@ -538,6 +538,12 @@
           .map((i) => `<li><span>${i.qty} × ${esc(i.name)}</span><span>₹${Number(i.price || 0).toLocaleString("en-IN")}</span></li>`)
           .join("");
         const status = o.status || "New";
+        const paid = o.paid === true;
+        const payLabel = o.payment === "UPI QR" && !paid ? "Unpaid" : "Paid";
+        const payClass = o.payment === "UPI QR" && !paid ? "pay-badge pending" : "pay-badge paid";
+        const markPaidBtn = o.payment === "UPI QR" && !paid
+          ? `<button class="mark-paid-btn" data-order="${esc(o._file || o.orderId || "")}">Mark as Paid</button>`
+          : "";
         return `
         <div class="order-card">
           <div class="order-head">
@@ -547,13 +553,14 @@
           <div class="order-customer">
             <div><b>Phone</b>${esc(o.phone || "")}</div>
             <div><b>Address</b>${esc(o.address || "")}</div>
-            <div><b>Payment</b>${esc(o.payment || "UPI")}</div>
+            <div><b>Payment</b>${esc(o.payment || "UPI")} <span class="${payClass}">${payLabel}</span></div>
             ${o.deliveryDate ? `<div><b>Delivery Date</b>${esc(o.deliveryDate)}</div>` : ""}
             ${o.midnightDelivery ? `<div><b>Midnight Delivery</b>Yes (+₹${Number(o.midnightFee || 300)})</div>` : ""}
           </div>
           <ul class="order-items">${items}</ul>
           <div class="order-foot">
             <span class="order-total">₹${Number(o.total || 0).toLocaleString("en-IN")}</span>
+            ${markPaidBtn}
             <select class="status-select status-${status.toLowerCase()}" data-order="${esc(o._file || o.orderId || "")}">
               ${["New", "Processing", "Delivered", "Cancelled"].map((s) => `<option value="${s}"${s === status ? " selected" : ""}>${s}</option>`).join("")}
             </select>
@@ -571,6 +578,19 @@
         if (res.success) {
           sel.className = "status-select status-" + sel.value.toLowerCase();
           toast("Order marked " + sel.value + " ✓");
+        }
+      });
+    });
+
+    el.querySelectorAll(".mark-paid-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const res = await api("/api/admin/orders", {
+          method: "PUT",
+          body: JSON.stringify({ file: btn.dataset.order, paid: true }),
+        });
+        if (res.success) {
+          toast("Payment marked as received ✓");
+          loadOrders();
         }
       });
     });

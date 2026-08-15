@@ -165,6 +165,11 @@ function mergeLegacy(current, legacyFiles, key) {
 }
 
 /* ---------- Products ---------- */
+const SIZE_LABEL_WORDS = new Set([
+  "size", "sizes", "color", "colour", "colors", "colours", "length", "material",
+  "shape", "type", "style", "design", "variant", "variants", "pack", "packs",
+]);
+
 function normalizeProductSizes(p) {
   if (!p || !Array.isArray(p.sizes) || !p.sizes.length) return p;
   const merged = p.sizePrices && typeof p.sizePrices === "object" ? { ...p.sizePrices } : {};
@@ -190,6 +195,10 @@ function normalizeProductSizes(p) {
       }
     }
     if (!name || seen.has(name)) continue;
+    if (price == null && SIZE_LABEL_WORDS.has(name.toLowerCase())) continue;
+    const mangledSize = /^(?:s\.?\s*)?size\s+(\d+(?:\.\d+)?)$/i.exec(name);
+    if (mangledSize) name = mangledSize[1];
+    if (seen.has(name)) continue;
     seen.add(name);
     clean.push(name);
     if (price != null) merged[name] = price;

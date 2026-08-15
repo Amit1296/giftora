@@ -17,6 +17,10 @@ const ADMIN_CONFIG = path.join(ROOT, "admin-config.json");
 const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || readLocalSecret("razorpay-key-id");
 const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || readLocalSecret("razorpay-key-secret");
 
+function isTestRazorpayKey() {
+  return RAZORPAY_KEY_ID.startsWith("rzp_test_") || RAZORPAY_KEY_SECRET.startsWith("rzp_test_");
+}
+
 const MIDNIGHT_FEE = 300;
 
 function readLocalSecret(name) {
@@ -233,6 +237,18 @@ const CACHE_EXTENSIONS = {
 };
 
 const server = http.createServer(async (req, res) => {
+  try {
+    await handleRequest(req, res);
+  } catch (e) {
+    console.error("Unhandled request error:", e && e.stack ? e.stack : e);
+    if (!res.headersSent) {
+      return sendJson(res, 500, { success: false, message: "Server error. Please try again." });
+    }
+    try { res.end(); } catch {}
+  }
+});
+
+async function handleRequest(req, res) {
   const url = new URL(req.url, "http://localhost");
   const method = req.method;
   const ip = clientIp(req);
@@ -525,8 +541,14 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname === "/api/admin/orders" && method === "PUT") {
       try {
-        const { file, status } = JSON.parse(await readBody(req));
-        await db.updateOrder(file, { status });
+        const { file, status, paid } = JSON.parse(await readBody(req));
+        const patch = {};
+        if (status) patch.status = String(status).slice(0, 20);
+        if (typeof paid === "boolean") {
+          patch.paid = paid;
+          patch.paymentStatus = paid ? "Paid" : "Pending";
+        }
+        await db.updateOrder(file, patch);
         return sendJson(res, 200, { success: true });
       } catch (e) {
         return sendJson(res, 400, { success: false, message: "Could not update order." });
@@ -629,6 +651,13 @@ const server = http.createServer(async (req, res) => {
     stream.pipe(res);
     stream.on("error", () => res.end());
   }
+}
+
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled promise rejection:", reason && reason.stack ? reason.stack : reason);
+});
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught exception:", err && err.stack ? err.stack : err);
 });
 
 server.listen(PORT, () => {
@@ -636,6 +665,15 @@ server.listen(PORT, () => {
   console.log("Admin dashboard:  http://localhost:" + PORT + "/admin.html");
   console.log("Data saved to: " + DATA_DIR);
   console.log("Uploads saved to: " + UPLOADS_DIR);
+  if (RAZORPAY_KEY_ID && RAZORPAY_KEY_SECRET) {
+    if (isTestRazorpayKey()) {
+      console.warn("[PAYMENTS] WARNING: Razorpay is using TEST keys (rzp_test_...). Real money will NOT work. Set live keys (rzp_live_...) via RAZORPAY_KEY_ID / RAZORPAY_KEY_SECRET env vars or razorpay-config.json.");
+    } else {
+      console.log("[PAYMENTS] Razorpay live keys detected (rzp_live_...).");
+    }
+  } else {
+    console.warn("[PAYMENTS] Razorpay keys are NOT configured. Card/UPI payments are disabled.");
+  }
 });
 
 server.requestTimeout = 30 * 1000;
@@ -866,7 +904,6 @@ async function placeOrder(data) {
       throw new Error("ORDER:Payment verification failed.");
     }
   }
-
   for (const it of items) {
     const p = products.find((x) => x.id === it.id);
     if (p && typeof p.stock === "number" && p.stock >= 0) {
@@ -890,14 +927,20 @@ async function placeOrder(data) {
     razorpayPaymentId: rzpPaymentId,
     _file: orderId,
     status: "New",
+    paid: isOnline,
+    paymentStatus: isOnline ? "Paid" : "Pending",
     date: new Date().toISOString(),
   });
-  sendOrderEmail({ name, phone, address, payment, items, total, deliveryDate, midnightDelivery }, orderId);
+  sendOrderEmail({ name, phone, address, payment, items, total, deliveryDate, midnightDelivery, paid: isOnline }, orderId);
   return { success: true, orderId, total };
 }
 
 function sendOrderEmail(order, orderId) {
   const lines = order.items.map((i) => `- ${i.qty} x ${i.name}${i.size ? " (" + i.size + ")" : ""} @ Rs.${i.price}`).join("\n");
+  const paymentNote =
+    order.payment === "UPI QR" && !order.paid
+      ? `Payment Status: PENDING — customer scanned the UPI QR. Verify payment before dispatch.`
+      : `Payment Status: Paid`;
   mailer.send({
     subject: `New Order #${orderId}`,
     text:
@@ -907,6 +950,7 @@ function sendOrderEmail(order, orderId) {
       `Phone: ${order.phone}\n` +
       `Shipping Address: ${order.address}\n` +
       `Payment Method: ${order.payment || "UPI"}\n` +
+      `${paymentNote}\n` +
       `Delivery Date: ${order.deliveryDate || "Not set"}\n` +
       `Midnight Delivery: ${order.midnightDelivery ? "Yes (+ Rs." + MIDNIGHT_FEE + ")" : "No"}\n\n` +
       `Items:\n${lines}\n\n` +
