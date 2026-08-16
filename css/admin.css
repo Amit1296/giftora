@@ -320,3 +320,36 @@ body {
 .stock-badge.ok { background: #dcfce7; color: #15803d; }
 .stock-badge.low { background: #fef3c7; color: #b45309; }
 .stock-badge.out { background: #fee2e2; color: #b91c1c; }
+
+/* ---------- Coupons ---------- */
+.coupon-form { margin-bottom: 26px; }
+.coupon-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.coupon-form .field-full { grid-column: 1 / -1; }
+.coupon-list-title { font-size: 1.1rem; margin: 8px 0 12px; }
+.coupons-list { display: flex; flex-direction: column; gap: 12px; }
+.coupon-card { border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.coupon-card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.coupon-code {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-weight: 800; font-size: 1.05rem; letter-spacing: 0.05em;
+  display: flex; align-items: center; gap: 8px;
+}
+.coupon-copy {
+  border: 1.5px solid var(--border); background: #fff; color: var(--primary);
+  border-radius: 6px; padding: 3px 10px; font-size: 0.78rem; font-weight: 700;
+  cursor: pointer; font-family: inherit;
+}
+.coupon-copy:hover { border-color: var(--primary); background: var(--primary-light); }
+.coupon-badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; }
+.coupon-badge.live { background: #dcfce7; color: #166534; }
+.coupon-badge.off { background: #e2e8f0; color: #475569; }
+.coupon-badge.expired { background: #fee2e2; color: #991b1b; }
+.coupon-badge.exhausted { background: #fef3c7; color: #92400e; }
+.coupon-badge.scheduled { background: #dbeafe; color: #1e40af; }
+.coupon-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.85rem; color: var(--muted); margin-bottom: 10px; }
+.coupon-actions { display: flex; align-items: center; gap: 18px; }
+.coupon-toggle { display: flex; align-items: center; gap: 6px; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
+.coupon-toggle input { width: 17px; height: 17px; accent-color: var(--primary); }
+@media (max-width: 620px) {
+  .coupon-form .form-row { grid-template-columns: 1fr; }
+}

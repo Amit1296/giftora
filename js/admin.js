@@ -556,6 +556,7 @@
             <div><b>Payment</b>${esc(o.payment || "UPI")} <span class="${payClass}">${payLabel}</span></div>
             ${o.deliveryDate ? `<div><b>Delivery Date</b>${esc(o.deliveryDate)}</div>` : ""}
             ${o.midnightDelivery ? `<div><b>Midnight Delivery</b>Yes (+₹${Number(o.midnightFee || 300)})</div>` : ""}
+            ${o.coupon ? `<div><b>Coupon</b>${esc(o.coupon)} (−₹${Number(o.couponDiscount || 0).toLocaleString("en-IN")})</div>` : ""}
           </div>
           <ul class="order-items">${items}</ul>
           <div class="order-foot">
@@ -665,6 +666,175 @@
         </div>`
       )
       .join("");
+  }
+
+  /* ---------- Coupons ---------- */
+  let coupons = [];
+
+  async function loadCoupons() {
+    try {
+      const data = await api("/api/admin/coupons");
+      if (!data.success) return;
+      coupons = data.coupons || [];
+      const countEl = $("#couponCount");
+      if (countEl) countEl.textContent = coupons.length;
+      renderCoupons();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function couponStatus(c) {
+    if (!c.active) return { label: "Inactive", cls: "coupon-badge off" };
+    const today = new Date().toISOString().slice(0, 10);
+    if (c.validUntil && today > c.validUntil.slice(0, 10)) return { label: "Expired", cls: "coupon-badge expired" };
+    if (c.validFrom && today < c.validFrom.slice(0, 10)) return { label: "Scheduled", cls: "coupon-badge scheduled" };
+    if ((Number(c.usageLimit) || 0) > 0 && (Number(c.used) || 0) >= Number(c.usageLimit)) return { label: "Exhausted", cls: "coupon-badge exhausted" };
+    return { label: "Active", cls: "coupon-badge live" };
+  }
+
+  function renderCoupons() {
+    const el = $("#couponsList");
+    if (!el) return;
+    if (!coupons.length) {
+      el.innerHTML = '<p class="empty-state">No coupons yet. Create some above to start.</p>';
+      return;
+    }
+    el.innerHTML = coupons
+      .map((c) => {
+        const st = couponStatus(c);
+        const typeLabel = c.type === "fixed" ? `₹${Number(c.value || 0).toLocaleString("en-IN")} off` : `${Number(c.value || 0)}% off`;
+        const usage = (Number(c.usageLimit) || 0) > 0 ? `${Number(c.used || 0)} / ${c.usageLimit} used` : `${Number(c.used || 0)} used (unlimited)`;
+        const dates = c.validFrom || c.validUntil
+          ? `${c.validFrom ? "From " + esc(c.validFrom) : ""}${c.validFrom && c.validUntil ? " " : ""}${c.validUntil ? "to " + esc(c.validUntil) : ""}`
+          : "No expiry";
+        return `
+        <div class="coupon-card">
+          <div class="coupon-card-head">
+            <span class="coupon-code">${esc(c.code)}<button type="button" class="coupon-copy" data-copy="${esc(c.code)}" title="Copy code">Copy</button></span>
+            <span class="${st.cls}">${st.label}</span>
+          </div>
+          <div class="coupon-meta">
+            <span>${typeLabel}</span>
+            ${c.minOrder ? `<span>Min order ₹${Number(c.minOrder).toLocaleString("en-IN")}</span>` : ""}
+            ${c.type === "percent" && c.maxDiscount ? `<span>Max ₹${Number(c.maxDiscount).toLocaleString("en-IN")}</span>` : ""}
+            <span>${usage}</span>
+            <span>${dates}</span>
+            <span>Created ${new Date(c.created).toLocaleDateString("en-IN")}</span>
+          </div>
+          <div class="coupon-actions">
+            <label class="coupon-toggle"><input type="checkbox" data-active="${esc(c.code)}"${c.active ? " checked" : ""}> Active</label>
+            <button type="button" class="btn btn-danger" data-delete="${esc(c.code)}">Delete</button>
+          </div>
+        </div>`;
+      })
+      .join("");
+  }
+
+  async function createCoupons() {
+    const btn = $("#createCouponsBtn");
+    const msg = $("#couponMsg");
+    const count = Math.max(1, Math.min(500, parseInt($("#cCount").value, 10) || 1));
+    const type = $("#cType").value;
+    const value = Number($("#cValue").value);
+    msg.className = "save-msg";
+    msg.textContent = "";
+    if (!(value > 0)) {
+      msg.className = "save-msg err";
+      msg.textContent = "Please enter a discount value greater than 0.";
+      return;
+    }
+    if (type === "percent" && value > 100) {
+      msg.className = "save-msg err";
+      msg.textContent = "Percentage discount cannot exceed 100%.";
+      return;
+    }
+    const payload = {
+      coupon: {
+        code: $("#cCode").value.trim(),
+        type,
+        value,
+        usageLimit: Math.max(0, parseInt($("#cUsage").value, 10) || 0),
+        minOrder: Math.max(0, Number($("#cMinOrder").value) || 0),
+        maxDiscount: Math.max(0, Number($("#cMaxDiscount").value) || 0),
+        validFrom: $("#cValidFrom").value,
+        validUntil: $("#cValidUntil").value,
+        active: $("#cActive").checked,
+      },
+      count,
+      prefix: $("#cPrefix").value.trim(),
+    };
+    btn.disabled = true;
+    btn.textContent = "Generating...";
+    try {
+      const res = await api("/api/admin/coupons", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+      if (res.success) {
+        const n = (res.coupons || []).length;
+        msg.className = "save-msg ok";
+        msg.textContent = `${n} coupon${n === 1 ? "" : "s"} generated.`;
+        toast(`${n} coupon${n === 1 ? "" : "s"} generated ✓`);
+        $("#cCode").value = "";
+        $("#cPrefix").value = "";
+        $("#cCount").value = 1;
+        loadCoupons();
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not generate coupons.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Generate Coupon(s)";
+    }
+  }
+
+  async function toggleCoupon(code, active) {
+    try {
+      const res = await api("/api/admin/coupons", {
+        method: "PUT",
+        body: JSON.stringify({ code, patch: { active } }),
+      });
+      if (res.success) {
+        toast(active ? "Coupon activated ✓" : "Coupon deactivated");
+      } else {
+        toast(res.message || "Could not update coupon.");
+      }
+      loadCoupons();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  async function deleteCoupon(code) {
+    if (!confirm(`Delete coupon ${code}? This cannot be undone.`)) return;
+    try {
+      const res = await api("/api/admin/coupons", {
+        method: "DELETE",
+        body: JSON.stringify({ code }),
+      });
+      if (res.success) {
+        toast("Coupon deleted ✓");
+        loadCoupons();
+      } else {
+        toast(res.message || "Could not delete coupon.");
+      }
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  async function copyCoupon(code) {
+    try {
+      await navigator.clipboard.writeText(code);
+      toast("Code copied ✓");
+    } catch {
+      toast(code);
+    }
   }
 
   /* ---------- Visitors & buying interest ---------- */
@@ -1110,7 +1280,7 @@
 
   /* ---------- Load all ---------- */
   async function loadAll() {
-    await Promise.all([loadProducts(), loadFestival(), loadUpi(), loadOrders(), loadEnquiries(), loadVendors(), loadVisitors()]);
+    await Promise.all([loadProducts(), loadFestival(), loadUpi(), loadOrders(), loadEnquiries(), loadVendors(), loadCoupons(), loadVisitors()]);
   }
 
   $("#productSearch").addEventListener("input", (e) => {
@@ -1159,6 +1329,24 @@
   });
   $("#exportVisitorsBtn").addEventListener("click", exportVisitorsCsv);
   $("#clearVisitorsBtn").addEventListener("click", clearVisitorsData);
+  $("#createCouponsBtn").addEventListener("click", createCoupons);
+  $("#cType").addEventListener("change", (e) => {
+    const label = $("#cValueLabel");
+    if (label) label.textContent = e.target.value === "fixed" ? "Discount value (₹)" : "Discount value (%)";
+  });
+  $("#couponsList").addEventListener("click", (e) => {
+    const copyBtn = e.target.closest("[data-copy]");
+    if (copyBtn) {
+      copyCoupon(copyBtn.dataset.copy);
+      return;
+    }
+    const delBtn = e.target.closest("[data-delete]");
+    if (delBtn) deleteCoupon(delBtn.dataset.delete);
+  });
+  $("#couponsList").addEventListener("change", (e) => {
+    const t = e.target.closest("[data-active]");
+    if (t) toggleCoupon(t.dataset.active, t.checked);
+  });
   loginBtn.addEventListener("click", doLogin);
   loginPass.addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
   logoutBtn.addEventListener("click", () => {

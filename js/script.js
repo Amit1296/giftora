@@ -53,6 +53,9 @@
   const upiAmount = $("#upiAmount");
   const upiIdText = $("#upiIdText");
   const upiPaidBtn = $("#upiPaidBtn");
+  const couponInput = $("#couponInput");
+  const couponApplyBtn = $("#couponApplyBtn");
+  const couponMsg = $("#couponMsg");
 
   const PAGE_CATEGORY = window.PAGE_CATEGORY || null;
   const PAGE_FESTIVAL = document.body && document.body.getAttribute("data-page") === "festival";
@@ -75,6 +78,7 @@
   let cart = loadCart();
   let activeFilter = "all";
   let searchQuery = "";
+  let appliedCoupon = null;
 
   function loadCart() {
     try { return JSON.parse(localStorage.getItem(PRODUCTS_KEY)) || {}; }
@@ -492,6 +496,69 @@
     return cartTotal() + deliveryFee();
   }
 
+  function couponDiscount() {
+    return appliedCoupon ? Math.max(0, Number(appliedCoupon.discount) || 0) : 0;
+  }
+
+  function payableTotal() {
+    return Math.max(0, grandTotal() - couponDiscount());
+  }
+
+  function setCouponMsg(text, ok) {
+    if (!couponMsg) return;
+    couponMsg.textContent = text;
+    couponMsg.className = "coupon-msg" + (ok ? " ok" : " err");
+  }
+
+  async function applyCoupon(code, silent) {
+    const trimmed = String(code || "").trim();
+    if (!trimmed) {
+      setCouponMsg("Please enter a coupon code.", false);
+      return false;
+    }
+    if (!couponApplyBtn) return false;
+    couponApplyBtn.disabled = true;
+    if (!silent) {
+      setCouponMsg("Checking...", true);
+      couponMsg.classList.remove("err");
+    }
+    try {
+      const res = await fetch("/api/coupon/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: trimmed, items: buildItems(), midnightDelivery: deliveryFee() > 0 }),
+      }).then((r) => r.json());
+      if (!res.success) {
+        appliedCoupon = null;
+        if (!silent) setCouponMsg(res.message || "Invalid coupon code.", false);
+        renderOrderSummary();
+        return false;
+      }
+      appliedCoupon = { code: res.code, discount: res.discount, label: res.label || "Coupon applied" };
+      if (!silent) {
+        setCouponMsg(`Coupon ${res.code} applied — ${res.label}.`, true);
+        toast(`Coupon applied — ${res.label} ✓`);
+      }
+      if (couponInput) couponInput.value = res.code;
+      renderOrderSummary();
+      return true;
+    } catch {
+      appliedCoupon = null;
+      if (!silent) setCouponMsg("Could not reach the server. Try again.", false);
+      renderOrderSummary();
+      return false;
+    } finally {
+      couponApplyBtn.disabled = false;
+    }
+  }
+
+  function clearCoupon() {
+    appliedCoupon = null;
+    if (couponInput) couponInput.value = "";
+    setCouponMsg("", false);
+    renderOrderSummary();
+  }
+
   function toast(msg) {
     toastEl.textContent = msg;
     toastEl.classList.add("show");
@@ -524,6 +591,7 @@
   /* ---------- Checkout modal ---------- */
   function openCheckout() {
     if (countItems() === 0) return;
+    clearCoupon();
     checkoutForm.style.display = "";
     checkoutSuccess.hidden = true;
     checkoutForm.reset();
@@ -560,9 +628,16 @@
     if (fee > 0) {
       orderSummary.innerHTML += `<div class="os-row"><span class="os-name">🌙 Midnight Delivery</span><span class="os-muted">${formatPrice(fee)}</span></div>`;
     }
+    const disc = couponDiscount();
+    if (appliedCoupon && disc > 0) {
+      orderSummary.innerHTML += `<div class="os-row os-coupon-row"><span class="os-name">🎟️ Coupon ${appliedCoupon.code}</span><span class="os-muted">−${formatPrice(disc)}</span></div>`;
+    }
     const saving = festivalSaving();
-    checkoutTotal.textContent = formatPrice(grandTotal());
-    checkoutTotal.previousElementSibling.textContent = saving > 0 ? `Total to pay (${festivalDiscount}% off)` : "Total to pay";
+    checkoutTotal.textContent = formatPrice(payableTotal());
+    const labels = [];
+    if (saving > 0) labels.push(`${festivalDiscount}% off`);
+    if (appliedCoupon && disc > 0) labels.push("coupon");
+    checkoutTotal.previousElementSibling.textContent = labels.length ? `Total to pay (${labels.join(" + ")})` : "Total to pay";
   }
 
   function buildItems() {
@@ -601,7 +676,8 @@
       deliveryDate,
       midnightDelivery,
       midnightFee: fee,
-      total: grandTotal(),
+      coupon: appliedCoupon ? appliedCoupon.code : "",
+      total: payableTotal(),
       vid,
     };
     if (rzp) {
@@ -627,7 +703,7 @@
       successOrderId.textContent = "#" + res.orderId;
       const scHead = checkoutSuccess.querySelector("h4");
       if (scHead) scHead.textContent = "Your order is accepted";
-      saveOrder({ orderId: String(res.orderId), name: name || "", phone: phone || "", total: grandTotal(), date: new Date().toISOString(), payment });
+      saveOrder({ orderId: String(res.orderId), name: name || "", phone: phone || "", total: payableTotal(), date: new Date().toISOString(), payment });
       const waTrack = checkoutSuccess.querySelector(".wa-track");
       if (!waTrack) {
         const a = document.createElement("a");
@@ -644,6 +720,7 @@
       saveCart();
       updateBadge();
       renderCart();
+      clearCoupon();
     } catch (e) {
       toast(e.message || "Could not reach the server. Please try again.");
     } finally {
@@ -676,7 +753,7 @@
       const res = await fetch("/api/payment/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ items, coupon: appliedCoupon ? appliedCoupon.code : "" }),
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message || "Could not start payment.");
 
@@ -741,6 +818,17 @@
   checkoutBtn.addEventListener("click", openCheckout);
   checkoutClose.addEventListener("click", closeCheckout);
   checkoutOverlay.addEventListener("click", closeCheckout);
+  if (couponApplyBtn) {
+    couponApplyBtn.addEventListener("click", () => applyCoupon(couponInput ? couponInput.value : ""));
+  }
+  if (couponInput) {
+    couponInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        applyCoupon(couponInput.value);
+      }
+    });
+  }
   const midnightEl = $("#oMidnightDelivery");
   if (midnightEl) midnightEl.addEventListener("change", renderOrderSummary);
   const dateEl = $("#oDeliveryDate");
@@ -760,7 +848,7 @@
       toast("UPI payments are unavailable right now.");
       return;
     }
-    const amt = grandTotal();
+    const amt = payableTotal();
     upiAmount.textContent = formatPrice(amt);
     upiIdText.textContent = upiConfig.upiId;
     const uri = upiPayUri();
@@ -798,7 +886,7 @@
 
   function upiPayUri() {
     if (!upiConfig || !upiConfig.upiId) return "";
-    const amt = grandTotal();
+    const amt = payableTotal();
     return "upi://pay?pa=" + upiConfig.upiId +
       "&pn=" + encodeURIComponent(upiConfig.payeeName || "Giftora") +
       "&am=" + Math.round(amt) + "&cu=INR" +
@@ -820,6 +908,7 @@
       midnightDelivery: !!(document.getElementById("oMidnightDelivery") && document.getElementById("oMidnightDelivery").checked),
     });
     try { sessionStorage.setItem("giftora_upi_pending", payload); } catch {}
+    try { sessionStorage.setItem("giftora_upi_coupon", appliedCoupon ? appliedCoupon.code : ""); } catch {}
     window.location.href = uri;
   }
 
@@ -827,8 +916,10 @@
     if (upiAutoLock) return;
     upiAutoLock = true;
     let saved = null;
+    let savedCoupon = "";
     try { saved = sessionStorage.getItem("giftora_upi_pending"); } catch {}
     try { sessionStorage.removeItem("giftora_upi_pending"); } catch {}
+    try { savedCoupon = sessionStorage.getItem("giftora_upi_coupon"); sessionStorage.removeItem("giftora_upi_coupon"); } catch {}
     if (saved) {
       let f = null;
       try { f = JSON.parse(saved); } catch {}
@@ -845,7 +936,11 @@
         if ($("#oMidnightDelivery")) $("#oMidnightDelivery").checked = !!f.midnightDelivery;
         renderOrderSummary();
       }
-      placeOrder("UPI QR", null);
+      if (savedCoupon) {
+        applyCoupon(savedCoupon, true).then(() => placeOrder("UPI QR", null));
+      } else {
+        placeOrder("UPI QR", null);
+      }
     }
   }
 

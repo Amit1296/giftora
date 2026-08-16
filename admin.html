@@ -68,6 +68,7 @@
 			<button class="tab" data-tab="festival">Festival Offer</button>
 			<button class="tab" data-tab="upi">UPI QR</button>
 			<button class="tab" data-tab="orders">Orders <span id="orderCount" class="tab-count"></span></button>
+			<button class="tab" data-tab="coupons">Coupons <span id="couponCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="enquiries">Enquiries <span id="enquiryCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="vendors">Vendors <span id="vendorCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="visitors">Visitors <span id="visitorCount" class="tab-count"></span></button>
@@ -205,6 +206,78 @@
 					<h2>Orders</h2>
 				</div>
 				<div class="orders-list" id="ordersList"></div>
+			</section>
+
+			<!-- Coupons tab -->
+			<section id="tab-coupons" class="tab-panel">
+				<div class="panel-head">
+					<h2>Coupon Codes</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="createCouponsBtn">Generate Coupon(s)</button>
+					</div>
+				</div>
+				<p class="save-msg" id="couponMsg"></p>
+				<div class="coupon-form festival-form">
+					<div class="form-row">
+						<div class="form-group">
+							<label>Code (optional — leave blank to auto generate)</label>
+							<input type="text" id="cCode" placeholder="e.g. FESTIVE20" autocomplete="off" spellcheck="false">
+						</div>
+						<div class="form-group">
+							<label>Prefix for generated codes</label>
+							<input type="text" id="cPrefix" placeholder="e.g. GIFT" autocomplete="off" spellcheck="false">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>How many codes to generate</label>
+							<input type="number" id="cCount" min="1" max="500" value="1">
+						</div>
+						<div class="form-group">
+							<label>Discount type</label>
+							<select id="cType">
+								<option value="percent">Percentage (%)</option>
+								<option value="fixed">Fixed amount (₹)</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label id="cValueLabel">Discount value (%)</label>
+							<input type="number" id="cValue" min="0" step="any" value="10">
+						</div>
+						<div class="form-group">
+							<label>Usage limit (0 = unlimited, 1 = single use)</label>
+							<input type="number" id="cUsage" min="0" value="1">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Minimum order value (₹) — optional</label>
+							<input type="number" id="cMinOrder" min="0" step="any" value="0">
+						</div>
+						<div class="form-group">
+							<label>Maximum discount (₹) — optional, % only</label>
+							<input type="number" id="cMaxDiscount" min="0" step="any" value="0">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Valid from (optional)</label>
+							<input type="date" id="cValidFrom">
+						</div>
+						<div class="form-group">
+							<label>Valid until (optional)</label>
+							<input type="date" id="cValidUntil">
+						</div>
+					</div>
+					<div class="form-group field-full">
+						<label class="checkbox-label"><input type="checkbox" id="cActive" checked> Active (redeemable at checkout)</label>
+					</div>
+					<p class="field-note">Tip: leave "Code" blank and set "How many codes" to 5 to instantly create 5 unique single-use codes. Customers enter the code at checkout to get the discount.</p>
+				</div>
+				<h3 class="coupon-list-title">Existing coupons</h3>
+				<div class="coupons-list" id="couponsList"></div>
 			</section>
 
 			<!-- Enquiries tab -->

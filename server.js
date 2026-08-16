@@ -255,7 +255,7 @@ async function handleRequest(req, res) {
 
   applySecurityHeaders(res, req);
 
-  if (!["GET", "HEAD", "POST", "PUT"].includes(method)) {
+  if (!["GET", "HEAD", "POST", "PUT", "DELETE"].includes(method)) {
     return sendJson(res, 405, { success: false, message: "Method not allowed." });
   }
 
@@ -328,6 +328,47 @@ async function handleRequest(req, res) {
       } catch (e) {
         console.error("Vendor error:", e.message);
         return badRequest(res, e, "Could not save your application.");
+      }
+    }
+
+    /* ---------- Coupon validation (checkout) ---------- */
+    if (url.pathname === "/api/coupon/validate") {
+      try {
+        const data = JSON.parse(await readBody(req));
+        const code = String(data.code || "").trim().toUpperCase();
+        if (!code) throw new Error("Please enter a coupon code.");
+        data.coupon = code;
+        const cart = await computeCart(data, "");
+        if (!cart.coupon) throw new Error("Invalid coupon code.");
+        const label =
+          cart.coupon.type === "fixed"
+            ? "Rs." + cart.couponDiscount.toLocaleString("en-IN") + " off"
+            : cart.coupon.value + "% off";
+        return sendJson(res, 200, {
+          success: true,
+          code: cart.coupon.code,
+          type: cart.coupon.type,
+          value: cart.coupon.value,
+          discount: cart.couponDiscount,
+          label,
+        });
+      } catch (e) {
+        console.error("Coupon validate error:", e.message);
+        return badRequest(res, e, e.message || "Invalid coupon code.");
+      }
+    }
+
+    /* ---------- Admin coupon creation ---------- */
+    if (url.pathname === "/api/admin/coupons") {
+      const auth = requireAuth(req, res);
+      if (!auth) return;
+      try {
+        const body = JSON.parse(await readBody(req));
+        const created = await createCoupons(body);
+        return sendJson(res, 200, { success: true, coupons: created });
+      } catch (e) {
+        console.error("Coupon create error:", e.message);
+        return badRequest(res, e, e.message || "Could not create coupons.");
       }
     }
 
@@ -561,6 +602,46 @@ async function handleRequest(req, res) {
 
     if (url.pathname === "/api/admin/vendors" && method === "GET") {
       return sendJson(res, 200, { success: true, vendors: await db.getVendors() });
+    }
+
+    if (url.pathname === "/api/admin/coupons" && method === "GET") {
+      return sendJson(res, 200, { success: true, coupons: await db.getCoupons() });
+    }
+
+    if (url.pathname === "/api/admin/coupons" && method === "PUT") {
+      try {
+        const { code, patch } = JSON.parse(await readBody(req));
+        if (!code || !patch || typeof patch !== "object") throw new Error("bad payload");
+        const coupons = await db.getCoupons();
+        const i = coupons.findIndex((c) => c.code === String(code).toUpperCase());
+        if (i < 0) return sendJson(res, 404, { success: false, message: "Coupon not found." });
+        const clean = {};
+        if (typeof patch.active === "boolean") clean.active = patch.active;
+        if (patch.value !== undefined) clean.value = Math.max(0, Number(patch.value) || 0);
+        if (patch.usageLimit !== undefined) clean.usageLimit = Math.max(0, parseInt(patch.usageLimit, 10) || 0);
+        if (patch.minOrder !== undefined) clean.minOrder = Math.max(0, Number(patch.minOrder) || 0);
+        if (patch.maxDiscount !== undefined) clean.maxDiscount = Math.max(0, Number(patch.maxDiscount) || 0);
+        if (patch.validFrom !== undefined) clean.validFrom = String(patch.validFrom || "").slice(0, 10);
+        if (patch.validUntil !== undefined) clean.validUntil = String(patch.validUntil || "").slice(0, 10);
+        coupons[i] = { ...coupons[i], ...clean };
+        await db.saveCoupons(coupons);
+        return sendJson(res, 200, { success: true });
+      } catch (e) {
+        return sendJson(res, 400, { success: false, message: "Could not update coupon." });
+      }
+    }
+
+    if (url.pathname === "/api/admin/coupons" && method === "DELETE") {
+      try {
+        const { code } = JSON.parse(await readBody(req));
+        const key = String(code || "").toUpperCase();
+        if (!key) throw new Error("bad payload");
+        const coupons = await db.getCoupons();
+        await db.saveCoupons(coupons.filter((c) => c.code !== key));
+        return sendJson(res, 200, { success: true });
+      } catch (e) {
+        return sendJson(res, 400, { success: false, message: "Could not delete coupon." });
+      }
     }
 
     if (url.pathname === "/api/admin/visitors" && method === "GET") {
@@ -803,44 +884,175 @@ function razorpayRequest(path, body) {
   });
 }
 
-async function createRazorpayOrder(data) {
-  if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
-    throw new Error("Online payments are not configured yet. Please try again later.");
+/* ---------- Coupon helpers ---------- */
+const COUPON_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+function makeCouponCode(prefix, usedCodes) {
+  let code = "";
+  do {
+    const chars = [];
+    for (let i = 0; i < 6; i++) chars.push(COUPON_ALPHABET[crypto.randomInt(COUPON_ALPHABET.length)]);
+    code = (prefix ? prefix + "-" : "") + chars.join("");
+  } while (usedCodes.has(code));
+  return code;
+}
+
+async function createCoupons(body) {
+  const c = (body && body.coupon) || {};
+  const count = Math.max(1, Math.min(500, parseInt(body && body.count, 10) || 1));
+  const prefix = String((body && body.prefix) || "")
+    .trim()
+    .toUpperCase()
+    .replace(/[^A-Z0-9]/g, "")
+    .slice(0, 10);
+  const existing = await db.getCoupons();
+  const existingCodes = new Set(existing.map((x) => x.code));
+  const template = {
+    type: c.type === "fixed" ? "fixed" : "percent",
+    value: Math.max(0, Number(c.value) || 0),
+    minOrder: Math.max(0, Number(c.minOrder) || 0),
+    maxDiscount: Math.max(0, Number(c.maxDiscount) || 0),
+    validFrom: String(c.validFrom || "").slice(0, 10),
+    validUntil: String(c.validUntil || "").slice(0, 10),
+    usageLimit: Math.max(0, parseInt(c.usageLimit, 10) || 0),
+    active: c.active !== false,
+    used: 0,
+  };
+  const created = [];
+  const pushCode = (code) => {
+    created.push({ ...template, code, created: new Date().toISOString() });
+    existingCodes.add(code);
+  };
+  const customCode = String(c.code || "").trim().toUpperCase().replace(/[^A-Z0-9-]/g, "").slice(0, 24);
+  if (count === 1 && customCode) {
+    if (!customCode) throw new Error("Coupon code must contain letters or numbers.");
+    if (existingCodes.has(customCode)) throw new Error("Coupon code " + customCode + " already exists.");
+    pushCode(customCode);
+  } else {
+    for (let i = 0; i < count; i++) pushCode(makeCouponCode(prefix, existingCodes));
   }
+  await db.saveCoupons([...created, ...existing]);
+  return created;
+}
+
+async function evaluateCoupon(code, subtotal) {
+  const coupons = await db.getCoupons();
+  const c = coupons.find((x) => x.code === code);
+  if (!c) throw new Error("Invalid coupon code.");
+  if (!c.active) throw new Error("This coupon code is not active right now.");
+  const today = new Date().toISOString().slice(0, 10);
+  if (c.validFrom && today < c.validFrom.slice(0, 10)) throw new Error("This coupon is not valid yet.");
+  if (c.validUntil && today > c.validUntil.slice(0, 10)) throw new Error("This coupon has expired.");
+  const limit = Number(c.usageLimit) || 0;
+  if (limit > 0 && (Number(c.used) || 0) >= limit) throw new Error("This coupon code has been fully used.");
+  const minOrder = Number(c.minOrder) || 0;
+  if (minOrder > 0 && subtotal < minOrder) {
+    throw new Error("Minimum order value for this coupon is Rs." + minOrder.toLocaleString("en-IN"));
+  }
+  let discount = 0;
+  if (c.type === "fixed") {
+    discount = Math.min(Number(c.value) || 0, subtotal);
+  } else {
+    discount = Math.round((subtotal * (Number(c.value) || 0)) / 100);
+    const maxDiscount = Number(c.maxDiscount) || 0;
+    if (maxDiscount > 0 && discount > maxDiscount) discount = maxDiscount;
+  }
+  discount = Math.max(0, Math.min(discount, subtotal));
+  return { coupon: c, discount };
+}
+
+async function computeCart(data, prefix) {
+  const E = (msg) => {
+    throw new Error((prefix || "") + msg);
+  };
   const rawItems = Array.isArray(data.items) ? data.items.slice(0, 50) : [];
-  if (!rawItems.length) throw new Error("Your cart is empty.");
+  if (!rawItems.length) E("Your cart is empty.");
   const products = await db.getProducts();
   const festival = await db.getFestival();
-  const discount = festival && festival.active ? (Number(festival.discount) || 0) : 0;
-  let total = 0;
+  const festivalDiscount = festival && festival.active ? (Number(festival.discount) || 0) : 0;
+  const items = [];
+  let subtotal = 0;
   for (const it of rawItems) {
     const id = Number(it.id);
     const qty = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 1));
     const p = products.find((x) => x.id === id);
-    if (!p) throw new Error("A product in your cart is no longer available.");
+    if (!p) E("A product in your cart is no longer available.");
     const cap = typeof p.stock === "number" && p.stock >= 0 ? p.stock : Infinity;
-    if (qty > cap) throw new Error("Only " + cap + " of " + p.name + " in stock.");
+    if (qty > cap) E("Only " + cap + " of " + p.name + " in stock.");
     let size = "";
     if (p.sizes && p.sizes.length) {
       size = String(it.size || "");
       if (!p.sizes.includes(size)) {
-        if (p.sizes.length !== 1) throw new Error("Please select a size for " + p.name + ".");
+        if (p.sizes.length !== 1) E("Please select a size for " + p.name + ".");
+        else size = p.sizes[0];
       }
     }
     let base = p.price;
     if (size && p.sizePrices && p.sizePrices[size] != null) base = Number(p.sizePrices[size]) || p.price;
-    const price = discount > 0 ? Math.round((base * (100 - discount)) / 100) : base;
-    total += price * qty;
+    const price = festivalDiscount > 0 ? Math.round((base * (100 - festivalDiscount)) / 100) : base;
+    subtotal += price * qty;
+    items.push({ id, name: p.name, qty, size, price });
   }
-  const midnight = data.midnightDelivery === true || data.midnightDelivery === "true";
-  if (midnight) total += MIDNIGHT_FEE;
+  const midnightDelivery = data.midnightDelivery === true || data.midnightDelivery === "true";
+  const midnightFee = midnightDelivery ? MIDNIGHT_FEE : 0;
+  let coupon = null;
+  let couponDiscount = 0;
+  const couponCode = String(data.coupon || "").trim().toUpperCase();
+  if (couponCode) {
+    const result = await evaluateCoupon(couponCode, subtotal);
+    coupon = result.coupon;
+    couponDiscount = result.discount;
+  }
+  return {
+    products,
+    festivalDiscount,
+    items,
+    subtotal,
+    midnightDelivery,
+    midnightFee,
+    coupon,
+    couponDiscount,
+    total: Math.max(0, subtotal + midnightFee - couponDiscount),
+  };
+}
+
+async function markCouponUsed(code) {
+  const coupons = await db.getCoupons();
+  const c = coupons.find((x) => x.code === code);
+  if (!c) return;
+  c.used = (Number(c.used) || 0) + 1;
+  await db.saveCoupons(coupons);
+}
+
+async function createRazorpayOrder(data) {
+  if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
+    throw new Error("Online payments are not configured yet. Please try again later.");
+  }
+  const cart = await computeCart(data, "");
+  if (cart.coupon) {
+    cart.couponCode = cart.coupon.code;
+    cart.couponLabel =
+      cart.coupon.type === "fixed"
+        ? "Rs." + cart.couponDiscount.toLocaleString("en-IN") + " off"
+        : cart.coupon.value + "% off";
+  }
   const order = await razorpayRequest("/v1/orders", {
-    amount: Math.round(total * 100),
+    amount: Math.round(cart.total * 100),
     currency: "INR",
     receipt: "gift_" + timestamp().replace(/[^0-9]/g, "").slice(0, 12),
     notes: { source: "giftora-store" },
   });
-  return { success: true, key: RAZORPAY_KEY_ID, orderId: order.id, amount: order.amount, currency: order.currency, receipt: order.receipt };
+  return {
+    success: true,
+    key: RAZORPAY_KEY_ID,
+    orderId: order.id,
+    amount: order.amount,
+    currency: order.currency,
+    receipt: order.receipt,
+    couponCode: cart.couponCode || "",
+    couponDiscount: cart.couponDiscount || 0,
+    couponLabel: cart.couponLabel || "",
+  };
 }
 
 async function placeOrder(data) {
@@ -848,44 +1060,12 @@ async function placeOrder(data) {
   const phone = String(data.phone || "").trim().slice(0, 20);
   const address = String(data.address || "").trim().slice(0, 600);
   const payment = ["UPI", "Card", "UPI QR"].includes(data.payment) ? data.payment : "UPI";
-  const deliveryDate = String(data.deliveryDate || "").trim().slice(0, 20);
-  const midnightDelivery = data.midnightDelivery === true || data.midnightDelivery === "true";
-  const midnightFee = midnightDelivery ? MIDNIGHT_FEE : 0;
   if (!name || !phone || !/^[0-9+\-()\s]{7,20}$/.test(phone) || !address) {
     throw new Error("ORDER:Please provide a valid name, phone and address.");
   }
 
-  const rawItems = Array.isArray(data.items) ? data.items.slice(0, 50) : [];
-  if (!rawItems.length) throw new Error("ORDER:Your cart is empty.");
-
-  const products = await db.getProducts();
-  const festival = await db.getFestival();
-  const discount = festival && festival.active ? (Number(festival.discount) || 0) : 0;
-  const items = [];
-  let total = 0;
-
-  for (const it of rawItems) {
-    const id = Number(it.id);
-    const qty = Math.max(1, Math.min(99, parseInt(it.qty, 10) || 1));
-    const p = products.find((x) => x.id === id);
-    if (!p) throw new Error("ORDER:A product in your cart is no longer available.");
-    const cap = typeof p.stock === "number" && p.stock >= 0 ? p.stock : Infinity;
-    if (qty > cap) throw new Error("ORDER:Only " + cap + " of " + p.name + " in stock.");
-    let size = "";
-    if (p.sizes && p.sizes.length) {
-      size = String(it.size || "");
-      if (!p.sizes.includes(size)) {
-        if (p.sizes.length === 1) size = p.sizes[0];
-        else throw new Error("ORDER:Please select a size for " + p.name + ".");
-      }
-    }
-    let base = p.price;
-    if (size && p.sizePrices && p.sizePrices[size] != null) base = Number(p.sizePrices[size]) || p.price;
-    const price = discount > 0 ? Math.round((base * (100 - discount)) / 100) : base;
-    total += price * qty;
-    items.push({ id, name: p.name, qty, size, price });
-  }
-  if (midnightDelivery) total += midnightFee;
+  const cart = await computeCart(data, "ORDER:");
+  const { items, total, midnightDelivery, midnightFee } = cart;
 
   const isOnline = payment === "UPI" || payment === "Card";
   let rzpPaymentId = "";
@@ -905,12 +1085,13 @@ async function placeOrder(data) {
     }
   }
   for (const it of items) {
-    const p = products.find((x) => x.id === it.id);
+    const p = cart.products.find((x) => x.id === it.id);
     if (p && typeof p.stock === "number" && p.stock >= 0) {
       p.stock = Math.max(0, p.stock - it.qty);
     }
   }
-  await db.saveProducts(products);
+  await db.saveProducts(cart.products);
+  if (cart.coupon) await markCouponUsed(cart.coupon.code);
 
   const orderId = "order_" + timestamp();
   await db.addOrder({
@@ -920,9 +1101,11 @@ async function placeOrder(data) {
     payment,
     items,
     total,
-    deliveryDate,
+    deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20),
     midnightDelivery,
     midnightFee,
+    coupon: cart.coupon ? cart.coupon.code : "",
+    couponDiscount: cart.couponDiscount || 0,
     vid: String(data.vid || "").slice(0, 64),
     razorpayPaymentId: rzpPaymentId,
     _file: orderId,
@@ -931,7 +1114,7 @@ async function placeOrder(data) {
     paymentStatus: isOnline ? "Paid" : "Pending",
     date: new Date().toISOString(),
   });
-  sendOrderEmail({ name, phone, address, payment, items, total, deliveryDate, midnightDelivery, paid: isOnline }, orderId);
+  sendOrderEmail({ name, phone, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, paid: isOnline, coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0 }, orderId);
   return { success: true, orderId, total };
 }
 
@@ -941,6 +1124,9 @@ function sendOrderEmail(order, orderId) {
     order.payment === "UPI QR" && !order.paid
       ? `Payment Status: PENDING — customer scanned the UPI QR. Verify payment before dispatch.`
       : `Payment Status: Paid`;
+  const couponLine = order.coupon
+    ? `Coupon: ${order.coupon} (saved Rs.${order.couponDiscount || 0})\n`
+    : "";
   mailer.send({
     subject: `New Order #${orderId}`,
     text:
@@ -952,7 +1138,8 @@ function sendOrderEmail(order, orderId) {
       `Payment Method: ${order.payment || "UPI"}\n` +
       `${paymentNote}\n` +
       `Delivery Date: ${order.deliveryDate || "Not set"}\n` +
-      `Midnight Delivery: ${order.midnightDelivery ? "Yes (+ Rs." + MIDNIGHT_FEE + ")" : "No"}\n\n` +
+      `Midnight Delivery: ${order.midnightDelivery ? "Yes (+ Rs." + MIDNIGHT_FEE + ")" : "No"}\n` +
+      `${couponLine}` +
       `Items:\n${lines}\n\n` +
       `Total: Rs.${order.total}`,
   });

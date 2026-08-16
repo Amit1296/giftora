@@ -9,6 +9,7 @@ const FESTIVAL_FILE = path.join(DATA_DIR, "festival.json");
 const ORDERS_FILE = path.join(DATA_DIR, "orders.json");
 const ENQUIRIES_FILE = path.join(DATA_DIR, "enquiries.json");
 const VENDORS_FILE = path.join(DATA_DIR, "vendors.json");
+const COUPONS_FILE = path.join(DATA_DIR, "coupons.json");
 const VISITORS_FILE = path.join(DATA_DIR, "visitors.json");
 const LEGACY_ORDERS = path.join(DATA_DIR, "orders");
 const LEGACY_ENQUIRIES = path.join(DATA_DIR, "enquiries");
@@ -351,6 +352,17 @@ async function addVendor(vendor) {
   return writeJson(VENDORS_FILE, list);
 }
 
+/* ---------- Coupons ---------- */
+async function getCoupons() {
+  if (USE_PG) return pgGet("coupons", []);
+  return readJson(COUPONS_FILE, []);
+}
+
+async function saveCoupons(coupons) {
+  if (USE_PG) return pgSet("coupons", coupons);
+  return writeJson(COUPONS_FILE, coupons);
+}
+
 /* ---------- Visitor tracking ---------- */
 const EMPTY_VISITORS = { sessions: [], events: [] };
 
@@ -454,6 +466,8 @@ module.exports = {
   addEnquiry,
   getVendors,
   addVendor,
+  getCoupons,
+  saveCoupons,
   getVisitors,
   addVisitorBatch,
   clearVisitors,
