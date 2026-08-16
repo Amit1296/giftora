@@ -1612,4 +1612,16 @@
   renderRecent();
   const productId = document.body && document.body.getAttribute("data-product-id");
   if (productId) trackRecent(productId);
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".announce-code");
+    if (!btn) return;
+    const code = btn.dataset.code || "RAKHI15";
+    const done = () => toast("Coupon code " + code + " copied ✓");
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(done).catch(done);
+    } else {
+      toast(code);
+    }
+  });
 })();
