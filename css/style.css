@@ -614,6 +614,18 @@ input, textarea { font-family: inherit; }
 }
 .festival-banner-discount strong { font-size: 3.4rem; line-height: 1; }
 .festival-banner-discount span { font-size: 1.35rem; font-weight: 800; }
+.festival-banner-code {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.18);
+  border: 1.5px dashed rgba(255,255,255,0.65);
+  padding: 6px 14px; border-radius: 999px;
+  font-size: 0.95rem; font-weight: 600; width: fit-content;
+}
+.festival-banner-code strong {
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  background: #fff; color: #6d28d9; padding: 3px 12px; border-radius: 999px;
+  font-size: 0.9rem; letter-spacing: 0.06em; font-weight: 800;
+}
 .festival-banner-cta {
   font-weight: 700; background: #fff; color: #6d28d9;
   padding: 20px 38px; border-radius: 999px; font-size: 1.15rem;

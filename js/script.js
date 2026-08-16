@@ -1483,16 +1483,18 @@
         if (banner) banner.style.display = "none";
         return;
       }
-      if (banner) {
+        if (banner) {
         const media = $("#festivalBannerMedia");
         const title = $("#festivalBannerTitle");
         const subtitle = $("#festivalBannerSubtitle");
         const discount = $("#festivalBannerDiscount");
+        const code = $("#festivalBannerCode");
         if (f.image) media.innerHTML = `<img src="${f.image}" alt="${escAttr(f.title)}">`;
         else media.innerHTML = `<span class="festival-banner-emoji">${f.emoji || "🎁"}</span>`;
         title.textContent = f.title || "Festival Offer";
         subtitle.textContent = f.subtitle || "";
         discount.textContent = f.discount || 0;
+        if (code) code.textContent = f.code || "";
         rotateFestivalSubtitle(subtitle, f);
       }
       if (heroTitle) {
