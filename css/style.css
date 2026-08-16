@@ -108,6 +108,19 @@ input, textarea { font-family: inherit; }
 }
 .announce-code:hover { transform: scale(1.06); }
 .announce-code:active { transform: scale(0.97); }
+.announce-countdown {
+  display: inline-flex;
+  align-items: center;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  padding: 1px 10px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
 .announce-bar .announce-note { opacity: 0.92; }
 @media (max-width: 520px) {
   .announce-bar { font-size: 0.78rem; }
