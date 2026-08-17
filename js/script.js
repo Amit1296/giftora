@@ -617,8 +617,12 @@
       const p = PRODUCTS.find((x) => x.id === Number(id));
       if (!p) return "";
       const size = n.size ? ` <span class="os-muted">(${escAttr(n.size)})</span>` : "";
+      const thumbHtml = p.image
+        ? `<img class="os-img" src="${p.image}" alt="${p.name}">`
+        : `<span class="os-emoji">${p.emoji || "🎁"}</span>`;
       return `
         <div class="os-row">
+          ${thumbHtml}
           <span class="os-name">${p.name}${size} <span class="os-muted">&times; ${n.qty}</span></span>
           <span class="os-muted">${formatPrice(effPrice(p, n.size) * n.qty)}</span>
         </div>
@@ -1226,7 +1230,7 @@
         : "";
       return `
         <div class="cart-item">
-          <div class="cart-item-thumb" style="background:${p.gradient}">${p.emoji}</div>
+          <div class="cart-item-thumb" style="background:${p.gradient}">${p.image ? `<img class="cart-item-img" src="${p.image}" alt="${p.name}">` : p.emoji}</div>
           <div class="cart-item-info">
             <p class="cart-item-name">${p.name}</p>
             <p class="cart-item-price">${formatPrice(effPrice(p, n.size))}</p>
