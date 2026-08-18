@@ -302,7 +302,9 @@ function relatedCards(product, products) {
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
           ${badge ? `<span class="product-badge${badge === "Premium" ? " premium" : ""}">${badge}</span>` : ""}
           <button class="wish-heart" data-wish="${p.id}" aria-label="Add ${esc(p.name)} to wishlist">\u2661</button>
-          <a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "\uD83C\uDF81"}</span></a>
+          ${p.image
+            ? `<a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><img class="product-img" src="${p.image}" alt="${esc(p.name)}" loading="lazy"></a>`
+            : `<a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "\uD83C\uDF81"}</span></a>`}
         </div>
         <div class="product-info">
           <span class="product-category">${(CATEGORY_META[p.category] || {}).name || p.category}</span>
