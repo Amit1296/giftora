@@ -407,7 +407,7 @@ window.GIFT_PRODUCTS = [
   },
   {
     "id": 73,
-    "name": "New ProductDesigner Cake & Luxury Perfume Gift Set (Combo)",
+    "name": "Designer Cake & Luxury Perfume Gift Set (Combo)",
     "category": "combo",
     "emoji": "🎁",
     "price": 2999,
@@ -503,7 +503,7 @@ window.GIFT_PRODUCTS = [
   },
   {
     "id": 79,
-    "name": "New ProductSweet Elegance Cadbury, Vanilla Cake & Pink Roses Combo",
+    "name": "Sweet Elegance Cadbury, Vanilla Cake & Pink Roses Combo",
     "category": "combo",
     "emoji": "🎁",
     "price": 1499,
