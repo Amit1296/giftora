@@ -6,6 +6,7 @@ const crypto = require("crypto");
 const zlib = require("zlib");
 const mailer = require("./mailer");
 const db = require("./db");
+const apply = require("./seo/apply-seo");
 
 const ROOT = __dirname;
 const PORT = process.env.PORT || 8080;
@@ -669,6 +670,46 @@ async function handleRequest(req, res) {
     return res.end("Bad request");
   }
   pathname = pathname.replace(/\\/g, "/");
+
+  /* ---------- Dynamic product pages ---------- */
+  const productMatch = pathname.match(/^\/products\/([a-z0-9\-]+)\.html$/);
+  if (productMatch && method === "GET") {
+    try {
+      const renderProduct = require("./seo/render-product");
+      const cfg = apply.loadConfig();
+      const site = cfg.site;
+      const products = await db.getProducts();
+      const slug = productMatch[1];
+      const product = products.find((p) => renderProduct.slugifyName(p.name) === slug);
+      if (product) {
+        const html = renderProduct.renderProductPage(product, products, site);
+        if (html) {
+          const acceptEncoding = req.headers["accept-encoding"] || "";
+          const useGzip = acceptEncoding.includes("gzip");
+          const headers = {
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "no-cache",
+          };
+          if (useGzip) {
+            headers["Content-Encoding"] = "gzip";
+            headers["Vary"] = "Accept-Encoding";
+            res.writeHead(200, headers);
+            const buf = Buffer.from(html, "utf8");
+            zlib.gzip(buf, (err, compressed) => {
+              if (err) { res.end(html); return; }
+              res.end(compressed);
+            });
+          } else {
+            res.writeHead(200, headers);
+            res.end(html);
+          }
+          return;
+        }
+      }
+    } catch (e) {
+      console.error("Dynamic product render error:", e.message);
+    }
+  }
 
   const blocked = ["/data/", "/admin-config.json", "/mail-config.json", "/node_modules/"];
   const lowerPath = pathname.toLowerCase();
