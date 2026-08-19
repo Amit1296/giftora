@@ -762,6 +762,10 @@
       "priority": "0.7",
       "changefreq": "weekly"
     },
+    "blog-gifts-under-1000.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
     "blog.html": {
       "priority": "0.7",
       "changefreq": "weekly"
