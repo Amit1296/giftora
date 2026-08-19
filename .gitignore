@@ -16,3 +16,4 @@ backups/
 *.log
 
 razorpay-config.json
+.env

@@ -539,10 +539,16 @@
           .join("");
         const status = o.status || "New";
         const paid = o.paid === true;
-        const payLabel = o.payment === "UPI QR" && !paid ? "Unpaid" : "Paid";
-        const payClass = o.payment === "UPI QR" && !paid ? "pay-badge pending" : "pay-badge paid";
-        const markPaidBtn = o.payment === "UPI QR" && !paid
+        const isOnline = o.payment === "UPI" || o.payment === "Card";
+        const isUpiQr = o.payment === "UPI QR";
+        const payLabel = isUpiQr && !paid ? "Unpaid" : "Paid";
+        const payClass = isUpiQr && !paid ? "pay-badge pending" : "pay-badge paid";
+        const markPaidBtn = isUpiQr && !paid
           ? `<button class="mark-paid-btn" data-order="${esc(o._file || o.orderId || "")}">Mark as Paid</button>`
+          : "";
+        const rzpId = o.razorpayPaymentId || "";
+        const rzpLine = isOnline && rzpId
+          ? `<div class="order-rzp"><b>Razorpay ID</b><a href="https://dashboard.razorpay.com/app/payments/${esc(rzpId)}" target="_blank" rel="noopener" title="View in Razorpay dashboard">${esc(rzpId)}</a></div>`
           : "";
         return `
         <div class="order-card">
@@ -554,6 +560,7 @@
             <div><b>Phone</b>${esc(o.phone || "")}</div>
             <div><b>Address</b>${esc(o.address || "")}</div>
             <div><b>Payment</b>${esc(o.payment || "UPI")} <span class="${payClass}">${payLabel}</span></div>
+            ${rzpLine}
             ${o.deliveryDate ? `<div><b>Delivery Date</b>${esc(o.deliveryDate)}</div>` : ""}
             ${o.midnightDelivery ? `<div><b>Midnight Delivery</b>Yes (+₹${Number(o.midnightFee || 300)})</div>` : ""}
             ${o.coupon ? `<div><b>Coupon</b>${esc(o.coupon)} (−₹${Number(o.couponDiscount || 0).toLocaleString("en-IN")})</div>` : ""}
