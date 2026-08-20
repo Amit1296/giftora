@@ -147,6 +147,7 @@
 <!-- SEO-JSONLD-END -->
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <nav class="navbar" id="navbar">
 	<div class="container nav-container">
@@ -189,7 +190,7 @@
 	</div>
 </nav>
 
-<main>
+<main id="main-content">
 	<section class="festival-banner" id="festivalBanner">
 		<div class="container">
 			<a class="festival-banner-inner" href="festival.html">
@@ -397,10 +398,11 @@
 				<p>Find the perfect gift in our handpicked collection.</p>
 			</div>
 			<div class="shop-toolbar">
-				<div class="search-box">
-					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-					<input type="text" id="searchInput" placeholder="Search gifts...">
-				</div>
+			<div class="search-box">
+				<label for="searchInput" class="sr-only">Search gifts</label>
+				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+				<input type="text" id="searchInput" placeholder="Search gifts...">
+			</div>
 				<div class="filter-btns" id="filterBtns">
 					<button class="filter-btn active" data-filter="all">All</button>
 					<button class="filter-btn" data-filter="clothes">Clothes</button>
