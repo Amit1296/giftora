@@ -756,12 +756,20 @@ window.GIFT_PRODUCTS = [
     "name": "Choco Swirl Celebration Roll Cake",
     "category": "cakes",
     "emoji": "🎁",
-    "price": 1399,
+    "price": 599,
     "oldPrice": 1499,
     "stock": 500,
     "sku": "",
-    "sizes": [],
-    "sizePrices": {},
+    "sizes": [
+      "0.5 kg",
+      "1 kg",
+      "2 kg"
+    ],
+    "sizePrices": {
+      "0.5 kg": 599,
+      "1 kg": 1399,
+      "2 kg": 1999
+    },
     "badge": "Bestseller",
     "gradient": "linear-gradient(135deg,#124a81,#f1f5f9)",
     "image": "/uploads/img_2026_08_12_16_54_46ca1e9c.png",

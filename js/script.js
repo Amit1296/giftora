@@ -335,11 +335,12 @@
             return `<option value="${escAttr(s)}">${escAttr(s)}${sp}</option>`;
           }).join("")}</select>`
         : "";
+      const wishSize = defaultSize(p);
       return `<div class="cart-item">
         <div class="cart-item-thumb" style="background:${p.gradient}">${p.emoji}</div>
         <div class="cart-item-info">
           <p class="cart-item-name">${escAttr(p.name)}</p>
-          <p class="cart-item-price">${formatPrice(effPrice(p))}</p>
+          <p class="cart-item-price">${formatPrice(effPrice(p, wishSize))}</p>
           <div class="cart-item-row">${size}<button class="add-to-cart wish-add" data-id="${p.id}">Add to Cart</button></div>
         </div>
         <button class="cart-item-remove" data-wish-remove="${p.id}" aria-label="Remove from wishlist">✕</button>
@@ -377,7 +378,7 @@
         <div class="product-info">
           <span class="product-category">${escAttr(p.category)}</span>
           ${u ? `<a class="product-card-link" href="${u}"><h3 class="product-name">${escAttr(p.name)}</h3></a>` : `<h3 class="product-name">${escAttr(p.name)}</h3>`}
-          <div class="product-price"><span class="price">${formatPrice(effPrice(p))}</span></div>
+          <div class="product-price"><span class="price">${formatPrice(effPrice(p, defaultSize(p)))}</span></div>
         </div>
       </article>`;
     }).join("");
@@ -1255,6 +1256,7 @@
         discountEl.style.display = "none";
       }
     }
+    if (checkoutModal && checkoutModal.classList.contains("open")) renderOrderSummary();
   }
 
   function sizeSelectHtml(p) {
@@ -1322,6 +1324,7 @@
     cart[id] = { qty: n.qty, size: sel.value };
     saveCart();
     renderCart();
+    if (checkoutModal && checkoutModal.classList.contains("open")) renderOrderSummary();
   });
 
   if (filterBtns) {

@@ -28,6 +28,13 @@
     return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   }
 
+  function productPageUrl(p) {
+    const dynamic = "product.html?id=" + p.id;
+    if (!window.GIFT_PRODUCT_PAGES) return dynamic;
+    const slug = slugify(p.name);
+    return window.GIFT_PRODUCT_PAGES.includes(slug) ? "products/" + slug + ".html" : dynamic;
+  }
+
   function catFile(cat) {
     const map = { clothes: "clothes", shoes: "shoes", teddy: "teddy", sunglasses: "sunglasses", caps: "caps", belts: "belts", flowers: "flowers", plants: "plants", cakes: "cakes", toys: "toys", combo: "combo" };
     return map[cat] || null;
@@ -191,9 +198,10 @@
         const low = !oos && stock !== Infinity && stock <= 5;
         const price = effPrice(p, p.price);
         const oldPrice = p.oldPrice ? effPrice(p, p.oldPrice) : 0;
+        const href = productPageUrl(p);
         const media = p.image
-          ? `<a class="product-card-link" href="product.html?id=${p.id}" aria-label="View ${esc(p.name)}"><img class="product-img" src="${p.image}" alt="${esc(p.name)}" loading="lazy"></a>`
-          : `<a class="product-card-link" href="product.html?id=${p.id}" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>`;
+          ? `<a class="product-card-link" href="${href}" aria-label="View ${esc(p.name)}"><img class="product-img" src="${p.image}" alt="${esc(p.name)}" loading="lazy"></a>`
+          : `<a class="product-card-link" href="${href}" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>`;
         return `
         <article class="product-card reveal">
           <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
@@ -202,7 +210,7 @@
           </div>
           <div class="product-info">
             <span class="product-category">${esc(PAGE_NAMES[p.category] || p.category)}</span>
-            <a class="product-card-link" href="product.html?id=${p.id}"><h3 class="product-name">${esc(p.name)}</h3></a>
+            <a class="product-card-link" href="${href}"><h3 class="product-name">${esc(p.name)}</h3></a>
             <div class="product-price">
               <span class="price">${fmtPrice(price)}</span>
               ${oldPrice ? `<span class="old-price">${fmtPrice(oldPrice)}</span>` : ""}
@@ -255,7 +263,10 @@
         grid.addEventListener("click", (e) => {
           const btn = e.target.closest(".add-to-cart[data-id]");
           if (btn && !btn.disabled && window.Giftora) {
-            window.Giftora.addToCart(btn.dataset.id, "");
+            const relId = Number(btn.dataset.id);
+            const relProduct = products.find((x) => x.id === relId);
+            const relSize = relProduct && relProduct.sizes && relProduct.sizes.length ? relProduct.sizes[0] : "";
+            window.Giftora.addToCart(relId, relSize);
           }
         });
       }

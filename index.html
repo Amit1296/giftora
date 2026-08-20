@@ -42,7 +42,15 @@
   "@type": "WebSite",
   "name": "Giftora",
   "url": "https://gift-ora.online",
-  "description": "Order gifts online at Giftora — clothes, toys, flowers, cakes, teddy bears and more. Same-day delivery, gift wrapping and easy checkout for every occasion."
+  "description": "Order gifts online at Giftora — clothes, toys, flowers, cakes, teddy bears and more. Same-day delivery, gift wrapping and easy checkout for every occasion.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/index.html#shop"
+    },
+    "query-input": "required name=search_term_string"
+  }
 },
 {
   "@context": "https://schema.org",
@@ -50,13 +58,55 @@
   "name": "Giftora",
   "url": "https://gift-ora.online",
   "description": "Order gifts online at Giftora — clothes, toys, flowers, cakes, teddy bears and more. Same-day delivery, gift wrapping and easy checkout for every occasion.",
+  "logo": "https://gift-ora.online/logo.svg",
   "telephone": "+91 70880 84046",
   "email": "amitwebdev163@gmail.com",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Dilshad Colony, Delhi - 110095",
     "addressCountry": "IN"
-  }
+  },
+  "sameAs": [
+    "https://www.instagram.com/amitwebdev1632026"
+  ]
+},
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I order gifts online with same-day delivery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Giftora offers same-day gift delivery across Delhi NCR and express delivery across India on all orders."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I send gifts to India from abroad?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. NRIs in the USA, UK, Canada and Australia can send gifts to India online with a personalised note."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you gift wrap the products?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every gift comes beautifully wrapped with a personalised card, ready to surprise your loved one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which gift is best for a birthday?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cakes, teddy bears, flowers and gift combos are our most popular birthday gift delivery options."
+      }
+    }
+  ]
 }
 ]
 </script>
