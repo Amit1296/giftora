@@ -1,0 +1,36 @@
+# Giftora — Online Gift Shop India
+
+## About
+Giftora is an online gift shop based in Delhi, India. We offer same-day gift delivery across Delhi NCR and express delivery across India. Our products include cakes, flowers, teddy bears, clothes, shoes, sunglasses, belts, plants, toys, and gift combos.
+
+## Key Pages
+- Home: https://gift-ora.online/
+- Shop All Gifts: https://gift-ora.online/index.html#shop
+- Cakes: https://gift-ora.online/cakes.html
+- Flowers: https://gift-ora.online/flowers.html
+- Teddy Bears: https://gift-ora.online/teddy.html
+- Clothes: https://gift-ora.online/clothes.html
+- Plants: https://gift-ora.online/plants.html
+- Combo Offers: https://gift-ora.online/combo.html
+- Special Offers: https://gift-ora.online/special-offers.html
+- Occasion Gifts: https://gift-ora.online/occasion-gifts.html
+- Birthday Gifts: https://gift-ora.online/birthday-gifts.html
+- Anniversary Gifts: https://gift-ora.online/anniversary-gifts.html
+- Corporate Gifts: https://gift-ora.online/corporate-gifts.html
+- Send Gifts to India: https://gift-ora.online/send-gifts-to-india.html
+- Gift Delivery India: https://gift-ora.online/gift-delivery-india.html
+- Blog: https://gift-ora.online/blog.html
+- About: https://gift-ora.online/about.html
+- Contact: https://gift-ora.online/contact.html
+
+## Delivery Areas
+Same-day delivery in Delhi NCR (Delhi, Noida, Gurugram, Faridabad, Ghaziabad). Express delivery across India.
+
+## Contact
+- Phone: +91 70880 84046
+- Email: amitwebdev163@gmail.com
+- Address: Dilshad Colony, Delhi - 110095
+- Website: https://gift-ora.online
+
+## Payment Methods
+UPI, Credit/Debit Cards, Net Banking, Wallets, International Cards
