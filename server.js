@@ -4,12 +4,8 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 const zlib = require("zlib");
-const mailer = require("./mailer");
-const db = require("./db");
-const apply = require("./seo/apply-seo");
 
 const ROOT = __dirname;
-const PORT = process.env.PORT || 8080;
 
 function loadEnvFile() {
   try {
@@ -26,6 +22,12 @@ function loadEnvFile() {
   } catch {}
 }
 loadEnvFile();
+
+const mailer = require("./mailer");
+const db = require("./db");
+const apply = require("./seo/apply-seo");
+
+const PORT = process.env.PORT || 8080;
 
 const DATA_DIR = db.DATA_DIR;
 const UPLOADS_DIR = process.env.UPLOADS_DIR ? path.resolve(process.env.UPLOADS_DIR) : path.join(ROOT, "uploads");

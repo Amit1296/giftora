@@ -1,10 +1,14 @@
 const fs = require("fs");
 const path = require("path");
+const https = require("https");
 const nodemailer = require("nodemailer");
 
 const CONFIG_PATH = path.join(__dirname, "mail-config.json");
 
+const BREVO_API_KEY = process.env.BREVO_API_KEY || "";
+
 let transporter = null;
+let useBrevoApi = false;
 
 function loadConfig() {
   const envConfig = {
@@ -39,6 +43,11 @@ function loadConfig() {
 
 function init() {
   const config = loadConfig();
+  if (BREVO_API_KEY) {
+    useBrevoApi = true;
+    console.log("Mailer: email notifications enabled via Brevo API -> " + ((config && config.to) || "amitwebdev163@gmail.com"));
+    return;
+  }
   if (!config || !config.enabled || !config.appPassword || config.appPassword.startsWith("PASTE_YOUR")) {
     console.log("Mailer: email notifications disabled (set up mail-config.json).");
     return;
@@ -52,14 +61,58 @@ function init() {
   console.log("Mailer: email notifications enabled -> " + (config.to || config.user));
 }
 
-function send({ subject, text }) {
+function sendBrevoApi({ subject, text, to, from }) {
   return new Promise((resolve) => {
-    if (!transporter) return resolve({ skipped: true });
-    const config = loadConfig();
-    const to = (config && config.to) || "amitwebdev163@gmail.com";
+    const payload = JSON.stringify({
+      sender: { name: "Giftora Store", email: from },
+      to: [{ email: to }],
+      subject,
+      textContent: text,
+    });
+    const req = https.request(
+      {
+        hostname: "api.brevo.com",
+        path: "/v3/smtp/email",
+        method: "POST",
+        headers: {
+          "api-key": BREVO_API_KEY,
+          "Content-Type": "application/json",
+          "Content-Length": Buffer.byteLength(payload),
+        },
+      },
+      (res) => {
+        let raw = "";
+        res.on("data", (c) => (raw += c));
+        res.on("end", () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) {
+            console.log("Mailer: notification sent -> " + to);
+            resolve({ skipped: false, ok: true });
+          } else {
+            console.error("Mailer: Brevo send failed (" + res.statusCode + "): " + raw.slice(0, 300));
+            resolve({ skipped: false, ok: false });
+          }
+        });
+      }
+    );
+    req.on("error", (e) => {
+      console.error("Mailer: Brevo send failed:", e.message);
+      resolve({ skipped: false, ok: false });
+    });
+    req.write(payload);
+    req.end();
+  });
+}
+
+function send({ subject, text }) {
+  const config = loadConfig();
+  const to = (config && config.to) || "amitwebdev163@gmail.com";
+  const from = (config && config.user) || to;
+  if (useBrevoApi) return sendBrevoApi({ subject, text, to, from });
+  if (!transporter) return Promise.resolve({ skipped: true });
+  return new Promise((resolve) => {
     transporter.sendMail(
       {
-        from: `"Giftora Store" <${config.user}>`,
+        from: `"Giftora Store" <${from}>`,
         to,
         subject,
         text,
