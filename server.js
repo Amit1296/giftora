@@ -11,6 +11,22 @@ const apply = require("./seo/apply-seo");
 const ROOT = __dirname;
 const PORT = process.env.PORT || 8080;
 
+function loadEnvFile() {
+  try {
+    const raw = fs.readFileSync(path.join(ROOT, ".env"), "utf8");
+    for (const line of raw.split(/\r?\n/)) {
+      const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+      if (!m || line.trim().startsWith("#")) continue;
+      let val = m[2].trim();
+      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+        val = val.slice(1, -1);
+      }
+      if (!(m[1] in process.env)) process.env[m[1]] = val;
+    }
+  } catch {}
+}
+loadEnvFile();
+
 const DATA_DIR = db.DATA_DIR;
 const UPLOADS_DIR = process.env.UPLOADS_DIR ? path.resolve(process.env.UPLOADS_DIR) : path.join(ROOT, "uploads");
 const ADMIN_CONFIG = path.join(ROOT, "admin-config.json");
@@ -291,7 +307,29 @@ async function handleRequest(req, res) {
         return sendJson(res, 200, result);
       } catch (e) {
         console.error("Payment order error:", e.message);
+        if (e && e.status === 401) {
+          return sendJson(res, 401, { success: false, message: "Payment gateway authentication failed. Check Razorpay keys." });
+        }
         return badRequest(res, e, e && e.message ? e.message : "Could not start payment.");
+      }
+    }
+
+    if (url.pathname === "/api/verify-payment") {
+      try {
+        const data = JSON.parse(await readBody(req));
+        const result = await verifyRazorpayPayment(
+          data.razorpay_order_id || data.orderId,
+          data.razorpay_payment_id || data.paymentId,
+          data.razorpay_signature || data.signature,
+          data.amount
+        );
+        return sendJson(res, 200, { success: true, ...result });
+      } catch (e) {
+        console.error("Verify payment error:", e.message);
+        if (e && e.status === 401) {
+          return sendJson(res, 401, { success: false, message: "Payment gateway authentication failed. Check Razorpay keys." });
+        }
+        return sendJson(res, 400, { success: false, message: e && e.message ? e.message : "Payment verification failed." });
       }
     }
 
@@ -711,7 +749,7 @@ async function handleRequest(req, res) {
     }
   }
 
-  const blocked = ["/data/", "/admin-config.json", "/mail-config.json", "/node_modules/"];
+  const blocked = ["/data/", "/admin-config.json", "/mail-config.json", "/razorpay-config.json", "/upi-config.json", "/node_modules/", "/.env"];
   const lowerPath = pathname.toLowerCase();
   if (blocked.some((b) => lowerPath.startsWith(b))) {
     res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
@@ -888,20 +926,24 @@ function buildVisitorsReport(store, orders) {
   };
 }
 
-function razorpayRequest(path, body) {
+function razorpayRequest(path, body, method) {
   return new Promise((resolve, reject) => {
-    const payload = JSON.stringify(body);
+    const verb = method || "POST";
+    const payload = body ? JSON.stringify(body) : "";
     const auth = "Basic " + Buffer.from(RAZORPAY_KEY_ID + ":" + RAZORPAY_KEY_SECRET).toString("base64");
+    const headers = {
+      Authorization: auth,
+    };
+    if (verb === "POST") {
+      headers["Content-Type"] = "application/json";
+      headers["Content-Length"] = Buffer.byteLength(payload);
+    }
     const options = {
       hostname: "api.razorpay.com",
       port: 443,
       path,
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Content-Length": Buffer.byteLength(payload),
-        Authorization: auth,
-      },
+      method: verb,
+      headers,
     };
     const req = https.request(options, (res) => {
       let raw = "";
@@ -912,15 +954,19 @@ function razorpayRequest(path, body) {
           if (res.statusCode >= 200 && res.statusCode < 300) {
             resolve(data);
           } else {
-            reject(new Error((data.error && data.error.description) || ("Razorpay error " + res.statusCode)));
+            const err = new Error((data.error && data.error.description) || ("Razorpay error " + res.statusCode));
+            err.status = res.statusCode;
+            reject(err);
           }
         } catch (e) {
-          reject(new Error("Razorpay error " + res.statusCode));
+          const err = new Error("Razorpay error " + res.statusCode);
+          err.status = res.statusCode;
+          reject(err);
         }
       });
     });
     req.on("error", reject);
-    req.write(payload);
+    if (verb === "POST") req.write(payload);
     req.end();
   });
 }
@@ -1065,11 +1111,48 @@ async function markCouponUsed(code) {
   await db.saveCoupons(coupons);
 }
 
+function razorpaySignatureMatches(orderId, paymentId, signature) {
+  const expected = crypto.createHmac("sha256", RAZORPAY_KEY_SECRET).update(orderId + "|" + paymentId).digest("hex");
+  const a = Buffer.from(expected);
+  const b = Buffer.from(String(signature || ""));
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+
+async function verifyRazorpayPayment(orderId, paymentId, signature, expectedAmountPaise) {
+  if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
+    throw new Error("Online payments are not configured yet. Please try again later.");
+  }
+  const id = String(orderId || "").trim();
+  const pid = String(paymentId || "").trim();
+  const sig = String(signature || "").trim();
+  if (!id || !pid || !sig) {
+    throw new Error("Missing payment details (order id, payment id and signature are required).");
+  }
+  if (!razorpaySignatureMatches(id, pid, sig)) {
+    throw new Error("Payment signature verification failed.");
+  }
+  const pay = await razorpayRequest("/v1/payments/" + encodeURIComponent(pid), null, "GET");
+  if (pay.order_id !== id) {
+    throw new Error("Payment does not belong to this order.");
+  }
+  if (expectedAmountPaise != null && Number(pay.amount) !== Number(expectedAmountPaise)) {
+    throw new Error("Paid amount does not match the order total.");
+  }
+  if (!["captured", "authorized"].includes(pay.status)) {
+    throw new Error("Payment is not completed (status: " + pay.status + ").");
+  }
+  return { verified: true, orderId: id, paymentId: pid, amount: pay.amount, status: pay.status };
+}
+
 async function createRazorpayOrder(data) {
   if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
     throw new Error("Online payments are not configured yet. Please try again later.");
   }
   const cart = await computeCart(data, "");
+  const amountPaise = Math.round(cart.total * 100);
+  if (!Number.isFinite(amountPaise) || amountPaise < 100) {
+    throw new Error("Order total must be at least Rs.1 to pay online.");
+  }
   if (cart.coupon) {
     cart.couponCode = cart.coupon.code;
     cart.couponLabel =
@@ -1078,7 +1161,7 @@ async function createRazorpayOrder(data) {
         : cart.coupon.value + "% off";
   }
   const order = await razorpayRequest("/v1/orders", {
-    amount: Math.round(cart.total * 100),
+    amount: amountPaise,
     currency: "INR",
     receipt: "gift_" + timestamp().replace(/[^0-9]/g, "").slice(0, 12),
     notes: { source: "giftora-store" },
@@ -1120,9 +1203,10 @@ async function placeOrder(data) {
     if (!rzpOrderId || !rzpPaymentId || !rzpSignature) {
       throw new Error("ORDER:Payment was not completed.");
     }
-    const expected = crypto.createHmac("sha256", RAZORPAY_KEY_SECRET).update(rzpOrderId + "|" + rzpPaymentId).digest("hex");
-    if (expected !== rzpSignature) {
-      throw new Error("ORDER:Payment verification failed.");
+    try {
+      await verifyRazorpayPayment(rzpOrderId, rzpPaymentId, rzpSignature, Math.round(cart.total * 100));
+    } catch (e) {
+      throw new Error("ORDER:" + (e && e.message ? e.message : "Payment verification failed."));
     }
   }
   for (const it of items) {

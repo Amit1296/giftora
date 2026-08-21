@@ -783,6 +783,12 @@
         },
         modal: { ondismiss: () => { placeOrderBtn.disabled = false; placeOrderBtn.textContent = "Place Order"; } },
       });
+      rzp.on("payment.failed", (resp) => {
+        placeOrderBtn.disabled = false;
+        placeOrderBtn.textContent = "Place Order";
+        const desc = resp && resp.error && (resp.error.description || resp.error.reason);
+        toast("Payment failed" + (desc ? ": " + desc : "") + ". Please try again.");
+      });
       rzp.open();
     } catch (e) {
       placeOrderBtn.disabled = false;
