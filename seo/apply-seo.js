@@ -138,7 +138,7 @@ function buildJsonLd(page, cfg, site, products) {
   } else {
     const pageName = cfg.category || cfg.title.split(" — ")[0];
     blocks.push(breadcrumbList([
-      { name: "Home", url: site.url + "/index.html" },
+      { name: "Home", url: site.url + "/" },
       { name: pageName, url },
     ]));
 
@@ -267,9 +267,11 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
     urlSet.set(loc, { priority: String(priority || "0.5"), changefreq: changefreq || "weekly" });
   };
 
+  const pageUrl = (file) => (file === "index.html" ? site.url + "/" : site.url + "/" + file);
+
   for (const [file, c] of Object.entries(pages)) {
     if (!c.sitemap) continue;
-    addUrl(site.url + "/" + file, c.sitemap.priority, c.sitemap.changefreq);
+    addUrl(pageUrl(file), c.sitemap.priority, c.sitemap.changefreq);
   }
 
   for (const u of extraUrls) {
@@ -290,8 +292,8 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
       } else if (f.endsWith(".html")) {
         if (/^google[0-9a-f]{8,}\.html$/i.test(f) || /^ms[0-9a-f]{8,}\.txt$/i.test(f)) continue;
         const rel = path.relative(ROOT, full).replace(/\\/g, "/");
-        if (!excluded.includes(rel) && !urlSet.has(site.url + "/" + rel)) {
-          addUrl(site.url + "/" + rel, "0.5", "weekly");
+        if (!excluded.includes(rel) && !urlSet.has(pageUrl(rel))) {
+          addUrl(pageUrl(rel), "0.5", "weekly");
         }
       }
     }
