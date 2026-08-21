@@ -558,6 +558,7 @@
           </div>
           <div class="order-customer">
             <div><b>Phone</b>${esc(o.phone || "")}</div>
+            ${o.senderName || o.senderPhone || o.senderCity ? `<div><b>Sender</b>${esc([o.senderName, o.senderPhone, o.senderCity].filter(Boolean).join(" · "))}</div>` : ""}
             <div><b>Address</b>${esc(o.address || "")}</div>
             <div><b>Payment</b>${esc(o.payment || "UPI")} <span class="${payClass}">${payLabel}</span></div>
             ${rzpLine}

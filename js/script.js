@@ -663,6 +663,12 @@
     const state = $("#oState").value.trim();
     const pincode = $("#oPincode").value.trim();
     const shippingAddress = [address, city, state, "PIN " + pincode].filter(Boolean).join(", ");
+    const senderNameEl = $("#oSenderName");
+    const senderPhoneEl = $("#oSenderPhone");
+    const senderCityEl = $("#oSenderCity");
+    const senderName = ((senderNameEl && senderNameEl.value.trim()) || name).slice(0, 100);
+    const senderPhone = senderPhoneEl ? senderPhoneEl.value.trim().slice(0, 20) : "";
+    const senderCity = senderCityEl ? senderCityEl.value.trim().slice(0, 100) : "";
     const deliveryDateEl = $("#oDeliveryDate");
     const midnightEl = $("#oMidnightDelivery");
     const deliveryDate = deliveryDateEl ? String(deliveryDateEl.value || "").slice(0, 20) : "";
@@ -684,6 +690,9 @@
       coupon: appliedCoupon ? appliedCoupon.code : "",
       total: payableTotal(),
       vid,
+      senderName,
+      senderPhone,
+      senderCity,
     };
     if (rzp) {
       payload.razorpayOrderId = rzp.orderId;
@@ -708,7 +717,7 @@
       successOrderId.textContent = "#" + res.orderId;
       const scHead = checkoutSuccess.querySelector("h4");
       if (scHead) scHead.textContent = "Your order is accepted";
-      saveOrder({ orderId: String(res.orderId), name: name || "", phone: phone || "", total: payableTotal(), date: new Date().toISOString(), payment });
+      saveOrder({ orderId: String(res.orderId), name: name || "", phone: phone || "", total: payableTotal(), date: new Date().toISOString(), payment, senderName });
       const waTrack = checkoutSuccess.querySelector(".wa-track");
       if (!waTrack) {
         const a = document.createElement("a");

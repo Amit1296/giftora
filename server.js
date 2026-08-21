@@ -1189,6 +1189,9 @@ async function placeOrder(data) {
   if (!name || !phone || !/^[0-9+\-()\s]{7,20}$/.test(phone) || !address) {
     throw new Error("ORDER:Please provide a valid name, phone and address.");
   }
+  const senderName = (String(data.senderName || "").trim() || name).slice(0, 100);
+  const senderPhone = String(data.senderPhone || "").trim().slice(0, 20);
+  const senderCity = String(data.senderCity || "").trim().slice(0, 100);
 
   const cart = await computeCart(data, "ORDER:");
   const { items, total, midnightDelivery, midnightFee } = cart;
@@ -1240,8 +1243,11 @@ async function placeOrder(data) {
     paid: isOnline,
     paymentStatus: isOnline ? "Paid" : "Pending",
     date: new Date().toISOString(),
+    senderName,
+    senderPhone,
+    senderCity,
   });
-  sendOrderEmail({ name, phone, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, paid: isOnline, coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0 }, orderId);
+  sendOrderEmail({ name, phone, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, paid: isOnline, coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0, senderName, senderPhone, senderCity }, orderId);
   return { success: true, orderId, total };
 }
 
@@ -1261,6 +1267,9 @@ function sendOrderEmail(order, orderId) {
       `Order ID: ${orderId}\n` +
       `Name: ${order.name}\n` +
       `Phone: ${order.phone}\n` +
+      (order.senderName || order.senderPhone || order.senderCity
+        ? `Sender: ${[order.senderName, order.senderPhone, order.senderCity].filter(Boolean).join(" | ")}\n`
+        : "") +
       `Shipping Address: ${order.address}\n` +
       `Payment Method: ${order.payment || "UPI"}\n` +
       `${paymentNote}\n` +
