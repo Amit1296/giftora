@@ -681,6 +681,7 @@
     const payload = {
       name,
       phone,
+      email,
       address: shippingAddress,
       payment,
       items,
@@ -716,7 +717,9 @@
 
       successOrderId.textContent = "#" + res.orderId;
       const scHead = checkoutSuccess.querySelector("h4");
-      if (scHead) scHead.textContent = "Your order is accepted";
+      if (scHead) scHead.textContent = "Order Placed Successfully!";
+      const emailNote = document.getElementById("successEmailNote");
+      if (emailNote) emailNote.hidden = !email;
       saveOrder({ orderId: String(res.orderId), name: name || "", phone: phone || "", total: payableTotal(), date: new Date().toISOString(), payment, senderName });
       const waTrack = checkoutSuccess.querySelector(".wa-track");
       if (!waTrack) {
@@ -772,8 +775,16 @@
       if (!res.success) throw new Error(res.message || "Could not start payment.");
 
       await loadRazorpay();
-      const name = $("#oName").value.trim();
-      const phone = $("#oPhone").value.trim();
+    const name = $("#oName").value.trim();
+    const phone = $("#oPhone").value.trim();
+    const emailEl = $("#oEmail");
+    const email = emailEl ? emailEl.value.trim().slice(0, 150) : "";
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      toast("Please enter a valid email address for your confirmation.");
+      placeOrderBtn.disabled = false;
+      placeOrderBtn.textContent = "Place Order";
+      return;
+    }
       const rzp = new window.Razorpay({
         key: res.key,
         amount: res.amount,

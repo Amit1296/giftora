@@ -459,6 +459,10 @@ Festive Celebrations</p>
 				<label for="oPhone">Phone Number</label>
 				<input type="tel" id="oPhone" placeholder="+91 98765 43210" required>
 			</div>
+			<div class="form-group">
+				<label for="oEmail">Email (for order confirmation)</label>
+				<input type="email" id="oEmail" placeholder="john@example.com" autocomplete="email">
+			</div>
 			<h4 class="form-section-title">Shipping Address</h4>
 			<div class="form-group">
 				<label for="oAddress">Address</label>
@@ -533,7 +537,11 @@ Festive Celebrations</p>
 		<div class="checkout-success" id="checkoutSuccess" hidden>
 			<span class="checkout-success-icon">🎉</span>
 			<h4>Your order is accepted</h4>
-			<p>Thank you! Your order ID is <strong id="successOrderId">#</strong>. Our team will call you shortly to confirm your delivery details.</p>
+<div class="success-msg-box" id="successMsgBox">
+				<p class="success-order-line">Your Order ID: <strong id="successOrderId">#</strong></p>
+				<p>Thank you for shopping with Giftora! Our team will call you shortly to confirm your delivery details.</p>
+				<p id="successEmailNote" hidden>📧 A confirmation email with your order details has been sent to your inbox.</p>
+			</div>
 			<button class="btn btn-primary" id="successDone">Done</button>
 		</div>
 	</div>

@@ -964,6 +964,11 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
 .checkout-success-icon { font-size: 3.4rem; display: block; margin-bottom: 12px; }
 .checkout-success h4 { font-family: var(--font-head); font-size: 1.4rem; margin-bottom: 8px; }
 .checkout-success p { color: var(--text-muted); margin-bottom: 20px; }
+.success-msg-box { background: #f8fafc; border: 1px solid var(--line, #e2e8f0); border-left: 4px solid var(--brand, #7c3aed); border-radius: 12px; padding: 16px 18px; margin: 0 0 20px; text-align: left; }
+.success-msg-box p { margin-bottom: 8px; font-size: 0.95rem; }
+.success-msg-box p:last-child { margin-bottom: 0; }
+.success-order-line { font-size: 1.05rem !important; font-weight: 600; color: var(--text, #1e293b) !important; }
+#successEmailNote { color: #047857 !important; }
 #placeOrderBtn:disabled { opacity: 0.6; cursor: wait; }
 
 .form-section-title {

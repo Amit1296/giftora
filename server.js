@@ -1212,6 +1212,10 @@ async function createRazorpayOrder(data) {
 async function placeOrder(data) {
   const name = String(data.name || "").trim().slice(0, 100);
   const phone = String(data.phone || "").trim().slice(0, 20);
+  const email = String(data.email || "").trim().slice(0, 150).toLowerCase();
+  if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+    throw new Error("ORDER:Please provide a valid email address.");
+  }
   const address = String(data.address || "").trim().slice(0, 600);
   const payment = ["UPI", "Card", "UPI QR"].includes(data.payment) ? data.payment : "UPI";
   if (!name || !phone || !/^[0-9+\-()\s]{7,20}$/.test(phone) || !address) {
@@ -1255,6 +1259,7 @@ async function placeOrder(data) {
   await db.addOrder({
     name,
     phone,
+    email,
     address,
     payment,
     items,
@@ -1275,7 +1280,9 @@ async function placeOrder(data) {
     senderPhone,
     senderCity,
   });
-  sendOrderEmail({ name, phone, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, paid: isOnline, coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0, senderName, senderPhone, senderCity }, orderId);
+  const orderData = { name, phone, email, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, midnightFee, paid: isOnline, coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0, senderName, senderPhone, senderCity };
+  sendOrderEmail(orderData, orderId);
+  if (email) sendCustomerReceipt(orderData, orderId);
   return { success: true, orderId, total };
 }
 
@@ -1306,6 +1313,34 @@ function sendOrderEmail(order, orderId) {
       `${couponLine}` +
       `Items:\n${lines}\n\n` +
       `Total: Rs.${order.total}`,
+  });
+}
+
+function sendCustomerReceipt(order, orderId) {
+  const lines = order.items.map((i) => `- ${i.qty} x ${i.name}${i.size ? " (" + i.size + ")" : ""} @ Rs.${i.price}`).join("\n");
+  const paymentNote = order.paid
+    ? "Payment Status: Paid"
+    : order.payment === "UPI QR"
+      ? "Payment Status: Pending (UPI QR) - we will confirm once verified."
+      : "Payment Status: Pay on delivery / as selected";
+  mailer.send({
+    to: order.email,
+    subject: `Order Confirmation - #${orderId} | Giftora`,
+    text:
+      `Hi ${order.name},\n\n` +
+      `Thank you for your order at Giftora! Here are your order details.\n\n` +
+      `Order ID: ${orderId}\n` +
+      paymentNote + "\n" +
+      `Delivery Date: ${order.deliveryDate || "To be confirmed"}\n` +
+      (order.midnightDelivery ? `Midnight Delivery: Yes (+ Rs.${MIDNIGHT_FEE})\n` : "") +
+      (order.coupon ? `Coupon Applied: ${order.coupon} (saved Rs.${order.couponDiscount || 0})\n` : "") +
+      `\nItems:\n${lines}\n\n` +
+      (order.midnightFee ? `Midnight delivery fee: Rs.${order.midnightFee}\n` : "") +
+      `Total: Rs.${order.total}\n\n` +
+      `Shipping Address:\n${order.address}\n\n` +
+      `Need help with this order? WhatsApp us: https://wa.me/917088084046?text=` +
+      encodeURIComponent("Hi Giftora! Please send me an update on order #" + orderId).replace(/%20/g, "%20") + "\n\n" +
+      `Warm regards,\nTeam Giftora\nhttps://gift-ora.online`,
   });
 }
 

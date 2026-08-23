@@ -103,17 +103,17 @@ function sendBrevoApi({ subject, text, to, from }) {
   });
 }
 
-function send({ subject, text }) {
+function send({ subject, text, to }) {
   const config = loadConfig();
-  const to = (config && config.to) || "amitwebdev163@gmail.com";
-  const from = (config && config.user) || to;
-  if (useBrevoApi) return sendBrevoApi({ subject, text, to, from });
+  const toAddress = to || (config && config.to) || "amitwebdev163@gmail.com";
+  const from = (config && config.user) || toAddress;
+  if (useBrevoApi) return sendBrevoApi({ subject, text, to: toAddress, from });
   if (!transporter) return Promise.resolve({ skipped: true });
   return new Promise((resolve) => {
     transporter.sendMail(
       {
         from: `"Giftora Store" <${from}>`,
-        to,
+        to: toAddress,
         subject,
         text,
       },
@@ -122,7 +122,7 @@ function send({ subject, text }) {
           console.error("Mailer: send failed:", err.message);
           resolve({ skipped: false, ok: false });
         } else {
-          console.log("Mailer: notification sent -> " + to);
+          console.log("Mailer: notification sent -> " + toAddress);
           resolve({ skipped: false, ok: true });
         }
       }
