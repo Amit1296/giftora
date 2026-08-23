@@ -682,6 +682,7 @@
       name,
       phone,
       email,
+      message,
       address: shippingAddress,
       payment,
       items,
@@ -779,6 +780,8 @@
     const phone = $("#oPhone").value.trim();
     const emailEl = $("#oEmail");
     const email = emailEl ? emailEl.value.trim().slice(0, 150) : "";
+    const messageEl = $("#oMessage");
+    const message = messageEl ? messageEl.value.trim().slice(0, 500) : "";
     if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
       toast("Please enter a valid email address for your confirmation.");
       placeOrderBtn.disabled = false;

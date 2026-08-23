@@ -1216,6 +1216,7 @@ async function placeOrder(data) {
   if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     throw new Error("ORDER:Please provide a valid email address.");
   }
+  const customerMessage = String(data.message || "").trim().slice(0, 500);
   const address = String(data.address || "").trim().slice(0, 600);
   const payment = ["UPI", "Card", "UPI QR"].includes(data.payment) ? data.payment : "UPI";
   if (!name || !phone || !/^[0-9+\-()\s]{7,20}$/.test(phone) || !address) {
@@ -1260,6 +1261,7 @@ async function placeOrder(data) {
     name,
     phone,
     email,
+    message: customerMessage,
     address,
     payment,
     items,
@@ -1280,7 +1282,7 @@ async function placeOrder(data) {
     senderPhone,
     senderCity,
   });
-  const orderData = { name, phone, email, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, midnightFee, paid: isOnline, coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0, senderName, senderPhone, senderCity };
+  const orderData = { name, phone, email, message: customerMessage, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, midnightFee, paid: isOnline, coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0, senderName, senderPhone, senderCity };
   sendOrderEmail(orderData, orderId);
   if (email) sendCustomerReceipt(orderData, orderId);
   return { success: true, orderId, total };
@@ -1306,6 +1308,7 @@ function sendOrderEmail(order, orderId) {
         ? `Sender: ${[order.senderName, order.senderPhone, order.senderCity].filter(Boolean).join(" | ")}\n`
         : "") +
       `Shipping Address: ${order.address}\n` +
+      (order.message ? `Customer Message: ${order.message}\n` : "") +
       `Payment Method: ${order.payment || "UPI"}\n` +
       `${paymentNote}\n` +
       `Delivery Date: ${order.deliveryDate || "Not set"}\n` +

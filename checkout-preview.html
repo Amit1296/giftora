@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="robots" content="noindex, nofollow">
+	<title>Checkout Success Box - Preview (Staff Only)</title>
+	<link rel="icon" href="logo.svg">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+	<style>
+		body { background: #f1f5f9; font-family: var(--font-body, Poppins, sans-serif); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+		.preview-card { background: #fff; border-radius: 16px; padding: 28px 26px; max-width: 420px; width: 100%; box-shadow: 0 10px 40px rgba(0,0,0,.12); }
+		.preview-card h1 { font-family: var(--font-head); font-size: 1.3rem; margin-bottom: 4px; }
+		.preview-card p.hint { color: #64748b; font-size: .85rem; margin-bottom: 18px; }
+		.preview-card label { display: block; font-size: .85rem; margin: 12px 0 4px; color: #334155; }
+		.preview-card input[type="text"], .preview-card input[type="number"] { width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: .95rem; }
+		.preview-check { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-size: .88rem; color: #334155; }
+		#showBtn { width: 100%; margin-top: 18px; }
+		.checkout-overlay { position: fixed; inset: 0; background: rgba(15,23,42,.55); display: none; align-items: flex-start; justify-content: center; overflow-y: auto; z-index: 999; padding: 40px 16px; }
+		.checkout-overlay.open { display: flex; }
+		.checkout-modal { background: #fff; border-radius: 18px; max-width: 480px; width: 100%; padding: 28px; position: relative; }
+	</style>
+</head>
+<body>
+	<div class="preview-card">
+		<h1>Checkout Success Box Preview</h1>
+		<p class="hint">Staff-only test page. Fill sample values and see exactly what your customers see after ordering. No real order or email is created.</p>
+		<label for="pvOrderId">Order ID</label>
+		<input type="text" id="pvOrderId" value="order_2026-08-23_12-00-00">
+		<label for="pvTotal">Order Total (Rs.)</label>
+		<input type="number" id="pvTotal" value="999">
+		<div class="preview-check">
+			<input type="checkbox" id="pvEmailSent" checked>
+			<label for="pvEmailSent" style="margin:0;">Show &ldquo;confirmation email sent&rdquo; note</label>
+		</div>
+		<button class="btn btn-primary" id="showBtn">Show Success Box</button>
+	</div>
+
+	<div class="checkout-overlay" id="previewOverlay">
+		<div class="checkout-modal">
+			<div class="checkout-success">
+				<span class="checkout-success-icon">&#9989;</span>
+				<h4>Order Placed Successfully!</h4>
+				<div class="success-msg-box" id="successMsgBox">
+					<p class="success-order-line">Your Order ID: <strong id="successOrderId">#</strong></p>
+					<p>Thank you for shopping with Giftora! Our team will call you shortly to confirm your delivery details.</p>
+					<p id="successEmailNote" hidden>&#128231; A confirmation email with your order details has been sent to your inbox.</p>
+				</div>
+				<button class="btn btn-primary" id="successDone">Done</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		document.getElementById("showBtn").addEventListener("click", function () {
+			var id = document.getElementById("pvOrderId").value.trim() || "order_test";
+			var total = Number(document.getElementById("pvTotal").value) || 0;
+			var box = document.getElementById("previewOverlay");
+			box.querySelector(".success-order-line strong").textContent = "#" + id;
+			var summary = box.querySelector(".checkout-success h4");
+			summary.textContent = "Order Placed Successfully!";
+			var note = document.getElementById("successEmailNote");
+			note.hidden = !document.getElementById("pvEmailSent").checked;
+			box.classList.add("open");
+			box.dataset.total = String(total);
+		});
+		document.getElementById("successDone").addEventListener("click", function () {
+			document.getElementById("previewOverlay").classList.remove("open");
+		});
+		document.getElementById("previewOverlay").addEventListener("click", function (e) {
+			if (e.target === this) this.classList.remove("open");
+		});
+	</script>
+</body>
+</html>

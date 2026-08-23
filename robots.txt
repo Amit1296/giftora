@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 
 Disallow: /admin.html
+Disallow: /checkout-preview.html
 Disallow: /data/
 Disallow: /seo/
 
