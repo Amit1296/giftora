@@ -25,6 +25,10 @@
 	<link rel="icon" href="logo.svg">
 	<title>Cake Delivery in Faridabad — Same Day &amp; Midnight Orders | Giftora</title>
 	<link rel="stylesheet" href="css/fonts.css">
+<link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="fonts/poppins-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="fonts/dancing-script-latin.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="stylesheet" href="css/style.css">
 <!-- SEO-JSONLD-START -->
 <script type="application/ld+json">
@@ -161,10 +165,10 @@
 		<h2>How to Order Cake Online in Faridabad</h2>
 		<p>Ordering a cake from Giftora is quick, simple, and completely online. Here is how it works:</p>
 		<div class="steps-grid">
-			<div class="step-card"><span class="step-num">1</span><h4>Browse the collection</h4><p>Visit the Giftora cakes page and explore our full range of cakes — from classic chocolate and vanilla to premium fondant and photo cakes. Use filters to sort by flavour, occasion, or price.</p></div>
-			<div class="step-card"><span class="step-num">2</span><h4>Customise your cake</h4><p>Choose your preferred size, add a personalised message, or upload a photo for a photo cake. You can also select eggless options if needed.</p></div>
-			<div class="step-card"><span class="step-num">3</span><h4>Pick delivery details</h4><p>Enter the delivery address in Faridabad, choose your preferred delivery date, and select same-day, midnight, or scheduled delivery.</p></div>
-			<div class="step-card"><span class="step-num">4</span><h4>Pay and confirm</h4><p>Complete your payment via UPI, credit card, debit card, or net banking. You will receive an order confirmation instantly, along with a tracking link.</p></div>
+			<div class="step-card"><span class="step-num">1</span><h3>Browse the collection</h3><p>Visit the Giftora cakes page and explore our full range of cakes — from classic chocolate and vanilla to premium fondant and photo cakes. Use filters to sort by flavour, occasion, or price.</p></div>
+			<div class="step-card"><span class="step-num">2</span><h3>Customise your cake</h3><p>Choose your preferred size, add a personalised message, or upload a photo for a photo cake. You can also select eggless options if needed.</p></div>
+			<div class="step-card"><span class="step-num">3</span><h3>Pick delivery details</h3><p>Enter the delivery address in Faridabad, choose your preferred delivery date, and select same-day, midnight, or scheduled delivery.</p></div>
+			<div class="step-card"><span class="step-num">4</span><h3>Pay and confirm</h3><p>Complete your payment via UPI, credit card, debit card, or net banking. You will receive an order confirmation instantly, along with a tracking link.</p></div>
 		</div>
 		<p>From the moment you place your order, our team gets to work. The cake is baked, quality-checked, carefully packaged, and dispatched for delivery. You will receive updates at every stage — when the cake is being baked, when it is out for delivery, and when it has been delivered. It is a seamless experience from start to finish.</p>
 
@@ -216,7 +220,7 @@
 		</div>
 		<div class="footer-links">
 			<div class="footer-col">
-				<h4>Shop</h4>
+				<h3>Shop</h3>
 				<ul>
 					<li><a href="clothes.html">Clothes</a></li>
 					<li><a href="shoes.html">Shoes</a></li>
@@ -236,7 +240,7 @@
 				</ul>
 			</div>
 			<div class="footer-col">
-				<h4>Company</h4>
+				<h3>Company</h3>
 				<ul>
 					<li><a href="index.html">Home</a></li>
 					<li><a href="about.html">About</a></li><li><a href="blog.html">Blog</a></li>
@@ -294,7 +298,7 @@
 				<label for="oMessage">Your Message (gift note / delivery instructions)</label>
 				<textarea id="oMessage" rows="3" maxlength="500" placeholder="e.g. Happy Anniversary! Please deliver after 5 PM"></textarea>
 			</div>
-			<h4 class="form-section-title">Shipping Address</h4>
+			<h3 class="form-section-title">Shipping Address</h3>
 			<div class="form-group">
 				<label for="oAddress">Address</label>
 				<input type="text" id="oAddress" placeholder="House no, street, area" required>
@@ -315,7 +319,7 @@
 					<input type="text" id="oPincode" placeholder="110001" required>
 				</div>
 			</div>
-			<h4 class="form-section-title">Sender Details</h4>
+			<h3 class="form-section-title">Sender Details</h3>
 			<div class="form-group">
 				<label for="oSenderName">Your Name (goes on the gift card)</label>
 				<input type="text" id="oSenderName" placeholder="e.g. Rahul Sharma" autocomplete="name">
@@ -330,7 +334,7 @@
 					<input type="text" id="oSenderCity" placeholder="e.g. Sydney, Australia">
 				</div>
 			</div>
-			<h4 class="form-section-title">Delivery Details</h4>
+			<h3 class="form-section-title">Delivery Details</h3>
 			<div class="form-group">
 				<label for="oDeliveryDate">Delivery Date</label>
 				<input type="date" id="oDeliveryDate" required>
@@ -339,7 +343,7 @@
 				<input type="checkbox" id="oMidnightDelivery">
 				<span>&#127769; Midnight Delivery (12 AM) — Extra ₹300</span>
 			</label>
-			<h4 class="form-section-title">Payment Method</h4>
+			<h3 class="form-section-title">Payment Method</h3>
 			<div class="payment-methods" id="paymentMethods">
 				<label class="payment-option">
 					<input type="radio" name="payment" value="UPI" checked>
@@ -367,7 +371,7 @@
 		</form>
 		<div class="checkout-success" id="checkoutSuccess" hidden>
 			<span class="checkout-success-icon">🎉</span>
-			<h4>Your order is accepted</h4>
+			<h3>Your order is accepted</h3>
 <div class="success-msg-box" id="successMsgBox">
 				<p class="success-order-line">Your Order ID: <strong id="successOrderId">#</strong></p>
 				<p>Thank you for shopping with Giftora! Our team will call you shortly to confirm your delivery details.</p>

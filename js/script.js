@@ -717,7 +717,7 @@
       }
 
       successOrderId.textContent = "#" + res.orderId;
-      const scHead = checkoutSuccess.querySelector("h4");
+      const scHead = checkoutSuccess.querySelector("h3");
       if (scHead) scHead.textContent = "Order Placed Successfully!";
       const emailNote = document.getElementById("successEmailNote");
       if (emailNote) emailNote.hidden = !email;
