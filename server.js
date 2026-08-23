@@ -516,11 +516,21 @@ async function handleRequest(req, res) {
 
   /* ---------- Public GET endpoints ---------- */
   if (method === "GET" && url.pathname === "/api/products") {
-    return sendJson(res, 200, { success: true, products: await db.getProducts() });
+    try {
+      return sendJson(res, 200, { success: true, products: await db.getProducts() });
+    } catch (e) {
+      console.error("Products API error:", e.message);
+      return sendJson(res, 503, { success: false, message: "Temporarily unavailable. Please retry." });
+    }
   }
 
   if (method === "GET" && url.pathname === "/api/festival") {
-    return sendJson(res, 200, { success: true, festival: await db.getFestival() });
+    try {
+      return sendJson(res, 200, { success: true, festival: await db.getFestival() });
+    } catch (e) {
+      console.error("Festival API error:", e.message);
+      return sendJson(res, 503, { success: false, message: "Temporarily unavailable. Please retry." });
+    }
   }
 
   if (method === "GET" && url.pathname === "/api/payment/config") {
@@ -838,10 +848,28 @@ server.listen(PORT, () => {
   }
 });
 
-server.requestTimeout = 30 * 1000;
-server.headersTimeout = 15 * 1000;
-server.keepAliveTimeout = 5 * 1000;
+server.requestTimeout = 120 * 1000;
+server.headersTimeout = 65 * 1000;
+server.keepAliveTimeout = 72 * 1000;
 server.maxHeadersCount = 80;
+
+/* ---------- Graceful shutdown (avoid dropped requests on deploys) ---------- */
+let shuttingDown = false;
+function gracefulShutdown(signal) {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  console.log("Received " + signal + ". Draining connections before exit...");
+  server.close(() => {
+    console.log("Server closed cleanly.");
+    process.exit(0);
+  });
+  setTimeout(() => {
+    console.log("Grace period elapsed, forcing exit.");
+    process.exit(0);
+  }, 20000).unref();
+}
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM"));
+process.on("SIGINT", () => gracefulShutdown("SIGINT"));
 
 function visitorInterest(session, orderCount) {
   if (orderCount > 0) return "converted";
