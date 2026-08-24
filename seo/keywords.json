@@ -8,7 +8,7 @@
     "phone": "+91 70880 84046",
     "phoneHref": "+917088084046",
     "address": "Dilshad Colony, Delhi - 110095",
-    "ogImage": "https://gift-ora.online/uploads/occasion-gifts.jpg",
+    "ogImage": "https://gift-ora.online/uploads/og-image.jpg",
     "googleVerification": "ZswpaM65gvYE2ojyUcyWDhmb5MWd0n-XYvnLdthC9sU",
     "bingVerification": "3e17f5817712417594605f5f18d7cb37"
   },
@@ -750,6 +750,10 @@
       "priority": "0.8",
       "changefreq": "weekly"
     },
+    "teachers-day-gifts.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
     "blog-festival-gifts-nri.html": {
       "priority": "0.7",
       "changefreq": "weekly"
@@ -763,6 +767,22 @@
       "changefreq": "weekly"
     },
     "blog-gifts-under-1000.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "blog-teachers-day-gifts.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "blog-birthday-gifts-delhi.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "blog-cake-delivery-faridabad.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "blog-best-online-gift-shop-india.html": {
       "priority": "0.7",
       "changefreq": "weekly"
     },
