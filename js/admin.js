@@ -847,6 +847,119 @@
     }
   }
 
+  /* ---------- Gift cards ---------- */
+  let giftCards = [];
+
+  async function loadGiftCards() {
+    try {
+      const data = await api("/api/admin/giftcards");
+      if (!data.success) return;
+      giftCards = data.cards || [];
+      const countEl = $("#giftcardCount");
+      if (countEl) countEl.textContent = giftCards.length;
+      renderGiftCards();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function giftCardStatus(c) {
+    if (!c.active) return { label: "Inactive", cls: "coupon-badge off" };
+    if (new Date(c.expires).getTime() < Date.now()) return { label: "Expired", cls: "coupon-badge expired" };
+    if ((Number(c.balance) || 0) <= 0) return { label: "Fully used", cls: "coupon-badge exhausted" };
+    if ((Number(c.balance) || 0) < (Number(c.amount) || 0)) return { label: "Partially used", cls: "coupon-badge scheduled" };
+    return { label: "Active", cls: "coupon-badge live" };
+  }
+
+  function giftCardLink(c) {
+    const p = new URLSearchParams({ code: c.code, amount: c.amount, balance: c.balance, expires: String(c.expires).slice(0, 10) });
+    if (c.note) p.set("note", c.note);
+    return "/gift-card-template.html?" + p.toString();
+  }
+
+  function renderGiftCards() {
+    const el = $("#giftcardsList");
+    if (!el) return;
+    if (!giftCards.length) {
+      el.innerHTML = '<p class="empty-state">No gift cards yet. Generate one above to start selling.</p>';
+      return;
+    }
+    el.innerHTML = giftCards
+      .map((c) => {
+        const st = giftCardStatus(c);
+        return `
+        <div class="coupon-card">
+          <div class="coupon-card-head">
+            <span class="coupon-code">${esc(c.code)}<button type="button" class="coupon-copy" data-gc-copy="${esc(c.code)}" title="Copy code">Copy</button></span>
+            <span class="${st.cls}">${st.label}</span>
+          </div>
+          <div class="coupon-meta">
+            <span>Value ₹${Number(c.amount).toLocaleString("en-IN")}</span>
+            <span>Balance ₹${Number(c.balance).toLocaleString("en-IN")}</span>
+            <span>Expires ${String(c.expires).slice(0, 10)}</span>
+            ${c.note ? `<span>${esc(c.note)}</span>` : ""}
+            <span>Created ${new Date(c.created).toLocaleDateString("en-IN")}</span>
+          </div>
+          <div class="coupon-actions">
+            <button type="button" class="btn btn-primary btn-sm" data-gc-design="${esc(giftCardLink(c))}">Open card design</button>
+            <label class="coupon-toggle"><input type="checkbox" data-gc-active="${esc(c.code)}"${c.active ? " checked" : ""}> Active</label>
+          </div>
+        </div>`;
+      })
+      .join("");
+  }
+
+  async function createGiftCardsFlow() {
+    const msg = $("#giftcardMsg");
+    const btn = $("#createGiftCardsBtn");
+    btn.disabled = true;
+    btn.textContent = "Generating...";
+    try {
+      const res = await api("/api/admin/giftcards", {
+        method: "POST",
+        body: JSON.stringify({
+          amount: Number($("#gcAmount").value),
+          count: Number($("#gcCount").value),
+          validMonths: Number($("#gcMonths").value),
+          note: $("#gcNote").value,
+        }),
+      });
+      if (res.success && res.cards && res.cards.length) {
+        msg.className = "save-msg ok";
+        msg.textContent = `${res.cards.length} gift card${res.cards.length === 1 ? "" : "s"} generated.`;
+        toast(`${res.cards.length} gift card${res.cards.length === 1 ? "" : "s"} generated ✓`);
+        $("#gcNote").value = "";
+        loadGiftCards();
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not generate gift cards.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Generate Gift Card(s)";
+    }
+  }
+
+  async function toggleGiftCard(code, active) {
+    try {
+      const res = await api("/api/admin/giftcards", {
+        method: "PUT",
+        body: JSON.stringify({ code, active }),
+      });
+      if (res.success) {
+        toast(active ? "Gift card activated ✓" : "Gift card deactivated");
+      } else {
+        toast(res.message || "Could not update gift card.");
+      }
+      loadGiftCards();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
   /* ---------- Visitors & buying interest ---------- */
   let visitors = [];
   let visitorSearchTerm = "";
@@ -1290,7 +1403,7 @@
 
   /* ---------- Load all ---------- */
   async function loadAll() {
-    await Promise.all([loadProducts(), loadFestival(), loadUpi(), loadOrders(), loadEnquiries(), loadVendors(), loadCoupons(), loadVisitors()]);
+    await Promise.all([loadProducts(), loadFestival(), loadUpi(), loadOrders(), loadEnquiries(), loadVendors(), loadCoupons(), loadGiftCards(), loadVisitors()]);
   }
 
   $("#productSearch").addEventListener("input", (e) => {
@@ -1356,6 +1469,20 @@
   $("#couponsList").addEventListener("change", (e) => {
     const t = e.target.closest("[data-active]");
     if (t) toggleCoupon(t.dataset.active, t.checked);
+  });
+  $("#createGiftCardsBtn").addEventListener("click", createGiftCardsFlow);
+  $("#giftcardsList").addEventListener("click", (e) => {
+    const copyBtn = e.target.closest("[data-gc-copy]");
+    if (copyBtn) {
+      copyCoupon(copyBtn.dataset.gcCopy);
+      return;
+    }
+    const designBtn = e.target.closest("[data-gc-design]");
+    if (designBtn) window.open(designBtn.dataset.gcDesign, "_blank");
+  });
+  $("#giftcardsList").addEventListener("change", (e) => {
+    const t = e.target.closest("[data-gc-active]");
+    if (t) toggleGiftCard(t.dataset.gcActive, t.checked);
   });
   loginBtn.addEventListener("click", doLogin);
   loginPass.addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });

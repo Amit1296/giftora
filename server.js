@@ -419,6 +419,30 @@ async function handleRequest(req, res) {
       }
     }
 
+    /* ---------- Gift cards (admin) ---------- */
+    if (url.pathname === "/api/admin/giftcards") {
+      const auth = requireAuth(req, res);
+      if (!auth) return;
+      try {
+        const body = JSON.parse(await readBody(req));
+        const created = await createGiftCards(body);
+        return sendJson(res, 200, { success: true, cards: created });
+      } catch (e) {
+        console.error("Gift card create error:", e.message);
+        return badRequest(res, e, e.message || "Could not create gift cards.");
+      }
+    }
+
+    /* ---------- Gift card validation (public) ---------- */
+    if (url.pathname === "/api/giftcard/validate" && method === "POST") {
+      try {
+        const body = JSON.parse(await readBody(req));
+        return sendJson(res, 200, await validateGiftCard(body.code));
+      } catch (e) {
+        return sendJson(res, 400, { valid: false, message: "Invalid request." });
+      }
+    }
+
     /* ---------- Public tracking (visitor analytics) ---------- */
     if (url.pathname === "/api/track") {
       try {
@@ -566,6 +590,26 @@ async function handleRequest(req, res) {
 
     if (url.pathname === "/api/admin/products" && method === "GET") {
       return sendJson(res, 200, { success: true, products: await db.getProducts() });
+    }
+
+    if (url.pathname === "/api/admin/giftcards" && method === "GET") {
+      const cards = await db.getGiftCards();
+      return sendJson(res, 200, { success: true, cards });
+    }
+
+    if (url.pathname === "/api/admin/giftcards" && method === "PUT") {
+      try {
+        const body = JSON.parse(await readBody(req));
+        const code = String(body.code || "").trim().toUpperCase();
+        const cards = await db.getGiftCards();
+        const card = cards.find((x) => x.code === code);
+        if (!card) return sendJson(res, 404, { success: false, message: "Gift card not found." });
+        if (typeof body.active === "boolean") card.active = body.active;
+        await db.saveGiftCards(cards);
+        return sendJson(res, 200, { success: true });
+      } catch (e) {
+        return badRequest(res, e, "Could not update gift card.");
+      }
     }
 
     if (url.pathname === "/api/admin/products" && method === "PUT") {
@@ -1064,6 +1108,67 @@ async function createCoupons(body) {
   }
   await db.saveCoupons([...created, ...existing]);
   return created;
+}
+
+/* ---------- Gift cards ---------- */
+const GC_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no 0/O/1/I to avoid confusion
+
+function makeGiftCardCode(existingCodes) {
+  const block = () => {
+    const bytes = crypto.randomBytes(4);
+    let s = "";
+    for (let i = 0; i < 4; i++) s += GC_ALPHABET[bytes[i] % GC_ALPHABET.length];
+    return s;
+  };
+  let code = "";
+  do {
+    code = "GFT-" + block() + "-" + block() + "-" + block();
+  } while (existingCodes.has(code));
+  return code;
+}
+
+async function createGiftCards(body) {
+  const amount = Math.round(Number(body && body.amount) || 0);
+  if (!(amount >= 100 && amount <= 100000)) throw new Error("Amount must be between ₹100 and ₹1,00,000.");
+  const count = Math.max(1, Math.min(200, parseInt(body && body.count, 10) || 1));
+  const months = Math.max(1, Math.min(60, parseInt(body && body.validMonths, 10) || 12));
+  const note = String((body && body.note) || "").trim().slice(0, 120);
+  const existing = await db.getGiftCards();
+  const codes = new Set(existing.map((x) => x.code));
+  const created = [];
+  for (let i = 0; i < count; i++) {
+    const code = makeGiftCardCode(codes);
+    codes.add(code);
+    created.push({
+      code,
+      amount,
+      balance: amount,
+      note,
+      active: true,
+      created: new Date().toISOString(),
+      expires: new Date(Date.now() + months * 30 * 24 * 60 * 60 * 1000).toISOString(),
+      redeems: [],
+    });
+  }
+  await db.saveGiftCards([...created, ...existing]);
+  return created;
+}
+
+async function validateGiftCard(code) {
+  const clean = String(code || "").trim().toUpperCase();
+  if (!clean) return { valid: false, message: "Enter a gift card code." };
+  const cards = await db.getGiftCards();
+  const card = cards.find((x) => x.code === clean);
+  if (!card) return { valid: false, message: "Gift card not found. Check the code and try again." };
+  if (!card.active) return { valid: false, message: "This gift card has been deactivated." };
+  if (new Date(card.expires).getTime() < Date.now()) return { valid: false, message: "This gift card has expired." };
+  return {
+    valid: true,
+    balance: Number(card.balance) || 0,
+    amount: Number(card.amount) || 0,
+    expires: card.expires,
+    message: `Valid gift card — balance ₹${Number(card.balance || 0).toLocaleString("en-IN")}.`,
+  };
 }
 
 async function evaluateCoupon(code, subtotal) {

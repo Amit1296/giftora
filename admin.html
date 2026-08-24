@@ -69,7 +69,8 @@
 			<button class="tab" data-tab="festival">Festival Offer</button>
 			<button class="tab" data-tab="upi">UPI QR</button>
 			<button class="tab" data-tab="orders">Orders <span id="orderCount" class="tab-count"></span></button>
-			<button class="tab" data-tab="coupons">Coupons <span id="couponCount" class="tab-count"></span></button>
+						<button class="tab" data-tab="coupons">Coupons <span id="couponCount" class="tab-count"></span></button>
+						<button class="tab" data-tab="giftcards">Gift Cards <span id="giftcardCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="enquiries">Enquiries <span id="enquiryCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="vendors">Vendors <span id="vendorCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="visitors">Visitors <span id="visitorCount" class="tab-count"></span></button>
@@ -279,6 +280,42 @@
 				</div>
 				<h3 class="coupon-list-title">Existing coupons</h3>
 				<div class="coupons-list" id="couponsList"></div>
+			</section>
+
+			<!-- Gift Cards tab -->
+			<section id="tab-giftcards" class="tab-panel">
+				<div class="panel-head">
+					<h2>Gift Card Codes</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="createGiftCardsBtn">Generate Gift Card(s)</button>
+					</div>
+				</div>
+				<p class="save-msg" id="giftcardMsg"></p>
+				<div class="coupon-form festival-form">
+					<div class="form-row">
+						<div class="form-group">
+							<label>Card value (₹)</label>
+							<input type="number" id="gcAmount" min="100" max="100000" step="1" value="1000">
+						</div>
+						<div class="form-group">
+							<label>How many cards to generate</label>
+							<input type="number" id="gcCount" min="1" max="200" value="1">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Valid for (months from today)</label>
+							<input type="number" id="gcMonths" min="1" max="60" value="12">
+						</div>
+						<div class="form-group">
+							<label>Note (optional — who it's for)</label>
+							<input type="text" id="gcNote" placeholder="e.g. For Anil's birthday" autocomplete="off">
+						</div>
+					</div>
+					<p class="field-note">Tip: generate a card, collect payment via UPI, then open the card design link and send the screenshot on WhatsApp. Codes are single-balance — each use reduces the remaining balance.</p>
+				</div>
+				<h3 class="coupon-list-title">Existing gift cards</h3>
+				<div class="coupons-list" id="giftcardsList"></div>
 			</section>
 
 			<!-- Enquiries tab -->

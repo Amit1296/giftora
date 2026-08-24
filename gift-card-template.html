@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Giftora Gift Card</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+    background: #f3f4f8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+  .card {
+    width: 100%;
+    max-width: 560px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #fff5f5 0%, #fecaca 45%, #f87171 100%);
+    border: 1px solid #ef4444;
+    box-shadow: 0 24px 60px rgba(185, 28, 28, .25);
+    color: #7f1d1d;
+    position: relative;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 88% -10%, rgba(124, 58, 237, .18), transparent 42%),
+      radial-gradient(circle at -6% 108%, rgba(255, 255, 255, .55), transparent 40%);
+    pointer-events: none;
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px 30px 0;
+    position: relative;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    display: grid; place-items: center;
+    color: #fff; font-weight: 800; font-size: 20px;
+    box-shadow: 0 6px 16px rgba(124, 58, 237, .35);
+  }
+  .brand-name { font-weight: 800; font-size: 1.25rem; letter-spacing: .04em; color: #7f1d1d; }
+  .brand-tag { font-size: .68rem; letter-spacing: .28em; text-transform: uppercase; color: #b91c1c; margin-top: 2px; }
+  .ribbon {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: #fff;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 999px;
+  }
+  .card-mid { padding: 30px 30px 6px; position: relative; }
+  .amount-label { font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: #b91c1c; font-weight: 700; }
+  .amount { font-size: 3.4rem; font-weight: 800; line-height: 1.1; letter-spacing: -.02em; }
+  .note-line { margin-top: 10px; font-size: .95rem; color: #991b1b; min-height: 1.2em; }
+  .card-code-box {
+    margin: 22px 30px;
+    background: rgba(255, 255, 255, .82);
+    backdrop-filter: blur(6px);
+    border: 1.5px dashed #ef4444;
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    position: relative;
+  }
+  .code-text { font-family: 'Consolas', 'Courier New', monospace; font-size: clamp(1.05rem, 4.5vw, 1.45rem); font-weight: 700; letter-spacing: .08em; color: #7f1d1d; word-break: break-all; }
+  .copy-btn {
+    flex-shrink: 0;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: #fff;
+    font-weight: 700;
+    font-size: .82rem;
+    padding: 9px 16px;
+    border-radius: 999px;
+    transition: transform .15s ease, opacity .15s ease;
+  }
+  .copy-btn:hover { transform: translateY(-1px); opacity: .92; }
+  .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 14px 30px 26px;
+    font-size: .78rem;
+    color: #991b1b;
+    position: relative;
+  }
+  .card-bottom strong { color: #7f1d1d; }
+  .perforation {
+    position: relative;
+    height: 2px;
+    margin: 4px 30px 0;
+    background-image: linear-gradient(90deg, #ef4444 33%, transparent 0);
+    background-size: 10px 2px;
+    opacity: .5;
+  }
+  .how-to {
+    width: 100%;
+    max-width: 560px;
+    background: #ffffff;
+    border: 1px solid #e6eaf2;
+    border-radius: 16px;
+    padding: 22px 26px;
+    margin-top: 22px;
+    box-shadow: 0 10px 28px rgba(30, 41, 59, .07);
+  }
+  .how-to h2 { font-size: 1rem; color: #1f2937; margin-bottom: 12px; }
+  .how-to ol { padding-left: 20px; color: #4b5563; font-size: .9rem; line-height: 1.85; }
+  .how-to a { color: #7c3aed; font-weight: 600; text-decoration: none; }
+  .how-to a:hover { text-decoration: underline; }
+  .print-hint { margin-top: 14px; font-size: .78rem; color: #9ca3af; text-align: center; }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .card { box-shadow: none; max-width: 100%; }
+    .how-to, .print-hint, .copy-btn { display: none !important; }
+  }
+</style>
+</head>
+<body>
+	<div class="card" id="gcCard">
+		<div class="card-top">
+			<div class="brand">
+				<div class="brand-mark">G</div>
+				<div>
+					<div class="brand-name">Giftora</div>
+					<div class="brand-tag">Gift Card</div>
+				</div>
+			</div>
+			<span class="ribbon">Digital Gift</span>
+		</div>
+		<div class="card-mid">
+			<p class="amount-label">This card is worth</p>
+			<h1 class="amount" id="gcAmount">₹—</h1>
+			<p class="note-line" id="gcNote"></p>
+		</div>
+		<div class="card-code-box">
+			<span class="code-text" id="gcCode">GFT-····-····-····</span>
+			<button class="copy-btn" id="gcCopyBtn" type="button">Copy code</button>
+		</div>
+		<div class="perforation"></div>
+		<div class="card-bottom">
+			<span>Valid till <strong id="gcExpires">—</strong></span>
+			<span>Redeemable only at <strong>gift-ora.online</strong></span>
+		</div>
+	</div>
+
+	<div class="how-to">
+		<h2>How to use this gift card</h2>
+		<ol>
+			<li>Visit <a href="https://gift-ora.online">gift-ora.online</a> and pick your favourite gifts.</li>
+			<li>Add them to the cart and open checkout.</li>
+			<li>Share this code on WhatsApp or apply it at checkout — the balance is adjusted instantly.</li>
+			<li>Any unused balance stays on the card until it expires.</li>
+		</ol>
+		<p class="print-hint">Tip: take a screenshot or press Ctrl+P to print / save as PDF.</p>
+	</div>
+
+<script>
+	(function () {
+		var q = new URLSearchParams(location.search);
+		var inr = function (n) { return "₹" + Number(n || 0).toLocaleString("en-IN"); };
+		var amount = Number(q.get("balance") || q.get("amount") || 0);
+		document.getElementById("gcAmount").textContent = inr(amount);
+		document.getElementById("gcCode").textContent = q.get("code") || "GFT-····-····-····";
+		document.getElementById("gcExpires").textContent = q.get("expires") || "12 months";
+		var note = q.get("note");
+		if (note) document.getElementById("gcNote").textContent = "For " + note;
+		else document.getElementById("gcNote").textContent = "A little joy, wrapped in one code.";
+		document.getElementById("gcCopyBtn").addEventListener("click", function () {
+			var btn = this, code = document.getElementById("gcCode").textContent;
+			function done() { btn.textContent = "Copied ✓"; setTimeout(function () { btn.textContent = "Copy code"; }, 1600); }
+			if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(done, done);
+			else done();
+		});
+	})();
+</script>
+</body>
+</html>

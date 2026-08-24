@@ -250,6 +250,7 @@ function writeRobots(site) {
     "",
     "Disallow: /admin.html",
     "Disallow: /checkout-preview.html",
+    "Disallow: /gift-card-template.html",
     "Disallow: /data/",
     "Disallow: /seo/",
     "",
@@ -283,7 +284,7 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
     addUrl(site.url + "/" + file, c.priority, c.changefreq);
   }
 
-  const excluded = ["admin.html", "product.html", "checkout-preview.html", "logos/logo-concepts.html"];
+  const excluded = ["admin.html", "product.html", "checkout-preview.html", "gift-card-template.html", "logos/logo-concepts.html"];
   const walk = (dir) => {
     for (const f of fs.readdirSync(dir)) {
       const full = path.join(dir, f);

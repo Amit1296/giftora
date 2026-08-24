@@ -3,6 +3,7 @@ Allow: /
 
 Disallow: /admin.html
 Disallow: /checkout-preview.html
+Disallow: /gift-card-template.html
 Disallow: /data/
 Disallow: /seo/
 
