@@ -732,6 +732,17 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   .festival-banner-cta { padding: 13px 24px; font-size: 0.95rem; }
 }
 
+/* ---------- Festival banner slider ---------- */
+.banner-slider { margin-top: 0; }
+.banner-slide .festival-banner-inner { height: 100%; border-radius: 24px; }
+.banner-slide .festival-banner-inner:hover { transform: none; }
+.teachers-day-slide {
+  background: linear-gradient(120deg, #0f766e 0%, #10b981 45%, #f59e0b 100%);
+}
+@media (max-width: 820px) {
+  .banner-slide .festival-banner-inner { border-radius: 18px; }
+}
+
 /* ---------- Footer ---------- */
 .footer { background: var(--text); color: #f5ece9; padding-top: 72px; }
 .footer-container { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 56px; }

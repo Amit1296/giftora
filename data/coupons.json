@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "code": "TEACHER15",
+    "type": "percent",
+    "value": 15,
+    "active": true,
+    "validFrom": "2026-08-24",
+    "validUntil": "2026-09-10",
+    "minOrder": 0,
+    "maxDiscount": 300,
+    "usageLimit": 0,
+    "used": 0
+  }
+]

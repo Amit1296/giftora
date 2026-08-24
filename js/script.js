@@ -70,7 +70,8 @@
     "wedding-gifts": ["combo", "flowers", "plants"],
     "housewarming-gifts": ["plants", "combo", "flowers"],
     "baby-shower-gifts": ["teddy", "toys", "combo"],
-    "corporate-gifts": ["combo", "plants"]
+    "corporate-gifts": ["combo", "plants"],
+    "teachers-day-gifts": ["flowers", "cakes", "plants", "combo", "teddy"]
   };
   const OCCASION_CATEGORIES = PAGE_OCCASION
     ? OCCASION_FILTERS[document.body.getAttribute("data-occasion")] || null
@@ -1516,7 +1517,7 @@
       if (productsGrid) renderProducts();
       if (!banner && !heroTitle) return;
       if (!f.active) {
-        if (banner) banner.style.display = "none";
+        if (banner) banner.remove();
         return;
       }
         if (banner) {
