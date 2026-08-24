@@ -743,6 +743,41 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   .banner-slide .festival-banner-inner { border-radius: 18px; }
 }
 
+/* ---------- Banner slider polish ---------- */
+.banner-slide .festival-banner-inner {
+  background-image:
+    radial-gradient(rgba(255,255,255,0.16) 1.5px, transparent 1.6px),
+    linear-gradient(120deg, #4c1d95 0%, #7c3aed 38%, #a855f7 64%, #f59e0b 100%);
+  background-size: 26px 26px, auto;
+}
+.teachers-day-slide {
+  background-image:
+    radial-gradient(rgba(255,255,255,0.14) 1.5px, transparent 1.6px),
+    linear-gradient(120deg, #134e4a 0%, #0f766e 34%, #10b981 68%, #fbbf24 100%);
+  background-size: 26px 26px, auto;
+}
+.banner-slide .festival-banner-title { text-shadow: 0 3px 26px rgba(0, 0, 0, 0.4); }
+.banner-slide .festival-banner-media {
+  box-shadow: 0 0 0 7px rgba(255,255,255,0.16), 0 20px 46px rgba(0,0,0,0.32);
+}
+.banner-slide .festival-banner-cta { box-shadow: 0 14px 34px rgba(0,0,0,0.3); }
+.teachers-day-slide .festival-banner-discount { color: #0f766e; }
+.teachers-day-slide .festival-banner-code strong { color: #0f766e; }
+.festival-banner-float.f4 { bottom: 22%; left: 36%; font-size: 1.6rem; opacity: 0.55; animation-delay: 0.8s; }
+.festival-banner-float.f5 { top: 12%; right: 42%; font-size: 1.3rem; opacity: 0.5; animation-delay: 2.4s; }
+.festival-banner-limited {
+  align-self: flex-start;
+  width: fit-content;
+  font-size: 0.8rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase;
+  background: #fde047; color: #713f12;
+  padding: 6px 14px; border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+@media (max-width: 820px) {
+  .festival-banner-float.f4, .festival-banner-float.f5 { display: none; }
+  .festival-banner-limited { font-size: 0.7rem; padding: 4px 11px; }
+}
+
 /* ---------- Footer ---------- */
 .footer { background: var(--text); color: #f5ece9; padding-top: 72px; }
 .footer-container { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 56px; }
