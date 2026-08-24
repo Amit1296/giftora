@@ -1171,6 +1171,20 @@ async function validateGiftCard(code) {
   };
 }
 
+async function redeemGiftCard(code, amount, orderId) {
+  const cards = await db.getGiftCards();
+  const card = cards.find((x) => x.code === code);
+  if (!card || !card.active) return false;
+  if (new Date(card.expires).getTime() < Date.now()) return false;
+  const amt = Math.max(0, Math.min(Math.round(Number(amount) || 0), Math.round(card.balance)));
+  if (amt <= 0) return false;
+  card.balance = Math.round(card.balance) - amt;
+  card.redeems = Array.isArray(card.redeems) ? card.redeems : [];
+  card.redeems.push({ orderId: String(orderId || ""), amount: amt, date: new Date().toISOString() });
+  await db.saveGiftCards(cards);
+  return true;
+}
+
 async function evaluateCoupon(code, subtotal) {
   const coupons = await db.getCoupons();
   const c = coupons.find((x) => x.code === code);
@@ -1239,6 +1253,18 @@ async function computeCart(data, prefix) {
     coupon = result.coupon;
     couponDiscount = result.discount;
   }
+  let giftCard = null;
+  let giftCardDiscount = 0;
+  const gcCode = String(data.giftCardCode || "").trim().toUpperCase();
+  if (gcCode) {
+    const check = await validateGiftCard(gcCode);
+    if (!check.valid) E("Gift card could not be applied: " + check.message);
+    const cards = await db.getGiftCards();
+    const card = cards.find((x) => x.code === gcCode);
+    const base = Math.max(0, subtotal + midnightFee - couponDiscount);
+    giftCardDiscount = Math.min(Math.round(card.balance), Math.round(base));
+    if (giftCardDiscount > 0) giftCard = { code: card.code };
+  }
   return {
     products,
     festivalDiscount,
@@ -1248,7 +1274,9 @@ async function computeCart(data, prefix) {
     midnightFee,
     coupon,
     couponDiscount,
-    total: Math.max(0, subtotal + midnightFee - couponDiscount),
+    giftCard,
+    giftCardDiscount,
+    total: Math.max(0, subtotal + midnightFee - couponDiscount - giftCardDiscount),
   };
 }
 
@@ -1298,6 +1326,17 @@ async function createRazorpayOrder(data) {
     throw new Error("Online payments are not configured yet. Please try again later.");
   }
   const cart = await computeCart(data, "");
+  if (cart.total <= 0) {
+    return {
+      success: true,
+      zeroPay: true,
+      key: RAZORPAY_KEY_ID,
+      couponCode: cart.coupon ? cart.coupon.code : "",
+      couponDiscount: cart.couponDiscount || 0,
+      giftCardCode: cart.giftCard ? cart.giftCard.code : "",
+      giftCardDiscount: cart.giftCardDiscount || 0,
+    };
+  }
   const amountPaise = Math.round(cart.total * 100);
   if (!Number.isFinite(amountPaise) || amountPaise < 100) {
     throw new Error("Order total must be at least Rs.1 to pay online.");
@@ -1325,6 +1364,11 @@ async function createRazorpayOrder(data) {
     couponCode: cart.couponCode || "",
     couponDiscount: cart.couponDiscount || 0,
     couponLabel: cart.couponLabel || "",
+    giftCardCode: cart.giftCard ? cart.giftCard.code : "",
+    giftCardDiscount: cart.giftCardDiscount || 0,
+    giftCardBalanceAfter: cart.giftCard
+      ? Math.max(0, Math.round((await db.getGiftCards()).find((x) => x.code === cart.giftCard.code).balance) - Math.round(cart.giftCardDiscount))
+      : 0,
   };
 }
 
@@ -1337,7 +1381,7 @@ async function placeOrder(data) {
   }
   const customerMessage = String(data.message || "").trim().slice(0, 500);
   const address = String(data.address || "").trim().slice(0, 600);
-  const payment = ["UPI", "Card", "UPI QR"].includes(data.payment) ? data.payment : "UPI";
+  const payment = ["UPI", "Card", "UPI QR", "Gift Card"].includes(data.payment) ? data.payment : "UPI";
   if (!name || !phone || !/^[0-9+\-()\s]{7,20}$/.test(phone) || !address) {
     throw new Error("ORDER:Please provide a valid name, phone and address.");
   }
@@ -1347,6 +1391,10 @@ async function placeOrder(data) {
 
   const cart = await computeCart(data, "ORDER:");
   const { items, total, midnightDelivery, midnightFee } = cart;
+
+  if (payment === "Gift Card" && total > 0) {
+    throw new Error("ORDER:Gift card balance does not cover the full order. Please choose another payment method for the remaining amount.");
+  }
 
   const isOnline = payment === "UPI" || payment === "Card";
   let rzpPaymentId = "";
@@ -1376,6 +1424,12 @@ async function placeOrder(data) {
   if (cart.coupon) await markCouponUsed(cart.coupon.code);
 
   const orderId = "order_" + timestamp();
+  if (cart.giftCard) {
+    const redeemed = await redeemGiftCard(cart.giftCard.code, cart.giftCardDiscount, orderId);
+    if (!redeemed) {
+      throw new Error("ORDER:Your gift card could not be redeemed (insufficient balance or deactivated). Please remove it and try again.");
+    }
+  }
   await db.addOrder({
     name,
     phone,
@@ -1390,18 +1444,20 @@ async function placeOrder(data) {
     midnightFee,
     coupon: cart.coupon ? cart.coupon.code : "",
     couponDiscount: cart.couponDiscount || 0,
+    giftCard: cart.giftCard ? cart.giftCard.code : "",
+    giftCardDiscount: cart.giftCardDiscount || 0,
     vid: String(data.vid || "").slice(0, 64),
     razorpayPaymentId: rzpPaymentId,
     _file: orderId,
     status: "New",
-    paid: isOnline,
-    paymentStatus: isOnline ? "Paid" : "Pending",
+    paid: isOnline || payment === "Gift Card",
+    paymentStatus: isOnline || payment === "Gift Card" ? "Paid" : "Pending",
     date: new Date().toISOString(),
     senderName,
     senderPhone,
     senderCity,
   });
-  const orderData = { name, phone, email, message: customerMessage, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, midnightFee, paid: isOnline, coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0, senderName, senderPhone, senderCity };
+  const orderData = { name, phone, email, message: customerMessage, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, midnightFee, paid: isOnline || payment === "Gift Card", coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0, giftCard: cart.giftCard ? cart.giftCard.code : "", giftCardDiscount: cart.giftCardDiscount || 0, senderName, senderPhone, senderCity };
   sendOrderEmail(orderData, orderId);
   if (email) sendCustomerReceipt(orderData, orderId);
   return { success: true, orderId, total };

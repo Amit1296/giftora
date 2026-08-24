@@ -80,6 +80,7 @@
   let activeFilter = "all";
   let searchQuery = "";
   let appliedCoupon = null;
+  let appliedGiftCard = null;
 
   function loadCart() {
     try { return JSON.parse(localStorage.getItem(PRODUCTS_KEY)) || {}; }
@@ -502,8 +503,14 @@
     return appliedCoupon ? Math.max(0, Number(appliedCoupon.discount) || 0) : 0;
   }
 
+  function giftCardDiscount() {
+    if (!appliedGiftCard) return 0;
+    const base = Math.max(0, grandTotal() - couponDiscount());
+    return Math.min(Math.round(appliedGiftCard.balance) || 0, Math.round(base));
+  }
+
   function payableTotal() {
-    return Math.max(0, grandTotal() - couponDiscount());
+    return Math.max(0, grandTotal() - couponDiscount() - giftCardDiscount());
   }
 
   function setCouponMsg(text, ok) {
@@ -558,6 +565,58 @@
     appliedCoupon = null;
     if (couponInput) couponInput.value = "";
     setCouponMsg("", false);
+    renderOrderSummary();
+  }
+
+  let gcMsg = null;
+  function setGcMsg(text, ok) {
+    if (!gcMsg) return;
+    gcMsg.textContent = text;
+    gcMsg.className = "coupon-msg" + (ok ? " ok" : " err");
+  }
+
+  async function applyGiftCard(code, silent) {
+    const trimmed = String(code || "").trim().toUpperCase();
+    if (!trimmed) {
+      setGcMsg("Please enter a gift card code.", false);
+      return false;
+    }
+    if (!gcApplyBtn) return false;
+    gcApplyBtn.disabled = true;
+    if (!silent) setGcMsg("Checking...", true);
+    try {
+      const res = await fetch("/api/giftcard/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: trimmed }),
+      }).then((r) => r.json());
+      if (!res.valid) {
+        appliedGiftCard = null;
+        if (!silent) setGcMsg(res.message || "Invalid gift card code.", false);
+        renderOrderSummary();
+        return false;
+      }
+      appliedGiftCard = { code: res.code || trimmed, balance: Number(res.balance) || 0 };
+      if (!silent) {
+        setGcMsg(`Gift card applied — balance ₹${Number(res.balance).toLocaleString("en-IN")}.`, true);
+        toast("Gift card applied ✓");
+      }
+      renderOrderSummary();
+      return true;
+    } catch {
+      appliedGiftCard = null;
+      if (!silent) setGcMsg("Could not reach the server. Try again.", false);
+      renderOrderSummary();
+      return false;
+    } finally {
+      gcApplyBtn.disabled = false;
+    }
+  }
+
+  function clearGiftCard() {
+    appliedGiftCard = null;
+    if (gcInput) gcInput.value = "";
+    setGcMsg("", false);
     renderOrderSummary();
   }
 
@@ -638,11 +697,16 @@
     if (appliedCoupon && disc > 0) {
       orderSummary.innerHTML += `<div class="os-row os-coupon-row"><span class="os-name">🎟️ Coupon ${appliedCoupon.code}</span><span class="os-muted">−${formatPrice(disc)}</span></div>`;
     }
+    const gdisc = giftCardDiscount();
+    if (appliedGiftCard && gdisc > 0) {
+      orderSummary.innerHTML += `<div class="os-row os-coupon-row"><span class="os-name">🎁 Gift card ${appliedGiftCard.code}</span><span class="os-muted">−${formatPrice(gdisc)}</span></div>`;
+    }
     const saving = festivalSaving();
     checkoutTotal.textContent = formatPrice(payableTotal());
     const labels = [];
     if (saving > 0) labels.push(`${festivalDiscount}% off`);
     if (appliedCoupon && disc > 0) labels.push("coupon");
+    if (appliedGiftCard && gdisc > 0) labels.push("gift card");
     checkoutTotal.previousElementSibling.textContent = labels.length ? `Total to pay (${labels.join(" + ")})` : "Total to pay";
   }
 
@@ -691,6 +755,7 @@
       midnightDelivery,
       midnightFee: fee,
       coupon: appliedCoupon ? appliedCoupon.code : "",
+      giftCardCode: appliedGiftCard ? appliedGiftCard.code : "",
       total: payableTotal(),
       vid,
       senderName,
@@ -740,6 +805,7 @@
       updateBadge();
       renderCart();
       clearCoupon();
+      clearGiftCard();
     } catch (e) {
       toast(e.message || "Could not reach the server. Please try again.");
     } finally {
@@ -772,23 +838,19 @@
       const res = await fetch("/api/payment/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, coupon: appliedCoupon ? appliedCoupon.code : "" }),
+        body: JSON.stringify({ items, coupon: appliedCoupon ? appliedCoupon.code : "", giftCardCode: appliedGiftCard ? appliedGiftCard.code : "" }),
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message || "Could not start payment.");
+
+      if (res.zeroPay) {
+        placeOrderBtn.textContent = "Placing order...";
+        await placeOrder(method, null);
+        return;
+      }
 
       await loadRazorpay();
     const name = $("#oName").value.trim();
     const phone = $("#oPhone").value.trim();
-    const emailEl = $("#oEmail");
-    const email = emailEl ? emailEl.value.trim().slice(0, 150) : "";
-    const messageEl = $("#oMessage");
-    const message = messageEl ? messageEl.value.trim().slice(0, 500) : "";
-    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      toast("Please enter a valid email address for your confirmation.");
-      placeOrderBtn.disabled = false;
-      placeOrderBtn.textContent = "Place Order";
-      return;
-    }
       const rzp = new window.Razorpay({
         key: res.key,
         amount: res.amount,
@@ -842,6 +904,12 @@
       toast("Please choose a delivery date.");
       return;
     }
+    const emailEl = $("#oEmail");
+    const email = emailEl ? emailEl.value.trim().slice(0, 150) : "";
+    if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      toast("Please enter a valid email address for your confirmation.");
+      return;
+    }
     const payment = document.querySelector('input[name="payment"]:checked')?.value || "UPI";
     if (payment === "UPI QR") {
       await startDirectUpi();
@@ -855,6 +923,37 @@
   checkoutOverlay.addEventListener("click", closeCheckout);
   if (couponApplyBtn) {
     couponApplyBtn.addEventListener("click", () => applyCoupon(couponInput ? couponInput.value : ""));
+
+  /* ---------- Gift card checkout UI (injected next to coupon box) ---------- */
+  let gcInput = null;
+  let gcApplyBtn = null;
+    (function injectGiftCardUI() {
+    const couponBox = couponMsg ? couponMsg.closest(".coupon-box") : null;
+    if (!couponBox || !couponBox.parentElement) return;
+    const box = document.createElement("div");
+    box.className = "coupon-box";
+    box.innerHTML = `
+      <label class="form-section-title" for="gcInput">Gift Card</label>
+      <div class="coupon-row">
+        <input type="text" id="gcInput" placeholder="Have a gift card? Enter the code" autocomplete="off" spellcheck="false">
+        <button type="button" class="btn" id="gcApplyBtn">Apply</button>
+      </div>
+      <p class="coupon-msg" id="gcMsg"></p>
+    `;
+    couponBox.parentElement.insertBefore(box, couponBox.nextSibling);
+    gcInput = $("#gcInput");
+    gcApplyBtn = $("#gcApplyBtn");
+    gcMsg = $("#gcMsg");
+    if (gcApplyBtn) gcApplyBtn.addEventListener("click", () => applyGiftCard(gcInput ? gcInput.value : ""));
+    if (gcInput) {
+      gcInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          applyGiftCard(gcInput.value);
+        }
+      });
+    }
+  })();
   }
   if (couponInput) {
     couponInput.addEventListener("keydown", (e) => {
