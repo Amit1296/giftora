@@ -738,8 +738,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
 .premium-banner {
   display: flex; align-items: center; gap: 34px; flex-wrap: wrap;
   height: 100%; box-sizing: border-box;
-  background: linear-gradient(135deg, #fff0f6 0%, #fbcfe8 55%, #f9a8d4 100%);
-  border: 1px solid #f472b6;
+  background: linear-gradient(135deg, #fff5f5 0%, #fecaca 50%, #f87171 100%);
+  border: 1px solid #ef4444;
   border-radius: 24px;
   padding: 40px 48px;
   position: relative; overflow: hidden;
@@ -748,10 +748,10 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
   will-change: transform;
 }
-.banner-slide:hover .premium-banner { box-shadow: 0 30px 70px rgba(190,24,93,0.15); }
+.banner-slide:hover .premium-banner { box-shadow: 0 30px 70px rgba(185,28,28,0.18); }
 .teachers-day-slide .premium-banner {
-  background: linear-gradient(135deg, #fff5f7 0%, #fbd0e0 55%, #f7b2cb 100%);
-  border-color: #ec4899;
+  background: linear-gradient(135deg, #fff1f2 0%, #fda4af 55%, #fb7185 100%);
+  border-color: #e11d48;
 }
 .premium-banner::after {
   content: ""; position: absolute; inset: -20%;
