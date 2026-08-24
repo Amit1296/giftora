@@ -734,6 +734,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
 
 /* ---------- Premium banner slider ---------- */
 .banner-slider { margin-top: 0; }
+.banner-slide { perspective: 1200px; }
 .premium-banner {
   display: flex; align-items: center; gap: 34px; flex-wrap: wrap;
   height: 100%; box-sizing: border-box;
@@ -742,23 +743,62 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   border-radius: 24px;
   padding: 40px 48px;
   position: relative; overflow: hidden;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out, box-shadow 0.25s ease-out;
+  will-change: transform;
 }
+.banner-slide:hover .premium-banner { box-shadow: 0 30px 70px rgba(49,27,116,0.18); }
 .teachers-day-slide .premium-banner {
   background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 55%, #fef3c7 100%);
   border-color: #d1fae5;
 }
-.premium-banner::before {
-  content: ""; position: absolute; top: -90px; right: -60px;
-  width: 300px; height: 300px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, rgba(124,58,237,0) 70%);
-  pointer-events: none;
+.premium-banner::after {
+  content: ""; position: absolute; inset: -20%;
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(124,58,237,0.10), transparent 42%);
+  opacity: 0; transition: opacity 0.35s; pointer-events: none;
+  transform: translateZ(5px);
 }
-.teachers-day-slide .premium-banner::before {
-  background: radial-gradient(circle, rgba(16,185,129,0.09) 0%, rgba(16,185,129,0) 70%);
+.teachers-day-slide .premium-banner::after {
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(16,185,129,0.11), transparent 42%);
 }
+.banner-slide:hover .premium-banner::after { opacity: 1; }
+
+/* floating 3D orbs */
+.orb {
+  position: absolute; border-radius: 50%; pointer-events: none;
+}
+.o1 {
+  top: -70px; right: 8%; width: 190px; height: 190px; z-index: 0;
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.9), rgba(196,181,253,0.55) 45%, rgba(124,58,237,0.22) 100%);
+  transform: translateZ(-60px);
+  animation: orbFloat 9s ease-in-out infinite;
+}
+.o2 {
+  bottom: -46px; right: 30%; width: 96px; height: 96px; z-index: 0;
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(253,230,138,0.75) 45%, rgba(245,158,11,0.30) 100%);
+  transform: translateZ(-30px);
+  animation: orbFloat 7s ease-in-out infinite reverse;
+}
+.o3 {
+  top: 18px; left: 42%; width: 46px; height: 46px; z-index: 0;
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(167,243,208,0.8) 45%, rgba(16,185,129,0.28) 100%);
+  transform: translateZ(-45px);
+  animation: orbFloat 6s ease-in-out 1.2s infinite;
+}
+.teachers-day-slide .o1 {
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.9), rgba(167,243,208,0.6) 45%, rgba(13,148,136,0.24) 100%);
+}
+@keyframes orbFloat {
+  0%, 100% { margin-top: 0; margin-right: 0; }
+  33% { margin-top: -16px; margin-right: 10px; }
+  66% { margin-top: 10px; margin-right: -12px; }
+}
+
 .pb-accent {
   position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
   background: linear-gradient(180deg, #7c3aed, #f59e0b);
+  transform: translateZ(24px);
 }
 .teachers-day-slide .pb-accent { background: linear-gradient(180deg, #0f766e, #f59e0b); }
 .pb-media {
@@ -767,23 +807,31 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   font-size: 5.2rem; overflow: hidden;
   background: #ffffff;
   box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 16px 36px rgba(76,29,149,0.10);
+  transform: translateZ(70px);
 }
 .pb-media img { width: 100%; height: 100%; object-fit: cover; }
-.pb-copy { flex: 1; min-width: 260px; display: flex; flex-direction: column; gap: 12px; }
+.pb-emoji { display: inline-block; animation: emojiBob 5s ease-in-out infinite; }
+@keyframes emojiBob {
+  0%, 100% { transform: translateY(0) rotateY(-14deg); }
+  50% { transform: translateY(-10px) rotateY(14deg); }
+}
+.pb-copy { flex: 1; min-width: 260px; display: flex; flex-direction: column; gap: 12px; transform-style: preserve-3d; position: relative; z-index: 1; }
 .pb-eyebrow {
   align-self: flex-start;
   font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
   color: #6d28d9; background: #f5f3ff; border: 1px solid #ddd6fe;
   padding: 6px 14px; border-radius: 999px;
+  transform: translateZ(40px);
 }
 .teachers-day-slide .pb-eyebrow { color: #0f766e; background: #ecfdf5; border-color: #a7f3d0; }
 .pb-title {
   font-family: var(--font-head);
   font-size: clamp(1.8rem, 3.4vw, 2.6rem);
   font-weight: 800; line-height: 1.12; color: #211d33;
+  transform: translateZ(55px);
 }
-.pb-sub { color: #52525b; font-size: 1.05rem; max-width: 58ch; }
-.pb-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pb-sub { color: #52525b; font-size: 1.05rem; max-width: 58ch; transform: translateZ(35px); }
+.pb-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; transform: translateZ(45px); }
 .pb-code {
   display: inline-flex; align-items: center; gap: 8px;
   background: #fff; border: 1.5px dashed #c4b5fd; color: #4c1d95;
@@ -806,15 +854,21 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   font-weight: 700; font-size: 1.02rem;
   box-shadow: 0 12px 28px rgba(76,29,149,0.24);
   transition: transform 0.2s, box-shadow 0.2s;
+  transform: translateZ(60px);
 }
-.premium-banner:hover .pb-cta { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(76,29,149,0.32); }
+.premium-banner:hover .pb-cta { transform: translateZ(75px); box-shadow: 0 16px 34px rgba(76,29,149,0.32); }
 .teachers-day-slide .pb-cta { background: #0f766e; box-shadow: 0 12px 28px rgba(15,118,110,0.24); }
 .teachers-day-slide .premium-banner:hover .pb-cta { box-shadow: 0 16px 34px rgba(15,118,110,0.32); }
 @media (max-width: 820px) {
-  .premium-banner { padding: 26px 22px; gap: 20px; border-radius: 18px; }
-  .pb-media { width: 96px; height: 96px; font-size: 3rem; border-radius: 18px; }
+  .premium-banner { padding: 26px 22px; gap: 20px; border-radius: 18px; transform: none !important; }
+  .pb-media { width: 96px; height: 96px; font-size: 3rem; border-radius: 18px; transform: none; }
   .pb-sub { font-size: 0.92rem; }
-  .pb-cta { padding: 12px 22px; font-size: 0.92rem; }
+  .pb-cta { padding: 12px 22px; font-size: 0.92rem; transform: none; }
+  .orb.o3 { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .premium-banner { transform: none; transition: none; }
+  .orb, .pb-emoji { animation: none; }
 }
 
 /* ---------- Footer ---------- */
