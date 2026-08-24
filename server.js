@@ -152,6 +152,12 @@ const MIME = {
   ".woff2": "font/woff2",
 };
 
+/* Lowercase -> actual filename index of root-level .html pages (for case-fixing redirects) */
+const ROOT_HTML_FILES = new Map();
+for (const f of fs.readdirSync(ROOT)) {
+  if (f.toLowerCase().endsWith(".html")) ROOT_HTML_FILES.set(f.toLowerCase(), f);
+}
+
 const ALLOWED_IMAGE_EXT = [".png", ".jpg", ".jpeg", ".gif", ".webp"];
 
 const sessions = new Map();
@@ -793,6 +799,14 @@ async function handleRequest(req, res) {
         } catch (e) {
           console.error("Upload DB read error:", e.message);
         }
+      }
+    }
+    /* Case-mismatched .html request: 301 to the correctly-cased page (Linux is case-sensitive) */
+    if (!fs.existsSync(filePath) && /[A-Z]/.test(pathname) && /\.html$/i.test(pathname)) {
+      const hit = ROOT_HTML_FILES.get(path.basename(pathname).toLowerCase());
+      if (hit && hit !== path.basename(pathname)) {
+        res.writeHead(301, { Location: "/" + hit, "Cache-Control": "public, max-age=86400" });
+        return res.end();
       }
     }
     res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
