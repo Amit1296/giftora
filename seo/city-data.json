@@ -1,0 +1,449 @@
+[
+  {"slug":"agra","name":"Agra","state":"Uttar Pradesh","zone":"north","slaText":"within 24–48 hours",
+   "intro":"Home to the Taj Mahal — the world’s most famous monument to love — Agra understands thoughtful gifting better than most cities. Whether it’s petha and marble-inlay treasures from Sadar Bazaar or a midnight birthday cake in Civil Lines, our delivery partners cover the whole city, Trans-Yamuna colonies included.",
+   "areas":["Sadar Bazaar","Civil Lines","Kamla Nagar","Dayal Bagh","Sikandra","Fatehabad Road","Sanjay Place","Taj Ganj","Shastripuram","Trans-Yamuna"],
+   "faqs":[
+     {"q":"Can I send petha or local Agra specialties along with my gift?","a":"Our hampers pair well with local treats — many customers add their own petha box for us to deliver together. Call or WhatsApp us to arrange a combined delivery in Agra."},
+     {"q":"How fast does a cake reach Civil Lines or Sikandra?","a":"Agra orders move on our express line and typically arrive within 24–48 hours of checkout, with exact slots confirmed on WhatsApp."}]},
+
+  {"slug":"ahmedabad","name":"Ahmedabad","state":"Gujarat","zone":"west","slaText":"within 48–72 hours",
+   "intro":"Ahmedabad celebrates at full volume — nine nights of Garba during Navratri, kite-filled skies on Uttarayan and weddings that run all week. Giftora delivers cakes, flowers and combo hampers across both banks of the Sabarmati, from Old City heritage lanes to the glass towers along SG Highway.",
+   "areas":["Maninagar","Satellite","Vastrapur","Prahlad Nagar","Bopal","Navrangpura","Chandkheda","Naroda","Gota","Nikol"],
+   "faqs":[
+     {"q":"Can you deliver during Navratri and Uttarayan rush?","a":"Yes — we plan extra capacity around Garba nights and kite festival days. Place orders early and we’ll lock your slot in Maninagar, Satellite or anywhere in the city."},
+     {"q":"Do you deliver to SG Highway offices?","a":"Absolutely. Corporate addresses along SG Highway and Prahlad Nagar receive gifts on the same express schedule as homes."}]},
+
+  {"slug":"ambala","name":"Ambala","state":"Haryana","zone":"north","slaText":"within 24–48 hours",
+   "intro":"Split into Ambala City and Ambala Cantonment, this busy Haryana twin-town is known across North India for its wholesale cloth and scientific-instrument markets. We deliver gifts to both halves — from Model Town in the city to the cantonment-side residential pockets.",
+   "areas":["Model Town","Civil Lines","Sadar Bazaar","Ambala Cantonment","Baldev Nagar","Mahesh Nagar","Kalka Road","Panjokhra","Grain Market"],
+   "faqs":[
+     {"q":"Do you cover both Ambala City and Ambala Cantt?","a":"Yes, one order covers either side — the twin-city split makes no difference to our delivery fee."},
+     {"q":"Can gifts reach a hostel or school address in Ambala?","a":"They can. Share the hostel name and receiver’s number at checkout and our rider coordinates the handover."}]},
+
+  {"slug":"amravati","name":"Amravati","state":"Maharashtra","zone":"central","slaText":"within 48–72 hours",
+   "intro":"At the heart of the Vidarbha orange belt, Amravati blends temple-town tradition with a fast-growing student population around Rajapeth and Badnera Road. Send cakes, plants and rakhi combos anywhere between Ramdas Peth and the outer ring.",
+   "areas":["Rajapeth","Badnera Road","Rukhmini Nagar","Kathora","Wadali","Gadge Nagar","Indraprastha Nagar","Ramdas Peth","Nandgaon Peth"],
+   "faqs":[
+     {"q":"Do you deliver during the Ambadevi temple festival days?","a":"Yes, though roads near Rajkamal Chowk get crowded — we recommend ordering a day ahead so your gift arrives well before the procession routes."},
+     {"q":"Is same-week delivery available in Wadali and Kathora?","a":"Yes, both areas sit on our regular Amravati route and receive gifts within 48–72 hours."}]},
+
+  {"slug":"bengaluru","name":"Bengaluru","state":"Karnataka","zone":"south","slaText":"within 48–72 hours",
+   "intro":"India’s garden city works hard and celebrates harder — midnight cake cuttings in Koramangala flats, Diwali hampers to Whitefield tech parks, roses for anniversaries along Indiranagar’s 100 Feet Road. Our courier network spans Bengaluru from Electronic City to Yelahanka.",
+   "areas":["Koramangala","Indiranagar","Whitefield","Jayanagar","HSR Layout","Electronic City","Hebbal","Marathahalli","Malleshwaram","BTM Layout","Yelahanka"],
+   "faqs":[
+     {"q":"Can I schedule a midnight cake in Koramangala?","a":"Midnight slots depend on our local partner availability, but most central Bengaluru areas including Koramangala and Indiranagar support late-evening delivery. Message us after ordering to confirm."},
+     {"q":"Do you deliver to Whitefield tech park addresses?","a":"Yes — reception-desk handovers at Whitefield and Outer Ring Road offices are routine for us."}]},
+
+  {"slug":"bhopal","name":"Bhopal","state":"Madhya Pradesh","zone":"central","slaText":"within 48–72 hours",
+   "intro":"Spread around its glittering upper and lower lakes, Bhopal pairs nawabi-era food culture with modern malls along Hoshangabad Road. From the Old City bazaars to Gulmohar Colony birthdays, we deliver the full Giftora range on both sides of the water.",
+   "areas":["MP Nagar","Arera Colony","Kolar Road","Shahpura","Ayodhya Bypass","Bairagarh","Koh-e-Fiza","Hoshangabad Road","Gulmohar Colony","Awadhpuri"],
+   "faqs":[
+     {"q":"Do you cover the Old City side of Bhopal?","a":"Yes — Koh-e-Fiza, Bairagarh and the walled-city lanes are all on our regular route."},
+     {"q":"How quick is delivery to Kolar Road?","a":"Kolar Road and Ayodhya Bypass orders typically land within 48–72 hours, tracked end to end."}]},
+
+  {"slug":"bhubaneswar","name":"Bhubaneswar","state":"Odisha","zone":"east","slaText":"within 48–72 hours",
+   "intro":"The temple city of Odisha is also a major education and IT hub, so gift orders spike around exam results, campus fests and Rath Yatra week. We deliver everywhere from the ancient shrines of Old Town to the new apartments of Patia and Chandrasekharpur.",
+   "areas":["Saheed Nagar","Patia","Chandrasekharpur","Old Town","Jaydev Vihar","Rasulgarh","Pokhariput","Niladri Vihar","Khandagiri","IRC Village"],
+   "faqs":[
+     {"q":"Can you deliver during Rath Yatra week in Bhubaneswar?","a":"Yes, though chariot-route roads close temporarily — order early and we’ll route around closures to reach Patia, Saheed Nagar or Old Town on time."},
+     {"q":"Do you serve hostel-heavy areas like Jaydev Vihar?","a":"We do — hostel and PG deliveries happen daily there, coordinated with the receiver by phone."}]},
+
+  {"slug":"chandigarh","name":"Chandigarh","state":"Chandigarh","zone":"north","slaText":"within 24–48 hours",
+   "intro":"Le Corbusier’s grid-planned capital loves its gardens, lakes and sector markets in equal measure. Whether it’s roses for a Sector 17 shopper or a birthday hamper for a hostel in Mani Majra, express delivery reaches every sector of the tricity core within a day or two.",
+   "areas":["Sector 17","Sector 22","Sector 34","Sector 35","Mani Majra","Burail","Attawa","Dhanas","Hallomajra","IT Park"],
+   "faqs":[
+     {"q":"Can you deliver to Mohali or Panchkula too?","a":"Yes — tricity deliveries are common for us; mention the full sector number and we treat it like any Chandigarh order."},
+     {"q":"How fast is delivery to Mani Majra?","a":"Mani Majra and central sectors usually receive gifts within 24–48 hours on our northern express line."}]},
+
+  {"slug":"chennai","name":"Chennai","state":"Tamil Nadu","zone":"south","slaText":"within 48–72 hours",
+   "intro":"From Mylapore’s ancient temple streets to the glass offices along OMR, Chennai mixes deep tradition with new-economy energy. Send jasmine-accented bouquets, coffee-table plant gifts or eggless cakes — our partners ride every neighbourhood from T Nagar to Sholinganallur.",
+   "areas":["T Nagar","Anna Nagar","Adyar","Velachery","Tambaram","Mylapore","Vadapalani","Porur","Sholinganallur","Guindy"],
+   "faqs":[
+     {"q":"Are eggless cakes available for Chennai delivery?","a":"Yes — eggless options are clearly marked on product pages and travel perfectly to all Chennai areas."},
+     {"q":"Do you deliver down the OMR corridor?","a":"Yes, Perungudi to Sholinganallur is a regular route, though weekend traffic may shift evening slots slightly."}]},
+
+  {"slug":"coimbatore","name":"Coimbatore","state":"Tamil Nadu","zone":"south","slaText":"within 48–72 hours",
+   "intro":"The Manchester of South India runs on textile mills, engineering colleges and strong filter coffee. Giftora delivers to every corner of the Kongu region’s biggest city — Gandhipuram’s bustling markets, RS Puram’s family homes and the IT corridors around Saravanampatti.",
+   "areas":["Gandhipuram","RS Puram","Peelamedu","Sai Baba Colony","Saravanampatti","Ukkadam","Kuniamuthur","Ganapathy","Singanallur","Kalapatti"],
+   "faqs":[
+     {"q":"Do you cover Saravanampatti’s IT campuses?","a":"Yes — reception handovers at Saravanampatti tech parks are part of our normal Coimbatore route."},
+     {"q":"Can I send a gift to Podanur outskirts?","a":"Outskirts like Podanur and Kalapatti are covered; they simply fall on the later stops of the delivery day."}]},
+
+  {"slug":"cuttack","name":"Cuttack","state":"Odisha","zone":"east","slaText":"within 48–72 hours",
+   "intro":"Odisha’s Millennium City is famous for silver filigree work and the grand Bali Jatra fair on the Mahanadi banks. We carry gifts across its heritage lanes and newer CDA sectors alike — from Badambadi bus terminus to Jobra.",
+   "areas":["Markat Nagar (CDA)","Badambadi","Jobra","College Square","Buxi Bazar","Mangalabag","Madhupatna","Khan Nagar","Chandni Chowk","Choudwar"],
+   "faqs":[
+     {"q":"Can you deliver during Bali Jatra week?","a":"Yes, but riverside roads stay packed — we advise ordering two days early so gifts clear the fair crowds."},
+     {"q":"Is Choudwar covered under Cuttack delivery?","a":"Yes, Choudwar rides on the same Cuttack route with a small additional transit window."}]},
+
+  {"slug":"dehradun","name":"Dehradun","state":"Uttarakhand","zone":"north","slaText":"within 24–48 hours",
+   "intro":"Tucked into the Doon Valley below Mussoorie, Dehradun is a school town full of boarders who adore surprise parcels — plus families settled along Rajpur Road and Sahastradhara Road. Cakes, teddies and dry-fruit hampers reach every valley neighbourhood within a day or two.",
+   "areas":["Rajpur Road","Clement Town","Sahastradhara Road","Race Course","Vikas Nagar","Chakrata Road","Prem Nagar","Dilaram Bazaar","ISBT","Doiwala"],
+   "faqs":[
+     {"q":"Can you send a surprise parcel to a boarding school in Dehradun?","a":"Yes — share the school and house-parent details at checkout; deliveries to Doon-area boarding schools are a weekly routine for us."},
+     {"q":"Does delivery extend toward Mussoorie Road?","a":"Valley-side addresses including Rajpur Road are fully covered; higher Mussourie climbs are handled case by case via WhatsApp."}]},
+
+  {"slug":"delhi","name":"Delhi","state":"Delhi","zone":"ncr","slaText":"",
+   "intro":"The capital takes its celebrations seriously — Karol Bagh shopping sprees, Chandni Chowk wedding seasons and rooftop Diwalis in between. With our same-day network you can order by this evening and still make the birthday cut, anywhere from Dwarka to Mayur Vihar.",
+   "areas":["Karol Bagh","Lajpat Nagar","Chandni Chowk","Dwarka","Rohini","Saket","Pitampura","Mayur Vihar","Janakpuri","Punjabi Bagh","Vasant Kunj","Connaught Place"],
+   "faqs":[
+     {"q":"How late can I order for same-day Delhi delivery?","a":"Cut-offs vary by pincode, but most Delhi orders placed by mid-afternoon reach the same evening. WhatsApp us your pincode for today’s last slot."},
+     {"q":"Do you deliver to Old Delhi’s narrow lanes?","a":"Yes — Chandni Chowk and surrounding galis are served on foot-bike combinations by our local riders."}]},
+
+  {"slug":"dhanbad","name":"Dhanbad","state":"Jharkhand","zone":"east","slaText":"within 48–72 hours",
+   "intro":"India’s coal capital has a close-knit, family-first culture where Chhath and Durga Puja light up every colony. Giftora delivers cakes, flowers and rakhi sets from Bank More’s busy centre to the mining townships of Jharia and Nirsa.",
+   "areas":["Bank More","Saraidhela","Hirapur","Jharia","Bartand","Digwadih","Putki","Katras","Nirsa","Chirkunda"],
+   "faqs":[
+     {"q":"Do you deliver to mining townships around Dhanbad?","a":"Yes — Jharia, Putki and Katras townships are covered on scheduled route days; we confirm the slot by phone."},
+     {"q":"Can gifts reach Nirsa or Chirkunda?","a":"Both are served, typically adding half a day to the standard 48–72 hour window."}]},
+
+  {"slug":"faridabad","name":"Faridabad","state":"Haryana","zone":"ncr","slaText":"",
+   "intro":"One of NCR’s largest industrial cities, Faridabad stretches from the heritage crafts ground at Surajkund to the rising towers of Neharpar. As part of our same-day zone, gifts ordered today reach Old Faridabad, NIT, Ballabgarh and every sector in between tonight.",
+   "areas":["Old Faridabad","NIT","Ballabgarh","Greater Faridabad","Sector 15","Sector 21","Sector 29","Sector 37","Sector 86","Surajkund","Badkhal"],
+   "faqs":[
+     {"q":"Is Neharpar (Greater Faridabad) same-day too?","a":"Yes — newer sectors along the bypass are inside the same-day map, though evening slots fill faster than central Faridabad."},
+     {"q":"Can you deliver to factory addresses in Faridabad?","a":"Certainly — share the unit name and gate number; our riders handle industrial-area handovers daily."}]},
+
+  {"slug":"gaya","name":"Gaya","state":"Bihar","zone":"east","slaText":"within 48–72 hours",
+   "intro":"A global spiritual magnet thanks to Bodh Gaya next door, Gaya sees travellers and families exchanging offerings and gifts year-round. We deliver prasad-friendly dry-fruit boxes, sweets and flowers from AP Colony out to the Vishnupad temple area.",
+   "areas":["AP Colony","Delha","Rampur","Murarpur","Gewal Bigha","Station Road","Tekari Road","Bodh Gaya Road","Manpur"],
+   "faqs":[
+     {"q":"Can you deliver to Bodh Gaya monasteries?","a":"Yes — monastery and guesthouse deliveries on Bodh Gaya Road are arranged with a call-ahead to the receiving monk or manager."},
+     {"q":"Are dry-fruit boxes suitable as offering gifts in Gaya?","a":"Very much so — sealed dry-fruit and sweet boxes are our most ordered category here, especially during pitrapaksha season."}]},
+
+  {"slug":"ghaziabad","name":"Ghaziabad","state":"Uttar Pradesh","zone":"ncr","slaText":"",
+   "intro":"The Gateway of Uttar Pradesh has turned into a wall-to-wall high-rise belt — Vaishali, Indirapuram and Vasundhara alone hold lakhs of apartment households. Same-day delivery covers all of Ghaziabad, from Sahibabad’s old quarters to Crossing Republik’s newest societies.",
+   "areas":["Raj Nagar","Vaishali","Indirapuram","Vasundhara","Kaushambi","Sahibabad","Crossing Republik","Govindpuram","Shalimar Garden","Mohan Nagar"],
+   "faqs":[
+     {"q":"Do you deliver to Kaushambi and Vaishali metro-side towers?","a":"Yes — tower and flat numbers speed things up; same-day applies across the Ghaziabad high-rise belt."},
+     {"q":"Is Crossing Republik inside the same-day zone?","a":"It is. Evening slots there book quickly, so earlier orders get priority windows."}]},
+
+  {"slug":"guwahati","name":"Guwahati","state":"Assam","zone":"northeast","slaText":"within 48–72 hours",
+   "intro":"Gateway to the Northeast, Guwahati straddles the Brahmaputra with hilltop shrines, riverside ghats and fast-growing suburbs. Order volumes triple here during Bihu and Durga Puja — we keep extra stock ready for everything from Zoo Road to Beltola.",
+   "areas":["Zoo Road","Six Mile","Khanapara","Maligaon","Beltola","Basistha","Ulubari","Paltan Bazar","Fancy Bazar","Chandmari"],
+   "faqs":[
+     {"q":"Can you deliver during Bihu week in Guwahati?","a":"Yes — Bihu is our busiest Guwahati period, so we pre-book extra couriers; order two to three days ahead for preferred slots."},
+     {"q":"Do you cover Maligaon and the railway colony side?","a":"Yes, Maligaon delivers on the same 48–72 hour schedule as central Guwahati."}]},
+
+  {"slug":"gurugram","name":"Gurugram","state":"Haryana","zone":"ncr","slaText":"",
+   "intro":"Millennium City’s corporate corridors make last-minute gifting a survival skill — anniversary flowers to Golf Course Road, Diwali hampers to Cyber City desks, birthday cakes up the Sector 56 high-rises. All of Gurugram sits inside our same-day delivery zone.",
+   "areas":["Cyber City","Golf Course Road","Sohna Road","DLF Phase 1-5","Palam Vihar","Udyog Vihar","Sector 56","Sector 29","MG Road","New Gurgaon"],
+   "faqs":[
+     {"q":"Can you deliver a gift to someone’s office desk in Cyber City?","a":"Yes — desk-side and reception handovers in Cyber City and Udyog Vihar are among our most frequent Gurugram deliveries."},
+     {"q":"Is New Gurgaon (Sector 81+) same-day as well?","a":"Yes, Dwarka Expressway and New Gurgaon sectors are mapped for same-day; slots are tighter after 6 pm."}]},
+
+  {"slug":"gwalior","name":"Gwalior","state":"Madhya Pradesh","zone":"central","slaText":"within 48–72 hours",
+   "intro":"Dominated by its hilltop fort and steeped in the Gwalior gharana of music, this royal city celebrates with real flair. We deliver across Lashkar’s planned avenues, Morar’s bustling heart and the newer colonies around City Centre and Sirol Road.",
+   "areas":["City Centre","Lashkar","Morar","Thatipur","DD Nagar","Phoolbagh","Jayendraganj","Bahodapur","Sirol Road","Tulsi Vihar"],
+   "faqs":[
+     {"q":"Do you deliver in Morar’s interior lanes?","a":"Yes — riders on two-wheelers cover Morar’s inner lanes daily; precise directions at checkout help a lot."},
+     {"q":"How long does delivery take in Gwalior?","a":"Most Gwalior orders complete within 48–72 hours, tracked from warehouse to doorstep."}]},
+
+  {"slug":"haridwar","name":"Haridwar","state":"Uttarakhand","zone":"north","slaText":"within 24–48 hours",
+   "intro":"Where the Ganga meets the plains, Haridwar draws pilgrims and families whose gifts often double as offerings. We handle delicate sweet boxes, pooja-appropriate hampers and flower orders from the Har Ki Pauri ghats to the SIDCUL belt with extra care.",
+   "areas":["Har Ki Pauri","Jwalapur","Kankhal","Ranipur More","Devpura","SIDCUL","Roshanabad","BHEL Township","Shivalik Nagar"],
+   "faqs":[
+     {"q":"Can I send pooja items as a gift in Haridwar?","a":"Yes — our plant, dry-fruit and sweet categories are popular choices; combine them with your own pooja additions for a complete hamper."},
+     {"q":"Do you deliver near Har Ki Pauri during Ganga Dussehra?","a":"Festival days bring heavy crowds downtown — we deliver to the area but recommend morning slots, booked a day in advance."}]},
+
+  {"slug":"hubballi","name":"Hubballi","state":"Karnataka","zone":"south","slaText":"within 48–72 hours",
+   "intro":"The commercial heart of North Karnataka, Hubballi (twinned with Dharwad) lives by its trading streets and beloved Dharwad pedha. Giftora delivers to Gokul Road’s industrial side, Vidyanagar’s student blocks and every lane between Unkal Lake and the old market.",
+   "areas":["Gokul Road","Vidyanagar","Koppikar Road","Deshpande Nagar","Unkal","Akshay Colony","Shirur Park","Malmaddi","Lingaraj Nagar","Bengeri"],
+   "faqs":[
+     {"q":"Do you cover Dharwad as part of Hubballi delivery?","a":"Yes — twin-city orders are treated as one route; mention the Dharwad locality clearly at checkout."},
+     {"q":"Can gifts reach Unkal and Akshay Colony quickly?","a":"Both are standard stops on the Hubballi circuit, completing within the usual 48–72 hour window."}]},
+
+  {"slug":"hyderabad","name":"Hyderabad","state":"Telangana","zone":"south","slaText":"within 48–72 hours",
+   "intro":"The City of Pearls pairs Old World grandeur — Charminar, biryani, pearl bazaars — with one of India’s fastest-growing tech corridors. Anniversary bouquets in Banjara Hills, a kids’ cycle to Gachibowli, sweets into Secunderabad: our riders cross both sides of the city daily.",
+   "areas":["Banjara Hills","Jubilee Hills","Gachibowli","Kukatpally","Ameerpet","Secunderabad","Madhapur","Begumpet","Miyapur","LB Nagar","Kondapur"],
+   "faqs":[
+     {"q":"Do you deliver pearls or jewellery?","a":"We don’t ship precious items, but our curated gifts complement any Hyderabad celebration — and many customers pair our hampers with local pearl purchases."},
+     {"q":"Is Gachibowli covered for same-week delivery?","a":"Yes, the entire western IT arc including Gachibowli and Kondapur completes within 48–72 hours."}]},
+
+  {"slug":"indore","name":"Indore","state":"Madhya Pradesh","zone":"central","slaText":"within 48–72 hours",
+   "intro":"India’s cleanest city is also its street-food capital, where celebrations mean poha breakfasts and Rajwada evenings. We deliver cakes, snack-perfect gift hampers and plants across Vijay Nagar’s buzzing grid and the older quarters around Rajwada.",
+   "areas":["Vijay Nagar","Palasia","Rajwada","Bhawarkuan","Sudama Nagar","Bijalpur","Rau","Nipania","Mahalaxmi Nagar","Silicon City"],
+   "faqs":[
+     {"q":"Can I send namkeen-style gift hampers in Indore?","a":"Indore loves its snacks — pair our sweet boxes with your favourite local namkeen brand and we’ll deliver the combined hamper together."},
+     {"q":"How fast do gifts reach Vijay Nagar?","a":"Vijay Nagar and Palasia usually complete within 48–72 hours, often sooner on weekdays."}]},
+
+  {"slug":"jabalpur","name":"Jabalpur","state":"Madhya Pradesh","zone":"central","slaText":"within 48–72 hours",
+   "intro":"Set beside the marble rocks of Bhedaghat, Jabalpur balances defence-town discipline with lively college energy. Gifts reach Napier Town’s leafy lanes, Wright Town’s showrooms and Adhartal’s busy stretch through our central-India express line.",
+   "areas":["Napier Town","Wright Town","Civil Lines","Gorakhpur","Adhartal","Garha","Ranital","Damoh Naka","Vijay Nagar","Madan Mahal"],
+   "faqs":[
+     {"q":"Do you deliver near Bhedaghat?","a":"Town-side addresses are standard; Bhedaghat itself is reachable on scheduled days — confirm via WhatsApp when ordering."},
+     {"q":"Is Gorakhpur locality in Jabalpur covered?","a":"Yes — Jabalpur’s own Gorakhpur neighbourhood is a regular stop, distinct from the UP city of the same name."}]},
+
+  {"slug":"jaipur","name":"Jaipur","state":"Rajasthan","zone":"north","slaText":"within 24–48 hours",
+   "intro":"The Pink City hosts destination weddings by the thousand, and locals need no excuse to celebrate either. From blue-pottery souvenirs to midnight cakes in Mansarovar, Giftora delivers across the walled city and Jaipur’s sprawling southern colonies.",
+   "areas":["Malviya Nagar","Vaishali Nagar","Mansarovar","C-Scheme","Jagatpura","Raja Park","Bapu Nagar","Civil Lines","Sanganer","Vidhyadhar Nagar","Tonk Road"],
+   "faqs":[
+     {"q":"Can you deliver to wedding venues in Jaipur?","a":"Yes — share the venue and event timing; we coordinate with venue staff for smooth handovers during wedding functions."},
+     {"q":"How fast is delivery inside the walled city?","a":"Old-city lanes are covered on bike-back riders, completing within 24–48 hours like the rest of Jaipur."}]},
+
+  {"slug":"jammu","name":"Jammu","state":"Jammu & Kashmir","zone":"north","slaText":"within 48–72 hours",
+   "intro":"Base camp for Vaishno Devi yatris, Jammu keeps a steady rhythm of pilgrims, soldiers and families celebrating homecomings. We deliver sweets, dry fruits and pooja-appropriate hampers from Trikuta Nagar’s hotel belt to the residential slopes of Talab Tillo.",
+   "areas":["Trikuta Nagar","Gandhi Nagar","Bakshi Nagar","Canal Road","Channi Himmat","Sainik Colony","Talab Tillo","Roop Nagar","Bantalab","Satwari"],
+   "faqs":[
+     {"q":"Can you deliver to yatris’ hotels near Trikuta Nagar?","a":"Yes — hotel and guesthouse handovers around Trikuta Nagar are routine; reception coordination happens by call."},
+     {"q":"Do you serve army and paramilitary addresses?","a":"For cantonment-style addresses we follow entry protocols — share unit details on WhatsApp and we’ll confirm feasibility before dispatch."}]},
+
+  {"slug":"jamshedpur","name":"Jamshedpur","state":"Jharkhand","zone":"east","slaText":"within 48–72 hours",
+   "intro":"India’s first planned industrial city remains one of its greenest, with Jubilee Park as its beating heart. Tata-built neighbourhoods like Bistupur and Sakchi receive our full catalogue — cakes for shift-party surprises included.",
+   "areas":["Bistupur","Sakchi","Sonari","Kadma","Golmuri","Sidgora","Baridih","Mango","Parsudih","Jugsalai"],
+   "faqs":[
+     {"q":"Is Mango (Pardih side) covered in Jamshedpur?","a":"Yes — the Subarnarekha’s east bank including Mango is a scheduled stop on our Jamshedpur route."},
+     {"q":"Can I send gifts to a factory-quarter address?","a":"Absolutely — Golmuri, Baridih and similar quarters receive deliveries like any other neighbourhood."}]},
+
+  {"slug":"kanpur","name":"Kanpur","state":"Uttar Pradesh","zone":"central","slaText":"within 48–72 hours",
+   "intro":"The leather city on the Ganges is old-school UP at its warmest, with legendary sweets and even more legendary loyalty. We deliver rakhi, cakes and combos across Kakadeo’s coaching hub, Swaroop Nagar homes and riverside Civil Lines.",
+   "areas":["Swaroop Nagar","Kakadeo","Govind Nagar","Civil Lines","Rawatpur","Panki","Kalyanpur","Kidwai Nagar","Naubasta","Kanpur Cantt"],
+   "faqs":[
+     {"q":"Do you deliver to coaching hostels around Kakadeo?","a":"Yes — Kakadeo’s student belt gets daily drops; share room and mobile details for a smooth handover."},
+     {"q":"How quick is delivery to IIT Kanpur area?","a":"Kalyanpur and the IIT belt complete within the standard 48–72 hour window, gate-pass permitting."}]},
+
+  {"slug":"kochi","name":"Kochi","state":"Kerala","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Kerala’s port city layers Chinese fishing nets, colonial Fort Kochi and gleaming Infopark towers into one skyline. Plant gifts that love the humidity, celebration cakes, Onam-ready hampers — we cover the mainland from Aluva to Tripunithura.",
+   "areas":["Kakkanad","Edappally","Fort Kochi","Marine Drive","Aluva","Vyttila","Kadavanthra","Kaloor","Palarivattom","Tripunithura"],
+   "faqs":[
+     {"q":"Do you deliver to Fort Kochi’s heritage lanes?","a":"Yes — the heritage ward is covered; narrow lanes mean bike-based final delivery with a call-ahead."},
+     {"q":"Can gifts reach Infopark/Kakkanad offices?","a":"Daily — reception handovers at Kakkanad and SmartCity campuses are standard practice."}]},
+
+  {"slug":"kolhapur","name":"Kolhapur","state":"Maharashtra","zone":"west","slaText":"within 48–72 hours",
+   "intro":"Famous for Mahalaxmi temple darshan, Kolhapuri chappals and seriously spicy tambada rassa, Kolhapur celebrates with bold flavour. We deliver across Rajarampuri’s classic bungalows and the newer CIDCO belt — sweet boxes included for post-darshan visits.",
+   "areas":["Rajarampuri","Shahupuri","Tarabai Park","Laxmipuri","Ruikar Colony","CIDCO","Kasba Bawada","Gokul Shirgaon","Kadamwadi"],
+   "faqs":[
+     {"q":"Can you deliver prasad-style sweets near Mahalaxmi temple?","a":"Yes — our sealed sweet boxes suit prasad sharing; order ahead during navratri when temple-area roads turn crowded."},
+     {"q":"Is the CIDCO area of Kolhapur served?","a":"Yes, Kolhapur’s own CIDCO sector is a standard stop within the 48–72 hour window."}]},
+
+  {"slug":"kolkata","name":"Kolkata","state":"West Bengal","zone":"east","slaText":"within 48–72 hours",
+   "intro":"The City of Joy turns every occasion into a festival — Durga Pujo pandal-hopping, football-night rosogolla feasts, Poila Boishakh lunches. Our couriers thread Behala’s long southern stretch, Salt Lake’s grids and Howrah’s approach roads daily.",
+   "areas":["Salt Lake","New Town","Behala","Garia","Dum Dum","Ballygunge","Jadavpur","Baguiati","Lake Town","Howrah"],
+   "faqs":[
+     {"q":"Can you deliver during Durga Pujo week?","a":"Pujo is peak season — road diversions around pandals are real, so we accept limited slots which fill weeks ahead. Book early!"},
+     {"q":"Do you cover Howrah separately?","a":"Yes, Howrah rides the Kolkata route with a small bridge-traffic buffer added to evening slots."}]},
+
+  {"slug":"kozhikode","name":"Kozhikode","state":"Kerala","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Cradle of the old spice route, Kozhikode still smells of banana chips frying and Calicut halwa setting in shopfronts. We deliver Malabar-style gift hampers and celebration cakes from SM Street’s bustle to the beachside wards of West Hill.",
+   "areas":["SM Street","Eranhipalam","Pottammal","Chevayur","Bilathikulam","West Hill","Nadakkavu","Puthiyara","Kottooli","Ramanattukara"],
+   "faqs":[
+     {"q":"Can I combine my own halwa purchase with your delivery?","a":"Many customers do — buy halwa on SM Street and we’ll collect-and-deliver it with your Giftora order; arrange via WhatsApp."},
+     {"q":"Is Ramanattukara airport-side covered?","a":"Yes, the airport corridor including Ramanattukara completes within the standard Kozhikode window."}]},
+
+  {"slug":"lucknow","name":"Lucknow","state":"Uttar Pradesh","zone":"central","slaText":"within 48–72 hours",
+   "intro":"Awadh’s capital still greets you with ‘pehle aap’, whether you’re buying chikankari in Chowk or kebabs in Aminabad. Giftora matches that grace with carefully wrapped deliveries across Gomti Nagar’s wide boulevards and the old city’s tangled galis alike.",
+   "areas":["Hazratganj","Gomti Nagar","Aliganj","Indira Nagar","Aminabad","Chowk","Ashiyana","Mahanagar","Jankipuram","Gomti Nagar Extension"],
+   "faqs":[
+     {"q":"Can you deliver chikankari purchases locally?","a":"Yes — combine your Chowk/Aminabad chikankari buy with a Giftora hamper and we’ll courier both together within Lucknow."},
+     {"q":"How fast is delivery to Gomti Nagar Extension?","a":"The extension sectors are fully covered, typically within 48–72 hours."}]},
+
+  {"slug":"ludhiana","name":"Ludhiana","state":"Punjab","zone":"north","slaText":"within 48–72 hours",
+   "intro":"Punjab’s hosiery capital earns big, celebrates bigger, and throws weddings that shut whole streets. We deliver cakes, armfuls of bouquets and trousseau-friendly hampers from Model Town to the mills along Ferozepur Road.",
+   "areas":["Model Town","Sarabha Nagar","Civil Lines","Ferozepur Road","Dugri","Jamalpur","BRS Nagar","Kitchlu Nagar","Urban Estate","Ghumar Mandi"],
+   "faqs":[
+     {"q":"Can you handle large wedding-season orders in Ludhiana?","a":"Yes — bulk hampers and multi-stop deliveries are common for us here; message quantities on WhatsApp for a quote."},
+     {"q":"Is Dugri Phase 2 covered?","a":"Yes, all Dugri phases fall within the standard Ludhia­na delivery window."}]},
+
+  {"slug":"madurai","name":"Madurai","state":"Tamil Nadu","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Around the towering Meenakshi temple, life moves to festival time — and the city’s famous malligai jasmine perfumes every auspicious day. We pair local floral tradition with cakes, plants and combos, delivering from Tallakulam to Thirunagar.",
+   "areas":["KK Nagar","Anaiyur","Tallakulam","Goripalayam","Thirunagar","Simmakkal","Sellur","Vilangudi","Kalavasal","Avaniyapuram"],
+   "faqs":[
+     {"q":"Can you deliver jasmine-themed gift combos?","a":"Local florists supply malligai daily — WhatsApp us and we’ll build a flower-forward combo for Madurai occasions."},
+     {"q":"Do you cover Avaniyapuram during Chithirai festival?","a":"Festival weeks see rerouted traffic; Avaniyapuram stays covered with slightly extended windows."}]},
+
+  {"slug":"mathura","name":"Mathura","state":"Uttar Pradesh","zone":"north","slaText":"within 24–48 hours",
+   "intro":"Krishna’s birthplace celebrates Holi like nowhere else and marks every happy day with peda and peacock-feather motifs. We deliver festive hampers, thali-friendly gifts and flowers across the holy city, from Holi Gate to the Vrindavan border.",
+   "areas":["Holi Gate","Janmabhoomi area","Deeg Gate","Delhi Gate","Chatikara Road","Vrindavan Road","Kosikalan Road","Raya Road","Station Road","Goverdhan Road"],
+   "faqs":[
+     {"q":"Can you deliver to Vrindavan ashrams from Mathura?","a":"Yes — ashram and guesthouse deliveries along the Mathura-Vrindavan road are frequent; call-ahead coordination is standard."},
+     {"q":"Do you operate during Holi week in Mathura?","a":"Holi brings colour-soaked streets, so we run restricted morning-only slots that week — book well in advance."}]},
+
+  {"slug":"meerut","name":"Meerut","state":"Uttar Pradesh","zone":"north","slaText":"within 24–48 hours",
+   "intro":"The city that sparked 1857 now manufactures India’s sports goods and scissors — and celebrates victories accordingly. Cakes and gifts reach Shastri Nagar, Pallav Puram and the cantonment side within a day or two on our northern express line.",
+   "areas":["Shastri Nagar","Civil Lines","Begum Bridge","Pallav Puram","Kankerkhera","Saket","Jagriti Vihar","Delhi Road","Garh Road","Hapur Road"],
+   "faqs":[
+     {"q":"Do you deliver sports-gear style gifts in Meerut?","a":"Our catalogue complements local sports buys — cycles and outdoor toys ship beautifully here; pair them with your local purchases."},
+     {"q":"How fast is delivery to Kankerkhera?","a":"Kankerkhera and cantonment-adjacent areas complete within 24–48 hours."}]},
+
+  {"slug":"mumbai","name":"Mumbai","state":"Maharashtra","zone":"west","slaText":"within 48–72 hours",
+   "intro":"In the Maximum City, distances are emotional as much as geographic — a cake reaching Dadar before midnight genuinely matters. We deliver across the island city and western suburbs from Colaba to Borivali, with modak-style sweet hampers each Ganeshotsav.",
+   "areas":["Andheri West","Bandra West","Dadar","Powai","Borivali","Chembur","Colaba","Ghatkopar","Mulund","Malad","Goregaon"],
+   "faqs":[
+     {"q":"Can you manage Mumbai’s building security protocols?","a":"Yes — share society names and tower details; our riders routinely complete visitor registration at Mumbai buildings."},
+     {"q":"Do you deliver during Ganeshotsav processions?","a":"We do, with rerouted plans around visarjan days — order early that week for reliable slots."}]},
+
+  {"slug":"mysuru","name":"Mysuru","state":"Karnataka","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Dasara’s home city glows for ten straight days each autumn, and palatial grandeur seeps into everyday gifting. We deliver sweet hampers worthy of Mysore pak, flowers and decor-friendly plants from Saraswathipuram to the Bogadi ring road.",
+   "areas":["Kuvempunagar","Saraswathipuram","JP Nagar","Vijayanagar","Bogadi","Hebbal Industrial Area","Srirampura","Bannimantap","Alanahalli","Nanjangud Road"],
+   "faqs":[
+     {"q":"Can you deliver during Dasara week?","a":"Dasara is magical but congested — we run extended-hour slots that week; order three-plus days ahead."},
+     {"q":"Is Hebbal Industrial Area covered in Mysuru?","a":"Yes — factory-gate handovers at Hebbal are part of the standard Mysuru route."}]},
+
+  {"slug":"nagpur","name":"Nagpur","state":"Maharashtra","zone":"central","slaText":"within 48–72 hours",
+   "intro":"Zero Milestone of India, winter capital of Maharashtra and the country’s orange bowl — Nagpur celebrates citrus-sweet. Gifts reach Dharampeth’s café strip, Sadar’s old charm and the Wardha Road growth corridor via our central express network.",
+   "areas":["Dharampeth","Sadar","Civil Lines","Ramdaspeth","Sitabuldi","Manish Nagar","Wardha Road","Jaripatka","Pratap Nagar","Manewada"],
+   "faqs":[
+     {"q":"Do you deliver orange-season hampers in Nagpur?","a":"Winter is Nagpur’s moment — pair our sweet boxes with local orange buys for a combined hamper; arrange collection via WhatsApp."},
+     {"q":"How about Manish Nagar and Besa?","a":"South-west Nagpur including Manish Nagar is covered within the standard 48–72 hour window."}]},
+
+  {"slug":"nashik","name":"Nashik","state":"Maharashtra","zone":"west","slaText":"within 48–72 hours",
+   "intro":"India’s wine capital surrounds itself with vineyards and the holy ghats of Panchavati in equal measure. We deliver celebration cakes, temple-appropriate sweets and everyday gifts from College Road to the MIDC belt.",
+   "areas":["College Road","Gangapur Road","Panchavati","Nashik Road","CIDCO","Indira Nagar","Ambad MIDC","Satpur MIDC","Pathardi Phata","Ashwin Nagar"],
+   "faqs":[
+     {"q":"Do you deliver to Panchavati’s temple quarter?","a":"Yes — bike-based delivery handles the godavari-side lanes; festival days may need morning slots."},
+     {"q":"Can gifts reach vineyard-resort addresses?","a":"Resort and vineyard deliveries on Gangapur Road are arranged with front-desk coordination."}]},
+
+  {"slug":"noida","name":"Noida","state":"Uttar Pradesh","zone":"ncr","slaText":"",
+   "intro":"Planned sector by sector and packed with media houses and startups, Noida runs on deadlines and midnight celebrations. Same-day delivery spans every sector — Atta Market to Sector 168 — plus Greater Noida’s Pari Chowk and Knowledge Park belts.",
+   "areas":["Atta Market (Sector 18)","Sector 62","Sector 63","Sector 76","Sector 50","Sector 137","Sector 168","Pari Chowk","Knowledge Park","Chi V"],
+   "faqs":[
+     {"q":"Is Greater Noida same-day too?","a":"Yes — Pari Chowk and Knowledge Park fall in the same-day footprint, with slightly fewer late-night slots than central Noida."},
+     {"q":"Can you deliver to news-channel and office campuses?","a":"Daily — Sector 16A and Expressway-way office campuses are standard reception-handover stops."}]},
+
+  {"slug":"panaji","name":"Panaji","state":"Goa","zone":"west","slaText":"within 48–72 hours",
+   "intro":"Goa’s charming capital, all red-tiled roofs, Fontainhas’ Latin quarter and Mandovi riverside strolls. Celebration cakes, salt-air-happy plant gifts and picnic-friendly hampers — delivered Miramar to Porvorim. Susegad pace, prompt parcels.",
+   "areas":["Miramar","Dona Paula","Caranzalem","Taleigao","St Inez","Altinho","Merces","Ribandar","Porvorim","Mala"],
+   "faqs":[
+     {"q":"Do you deliver across the Mandovi to Porvorim?","a":"Yes — the bridge crossing adds minutes, not hours; Porvorim is a standard Panaji-route stop."},
+     {"q":"Can you deliver during Carnival week?","a":"Carnival parades close central routes; we deliver mornings that week with pre-booked slots."}]},
+
+  {"slug":"patiala","name":"Patiala","state":"Punjab","zone":"north","slaText":"within 24–48 hours",
+   "intro":"Home of the Patiala peg and the Patiala salwar, this royal Punjabi city celebrates generously. Cakes, dry-fruit boxes and festive combos reach from Model Town’s leafy squares to Nabha Gate’s bustle within a day or two.",
+   "areas":["Model Town","Leela Bhawan","Urban Estate","Tripuri","Rajpura Road","Sirhind Road","Nabha Gate","Sheran Wala Gate","Dashmesh Nagar"],
+   "faqs":[
+     {"q":"Can you deliver wedding hampers in Patiala?","a":"Yes — wedding-season bulk gifting is popular here; message item counts on WhatsApp for coordinated multi-drop delivery."},
+     {"q":"How fast is delivery to Urban Estate?","a":"Urban Estate phases complete within the usual 24–48 hour northern window."}]},
+
+  {"slug":"patna","name":"Patna","state":"Bihar","zone":"east","slaText":"within 48–72 hours",
+   "intro":"Ancient Pataliputra is now Bihar’s buzzing capital, where Boring Road’s coaching hubs meet Bailey Road’s old elite address. Khaja-tradition sweet boxes travel alongside modern cakes and gadget-friendly gifts across Kankarbagh, Danapur and beyond.",
+   "areas":["Boring Road","Bailey Road","Kankarbagh","Rajendra Nagar","Patliputra Colony","Danapur","Fraser Road","Exhibition Road","Ashiana Nagar","Saguna More"],
+   "faqs":[
+     {"q":"Do you deliver across the Ganga to north Patna?","a":"Patna-side addresses are fully covered; far-bank localities are handled case-by-case depending on bridge schedules."},
+     {"q":"Is Danapur cantonment area served?","a":"Yes — Danapur including its cantonment edges follows standard civil delivery protocols."}]},
+
+  {"slug":"pune","name":"Pune","state":"Maharashtra","zone":"west","slaText":"within 48–72 hours",
+   "intro":"The Oxford of the East juggles students, software parks and retired colonels with equal ease. Birthday cakes race to Viman Nagar hostels, Diwali hampers climb Baner’s slopes — our riders cover Pune end to end, Swargate to Hinjewadi.",
+   "areas":["Kothrud","Baner","Viman Nagar","Koregaon Park","Hinjewadi","Kharadi","Aundh","Wakad","Hadapsar","Katraj","Swargate"],
+   "faqs":[
+     {"q":"Can you deliver to hostel addresses in Pune?","a":"Yes — Viman Nagar, Kothrud and Karve Road student housing receives daily deliveries with receiver coordination."},
+     {"q":"Is Hinjewadi Phase 1 covered?","a":"All Hinjewadi phases are on the map; Phase 2-3 add a little transit time to evening slots."}]},
+
+  {"slug":"raipur","name":"Raipur","state":"Chhattisgarh","zone":"central","slaText":"within 48–72 hours",
+   "intro":"Capital of Chhattisgarh and heart of the rice bowl, Raipur grows shinier by the year with new malls and arenas. Gifts reach Amlidih, Devendra Nagar and the VIP Road stretch, plus industrial-side orders toward Urla.",
+   "areas":["Devendra Nagar","Shankar Nagar","Amlidih","VIP Road","Mowa","Saddu","Changorabhata","Kachna","Avanti Vihar","Tatibandh"],
+   "faqs":[
+     {"q":"Do you deliver to Urla industrial area?","a":"Yes — Urla deliveries follow the Raipur route with factory-timing handovers during working hours."},
+     {"q":"How fast is delivery to Amlidih?","a":"Amlidih and VIP Road complete within the standard 48–72 hour window, often faster on weekdays."}]},
+
+  {"slug":"rajkot","name":"Rajkot","state":"Gujarat","zone":"west","slaText":"within 48–72 hours",
+   "intro":"Saurashtra’s engine room pairs engineering hustle with famously warm Gujarati hospitality. Celebrations call for fafda-jalebi trays as much as cakes, and we deliver both styles of joy across Kalavad Road, University Road and the Ring Road colonies.",
+   "areas":["Kalavad Road","Race Course","University Road","150 Feet Ring Road","Nana Mava","Raiya Road","Bhupendra Road","Gondal Road","Amin Marg","Tagore Road"],
+   "faqs":[
+     {"q":"Can I add my own snacks to a Giftora hamper in Rajkot?","a":"Yes — combine your fafda-jalebi picks with our sweet boxes; WhatsApp us for combined pickup-and-delivery."},
+     {"q":"Is Nana Mava covered for delivery?","a":"Yes, Nana Mava and surrounding Ring Road plots are standard stops."}]},
+
+  {"slug":"ranchi","name":"Ranchi","state":"Jharkhand","zone":"east","slaText":"within 48–72 hours",
+   "intro":"Ringed by waterfalls and hills, Jharkhand’s capital keeps tribal-rooted festivals close to office-park modernity. Gifts reach Lalpur’s shops, Harmu’s housing boards and Doranda’s cantonment-flavoured lanes through our eastern express line.",
+   "areas":["Lalpur","Harmu","Doranda","Hinoo","Ashok Nagar","Ratu Road","Bariatu","Kokar","Hindpirhi","Upper Bazar"],
+   "faqs":[
+     {"q":"Do you deliver during Sarhul and Karma festivals?","a":"Yes — these treasured Ranchi festivals follow the lunar calendar; we align slots with community timings when requested."},
+     {"q":"Is Hinoo and Doranda belt covered?","a":"Yes, the airport-side belt including Doranda completes within the standard window."}]},
+
+  {"slug":"salem","name":"Salem","state":"Tamil Nadu","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Steel and mangoes define Salem — the city that smelts and the orchards that sweeten Tamil Nadu summers. We deliver steadily across Fairlands’ quiet avenues, Ammapet’s trade streets and Shevapet’s wholesale maze.",
+   "areas":["Fairlands","Hasthampatti","Ammapet","Kondalampatti","Suramangalam","Alagapuram","Gugai","Shevapet","Cherry Road","Five Roads"],
+   "faqs":[
+     {"q":"Do you offer mango-season gifting in Salem?","a":"Summer is Salem’s sweet spot — customers often pair our hampers with local mango boxes; ask us about combined delivery."},
+     {"q":"Is Shevapet’s market area serviceable for deliveries?","a":"Yes — the wholesale lanes get bike-based drops with call-ahead coordination."}]},
+
+  {"slug":"shillong","name":"Shillong","state":"Meghalaya","zone":"northeast","slaText":"within 48–72 hours",
+   "intro":"The Scotland of the East trades in pine air, rock concerts and cherry blossoms. We deliver cakes, flowers and cosy gift hampers up the winding roads from Police Bazar to Laitumkhrah and Laban.",
+   "areas":["Police Bazar","Laitumkhrah","Bara Bazar","Laban","Nongthymmai","Mawlai","Rynjah","Umpling","Madanriting"],
+   "faqs":[
+     {"q":"Do foggy days delay Shillong deliveries?","a":"Occasionally — hill weather is respected in our scheduling, and we proactively update you if visibility slows a route."},
+     {"q":"Can gifts reach Laitumkhrah’s cafés and homes?","a":"Yes, Laitumkhrah is a central stop on every Shillong run."}]},
+
+  {"slug":"siliguri","name":"Siliguri","state":"West Bengal","zone":"northeast","slaText":"within 48–72 hours",
+   "intro":"Corridor to Sikkim, Bhutan and the wider Northeast, Siliguri brews commerce from four states’ worth of footfall. We deliver along Hill Cart Road’s full length, from Hakim Para to the newer Uttarayon township.",
+   "areas":["Hill Cart Road","Sevoke Road","Hakim Para","Khalpara","Pradhan Nagar","Matigara","Champasari","Salbari","Uttarayon","Dagapur"],
+   "faqs":[
+     {"q":"Can you deliver toward Sevoke Road’s tea estates?","a":"City-side Sevoke Road is standard; estate bungalows further out are quoted case-by-case on WhatsApp."},
+     {"q":"Is Matigara covered within normal windows?","a":"Yes, Matigara and Dagapur complete within the usual 48–72 hours."}]},
+
+  {"slug":"srinagar","name":"Srinagar","state":"Jammu & Kashmir","zone":"north","slaText":"within 72 hours",
+   "intro":"Dal Lake’s shikaras, saffron fields up the road and pashmina looms in the old city make Srinagar inherently gifty. We ship celebration hampers and dry-fruit boxes to Lal Chowk, Rajbagh and Hyderpora through weather-aware routing.",
+   "areas":["Lal Chowk","Rajbagh","Sonwar","Hyderpora","Bemina","Chanapora","Rawalpora","Nowgam","Batamaloo","Maisuma"],
+   "faqs":[
+     {"q":"Does winter snow affect delivery timelines in Srinagar?","a":"Sometimes — heavy snowfall pauses movement for safety; we resume with priority to pending orders once roads reopen."},
+     {"q":"Can you deliver to houseboats on Dal Lake?","a":"Yes — shore-point handovers with owner coordination make houseboat deliveries possible."}]},
+
+  {"slug":"surat","name":"Surat","state":"Gujarat","zone":"west","slaText":"within 48–72 hours",
+   "intro":"The diamond and textile capital polishes much of the world’s gems, weaves much of its fabric — then throws the grandest Navratri outside Ahmedabad. We deliver across Vesu’s towers, Varachha’s heartland and Adajan’s riverside density.",
+   "areas":["Adajan","Vesu","Piplod","City Light","Parle Point","Katargam","Varachha","Udhna","Rander","Dumas Road","Althan"],
+   "faqs":[
+     {"q":"Can you deliver during Navratri night hours in Surat?","a":"Garba nights run late — we schedule daytime and early-evening drops that week so gifts never miss the celebration."},
+     {"q":"Is Dumas Road’s resort belt covered?","a":"Yes, the beach-road belt including Dumas is served with front-desk handovers."}]},
+
+  {"slug":"thiruvananthapuram","name":"Thiruvananthapuram","state":"Kerala","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Kerala’s capital spreads between the gilded Padmanabhaswamy temple and Technopark’s campus gates. We deliver cakes, plants and Onam-ready hampers from Vellayambalam’s roundabouts to Kazhakootam’s tech cafés.",
+   "areas":["Pattom","Kesavadasapuram","Kazhakootam","Technopark","Vazhuthacaud","Sasthamangalam","Peroorkada","Karamana","Vellayambalam","Ulloor"],
+   "faqs":[
+     {"q":"Do you deliver Onam hampers in Thiruvananthapuram?","a":"Yes — Onam week is peak season here; pre-orders get priority slots across the city."},
+     {"q":"Can gifts reach Technopark campuses?","a":"Daily — reception handovers across Technopark’s phases are routine."}]},
+
+  {"slug":"thrissur","name":"Thrissur","state":"Kerala","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Kerala’s cultural capital beats Pooram drums and runs one of India’s great gold markets. Festive deliveries spike here — sweet boxes, silk-friendly gift wraps and flowers travel from East Fort round to Punkunnam and Viyyur.",
+   "areas":["East Fort","Punkunnam","Olari","Ayyanthole","Viyyur","Kolazhy","Kuttoor","Koorkenchery","Chiyyaram","Mannuthy"],
+   "faqs":[
+     {"q":"Can you deliver during Thrissur Pooram week?","a":"Pooram closes the Round’s approaches — we deliver citywide that week but avoid parade hours; early-morning slots work best."},
+     {"q":"Is Mannuthy’s veterinary-university belt covered?","a":"Yes, Mannuthy completes within the standard Thrissur window."}]},
+
+  {"slug":"tiruchirappalli","name":"Tiruchirappalli","state":"Tamil Nadu","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Rockfort’s sky-high temple watches over Trichy’s college crowds and Srirangam’s temple-town calm. We deliver across Thillai Nagar’s showrooms, Tennur’s homes and Ponmalai’s railway quarters.",
+   "areas":["Thillai Nagar","Srirangam","Cantonment","Tennur","Woraiyur","Khajamalai","Crawford","Bheema Nagar","KK Nagar","Ponmalai"],
+   "faqs":[
+     {"q":"Do you deliver on Srirangam island?","a":"Yes — the island’s streets are covered, with car-free festival days routed around respectfully."},
+     {"q":"Can I send gifts to NIT Trichy hostels?","a":"Yes — hostel gate handovers at NIT and other campuses are coordinated with the receiver."}]},
+
+  {"slug":"tirupati","name":"Tirupati","state":"Andhra Pradesh","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Pilgrims stream up the Tirumala hills year-round, and the town below hums with laddu-famous devotion. We deliver pooja-appropriate hampers, flowers and family celebration cakes from the Alipiri foothills to Tiruchanoor’s ashram belt.",
+   "areas":["Alipiri","Tiruchanoor","MR Palli","Avilala","Bhavani Nagar","Gandhi Road","Korlagunta","Mangalam Road","Chandragiri Road"],
+   "faqs":[
+     {"q":"Can you deliver to Tirumala itself?","a":"Hill-top Tirumala needs special permissions — we deliver Tirupati town fully and assess Tirumala requests individually."},
+     {"q":"Are pooja-friendly gifts available for Tirupati?","a":"Yes — sweets, dry fruits and plants are popular; many customers add laddus from their own darshan for combined gifting."}]},
+
+  {"slug":"ujjain","name":"Ujjain","state":"Madhya Pradesh","zone":"central","slaText":"within 48–72 hours",
+   "intro":"One of Hinduism’s seven holy cities, Ujjain centres life around Mahakal’s courtyard and the Shipra’s ghats. We deliver prasad-style sweet boxes and celebration cakes from Freeganj to Nanakheda, Simhastha crowds notwithstanding.",
+   "areas":["Freeganj","Dewas Gate","Nanakheda","Agar Road","Indore Road","Chimanganj Mandi","Mahakal area","Bharatpuri"],
+   "faqs":[
+     {"q":"Can you deliver near Mahakaleshwar temple?","a":"Yes — surrounding lanes are served on foot-bike delivery; Bhasma aarti mornings are best avoided for time-sensitive gifts."},
+     {"q":"What happens during Simhastha (Kumbh) in Ujjain?","a":"The mela transforms the city — we run adjusted routes with pre-booked slots only; plan weeks ahead if visiting then."}]},
+
+  {"slug":"varanasi","name":"Varanasi","state":"Uttar Pradesh","zone":"east","slaText":"within 48–72 hours",
+   "intro":"The world’s oldest living city weaves Banarasi silk by day and lights the ghats by evening. We deliver across Godowlia’s ghatside lanes, the BHU-gate bustle of Lanka and the newer Sigra-Cantt belt — aarti timings respectfully noted.",
+   "areas":["Lanka","Sigra","Cantonment","Godowlia","Dashashwamedh","Assi","Bhelupur","Maldahiya","Rohaniya","Sarnath","Nadesar"],
+   "faqs":[
+     {"q":"Can you deliver to hotels near the ghats?","a":"Yes — vehicle-free zones near Dashashwamedh use foot-couriers; allow extra minutes during evening aarti."},
+     {"q":"Do you cover Sarnath’s monastery belt?","a":"Yes, Sarnath completes within the standard Varanasi window, monastery receptions included."}]},
+
+  {"slug":"vijayawada","name":"Vijayawada","state":"Andhra Pradesh","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Under Kanaka Durga’s hill, Vijayawada runs Andhra’s business calendar — and celebrates it with equal appetite. We deliver from Benz Circle’s showrooms to Autonagar’s workshops, with extra runners during Ugadi week.",
+   "areas":["MG Road","Benz Circle","Gunadala","Patamata","Bhavanipuram","Autonagar","Gollapudi","Kanuru","Poranki","Governorpet"],
+   "faqs":[
+     {"q":"Do you deliver during Ugadi in Vijayawada?","a":"Yes — Ugadi is a flagship festival here; we add morning capacity and pre-bookable slots across the city."},
+     {"q":"Is Poranki’s residential sprawl covered?","a":"Yes, Poranki and Kanuru complete within the standard Vijayawada window."}]},
+
+  {"slug":"visakhapatnam","name":"Visakhapatnam","state":"Andhra Pradesh","zone":"south","slaText":"within 48–72 hours",
+   "intro":"Between the Bay and the Eastern Ghats, Vizag balances navy town, steel plant and beach holidays in one breezy skyline. Cakes reach Rushikonda’s resort-side homes; gifts cross MVP Colony and Gajuwaka’s busy sprawl daily.",
+   "areas":["MVP Colony","Rushikonda","Madhurawada","Gajuwaka","Dwaraka Nagar","Siripuram","Beach Road","Akkayyapalem","NAD Junction","Pendurthi"],
+   "faqs":[
+     {"q":"Can you deliver to beach resorts on Rushikonda?","a":"Yes — resort deliveries use front-desk handovers; guest names and booking details help us find the right sun-lounger."},
+     {"q":"Is Pendurthi on the outskirts covered?","a":"Yes, Pendurthi follows the standard Vizag schedule with a small transit buffer."}]},
+
+  {"slug":"warangal","name":"Warangal","state":"Telangana","zone":"south","slaText":"within 48–72 hours",
+   "intro":"The Kakatiyas left Warangal its mighty fort gates and the Thousand Pillar Temple, while the tri-city sprawl of Hanamkonda-Kazipet hums with students and traders. We deliver across all three towns’ main belts.",
+   "areas":["Hanamkonda","Kazipet","Subedari","Naim Nagar","Kothawada","Chowrasta","Fort area","Thousand Pillars Temple area","Kakatiya University area"],
+   "faqs":[
+     {"q":"Do Hanamkonda and Kazipet count as Warangal delivery?","a":"Yes — the tri-city is treated as one delivery zone with shared pricing and windows."},
+     {"q":"Can gifts reach Kakatiya University hostels?","a":"Yes — university-area hostels receive coordinated gate handovers."}]}
+]

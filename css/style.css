@@ -1790,3 +1790,16 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
   .product-detail-actions .add-to-cart { flex: 1; justify-content: center; }
 }
 
+
+  /* ===== City page enrichment (added by seo/enrich-cities.js workflow) ===== */
+  .city-copy { max-width: 820px; margin: 0 auto; text-align: center; }
+  .city-copy p { color: var(--muted, #5b6472); line-height: 1.75; margin-bottom: 14px; }
+  .city-areas { margin-top: 34px; text-align: center; }
+  .city-areas h3 { font-size: 1.05rem; margin-bottom: 14px; }
+  .area-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 860px; margin: 0 auto; }
+  .area-chips span { display: inline-block; padding: 6px 14px; border-radius: 999px; background: #f4f6fb; border: 1px solid #e6eaf2; font-size: 0.85rem; color: #3c4657; }
+  .dark-mode .area-chips span { background: #1d2330; border-color: #2c3547; color: #c8d0dd; }
+  .city-picks { list-style: none; padding: 0; margin: 26px auto 0; max-width: 720px; columns: 2; column-gap: 28px; text-align: left; }
+  .city-picks li { break-inside: avoid; margin-bottom: 10px; }
+  .city-picks a { color: var(--primary, #e11d48); font-size: 0.92rem; font-weight: 500; }
+  .city-picks a:hover { text-decoration: underline; }
