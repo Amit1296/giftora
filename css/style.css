@@ -732,50 +732,89 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   .festival-banner-cta { padding: 13px 24px; font-size: 0.95rem; }
 }
 
-/* ---------- Festival banner slider ---------- */
+/* ---------- Premium banner slider ---------- */
 .banner-slider { margin-top: 0; }
-.banner-slide .festival-banner-inner { height: 100%; border-radius: 24px; }
-.banner-slide .festival-banner-inner:hover { transform: none; }
-.teachers-day-slide {
-  background: linear-gradient(120deg, #0f766e 0%, #10b981 45%, #f59e0b 100%);
+.premium-banner {
+  display: flex; align-items: center; gap: 34px; flex-wrap: wrap;
+  height: 100%; box-sizing: border-box;
+  background: linear-gradient(135deg, #ffffff 0%, #faf5ff 55%, #fef3c7 100%);
+  border: 1px solid #ede9fe;
+  border-radius: 24px;
+  padding: 40px 48px;
+  position: relative; overflow: hidden;
 }
-@media (max-width: 820px) {
-  .banner-slide .festival-banner-inner { border-radius: 18px; }
+.teachers-day-slide .premium-banner {
+  background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 55%, #fef3c7 100%);
+  border-color: #d1fae5;
 }
-
-/* ---------- Banner slider polish ---------- */
-.banner-slide .festival-banner-inner {
-  background-image:
-    radial-gradient(rgba(255,255,255,0.16) 1.5px, transparent 1.6px),
-    linear-gradient(120deg, #4c1d95 0%, #7c3aed 38%, #a855f7 64%, #f59e0b 100%);
-  background-size: 26px 26px, auto;
+.premium-banner::before {
+  content: ""; position: absolute; top: -90px; right: -60px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.08) 0%, rgba(124,58,237,0) 70%);
+  pointer-events: none;
 }
-.teachers-day-slide {
-  background-image:
-    radial-gradient(rgba(255,255,255,0.14) 1.5px, transparent 1.6px),
-    linear-gradient(120deg, #134e4a 0%, #0f766e 34%, #10b981 68%, #fbbf24 100%);
-  background-size: 26px 26px, auto;
+.teachers-day-slide .premium-banner::before {
+  background: radial-gradient(circle, rgba(16,185,129,0.09) 0%, rgba(16,185,129,0) 70%);
 }
-.banner-slide .festival-banner-title { text-shadow: 0 3px 26px rgba(0, 0, 0, 0.4); }
-.banner-slide .festival-banner-media {
-  box-shadow: 0 0 0 7px rgba(255,255,255,0.16), 0 20px 46px rgba(0,0,0,0.32);
+.pb-accent {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+  background: linear-gradient(180deg, #7c3aed, #f59e0b);
 }
-.banner-slide .festival-banner-cta { box-shadow: 0 14px 34px rgba(0,0,0,0.3); }
-.teachers-day-slide .festival-banner-discount { color: #0f766e; }
-.teachers-day-slide .festival-banner-code strong { color: #0f766e; }
-.festival-banner-float.f4 { bottom: 22%; left: 36%; font-size: 1.6rem; opacity: 0.55; animation-delay: 0.8s; }
-.festival-banner-float.f5 { top: 12%; right: 42%; font-size: 1.3rem; opacity: 0.5; animation-delay: 2.4s; }
-.festival-banner-limited {
+.teachers-day-slide .pb-accent { background: linear-gradient(180deg, #0f766e, #f59e0b); }
+.pb-media {
+  width: 170px; height: 170px; border-radius: 24px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5.2rem; overflow: hidden;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 16px 36px rgba(76,29,149,0.10);
+}
+.pb-media img { width: 100%; height: 100%; object-fit: cover; }
+.pb-copy { flex: 1; min-width: 260px; display: flex; flex-direction: column; gap: 12px; }
+.pb-eyebrow {
   align-self: flex-start;
-  width: fit-content;
-  font-size: 0.8rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase;
-  background: #fde047; color: #713f12;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #6d28d9; background: #f5f3ff; border: 1px solid #ddd6fe;
   padding: 6px 14px; border-radius: 999px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
 }
+.teachers-day-slide .pb-eyebrow { color: #0f766e; background: #ecfdf5; border-color: #a7f3d0; }
+.pb-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  font-weight: 800; line-height: 1.12; color: #211d33;
+}
+.pb-sub { color: #52525b; font-size: 1.05rem; max-width: 58ch; }
+.pb-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pb-code {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; border: 1.5px dashed #c4b5fd; color: #4c1d95;
+  padding: 8px 16px; border-radius: 999px;
+  font-weight: 600; font-size: 0.95rem;
+}
+.pb-code strong { letter-spacing: 0.06em; font-weight: 800; }
+.pb-off { font-style: normal; font-weight: 800; color: #b45309; }
+.teachers-day-slide .pb-code { border-color: #6ee7b7; color: #064e3b; }
+.pb-limited {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #92400e; background: #fef3c7;
+  padding: 6px 13px; border-radius: 999px;
+}
+.pb-cta {
+  align-self: flex-start; margin-top: 4px;
+  display: inline-flex; align-items: center;
+  background: #4c1d95; color: #fff;
+  padding: 14px 30px; border-radius: 999px;
+  font-weight: 700; font-size: 1.02rem;
+  box-shadow: 0 12px 28px rgba(76,29,149,0.24);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.premium-banner:hover .pb-cta { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(76,29,149,0.32); }
+.teachers-day-slide .pb-cta { background: #0f766e; box-shadow: 0 12px 28px rgba(15,118,110,0.24); }
+.teachers-day-slide .premium-banner:hover .pb-cta { box-shadow: 0 16px 34px rgba(15,118,110,0.32); }
 @media (max-width: 820px) {
-  .festival-banner-float.f4, .festival-banner-float.f5 { display: none; }
-  .festival-banner-limited { font-size: 0.7rem; padding: 4px 11px; }
+  .premium-banner { padding: 26px 22px; gap: 20px; border-radius: 18px; }
+  .pb-media { width: 96px; height: 96px; font-size: 3rem; border-radius: 18px; }
+  .pb-sub { font-size: 0.92rem; }
+  .pb-cta { padding: 12px 22px; font-size: 0.92rem; }
 }
 
 /* ---------- Footer ---------- */
