@@ -50,7 +50,7 @@ function esc(s) {
 }
 
 function buildMetaBlock(page, cfg, site) {
-  const url = site.url + "/" + page;
+  const url = page === "index.html" ? site.url + "/" : site.url + "/" + page;
   const title = cfg.title;
   const desc = cfg.description;
   const lines = [MARKER_START];
@@ -112,7 +112,7 @@ function sitePartOf(site) {
 function buildJsonLd(page, cfg, site, products) {
   if (cfg.type === "admin") return null;
 
-  const url = site.url + "/" + page;
+  const url = page === "index.html" ? site.url + "/" : site.url + "/" + page;
   const blocks = [];
 
   if (cfg.type === "home") {
