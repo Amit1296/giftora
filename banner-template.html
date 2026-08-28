@@ -1,0 +1,60 @@
+<!--
+  ================================================================
+  BANNER TEMPLATE  (edit this file, then run:  node toggle-banner.js show)
+  ================================================================
+  This is the source of truth for the homepage banner.
+  Change ANY text/image/link here, then run "node toggle-banner.js show"
+  to inject it into index.html.
+
+  COMMON THINGS YOU MIGHT WANT TO CHANGE:
+    1. Image            -> replace uploads/teacher-books.jpg with another file
+    2. Delivery text    -> <span class="pb-delivery">...</span>
+    3. Eyebrow/tag      -> <span class="pb-eyebrow">...</span>
+    4. Title            -> <span class="pb-title">...</span>
+    5. Subtitle         -> <span class="pb-sub">...</span>
+    6. Promo code       -> <span class="pb-code">Use code <strong>CODE</strong> ...</span>
+    7. "Ends" note      -> <span class="pb-limited">...</span>   (optional - delete the line to remove)
+    8. CTA button text  -> <span class="pb-cta">...</span>
+    9. Link target      -> href="teachers-day-gifts.html"
+
+  TO ADD A COUNTDOWN:
+    - Add <span class="festival-countdown" id="festivalCountdown"></span> inside the
+      pb-row below, and add matching JS in js/script.js (see initRakhiCountdown).
+    Read the css/style.css classes .festival-countdown, .pb-* for styling.
+  ================================================================
+-->
+	<section class="festival-banner" id="festivalBannerSlider">
+		<div class="container">
+			<div class="occasion-slider banner-slider" data-slider data-autoplay="5000">
+				<div class="slider-viewport">
+					<div class="slider-track">
+						<div class="slide banner-slide">
+							<a class="premium-banner" href="teachers-day-gifts.html">
+								<span class="orb o1"></span>
+								<span class="orb o2"></span>
+								<span class="orb o3"></span>
+								<span class="pb-accent"></span>
+								<span class="pb-media"><img src="uploads/teacher-books.jpg" alt="Teacher's Day gifts" loading="lazy"></span>
+								<span class="pb-copy">
+									<span class="pb-delivery">🚚 Same-Day Delivery</span>
+									<span class="pb-eyebrow">🍎 Teacher's Day · 5 September</span>
+									<span class="pb-title">Teacher's Day Special</span>
+									<span class="pb-sub">Thank the teachers who shaped you — flowers, cakes &amp; thoughtful gifts delivered same day</span>
+									<span class="pb-row">
+										<span class="pb-code">Use code <strong>TEACHER15</strong> <em class="pb-off"><strong>15</strong>% OFF</em></span>
+										<span class="pb-limited">⏰ Ends 5 September</span>
+										<!-- ADD COUNTDOWN BELOW IF NEEDED -->
+										<!-- <span class="festival-countdown" id="festivalCountdown"></span> -->
+									</span>
+									<span class="pb-cta">Shop Teacher's Day Gifts &rarr;</span>
+								</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<button class="slider-arrow slider-prev" type="button" data-slider-prev aria-label="Previous banner">&#8249;</button>
+				<button class="slider-arrow slider-next" type="button" data-slider-next aria-label="Next banner">&#8250;</button>
+				<div class="slider-dots" aria-label="Festival banners"></div>
+			</div>
+		</div>
+	</section>
