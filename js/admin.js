@@ -1452,11 +1452,69 @@
                 </div>
               </div>
             </div>
+            <div class="banner-preview-area">
+              <label class="preview-label">Live preview</label>
+              <div class="banner-preview-img" data-previewimg="${b.id}"></div>
+              <div class="banner-preview" data-preview="${b.id}"></div>
+            </div>
           </div>
         </div>`;
       })
       .join("");
     bannerDirty = false;
+    renderAllBannerPreviews();
+  }
+
+  function renderBannerPreview(b) {
+    const card = document.querySelector(`.banner-card[data-id="${b.id}"]`);
+    if (!card) return;
+    collectBannerFromDom(b);
+    const preview = card.querySelector(`[data-preview="${b.id}"]`);
+    const imgWrap = card.querySelector(`[data-previewimg="${b.id}"]`);
+
+    if (imgWrap) {
+      imgWrap.innerHTML = b.image
+        ? `<img src="${b.image}" alt="banner image preview" onerror="this.style.display='none'"><span class="img-thumb-ok">Image loaded</span>`
+        : `<span class="img-thumb-empty">No image — emoji fallback shown</span>`;
+    }
+
+    if (!preview) return;
+    const cd = b.countdown || {};
+    const media = b.image
+      ? `<span class="ppt-media"><img src="${b.image}" alt="" onerror="this.style.opacity=0"></span>`
+      : `<span class="ppt-media ppt-emoji">${esc(b.emoji || "🎁")}</span>`;
+    const codeHTML = b.code
+      ? `<span class="ppt-code">${esc(b.codeLabel || "Use code")} <strong>${esc(b.code)}</strong>${b.discount ? ` <em>${esc(b.discount)}% OFF</em>` : ""}</span>`
+      : "";
+    const cdHTML = cd && cd.enabled
+      ? `<span class="ppt-countdown">${esc(cd.label || "Countdown")} ...</span>`
+      : "";
+    preview.innerHTML = `
+      <div class="banner-slide">
+        <a class="premium-banner" target="_blank" rel="noopener"
+           href="${b.link ? esc(b.link) : "#"}"
+           onclick="event.stopPropagation()">
+          <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+          <span class="pb-accent"></span>
+          ${media}
+          <span class="pb-copy">
+            ${b.delivery ? `<span class="pb-delivery">${esc(b.delivery)}</span>` : ""}
+            ${b.eyebrow ? `<span class="pb-eyebrow">${esc(b.eyebrow)}</span>` : ""}
+            <span class="pb-title">${esc(b.title || "Festival Offer")}</span>
+            ${b.subtitle ? `<span class="pb-sub">${esc(b.subtitle)}</span>` : ""}
+            <span class="pb-row">
+              ${codeHTML}
+              ${b.endsText ? `<span class="pb-limited">${esc(b.endsText)}</span>` : ""}
+              ${cdHTML}
+            </span>
+            ${b.cta ? `<span class="pb-cta">${esc(b.cta)}</span>` : ""}
+          </span>
+        </a>
+      </div>`;
+  }
+
+  function renderAllBannerPreviews() {
+    banners.forEach((b) => renderBannerPreview(b));
   }
 
   function handleBannerImgUpload(input, id) {
@@ -1602,7 +1660,25 @@
         return;
       }
     });
-    list.addEventListener("input", () => { bannerDirty = true; });
+    list.addEventListener("input", (e) => {
+      bannerDirty = true;
+      const card = e.target.closest(".banner-card");
+      if (card && card.dataset.id) {
+        const b = banners.find((x) => x.id === card.dataset.id);
+        if (b) renderBannerPreview(b);
+      }
+    });
+    list.addEventListener("change", (e) => {
+      const t = e.target.closest("[data-bactive], [data-cdenabled]");
+      if (t) {
+        bannerDirty = true;
+        const card = t.closest(".banner-card");
+        if (card && card.dataset.id) {
+          const b = banners.find((x) => x.id === card.dataset.id);
+          if (b) renderBannerPreview(b);
+        }
+      }
+    });
   }
 
   /* ---------- UPI QR ---------- */
