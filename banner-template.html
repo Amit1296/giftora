@@ -7,20 +7,36 @@
   to inject it into index.html.
 
   COMMON THINGS YOU MIGHT WANT TO CHANGE:
-    1. Image            -> replace uploads/teacher-books.jpg with another file
-    2. Delivery text    -> <span class="pb-delivery">...</span>
-    3. Eyebrow/tag      -> <span class="pb-eyebrow">...</span>
-    4. Title            -> <span class="pb-title">...</span>
-    5. Subtitle         -> <span class="pb-sub">...</span>
-    6. Promo code       -> <span class="pb-code">Use code <strong>CODE</strong> ...</span>
-    7. "Ends" note      -> <span class="pb-limited">...</span>   (optional - delete the line to remove)
+    1. Delivery text    -> <span class="pb-delivery">...</span>
+    2. Eyebrow/tag      -> <span class="pb-eyebrow">...</span>
+    3. Title            -> <span class="pb-title">...</span>
+    4. Subtitle         -> <span class="pb-sub">...</span>
+    5. Promo code       -> <span class="pb-code">Use code <strong>CODE</strong> ...</span>
+    6. Image            -> replace uploads/teacher-books.jpg with another file
+    7. Link target      -> href="teachers-day-gifts.html"
     8. CTA button text  -> <span class="pb-cta">...</span>
-    9. Link target      -> href="teachers-day-gifts.html"
 
-  TO ADD A COUNTDOWN:
-    - Add <span class="festival-countdown" id="festivalCountdown"></span> inside the
-      pb-row below, and add matching JS in js/script.js (see initRakhiCountdown).
-    Read the css/style.css classes .festival-countdown, .pb-* for styling.
+  TO ADD / EDIT A COUNTDOWN (simple, no JS needed - just edit these 4 attributes):
+
+    Find the countdown line below:
+      <span class="festival-countdown" id="festivalCountdown"
+            data-countdown-enabled="false"
+            data-countdown-target="2026-09-05T00:00:00+05:30"
+            data-countdown-label="Teacher's Day in"
+            data-countdown-done="Happy Teacher's Day! 🎉"></span>
+
+    - data-countdown-enabled : set "true" to show the countdown, "false" to hide it
+    - data-countdown-target  : the event date/time, in FORMAT  YYYY-MM-DDTHH:MM:SS+05:30
+                               (that's 24-hour time. 13:00 = 1pm. +05:30 = India time)
+    - data-countdown-label   : text before the numbers, e.g. "Diwali in"
+    - data-countdown-done    : message shown after the date passes, e.g. "Happy Diwali! 🪔"
+
+    Example for Diwali 2026 (16 October, night):
+      data-countdown-target="2026-10-16T19:00:00+05:30"
+      data-countdown-label="Diwali in"
+      data-countdown-done="Happy Diwali! 🪔"
+
+  IMPORTANT: After editing this file, run:  node toggle-banner.js show
   ================================================================
 -->
 	<section class="festival-banner" id="festivalBannerSlider">
@@ -43,8 +59,11 @@
 									<span class="pb-row">
 										<span class="pb-code">Use code <strong>TEACHER15</strong> <em class="pb-off"><strong>15</strong>% OFF</em></span>
 										<span class="pb-limited">⏰ Ends 5 September</span>
-										<!-- ADD COUNTDOWN BELOW IF NEEDED -->
-										<!-- <span class="festival-countdown" id="festivalCountdown"></span> -->
+										<span class="festival-countdown" id="festivalCountdown"
+											data-countdown-enabled="false"
+											data-countdown-target="2026-09-05T00:00:00+05:30"
+											data-countdown-label="Teacher's Day in"
+											data-countdown-done="Happy Teacher's Day! 🎉"></span>
 									</span>
 									<span class="pb-cta">Shop Teacher's Day Gifts &rarr;</span>
 								</span>

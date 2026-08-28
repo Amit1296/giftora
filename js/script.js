@@ -1669,23 +1669,39 @@
     }, 3800);
   }
 
-  /* ---------- Raksha Bandhan countdown ---------- */
-  function initRakhiCountdown() {
+  /* ---------- Generic banner countdown (configured via data-* attributes in banner-template.html) ---------- */
+  function initBannerCountdown() {
     const el = $("#festivalCountdown");
     if (!el) return;
-    const target = new Date("2026-08-28T05:57:00+05:30").getTime();
+    const enabled = el.getAttribute("data-countdown-enabled");
+    if (enabled !== "true") {
+      el.style.display = "none";
+      return;
+    }
+    const targetStr = el.getAttribute("data-countdown-target");
+    if (!targetStr) {
+      el.style.display = "none";
+      return;
+    }
+    const label = el.getAttribute("data-countdown-label") || "Time left";
+    const done = el.getAttribute("data-countdown-done") || "It's here! 🎉";
+    const target = new Date(targetStr).getTime();
+    if (isNaN(target)) {
+      el.style.display = "none";
+      return;
+    }
     const pad = (n) => String(n).padStart(2, "0");
     const tick = () => {
       const diff = target - Date.now();
       if (diff <= 0) {
-        el.innerHTML = '<span class="cd-note">Raksha Bandhan is here — Happy Rakhi! 🎉</span>';
+        el.innerHTML = `<span class="cd-note">${done}</span>`;
         return;
       }
       const d = Math.floor(diff / 86400000);
       const h = Math.floor((diff % 86400000) / 3600000);
       const m = Math.floor((diff % 3600000) / 60000);
       const s = Math.floor((diff % 60000) / 1000);
-      el.innerHTML = `<span class="cd-label">Rakhi in</span> <span class="cd-num">${d}</span>d <span class="cd-num">${pad(h)}</span>h <span class="cd-num">${pad(m)}</span>m <span class="cd-num">${pad(s)}</span>s`;
+      el.innerHTML = `<span class="cd-label">${label}</span> <span class="cd-num">${d}</span>d <span class="cd-num">${pad(h)}</span>h <span class="cd-num">${pad(m)}</span>m <span class="cd-num">${pad(s)}</span>s`;
     };
     tick();
     setInterval(tick, 1000);
@@ -1739,7 +1755,7 @@
     refreshProducts();
   }
   loadFestival();
-  initRakhiCountdown();
+  initBannerCountdown();
   initWhatsAppWidget();
   initMobileNav();
   initWishButton();
