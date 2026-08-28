@@ -1880,6 +1880,8 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
   .dark-mode .hd-ok, .dark-mode .hdr-ok { background: #12281c; color: #86efac; }
   .dark-mode .hd-fail, .dark-mode .hdr-fail { background: #2a1212; color: #fca5a5; }
   .dark-mode .hd-info, .dark-mode .hdr-info { background: #1c1a33; color: #c7bef5; }
-  @media (max-width: 860px) {
-    .header-delivery { display: none; }
+  @media (max-width: 700px) {
+    .header-delivery-toggle { padding: 0 9px; height: 38px; }
+    .header-delivery-label { max-width: 74px; font-size: 0.76rem; }
   }
+
