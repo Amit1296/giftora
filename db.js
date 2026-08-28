@@ -395,6 +395,10 @@ async function getPincodes() {
   return readJson(PINCODES_FILE, []);
 }
 
+async function savePincodes(pincodes) {
+  return writeJson(PINCODES_FILE, pincodes);
+}
+
 /* ---------- Visitor tracking ---------- */
 const EMPTY_VISITORS = { sessions: [], events: [] };
 
@@ -505,6 +509,7 @@ module.exports = {
   getBanners,
   saveBanners,
   getPincodes,
+  savePincodes,
   getVisitors,
   addVisitorBatch,
   clearVisitors,

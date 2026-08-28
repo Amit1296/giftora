@@ -456,3 +456,32 @@ body {
   .banner-preview .ppt-media { flex: none; width: 100%; }
   .banner-preview .ppt-media img { height: 150px; width: 100%; }
 }
+
+/* ---------- Pincode editor ---------- */
+.pincodes-list { display: flex; flex-direction: column; gap: 12px; margin-top: 6px; }
+.pincode-card {
+  border: 1px solid var(--border); border-radius: 14px;
+  background: #fff; padding: 14px 16px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+}
+.dark-mode .pincode-card { background: #1c2230; border-color: #2c3547; }
+.pincode-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.pincode-index {
+  width: 26px; height: 26px; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(120deg,#7c3aed,#a855f7); color: #fff;
+  border-radius: 8px; font-weight: 800; font-size: 0.8rem;
+}
+.pincode-city { flex: 1; font-size: 1rem; font-weight: 700; }
+.pincode-tools { display: flex; gap: 8px; }
+.pincode-fields { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 12px; }
+.pincode-fields .form-group { margin: 0; }
+.pincode-fields label { font-size: 0.78rem; color: var(--muted, #5b6472); font-weight: 600; display: block; margin-bottom: 4px; }
+.pincode-fields input {
+  width: 100%; padding: 9px 12px; border-radius: 8px;
+  border: 1px solid var(--border, #d9d2ec); background: var(--input-bg, #fbfaff); color: inherit; font-size: 0.95rem;
+}
+.pincode-fields input:focus { outline: none; border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
+@media (max-width: 640px) {
+  .pincode-fields { grid-template-columns: 1fr; }
+}

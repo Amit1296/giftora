@@ -67,8 +67,9 @@
 		<nav class="admin-tabs">
 			<button class="tab active" data-tab="products">Products</button>
 			<button class="tab" data-tab="festival">Festival Offer</button>
-			<button class="tab" data-tab="banners">Banners</button>
-			<button class="tab" data-tab="upi">UPI QR</button>
+ <button class="tab" data-tab="banners">Banners</button>
+ <button class="tab" data-tab="pincodes">Delivery / Pincodes</button>
+ <button class="tab" data-tab="upi">UPI QR</button>
 			<button class="tab" data-tab="orders">Orders <span id="orderCount" class="tab-count"></span></button>
 						<button class="tab" data-tab="coupons">Coupons <span id="couponCount" class="tab-count"></span></button>
 						<button class="tab" data-tab="giftcards">Gift Cards <span id="giftcardCount" class="tab-count"></span></button>
@@ -181,6 +182,20 @@
 				<p class="save-msg" id="bannerMsg"></p>
 				<p class="field-note">Add one or more homepage banner(s). The <strong>Save All Banners</strong> button pushes every change live. Drag the ⠿ handle to reorder (top = shown first). Banners marked active and enabled are displayed in the homepage slider.</p>
 				<div class="banners-list" id="bannersList"></div>
+			</section>
+
+			<!-- Delivery / Pincodes tab -->
+			<section id="tab-pincodes" class="tab-panel">
+				<div class="panel-head">
+					<h2>Delivery Coverage (Pincodes)</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="addPincodeBtn">+ Add City</button>
+						<button class="btn btn-primary" id="savePincodesBtn">Save All Pincodes</button>
+					</div>
+				</div>
+				<p class="save-msg" id="pincodeMsg"></p>
+				<p class="field-note">Each row maps a city to the <strong>pincode range</strong> you deliver to (start–end) and the <strong>delivery time</strong> shown to customers. When someone enters a pincode on the website, it matches against these ranges to confirm delivery. Save when done.</p>
+				<div class="pincodes-list" id="pincodesList"></div>
 			</section>
 
 			<!-- UPI QR tab -->

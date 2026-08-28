@@ -1681,6 +1681,158 @@
     });
   }
 
+  /* ---------- Delivery pincodes ---------- */
+  let pincodes = [];
+
+  function emptyPincode() {
+    return {
+      city: "",
+      slug: "",
+      start: "",
+      end: "",
+      slaText: "within 24-48 hours",
+    };
+  }
+
+  function slugify(s) {
+    return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+
+  async function loadPincodes() {
+    try {
+      const data = await api("/api/admin/pincodes");
+      if (!data.success) return;
+      pincodes = Array.isArray(data.pincodes) ? data.pincodes : [];
+      renderPincodes();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function renderPincodes() {
+    const listEl = $("#pincodesList");
+    if (!listEl) return;
+    if (pincodes.length === 0) {
+      listEl.innerHTML = `<p class="empty-state">No cities added yet. Use “+ Add City” to start.</p>`;
+      return;
+    }
+    listEl.innerHTML = pincodes
+      .map((pc, i) => {
+        const cd = pc.countdown || {};
+        return `
+          <div class="pincode-card" data-id="${pc.slug}">
+            <div class="pincode-head">
+              <span class="pincode-index">${i + 1}</span>
+              <input type="text" class="pincode-city" data-field="city" value="${esc(pc.city || "")}" placeholder="City name">
+              <div class="pincode-tools">
+                <button type="button" class="btn-ghost danger" data-del="${pc.slug}" title="Delete">🗑 Delete</button>
+              </div>
+            </div>
+            <div class="pincode-fields">
+              <div class="form-group">
+                <label>Pincode range start</label>
+                <input type="text" data-field="start" value="${esc(pc.start || "")}" maxlength="6" placeholder="110001">
+              </div>
+              <div class="form-group">
+                <label>Pincode range end</label>
+                <input type="text" data-field="end" value="${esc(pc.end || "")}" maxlength="6" placeholder="110097">
+              </div>
+              <div class="form-group">
+                <label>Delivery time shown to customers</label>
+                <input type="text" data-field="slaText" value="${esc(pc.slaText || "")}" placeholder="within 24-48 hours">
+              </div>
+            </div>
+          </div>`;
+      })
+      .join("");
+  }
+
+  function collectPincodeFromDom(pc) {
+    const card = document.querySelector(`.pincode-card[data-id="${pc.slug}"]`);
+    if (!card) return pc;
+    card.querySelectorAll("[data-field]").forEach((el) => {
+      pc[el.dataset.field] = el.value.trim();
+    });
+    pc.slug = slugify(pc.city || pc.slug || "city");
+    return pc;
+  }
+
+  function collectAllPincodes() {
+    pincodes.forEach((pc) => collectPincodeFromDom(pc));
+    return pincodes;
+  }
+
+  async function savePincodes() {
+    const btn = $("#savePincodesBtn");
+    const msg = $("#pincodeMsg");
+    const payload = collectAllPincodes().filter((pc) => pc.city && pc.start && pc.end);
+    if (payload.length === 0) {
+      msg.className = "save-msg err";
+      msg.textContent = "Add at least one city with a pincode range before saving.";
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+    msg.className = "save-msg";
+    msg.textContent = "";
+    try {
+      const res = await api("/api/admin/pincodes", {
+        method: "PUT",
+        body: JSON.stringify({ pincodes: payload }),
+      });
+      if (res.success) {
+        msg.className = "save-msg ok";
+        msg.textContent = "Pincode data saved. The delivery check now uses this coverage.";
+        toast("Pincode data saved ✓");
+        renderPincodes();
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not save.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Save All Pincodes";
+    }
+  }
+
+  function addPincode() {
+    pincodes.push(emptyPincode());
+    renderPincodes();
+    toast("City added — fill in the range and press Save All Pincodes.");
+  }
+
+  function deletePincodeLocal(slug) {
+    pincodes = pincodes.filter((pc) => pc.slug !== slug);
+    renderPincodes();
+  }
+
+  function initPincodes() {
+    const btn = $("#savePincodesBtn");
+    if (btn) btn.addEventListener("click", savePincodes);
+    const add = $("#addPincodeBtn");
+    if (add) add.addEventListener("click", addPincode);
+    const list = $("#pincodesList");
+    if (!list) return;
+    list.addEventListener("click", (e) => {
+      const del = e.target.closest("[data-del]");
+      if (del) { deletePincodeLocal(del.dataset.del); return; }
+    });
+    list.addEventListener("input", (e) => {
+      const card = e.target.closest(".pincode-card");
+      if (card && card.dataset.id) {
+        const pc = pincodes.find((x) => x.slug === card.dataset.id);
+        if (pc && e.target.hasAttribute("data-field")) {
+          if (e.target.dataset.field === "city") {
+            e.target.value = e.target.value.replace(/\d/g, "");
+          }
+        }
+      }
+    });
+  }
+
   /* ---------- UPI QR ---------- */
   function renderUpiPreview() {
     const url = $("#upiQrInput").dataset.url || "";
@@ -1784,7 +1936,7 @@
 
   /* ---------- Load all ---------- */
   async function loadAll() {
-    await Promise.all([loadProducts(), loadFestival(), loadUpi(), loadOrders(), loadEnquiries(), loadVendors(), loadCoupons(), loadGiftCards(), loadVisitors(), loadBanners()]);
+    await Promise.all([loadProducts(), loadFestival(), loadUpi(), loadOrders(), loadEnquiries(), loadVendors(), loadCoupons(), loadGiftCards(), loadVisitors(), loadBanners(), loadPincodes()]);
   }
 
   $("#productSearch").addEventListener("input", (e) => {
@@ -1866,6 +2018,7 @@
     if (t) toggleGiftCard(t.dataset.gcActive, t.checked);
   });
   initBanners();
+  initPincodes();
   loginBtn.addEventListener("click", doLogin);
   loginPass.addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
   logoutBtn.addEventListener("click", () => {

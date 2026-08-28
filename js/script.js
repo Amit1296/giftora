@@ -1696,7 +1696,31 @@
   }
 
   function initDeliveryCheck() {
-    const form = $("#deliveryCheckForm");
+    let form = $("#deliveryCheckForm");
+    if (!form) {
+      const main = document.querySelector("main");
+      const host = document.querySelector(".product-detail");
+      if (!main && !host) return;
+      const wrap = document.createElement("section");
+      wrap.className = "delivery-check";
+      wrap.innerHTML =
+        '<div class="container delivery-check-box">' +
+        '<div class="delivery-check-info">' +
+        '<span class="delivery-check-icon">📦</span>' +
+        '<div><h3>Check delivery to your area</h3><p>Enter your pincode to see if we deliver there — and how fast.</p></div>' +
+        "</div>" +
+        '<form class="delivery-check-form" id="deliveryCheckForm" action="#" onsubmit="return false;">' +
+        '<input type="text" id="pinCheckInput" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode" autocomplete="postal-code">' +
+        '<button type="submit" class="btn btn-primary" id="pinCheckBtn">Check</button>' +
+        '<span class="delivery-check-hint">e.g. 110001</span>' +
+        "</form>" +
+        '<div class="delivery-check-result" id="deliveryCheckResult" hidden></div>' +
+        "</div>";
+      if (host) host.parentNode.insertBefore(wrap, host.nextSibling);
+      else main.appendChild(wrap);
+      form = $("#deliveryCheckForm");
+    }
+
     const input = $("#pinCheckInput");
     const btn = $("#pinCheckBtn");
     const result = $("#deliveryCheckResult");

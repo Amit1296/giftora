@@ -716,6 +716,21 @@ async function handleRequest(req, res) {
       }
     }
 
+    if (url.pathname === "/api/admin/pincodes" && method === "GET") {
+      return sendJson(res, 200, { success: true, pincodes: (await db.getPincodes()) || [] });
+    }
+
+    if (url.pathname === "/api/admin/pincodes" && method === "PUT") {
+      try {
+        const { pincodes } = JSON.parse(await readBody(req));
+        if (!Array.isArray(pincodes)) throw new Error("bad payload");
+        await db.savePincodes(pincodes);
+        return sendJson(res, 200, { success: true, pincodes });
+      } catch (e) {
+        return sendJson(res, 400, { success: false, message: "Could not save pincode data." });
+      }
+    }
+
     if (url.pathname === "/api/admin/upi" && method === "GET") {
       return sendJson(res, 200, { success: true, upi: readUpiConfig() });
     }
