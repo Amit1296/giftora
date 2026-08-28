@@ -26,7 +26,7 @@
     {
       label: "Rakhi Gifts",
       keywords: ["rakhi", "rakha", "raksha", "bandhan", "rakhri", "brother", "sister", "bhai", "behen"],
-      reply: "Raksha Bandhan is our festival special! We have rakhi combos, teddy bears, flowers, cakes and gift sets with same-day delivery in Delhi NCR. Use code RAKHI15 at checkout for 15% off.",
+      reply: "We have rakhi combos, teddy bears, flowers, cakes and gift sets with same-day delivery in Delhi NCR. Explore our Rakhi gifts for the ones you love.",
       link: { url: "rakhi-gifts.html", text: "Rakhi Gift Ideas" }
     },
     {
@@ -50,7 +50,7 @@
     {
       label: "Prices",
       keywords: ["price", "cost", "cheap", "expensive", "budget", "rs", "inr", "rupees", "how much", "rate"],
-      reply: "Gifts range from around Rs 399 to Rs 2,999, shown in Indian Rupees at checkout. Use code RAKHI15 for 15% off rakhi and gift combos."
+      reply: "Gifts range from around Rs 399 to Rs 2,999, shown in Indian Rupees at checkout."
     },
     {
       label: "Message on Gift",
@@ -60,7 +60,7 @@
     {
       label: "Offers",
       keywords: ["offer", "discount", "code", "coupon", "sale", "deal", "promo", "off", "percent"],
-      reply: "Right now use code RAKHI15 for 15% off rakhi and gift combos. Check the special offers page for the latest deals.",
+      reply: "Check the special offers page for the latest deals and discounts.",
       link: { url: "special-offers.html", text: "Special Offers" }
     },
     {

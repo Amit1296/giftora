@@ -19,13 +19,13 @@ const DATABASE_URL = process.env.DATABASE_URL || "";
 const USE_PG = DATABASE_URL ? true : false;
 
 const DEFAULT_FESTIVAL = {
-  active: true,
-  title: "Raksha Bandhan Special",
-  subtitle: "Celebrate the beautiful bond of love this Raksha Bandhan",
-  discount: 15,
-  emoji: "🪢",
-  code: "RAKHI15",
-  note: "Limited period offer across all gifts",
+  active: false,
+  title: "",
+  subtitle: "",
+  discount: 0,
+  emoji: "",
+  code: "",
+  note: "",
   image: "",
   productIds: [],
 };
