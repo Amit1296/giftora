@@ -1695,6 +1695,50 @@
     setInterval(tick, 1000);
   }
 
+  function initDeliveryCheck() {
+    const form = $("#deliveryCheckForm");
+    const input = $("#pinCheckInput");
+    const btn = $("#pinCheckBtn");
+    const result = $("#deliveryCheckResult");
+    if (!form || !input || !result) return;
+
+    let busy = false;
+    async function run() {
+      if (busy) return;
+      const pc = input.value.replace(/\D/g, "").trim();
+      if (!/^\d{6}$/.test(pc)) {
+        result.hidden = false;
+        result.className = "delivery-check-result dcheck-info";
+        result.textContent = "Please enter a valid 6-digit pincode.";
+        return;
+      }
+      busy = true;
+      if (btn) btn.disabled = true;
+      result.hidden = false;
+      result.className = "delivery-check-result dcheck-info";
+      result.textContent = "Checking…";
+      try {
+        const resp = await fetch("/api/pincode-check?pincode=" + encodeURIComponent(pc));
+        const data = await resp.json();
+        if (data && data.success) {
+          result.className = "delivery-check-result " + (data.available ? "dcheck-ok" : "dcheck-fail");
+          result.textContent = data.message || "";
+        } else {
+          result.className = "delivery-check-result dcheck-info";
+          result.textContent = (data && data.message) || "Something went wrong. Please retry.";
+        }
+      } catch (e) {
+        result.className = "delivery-check-result dcheck-info";
+        result.textContent = "Could not check right now. Please call or WhatsApp us to confirm delivery.";
+      }
+      busy = false;
+      if (btn) btn.disabled = false;
+    }
+
+    form.addEventListener("submit", (e) => { e.preventDefault(); run(); });
+    input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); run(); } });
+  }
+
   async function renderHomeBanners() {
     const section = $("#festivalBannerSlider");
     if (!section) return;
@@ -1837,6 +1881,7 @@
   }
   loadFestival();
   renderHomeBanners();
+  initDeliveryCheck();
   initWhatsAppWidget();
   initMobileNav();
   initWishButton();

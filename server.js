@@ -576,6 +576,46 @@ async function handleRequest(req, res) {
     }
   }
 
+  if (method === "GET" && url.pathname === "/api/pincode-check") {
+    try {
+      const pc = String(url.searchParams.get("pincode") || "").trim();
+      if (!/^\d{6}$/.test(pc)) {
+        return sendJson(res, 400, { success: false, message: "Enter a valid 6-digit pincode." });
+      }
+      const list = db.getPincodes ? await db.getPincodes() : [];
+      if (!Array.isArray(list) || list.length === 0) {
+        return sendJson(res, 200, {
+          success: true,
+          available: false,
+          message: "Delivery availability is being updated. Please call or WhatsApp us to confirm.",
+        });
+      }
+      const match = list.find(
+        (r) => r && pc >= r.start && pc <= r.end
+      );
+      if (match) {
+        return sendJson(res, 200, {
+          success: true,
+          available: true,
+          city: match.city,
+          slug: match.slug,
+          slaText: match.slaText || "within 24-48 hours",
+          message: match.slaText
+            ? `We deliver to ${match.city} — your gift arrives ${match.slaText}.`
+            : `Great news — we deliver to ${match.city}!`,
+        });
+      }
+      return sendJson(res, 200, {
+        success: true,
+        available: false,
+        message: "Sorry, we don't deliver to this pincode yet. Call or WhatsApp us — we may still be able to arrange it.",
+      });
+    } catch (e) {
+      console.error("Pincode check error:", e.message);
+      return sendJson(res, 503, { success: false, message: "Temporarily unavailable. Please retry." });
+    }
+  }
+
   if (method === "GET" && url.pathname === "/api/payment/config") {
     return sendJson(res, 200, {
       success: true,

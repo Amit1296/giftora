@@ -1,0 +1,450 @@
+[
+  {
+    "city": "Agra",
+    "slug": "agra",
+    "start": "282001",
+    "end": "282010",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Ahmedabad",
+    "slug": "ahmedabad",
+    "start": "380001",
+    "end": "382481",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Ambala",
+    "slug": "ambala",
+    "start": "133001",
+    "end": "134119",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Amravati",
+    "slug": "amravati",
+    "start": "444601",
+    "end": "444708",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Bengaluru",
+    "slug": "bengaluru",
+    "start": "560001",
+    "end": "560109",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Bhopal",
+    "slug": "bhopal",
+    "start": "462001",
+    "end": "462047",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Bhubaneswar",
+    "slug": "bhubaneswar",
+    "start": "751001",
+    "end": "751030",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Chandigarh",
+    "slug": "chandigarh",
+    "start": "160001",
+    "end": "160103",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Chennai",
+    "slug": "chennai",
+    "start": "600001",
+    "end": "600131",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Coimbatore",
+    "slug": "coimbatore",
+    "start": "641001",
+    "end": "641062",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Cuttack",
+    "slug": "cuttack",
+    "start": "753001",
+    "end": "753014",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Dehradun",
+    "slug": "dehradun",
+    "start": "248001",
+    "end": "248014",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Delhi",
+    "slug": "delhi",
+    "start": "110001",
+    "end": "110097",
+    "slaText": "within 24-48 hours"
+  },
+  {
+    "city": "Dhanbad",
+    "slug": "dhanbad",
+    "start": "826001",
+    "end": "826016",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Faridabad",
+    "slug": "faridabad",
+    "start": "121001",
+    "end": "121012",
+    "slaText": "within 24-48 hours"
+  },
+  {
+    "city": "Gaya",
+    "slug": "gaya",
+    "start": "823001",
+    "end": "823005",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Ghaziabad",
+    "slug": "ghaziabad",
+    "start": "201001",
+    "end": "201015",
+    "slaText": "within 24-48 hours"
+  },
+  {
+    "city": "Guwahati",
+    "slug": "guwahati",
+    "start": "781001",
+    "end": "781038",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Gurugram",
+    "slug": "gurugram",
+    "start": "122001",
+    "end": "122017",
+    "slaText": "within 24-48 hours"
+  },
+  {
+    "city": "Gwalior",
+    "slug": "gwalior",
+    "start": "474001",
+    "end": "474023",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Haridwar",
+    "slug": "haridwar",
+    "start": "249401",
+    "end": "249410",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Hubballi",
+    "slug": "hubballi",
+    "start": "580001",
+    "end": "580033",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Hyderabad",
+    "slug": "hyderabad",
+    "start": "500001",
+    "end": "500097",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Indore",
+    "slug": "indore",
+    "start": "452001",
+    "end": "452023",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Jabalpur",
+    "slug": "jabalpur",
+    "start": "482001",
+    "end": "482022",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Jaipur",
+    "slug": "jaipur",
+    "start": "302001",
+    "end": "302042",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Jammu",
+    "slug": "jammu",
+    "start": "180001",
+    "end": "181206",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Jamshedpur",
+    "slug": "jamshedpur",
+    "start": "831001",
+    "end": "831018",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Kanpur",
+    "slug": "kanpur",
+    "start": "208001",
+    "end": "208033",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Kochi",
+    "slug": "kochi",
+    "start": "682001",
+    "end": "683547",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Kolhapur",
+    "slug": "kolhapur",
+    "start": "416001",
+    "end": "416234",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Kolkata",
+    "slug": "kolkata",
+    "start": "700001",
+    "end": "700162",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Kozhikode",
+    "slug": "kozhikode",
+    "start": "673001",
+    "end": "673664",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Lucknow",
+    "slug": "lucknow",
+    "start": "226001",
+    "end": "226031",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Ludhiana",
+    "slug": "ludhiana",
+    "start": "141001",
+    "end": "142034",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Madurai",
+    "slug": "madurai",
+    "start": "625001",
+    "end": "625021",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Mathura",
+    "slug": "mathura",
+    "start": "281001",
+    "end": "281122",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Meerut",
+    "slug": "meerut",
+    "start": "250001",
+    "end": "250004",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Mumbai",
+    "slug": "mumbai",
+    "start": "400001",
+    "end": "400104",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Mysuru",
+    "slug": "mysuru",
+    "start": "570001",
+    "end": "570032",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Nagpur",
+    "slug": "nagpur",
+    "start": "440001",
+    "end": "440035",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Nashik",
+    "slug": "nashik",
+    "start": "422001",
+    "end": "423302",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Noida",
+    "slug": "noida",
+    "start": "201301",
+    "end": "201310",
+    "slaText": "within 24-48 hours"
+  },
+  {
+    "city": "Panaji",
+    "slug": "panaji",
+    "start": "403001",
+    "end": "403531",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Patiala",
+    "slug": "patiala",
+    "start": "147001",
+    "end": "147006",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Patna",
+    "slug": "patna",
+    "start": "800001",
+    "end": "800030",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Pune",
+    "slug": "pune",
+    "start": "411001",
+    "end": "411062",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Raipur",
+    "slug": "raipur",
+    "start": "492001",
+    "end": "492014",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Rajkot",
+    "slug": "rajkot",
+    "start": "360001",
+    "end": "360110",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Ranchi",
+    "slug": "ranchi",
+    "start": "834001",
+    "end": "834009",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Salem",
+    "slug": "salem",
+    "start": "636001",
+    "end": "636020",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Shillong",
+    "slug": "shillong",
+    "start": "793001",
+    "end": "793015",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Siliguri",
+    "slug": "siliguri",
+    "start": "734001",
+    "end": "734014",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Srinagar",
+    "slug": "srinagar",
+    "start": "190001",
+    "end": "192126",
+    "slaText": "within 72 hours"
+  },
+  {
+    "city": "Surat",
+    "slug": "surat",
+    "start": "395001",
+    "end": "395010",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Thiruvananthapuram",
+    "slug": "thiruvananthapuram",
+    "start": "695001",
+    "end": "695045",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Thrissur",
+    "slug": "thrissur",
+    "start": "680001",
+    "end": "680699",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Tiruchirappalli",
+    "slug": "tiruchirappalli",
+    "start": "620001",
+    "end": "620025",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Tirupati",
+    "slug": "tirupati",
+    "start": "517501",
+    "end": "517665",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Ujjain",
+    "slug": "ujjain",
+    "start": "456001",
+    "end": "456010",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Varanasi",
+    "slug": "varanasi",
+    "start": "221001",
+    "end": "221012",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Vijayawada",
+    "slug": "vijayawada",
+    "start": "520001",
+    "end": "520015",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Visakhapatnam",
+    "slug": "visakhapatnam",
+    "start": "530001",
+    "end": "530052",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Warangal",
+    "slug": "warangal",
+    "start": "506001",
+    "end": "506015",
+    "slaText": "within 48–72 hours"
+  }
+]

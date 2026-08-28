@@ -1803,3 +1803,42 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
   .city-picks li { break-inside: avoid; margin-bottom: 10px; }
   .city-picks a { color: var(--primary, #e11d48); font-size: 0.92rem; font-weight: 500; }
   .city-picks a:hover { text-decoration: underline; }
+
+  /* ===== Delivery pincode check ===== */
+  .delivery-check { padding: 26px 0; background: linear-gradient(120deg, #f6f1ff 0%, #f3f7ff 100%); }
+  .dark-mode .delivery-check { background: linear-gradient(120deg, #1a1530 0%, #16203a 100%); }
+  .delivery-check-box {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 18px;
+    background: #fff; border: 1px solid #ece3ff; border-radius: 16px;
+    padding: 18px 22px; box-shadow: 0 8px 24px rgba(124,58,237,0.08);
+  }
+  .dark-mode .delivery-check-box { background: #1c2230; border-color: #2c3547; }
+  .delivery-check-info { display: flex; align-items: center; gap: 14px; min-width: 240px; }
+  .delivery-check-icon {
+    font-size: 1.6rem; width: 52px; height: 52px; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(120deg, #7c3aed, #a855f7); border-radius: 12px; color: #fff;
+  }
+  .delivery-check-info h3 { margin: 0 0 2px; font-size: 1.05rem; }
+  .delivery-check-info p { margin: 0; font-size: 0.88rem; color: var(--muted, #5b6472); }
+  .delivery-check-form { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .delivery-check-form input {
+    width: 200px; height: 44px; padding: 0 14px; border-radius: 10px;
+    border: 1px solid #d9d2ec; background: #fbfaff; color: inherit; font-size: 1rem;
+  }
+  .dark-mode .delivery-check-form input { background: #242b3a; border-color: #35405a; }
+  .delivery-check-form input:focus { outline: none; border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,0.15); }
+  .delivery-check-form .btn { height: 44px; padding: 0 22px; }
+  .delivery-check-hint { font-size: 0.78rem; color: var(--muted, #5b6472); width: 100%; }
+  .delivery-check-result { width: 100%; margin-top: 6px; font-size: 0.92rem; }
+  .dcheck-ok { background: #e6f9ee; border-left: 4px solid #16a34a; padding: 10px 14px; border-radius: 8px; color: #14532d; }
+  .dcheck-fail { background: #fef2f2; border-left: 4px solid #dc2626; padding: 10px 14px; border-radius: 8px; color: #7f1d1d; }
+  .dcheck-info { background: #eef2ff; border-left: 4px solid #7c3aed; padding: 10px 14px; border-radius: 8px; color: #3b2f6b; }
+  .dark-mode .dcheck-ok { background: #12281c; color: #86efac; }
+  .dark-mode .dcheck-fail { background: #2a1212; color: #fca5a5; }
+  .dark-mode .dcheck-info { background: #1c1a33; color: #c7bef5; }
+  @media (max-width: 620px) {
+    .delivery-check-box { flex-direction: column; align-items: stretch; }
+    .delivery-check-form input { width: 100%; }
+  }
