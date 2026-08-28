@@ -11,6 +11,7 @@ const ENQUIRIES_FILE = path.join(DATA_DIR, "enquiries.json");
 const VENDORS_FILE = path.join(DATA_DIR, "vendors.json");
 const COUPONS_FILE = path.join(DATA_DIR, "coupons.json");
 const GIFTCARDS_FILE = path.join(DATA_DIR, "giftcards.json");
+const BANNERS_FILE = path.join(DATA_DIR, "banners.json");
 const VISITORS_FILE = path.join(DATA_DIR, "visitors.json");
 const LEGACY_ORDERS = path.join(DATA_DIR, "orders");
 const LEGACY_ENQUIRIES = path.join(DATA_DIR, "enquiries");
@@ -375,6 +376,19 @@ async function saveGiftCards(cards) {
   return writeJson(GIFTCARDS_FILE, cards);
 }
 
+/* ---------- Banners ---------- */
+const DEFAULT_BANNERS = [];
+
+async function getBanners() {
+  if (USE_PG) return pgGet("banners", DEFAULT_BANNERS);
+  return readJson(BANNERS_FILE, DEFAULT_BANNERS);
+}
+
+async function saveBanners(banners) {
+  if (USE_PG) return pgSet("banners", banners);
+  return writeJson(BANNERS_FILE, banners);
+}
+
 /* ---------- Visitor tracking ---------- */
 const EMPTY_VISITORS = { sessions: [], events: [] };
 
@@ -482,6 +496,8 @@ module.exports = {
   saveCoupons,
   getGiftCards,
   saveGiftCards,
+  getBanners,
+  saveBanners,
   getVisitors,
   addVisitorBatch,
   clearVisitors,

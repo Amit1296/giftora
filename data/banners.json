@@ -1,0 +1,25 @@
+[
+  {
+    "id": "b_teacherday",
+    "active": true,
+    "sortOrder": 0,
+    "delivery": "🚚 Same-Day Delivery",
+    "eyebrow": "🍎 Teacher's Day · 5 September",
+    "title": "Teacher's Day Special",
+    "subtitle": "Thank the teachers who shaped you — flowers, cakes & thoughtful gifts delivered same day",
+    "codeLabel": "Use code",
+    "code": "TEACHER15",
+    "discount": "15",
+    "endsText": "⏰ Ends 5 September",
+    "image": "uploads/teacher-books.jpg",
+    "imageAlt": "Teacher's Day gifts",
+    "link": "teachers-day-gifts.html",
+    "cta": "Shop Teacher's Day Gifts →",
+    "countdown": {
+      "enabled": true,
+      "target": "2026-09-05T00:00:00+05:30",
+      "label": "Teacher's Day in",
+      "done": "Happy Teacher's Day! 🎉"
+    }
+  }
+]

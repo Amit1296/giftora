@@ -1669,42 +1669,123 @@
     }, 3800);
   }
 
-  /* ---------- Generic banner countdown (configured via data-* attributes in banner-template.html) ---------- */
-  function initBannerCountdown() {
-    const el = $("#festivalCountdown");
+  /* ---------- Homepage banners (managed from the admin "Banners" tab) ---------- */
+  function startCountdown(el) {
     if (!el) return;
     const enabled = el.getAttribute("data-countdown-enabled");
-    if (enabled !== "true") {
-      el.style.display = "none";
-      return;
-    }
+    if (enabled !== "true") { el.style.display = "none"; return; }
     const targetStr = el.getAttribute("data-countdown-target");
-    if (!targetStr) {
-      el.style.display = "none";
-      return;
-    }
+    if (!targetStr) { el.style.display = "none"; return; }
     const label = el.getAttribute("data-countdown-label") || "Time left";
     const done = el.getAttribute("data-countdown-done") || "It's here! 🎉";
     const target = new Date(targetStr).getTime();
-    if (isNaN(target)) {
-      el.style.display = "none";
-      return;
-    }
+    if (isNaN(target)) { el.style.display = "none"; return; }
     const pad = (n) => String(n).padStart(2, "0");
     const tick = () => {
       const diff = target - Date.now();
-      if (diff <= 0) {
-        el.innerHTML = `<span class="cd-note">${done}</span>`;
-        return;
-      }
+      if (diff <= 0) { el.innerHTML = `<span class="cd-note">${escAttr(done)}</span>`; return; }
       const d = Math.floor(diff / 86400000);
       const h = Math.floor((diff % 86400000) / 3600000);
       const m = Math.floor((diff % 3600000) / 60000);
       const s = Math.floor((diff % 60000) / 1000);
-      el.innerHTML = `<span class="cd-label">${label}</span> <span class="cd-num">${d}</span>d <span class="cd-num">${pad(h)}</span>h <span class="cd-num">${pad(m)}</span>m <span class="cd-num">${pad(s)}</span>s`;
+      el.innerHTML = `<span class="cd-label">${escAttr(label)}</span> <span class="cd-num">${d}</span>d <span class="cd-num">${pad(h)}</span>h <span class="cd-num">${pad(m)}</span>m <span class="cd-num">${pad(s)}</span>s`;
     };
+    el.style.display = "";
     tick();
     setInterval(tick, 1000);
+  }
+
+  async function renderHomeBanners() {
+    const section = $("#festivalBannerSlider");
+    if (!section) return;
+    const track = section.querySelector("#bannerTrack");
+    const dotsWrap = section.querySelector(".slider-dots");
+    const prevBtn = section.querySelector("[data-slider-prev]");
+    const nextBtn = section.querySelector("[data-slider-next]");
+    let banners = [];
+    try {
+      const res = await fetch("/api/banners");
+      if (res.ok) {
+        const data = await res.json();
+        banners = Array.isArray(data.banners) ? data.banners : [];
+      }
+    } catch (e) {
+      banners = [];
+    }
+
+    if (!track || banners.length === 0) { section.style.display = "none"; return; }
+    section.style.display = "";
+
+    track.innerHTML = banners.map((b) => {
+      const cd = b.countdown || {};
+      const media = b.image
+        ? `<span class="pb-media"><img src="${escAttr(b.image)}" alt="${escAttr(b.imageAlt || b.title || "")}" loading="lazy"></span>`
+        : `<span class="pb-media"><span class="pb-emoji">${escAttr(b.emoji || "🎁")}</span></span>`;
+      const codeHTML = b.code
+        ? `<span class="pb-code">${escAttr(b.codeLabel || "Use code")} <strong>${escAttr(b.code)}</strong>${b.discount ? ` <em class="pb-off"><strong>${escAttr(b.discount)}</strong>% OFF</em>` : ""}</span>`
+        : "";
+      const cdHTML = cd.enabled
+        ? `<span class="festival-countdown" data-countdown-enabled="true" data-countdown-target="${escAttr(cd.target || "")}" data-countdown-label="${escAttr(cd.label || "Time left")}" data-countdown-done="${escAttr(cd.done || "It's here! 🎉")}"></span>`
+        : "";
+      const linkAttr = b.link ? ` href="${escAttr(b.link)}"` : "";
+      return `
+        <div class="slide banner-slide">
+          <a class="premium-banner"${linkAttr}>
+            <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+            <span class="pb-accent"></span>
+            ${media}
+            <span class="pb-copy">
+              ${b.delivery ? `<span class="pb-delivery">${escAttr(b.delivery)}</span>` : ""}
+              ${b.eyebrow ? `<span class="pb-eyebrow">${escAttr(b.eyebrow)}</span>` : ""}
+              <span class="pb-title">${escAttr(b.title || "Festival Offer")}</span>
+              ${b.subtitle ? `<span class="pb-sub">${escAttr(b.subtitle)}</span>` : ""}
+              <span class="pb-row">
+                ${codeHTML}
+                ${b.endsText ? `<span class="pb-limited">${escAttr(b.endsText)}</span>` : ""}
+                ${cdHTML}
+              </span>
+              ${b.cta ? `<span class="pb-cta">${escAttr(b.cta)}</span>` : ""}
+            </span>
+          </a>
+        </div>`;
+    }).join("");
+
+    const slides = Array.from(track.children);
+    slides.forEach((el) => {
+      const cdEl = el.querySelector(".festival-countdown");
+      if (cdEl) startCountdown(cdEl);
+    });
+
+    if (dotsWrap) dotsWrap.innerHTML = "";
+    if (slides.length > 1) {
+      let index = 0;
+      const dots = slides.map((_, i) => {
+        const d = document.createElement("button");
+        d.className = "slider-dot" + (i === 0 ? " active" : "");
+        d.setAttribute("type", "button");
+        d.setAttribute("aria-label", "Go to slide " + (i + 1));
+        if (dotsWrap) dotsWrap.appendChild(d);
+        d.addEventListener("click", () => { go(i); restart(); });
+        return d;
+      });
+      function go(i) {
+        index = (i + slides.length) % slides.length;
+        track.style.transform = "translateX(-" + index * 100 + "%)";
+        dots.forEach((d, di) => d.classList.toggle("active", di === index));
+      }
+      function restart() {
+        if (track._t) clearInterval(track._t);
+        track._t = setInterval(() => go(index + 1), 5000);
+      }
+      if (prevBtn) prevBtn.addEventListener("click", () => { go(index - 1); restart(); });
+      if (nextBtn) nextBtn.addEventListener("click", () => { go(index + 1); restart(); });
+      if (dotsWrap) dotsWrap.style.display = "";
+      if (prevBtn && nextBtn) { prevBtn.style.display = ""; nextBtn.style.display = ""; }
+      restart();
+    } else {
+      if (dotsWrap) dotsWrap.style.display = "none";
+      if (prevBtn && nextBtn) { prevBtn.style.display = "none"; nextBtn.style.display = "none"; }
+    }
   }
 
   /* ---------- WhatsApp order widget ---------- */
@@ -1755,7 +1836,7 @@
     refreshProducts();
   }
   loadFestival();
-  initBannerCountdown();
+  renderHomeBanners();
   initWhatsAppWidget();
   initMobileNav();
   initWishButton();

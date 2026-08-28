@@ -357,3 +357,23 @@ body {
 @media (max-width: 620px) {
   .coupon-form .form-row { grid-template-columns: 1fr; }
 }
+
+/* ---------- Banners manager ---------- */
+.banners-list { display: flex; flex-direction: column; gap: 18px; }
+.banner-card { border: 1.5px solid var(--border); border-radius: 14px; padding: 16px; background: #fff; }
+.banner-card-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.banner-grip { cursor: grab; color: var(--muted); font-size: 1.1rem; user-select: none; }
+.banner-card-title { font-size: 1.05rem; }
+.banner-order-badge { background: var(--primary-light, #eef2ff); color: var(--primary, #4f46e5); border-radius: 999px; padding: 2px 10px; font-size: 0.75rem; font-weight: 700; }
+.banner-tools { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.banner-tools .btn { padding: 4px 12px; font-size: 0.82rem; }
+.banner-tools .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.banner-active { margin: 0 auto 0 6px; }
+.banner-fields { display: flex; flex-direction: column; gap: 10px; }
+.banner-fields .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.banner-fields .form-group { min-width: 0; }
+.banner-countdown-block { border-top: 1px dashed var(--border); padding-top: 12px; margin-top: 4px; }
+@media (max-width: 620px) {
+  .banner-fields .form-row { grid-template-columns: 1fr; }
+  .banner-tools { margin-left: 0; width: 100%; flex-wrap: wrap; }
+}

@@ -1300,6 +1300,311 @@
     }
   }
 
+  /* ---------- Banners ---------- */
+  let banners = [];
+  let bannerDirty = false;
+
+  function emptyBanner() {
+    return {
+      id: "b_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      active: true,
+      sortOrder: banners.length,
+      delivery: "🚚 Same-Day Delivery",
+      eyebrow: "",
+      title: "",
+      subtitle: "",
+      codeLabel: "Use code",
+      code: "",
+      discount: "",
+      endsText: "",
+      image: "",
+      imageAlt: "",
+      link: "",
+      cta: "",
+      countdown: { enabled: false, target: "", label: "Time left", done: "It's here! 🎉" },
+    };
+  }
+
+  async function loadBanners() {
+    try {
+      const data = await api("/api/admin/banners");
+      if (!data.success) return;
+      banners = Array.isArray(data.banners) ? data.banners : [];
+      banners.sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+      renderBanners();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function bannerFieldHtml(b, key) {
+    const v = b[key] == null ? "" : b[key];
+    return esc(String(v));
+  }
+
+  function renderBanners() {
+    const listEl = $("#bannersList");
+    if (!listEl) return;
+    if (banners.length === 0) {
+      listEl.innerHTML = '<p class="empty-state">No banners yet. Click "+ Add Banner" to create one.</p>';
+      return;
+    }
+    listEl.innerHTML = banners
+      .map((b, i) => {
+        const img = b.image
+          ? `<img src="${b.image}" alt="" style="max-height:80px;max-width:140px;border-radius:8px">`
+          : `<span>No image</span>`;
+        const cd = b.countdown || {};
+        const cdChecked = cd.enabled ? " checked" : "";
+        return `
+        <div class="banner-card" data-id="${b.id}">
+          <div class="banner-card-head">
+            <span class="banner-grip" title="Reorder">⠿</span>
+            <strong class="banner-card-title">${esc(b.title || "Untitled banner")}</strong>
+            <span class="banner-order-badge">#${i + 1}</span>
+            <span class="banner-tools">
+              <button type="button" class="btn btn-ghost banner-up" data-up="${b.id}" ${i === 0 ? "disabled" : ""}>↑</button>
+              <button type="button" class="btn btn-ghost banner-down" data-down="${b.id}" ${i === banners.length - 1 ? "disabled" : ""}>↓</button>
+              <label class="coupon-toggle banner-active"><input type="checkbox" data-bactive="${b.id}"${b.active ? " checked" : ""}> Active</label>
+              <button type="button" class="btn btn-danger banner-del" data-del="${b.id}">Delete</button>
+            </span>
+          </div>
+          <div class="banner-fields">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" data-field="title" value="${bannerFieldHtml(b, "title")}" placeholder="Rakhi Special">
+              </div>
+              <div class="form-group">
+                <label>Delivery line</label>
+                <input type="text" data-field="delivery" value="${bannerFieldHtml(b, "delivery")}" placeholder="🚚 Same-Day Delivery">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Eyebrow / tag</label>
+                <input type="text" data-field="eyebrow" value="${bannerFieldHtml(b, "eyebrow")}" placeholder="🍎 Teacher's Day · 5 September">
+              </div>
+              <div class="form-group">
+                <label>Subtitle</label>
+                <input type="text" data-field="subtitle" value="${bannerFieldHtml(b, "subtitle")}" placeholder="Thank the teachers who shaped you">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Promo code label</label>
+                <input type="text" data-field="codeLabel" value="${bannerFieldHtml(b, "codeLabel")}" placeholder="Use code">
+              </div>
+              <div class="form-group">
+                <label>Promo code</label>
+                <input type="text" data-field="code" value="${bannerFieldHtml(b, "code")}" placeholder="TEACHER15">
+              </div>
+              <div class="form-group">
+                <label>Discount %</label>
+                <input type="text" data-field="discount" value="${bannerFieldHtml(b, "discount")}" placeholder="15">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Ends text (optional)</label>
+                <input type="text" data-field="endsText" value="${bannerFieldHtml(b, "endsText")}" placeholder="⏰ Ends 5 September">
+              </div>
+              <div class="form-group">
+                <label>Button text (CTA)</label>
+                <input type="text" data-field="cta" value="${bannerFieldHtml(b, "cta")}" placeholder="Shop Teacher's Day Gifts →">
+              </div>
+              <div class="form-group">
+                <label>Link (page, e.g. teachers-day-gifts.html)</label>
+                <input type="text" data-field="link" value="${bannerFieldHtml(b, "link")}" placeholder="teachers-day-gifts.html">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" data-field="image" value="${bannerFieldHtml(b, "image")}" placeholder="/uploads/teacher-books.jpg">
+              </div>
+              <div class="form-group">
+                <label>Image alt text</label>
+                <input type="text" data-field="imageAlt" value="${bannerFieldHtml(b, "imageAlt")}" placeholder="Teacher's Day gifts">
+              </div>
+              <div class="form-group">
+                <label>Upload image</label>
+                <div class="upload-row">
+                  <input type="file" class="upload-input banner-img-input" data-upimg="${b.id}" accept="image/png,image/jpeg,image/gif,image/webp">
+                  <button type="button" class="upload-label" data-uimg="${b.id}">📁 Upload</button>
+                </div>
+              </div>
+            </div>
+            <div class="banner-countdown-block">
+              <label class="checkbox-label"><input type="checkbox" data-cdenabled="${b.id}"${cdChecked}> Enable countdown</label>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Countdown label</label>
+                  <input type="text" data-cdlabel="${b.id}" value="${bannerFieldHtml(cd, "label")}" placeholder="Rakhi in">
+                </div>
+                <div class="form-group">
+                  <label>Message after date</label>
+                  <input type="text" data-cddone="${b.id}" value="${bannerFieldHtml(cd, "done")}" placeholder="Happy Rakhi! 🎉">
+                </div>
+                <div class="form-group">
+                  <label>Target date/time (YYYY-MM-DDTHH:MM:SS+05:30)</label>
+                  <input type="text" data-cdtarget="${b.id}" value="${bannerFieldHtml(cd, "target")}" placeholder="2026-09-05T00:00:00+05:30">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      })
+      .join("");
+    bannerDirty = false;
+  }
+
+  function handleBannerImgUpload(input, id) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      toast("Max 5 MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const base64 = reader.result.split(",")[1];
+        const res = await api("/api/admin/upload", {
+          method: "POST",
+          body: JSON.stringify({ name: file.name, data: base64 }),
+        });
+        if (res.success) {
+          const b = banners.find((x) => x.id === id);
+          if (b) {
+            b.image = res.url;
+            bannerDirty = true;
+            renderBanners();
+            toast("Image uploaded ✓");
+          }
+        } else {
+          toast(res.message || "Upload failed.");
+        }
+      } catch (e) {
+        toast(e.message);
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function collectBannerFromDom(b) {
+    const card = document.querySelector(`.banner-card[data-id="${b.id}"]`);
+    if (!card) return b;
+    card.querySelectorAll("[data-field]").forEach((el) => {
+      b[el.dataset.field] = el.value;
+    });
+    const cdEl = card.querySelector(`[data-cdenabled="${b.id}"]`);
+    if (cdEl) b.countdown.enabled = cdEl.checked;
+    const cdLabel = card.querySelector(`[data-cdlabel="${b.id}"]`);
+    if (cdLabel) b.countdown.label = cdLabel.value;
+    const cdDone = card.querySelector(`[data-cddone="${b.id}"]`);
+    if (cdDone) b.countdown.done = cdDone.value;
+    const cdTarget = card.querySelector(`[data-cdtarget="${b.id}"]`);
+    if (cdTarget) b.countdown.target = cdTarget.value;
+    const bActive = card.querySelector(`[data-bactive="${b.id}"]`);
+    if (bActive) b.active = bActive.checked;
+    return b;
+  }
+
+  function collectAllBanners() {
+    banners.forEach((b) => collectBannerFromDom(b));
+    banners.forEach((b, i) => (b.sortOrder = i));
+    return banners;
+  }
+
+  async function saveBanners() {
+    const btn = $("#saveBannersBtn");
+    const msg = $("#bannerMsg");
+    const payload = collectAllBanners();
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+    msg.className = "save-msg";
+    msg.textContent = "";
+    try {
+      const res = await api("/api/admin/banners", {
+        method: "PUT",
+        body: JSON.stringify({ banners: payload }),
+      });
+      if (res.success) {
+        msg.className = "save-msg ok";
+        msg.textContent = "Banners saved. They're live on the homepage.";
+        toast("Banners saved ✓");
+        bannerDirty = false;
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not save.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Save All Banners";
+    }
+  }
+
+  function addBanner() {
+    const b = emptyBanner();
+    banners.push(b);
+    bannerDirty = true;
+    renderBanners();
+    toast("Banner added — fill in the fields and press Save All Banners.");
+  }
+
+  function deleteBannerLocal(id) {
+    banners = banners.filter((b) => b.id !== id);
+    bannerDirty = true;
+    renderBanners();
+  }
+
+  function moveBanner(id, dir) {
+    const idx = banners.findIndex((b) => b.id === id);
+    const target = idx + dir;
+    if (idx < 0 || target < 0 || target >= banners.length) return;
+    const tmp = banners[idx];
+    banners[idx] = banners[target];
+    banners[target] = tmp;
+    bannerDirty = true;
+    renderBanners();
+  }
+
+  function initBanners() {
+    const btn = $("#saveBannersBtn");
+    if (btn) btn.addEventListener("click", saveBanners);
+    const add = $("#addBannerBtn");
+    if (add) add.addEventListener("click", addBanner);
+    const list = $("#bannersList");
+    if (!list) return;
+    list.addEventListener("click", (e) => {
+      const del = e.target.closest("[data-del]");
+      if (del) { deleteBannerLocal(del.dataset.del); return; }
+      const up = e.target.closest("[data-up]");
+      if (up) { moveBanner(up.dataset.up, -1); return; }
+      const down = e.target.closest("[data-down]");
+      if (down) { moveBanner(down.dataset.down, 1); return; }
+      const uimg = e.target.closest("[data-uimg]");
+      if (uimg) {
+        const card = uimg.closest(".banner-card");
+        const inp = card && card.querySelector(".banner-img-input");
+        if (inp) inp.click();
+      }
+    });
+    list.addEventListener("change", (e) => {
+      const img = e.target.closest(".banner-img-input");
+      if (img && img.dataset.upimg) {
+        handleBannerImgUpload(img, img.dataset.upimg);
+        img.value = "";
+        return;
+      }
+    });
+    list.addEventListener("input", () => { bannerDirty = true; });
+  }
+
   /* ---------- UPI QR ---------- */
   function renderUpiPreview() {
     const url = $("#upiQrInput").dataset.url || "";
@@ -1403,7 +1708,7 @@
 
   /* ---------- Load all ---------- */
   async function loadAll() {
-    await Promise.all([loadProducts(), loadFestival(), loadUpi(), loadOrders(), loadEnquiries(), loadVendors(), loadCoupons(), loadGiftCards(), loadVisitors()]);
+    await Promise.all([loadProducts(), loadFestival(), loadUpi(), loadOrders(), loadEnquiries(), loadVendors(), loadCoupons(), loadGiftCards(), loadVisitors(), loadBanners()]);
   }
 
   $("#productSearch").addEventListener("input", (e) => {
@@ -1484,6 +1789,7 @@
     const t = e.target.closest("[data-gc-active]");
     if (t) toggleGiftCard(t.dataset.gcActive, t.checked);
   });
+  initBanners();
   loginBtn.addEventListener("click", doLogin);
   loginPass.addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
   logoutBtn.addEventListener("click", () => {

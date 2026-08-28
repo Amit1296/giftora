@@ -67,6 +67,7 @@
 		<nav class="admin-tabs">
 			<button class="tab active" data-tab="products">Products</button>
 			<button class="tab" data-tab="festival">Festival Offer</button>
+			<button class="tab" data-tab="banners">Banners</button>
 			<button class="tab" data-tab="upi">UPI QR</button>
 			<button class="tab" data-tab="orders">Orders <span id="orderCount" class="tab-count"></span></button>
 						<button class="tab" data-tab="coupons">Coupons <span id="couponCount" class="tab-count"></span></button>
@@ -167,6 +168,19 @@
 						<div class="festival-product-list" id="fProductList"></div>
 					</div>
 				</div>
+			</section>
+
+			<section id="tab-banners" class="tab-panel">
+				<div class="panel-head">
+					<h2>Homepage Banners</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="addBannerBtn">+ Add Banner</button>
+						<button class="btn btn-primary" id="saveBannersBtn">Save All Banners</button>
+					</div>
+				</div>
+				<p class="save-msg" id="bannerMsg"></p>
+				<p class="field-note">Add one or more homepage banner(s). The <strong>Save All Banners</strong> button pushes every change live. Drag the ⠿ handle to reorder (top = shown first). Banners marked active and enabled are displayed in the homepage slider.</p>
+				<div class="banners-list" id="bannersList"></div>
 			</section>
 
 			<!-- UPI QR tab -->

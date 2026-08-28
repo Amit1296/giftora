@@ -563,6 +563,19 @@ async function handleRequest(req, res) {
     }
   }
 
+  if (method === "GET" && url.pathname === "/api/banners") {
+    try {
+      const all = await db.getBanners();
+      const active = (Array.isArray(all) ? all : [])
+        .filter((b) => b && b.active)
+        .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+      return sendJson(res, 200, { success: true, banners: active });
+    } catch (e) {
+      console.error("Banners API error:", e.message);
+      return sendJson(res, 503, { success: false, message: "Temporarily unavailable. Please retry." });
+    }
+  }
+
   if (method === "GET" && url.pathname === "/api/payment/config") {
     return sendJson(res, 200, {
       success: true,
@@ -645,6 +658,21 @@ async function handleRequest(req, res) {
         return sendJson(res, 200, { success: true });
       } catch (e) {
         return sendJson(res, 400, { success: false, message: "Could not save festival offer." });
+      }
+    }
+
+    if (url.pathname === "/api/admin/banners" && method === "GET") {
+      return sendJson(res, 200, { success: true, banners: (await db.getBanners()) || [] });
+    }
+
+    if (url.pathname === "/api/admin/banners" && method === "PUT") {
+      try {
+        const { banners } = JSON.parse(await readBody(req));
+        if (!Array.isArray(banners)) throw new Error("bad payload");
+        await db.saveBanners(banners);
+        return sendJson(res, 200, { success: true, banners });
+      } catch (e) {
+        return sendJson(res, 400, { success: false, message: "Could not save banners." });
       }
     }
 
