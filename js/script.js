@@ -1980,18 +1980,20 @@
     });
   }
 
-  observeReveals();
-  updateBadge();
-  if (productsGrid) {
-    renderProducts();
-    refreshProducts();
+  /* Critical, always-visible widgets — run first and independently guarded
+     so a failure in any other init can never hide them. */
+  function safeInit(fn) {
+    try { fn(); } catch (e) { console.error("init error:", e); }
   }
-  loadFestival();
-  renderHomeBanners();
-  initDeliveryCheck();
-  initHeaderDelivery();
-  initWhatsAppWidget();
-  initMobileNav();
+  safeInit(renderHomeBanners);
+  safeInit(initDeliveryCheck);
+  safeInit(initHeaderDelivery);
+  safeInit(initWhatsAppWidget);
+  safeInit(initMobileNav);
+
+  safeInit(() => { observeReveals(); updateBadge(); });
+  if (productsGrid) safeInit(() => { renderProducts(); refreshProducts(); });
+  safeInit(loadFestival);
   initWishButton();
   initWishDrawer();
   initTrackPage();

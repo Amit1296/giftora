@@ -98,6 +98,24 @@ async function seedPg() {
       await pgSet("festival", DEFAULT_FESTIVAL);
     }
   }
+  if (!(await existsPg("banners"))) {
+    try {
+      const seed = JSON.parse(fs.readFileSync(BANNERS_FILE, "utf8"));
+      await pgSet("banners", Array.isArray(seed) ? seed : []);
+      console.log("db: seeded banners from data/banners.json");
+    } catch (e) {
+      await pgSet("banners", DEFAULT_BANNERS);
+    }
+  }
+  if (!(await existsPg("pincodes"))) {
+    try {
+      const seed = JSON.parse(fs.readFileSync(PINCODES_FILE, "utf8"));
+      await pgSet("pincodes", Array.isArray(seed) ? seed : []);
+      console.log("db: seeded pincodes from data/pincodes.json");
+    } catch (e) {
+      await pgSet("pincodes", []);
+    }
+  }
 }
 
 async function existsPg(key) {
