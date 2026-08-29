@@ -136,6 +136,25 @@
 </nav>
 
 <main id="main-content">
+
+	<section class="delivery-check" id="delivery-check">
+		<div class="container delivery-check-box">
+			<div class="delivery-check-info">
+				<span class="delivery-check-icon">📦</span>
+				<div>
+					<h3>Check delivery to your area</h3>
+					<p>Enter your pincode to see if we deliver there — and how fast.</p>
+				</div>
+			</div>
+			<form class="delivery-check-form" id="deliveryCheckForm" action="#" onsubmit="return false;">
+				<input type="text" id="pinCheckInput" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode" autocomplete="postal-code">
+				<button type="submit" class="btn btn-primary" id="pinCheckBtn">Check</button>
+				<span class="delivery-check-hint">e.g. 110001</span>
+			</form>
+			<div class="delivery-check-result" id="deliveryCheckResult" hidden></div>
+		</div>
+	</section>
+
 <!-- BANNER-SLOT:START -->
 <section class="festival-banner" id="festivalBannerSlider">
 		<div class="container">
@@ -177,24 +196,6 @@
 				<div class="stat"><span class="stat-number" data-target="5000" data-suffix="+">5000+</span><span class="stat-label">Happy Customers</span></div>
 				<div class="stat"><span class="stat-number" data-target="4.9" data-decimals="1" data-suffix="★">4.9★</span><span class="stat-label">Average Rating</span></div>
 			</div>
-		</div>
-	</section>
-
-	<section class="delivery-check" id="delivery-check">
-		<div class="container delivery-check-box">
-			<div class="delivery-check-info">
-				<span class="delivery-check-icon">📦</span>
-				<div>
-					<h3>Check delivery to your area</h3>
-					<p>Enter your pincode to see if we deliver there — and how fast.</p>
-				</div>
-			</div>
-			<form class="delivery-check-form" id="deliveryCheckForm" action="#" onsubmit="return false;">
-				<input type="text" id="pinCheckInput" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode" autocomplete="postal-code">
-				<button type="submit" class="btn btn-primary" id="pinCheckBtn">Check</button>
-				<span class="delivery-check-hint">e.g. 110001</span>
-			</form>
-			<div class="delivery-check-result" id="deliveryCheckResult" hidden></div>
 		</div>
 	</section>
 
