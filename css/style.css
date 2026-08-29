@@ -1829,13 +1829,14 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
   .dark-mode .delivery-check-box { background: linear-gradient(180deg, #232b3c, #1c2230); border-color: #2c3547; }
   .delivery-check-info { display: flex; align-items: center; gap: 14px; min-width: 230px; }
   .delivery-check-icon {
-    font-size: 1.5rem; width: 52px; height: 52px; flex: none;
+    width: 52px; height: 52px; flex: none;
     display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, #7c3aed, #a855f7 55%, #e11d48);
-    border-radius: 16px; color: #fff;
-    box-shadow: 0 8px 18px rgba(124,58,237,0.35);
+    background: #fff; border: 1px solid #ece3ff; border-radius: 14px;
+    box-shadow: 0 8px 18px rgba(124,58,237,0.20);
     animation: dcheckGlow 3s ease-in-out infinite;
   }
+  .delivery-check-icon img { width: 44px; height: auto; }
+  .dark-mode .delivery-check-icon { background: #fff; border-color: #e6e0f5; }
   @keyframes dcheckGlow {
     0%, 100% { box-shadow: 0 8px 18px rgba(124,58,237,0.35); }
     50% { box-shadow: 0 12px 26px rgba(225,29,72,0.42); }
@@ -1896,14 +1897,16 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
   .dcheck-popup-close:hover { transform: rotate(90deg); background: #e6ddfe; }
   .dark-mode .dcheck-popup-close { background: #2a2447; color: #c7bef5; }
   .dcheck-popup-icon {
-    width: 78px; height: 78px; margin: 4px auto 16px; border-radius: 24px;
+    width: 84px; height: 84px; margin: 4px auto 16px; border-radius: 999px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 2rem; color: #fff; line-height: 1;
-    box-shadow: 0 12px 28px rgba(124, 58, 237, 0.35);
+    background: #fff; border: 3px solid #e9e2ff;
+    box-shadow: 0 12px 28px rgba(20, 10, 40, 0.16);
   }
-  .dcheck-popup-icon--ok { background: linear-gradient(135deg, #16a34a, #22c55e); box-shadow: 0 12px 28px rgba(22, 163, 74, 0.35); }
-  .dcheck-popup-icon--fail { background: linear-gradient(135deg, #dc2626, #f87171); box-shadow: 0 12px 28px rgba(220, 38, 38, 0.35); }
-  .dcheck-popup-icon--info { background: linear-gradient(135deg, #7c3aed, #a855f7); box-shadow: 0 12px 28px rgba(124, 58, 237, 0.4); }
+  .dcheck-popup-icon img { width: 62px; height: auto; }
+  .dcheck-popup-icon--ok { border-color: #22c55e; box-shadow: 0 12px 28px rgba(22, 163, 74, 0.28); }
+  .dcheck-popup-icon--fail { border-color: #f87171; box-shadow: 0 12px 28px rgba(220, 38, 38, 0.28); }
+  .dcheck-popup-icon--info { border-color: #a855f7; box-shadow: 0 12px 28px rgba(124, 58, 237, 0.32); }
+  .dark-mode .dcheck-popup-icon { background: #fff; }
   .dcheck-popup-title { margin: 0 0 6px; font-size: 1.4rem; font-weight: 800; }
   .dcheck-popup-tag {
     display: inline-block; margin: 10px 0 2px; padding: 6px 14px; border-radius: 999px;

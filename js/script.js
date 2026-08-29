@@ -1736,8 +1736,7 @@
     const root = ensureDeliveryPopup();
     const mode = opts.mode || "info";
     root.querySelector("[data-dcheck-icon]").className = "dcheck-popup-icon dcheck-popup-icon--" + mode;
-    root.querySelector("[data-dcheck-icon]").textContent =
-      opts.icon || (mode === "ok" ? "&#10003;" : mode === "fail" ? "&#10005;" : "&#8505;");
+    root.querySelector("[data-dcheck-icon]").innerHTML = '<img src="logo.svg" alt="Giftora">';
     root.querySelector("[data-dcheck-title]").textContent =
       opts.title || (mode === "ok" ? "Great news!" : mode === "fail" ? "Not available yet" : "Hold on");
     const tag = root.querySelector("[data-dcheck-tag]");
@@ -1759,7 +1758,7 @@
       wrap.innerHTML =
         '<div class="container delivery-check-box">' +
         '<div class="delivery-check-info">' +
-        '<span class="delivery-check-icon">📦</span>' +
+        '<span class="delivery-check-icon"><img src="logo.svg" alt="Giftora"></span>' +
         '<div><h3>Check delivery to your area</h3><p>Enter your pincode to see if we deliver there — and how fast.</p></div>' +
         "</div>" +
         '<form class="delivery-check-form" id="deliveryCheckForm" action="#" onsubmit="return false;">' +
