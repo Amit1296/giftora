@@ -1695,6 +1695,59 @@
     setInterval(tick, 1000);
   }
 
+  let _dcheckPopup = null;
+  function ensureDeliveryPopup() {
+    if (_dcheckPopup) return _dcheckPopup;
+    const root = document.createElement("div");
+    root.className = "dcheck-popup";
+    root.setAttribute("role", "dialog");
+    root.setAttribute("aria-modal", "true");
+    root.hidden = true;
+    root.innerHTML =
+      '<div class="dcheck-popup-overlay" data-dcheck-close></div>' +
+      '<div class="dcheck-popup-card">' +
+        '<button type="button" class="dcheck-popup-close" data-dcheck-close aria-label="Close">&#10005;</button>' +
+        '<div class="dcheck-popup-icon" data-dcheck-icon></div>' +
+        '<h3 class="dcheck-popup-title" data-dcheck-title></h3>' +
+        '<div class="dcheck-popup-tag" data-dcheck-tag hidden></div>' +
+        '<p data-dcheck-msg></p>' +
+        '<div class="dcheck-popup-actions">' +
+          '<button type="button" class="btn btn-primary" data-dcheck-primary>Got it</button>' +
+          '<button type="button" class="btn btn-outline" data-dcheck-secondary hidden>Try another pincode</button>' +
+        '</div>' +
+      '</div>';
+    const close = () => closeDeliveryPopup();
+    root.addEventListener("click", (e) => { if (e.target.closest("[data-dcheck-close]")) close(); });
+    root.querySelector("[data-dcheck-primary]").addEventListener("click", close);
+    root.querySelector("[data-dcheck-secondary]").addEventListener("click", () => {
+      close();
+      const inp = $("#pinCheckInput");
+      if (inp) { inp.focus(); inp.select(); }
+    });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !root.hidden) close(); });
+    document.body.appendChild(root);
+    _dcheckPopup = root;
+    return root;
+  }
+  function closeDeliveryPopup() {
+    if (_dcheckPopup) _dcheckPopup.hidden = true;
+  }
+  function showDeliveryPopup(opts) {
+    const root = ensureDeliveryPopup();
+    const mode = opts.mode || "info";
+    root.querySelector("[data-dcheck-icon]").className = "dcheck-popup-icon dcheck-popup-icon--" + mode;
+    root.querySelector("[data-dcheck-icon]").textContent =
+      opts.icon || (mode === "ok" ? "&#10003;" : mode === "fail" ? "&#10005;" : "&#8505;");
+    root.querySelector("[data-dcheck-title]").textContent =
+      opts.title || (mode === "ok" ? "Great news!" : mode === "fail" ? "Not available yet" : "Hold on");
+    const tag = root.querySelector("[data-dcheck-tag]");
+    if (opts.tag) { tag.hidden = false; tag.textContent = opts.tag; } else { tag.hidden = true; }
+    root.querySelector("[data-dcheck-msg]").textContent = opts.message || "";
+    root.querySelector("[data-dcheck-secondary]").hidden = mode !== "fail";
+    root.querySelector("[data-dcheck-primary]").textContent = mode === "fail" ? "Got it" : "Continue shopping";
+    root.hidden = false;
+  }
+
   function initDeliveryCheck() {
     let form = $("#deliveryCheckForm");
     if (!form) {
@@ -1744,16 +1797,38 @@
       try {
         const resp = await fetch("/api/pincode-check?pincode=" + encodeURIComponent(pc));
         const data = await resp.json();
+        result.hidden = true;
         if (data && data.success) {
-          result.className = "delivery-check-result " + (data.available ? "dcheck-ok" : "dcheck-fail");
-          result.textContent = data.message || "";
+          if (data.available) {
+            showDeliveryPopup({
+              mode: "ok",
+              title: data.city ? "We deliver to " + data.city + "!" : "Great news, we deliver here!",
+              tag: data.available && data.slaText ? "Delivery " + data.slaText : "Same-day delivery available",
+              message: data.message || "Your gift arrives in " + (data.city || "your area") + ".",
+            });
+            if (data.city) localStorage.setItem("giftora_delivery_city", data.city);
+          } else {
+            showDeliveryPopup({
+              mode: "fail",
+              title: "Not there yet",
+              tag: "More areas coming soon",
+              message: data.message || "Sorry, we don't deliver to this pincode yet. Call or WhatsApp us.",
+            });
+          }
         } else {
-          result.className = "delivery-check-result dcheck-info";
-          result.textContent = (data && data.message) || "Something went wrong. Please retry.";
+          showDeliveryPopup({
+            mode: "info",
+            title: "Something went wrong",
+            message: (data && data.message) || "Could not check right now. Please retry or WhatsApp us.",
+          });
         }
       } catch (e) {
-        result.className = "delivery-check-result dcheck-info";
-        result.textContent = "Could not check right now. Please call or WhatsApp us to confirm delivery.";
+        result.hidden = true;
+        showDeliveryPopup({
+          mode: "info",
+          title: "No connection",
+          message: "Could not check right now. Please call or WhatsApp us to confirm delivery.",
+        });
       }
       busy = false;
       if (btn) btn.disabled = false;
