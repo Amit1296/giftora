@@ -71,6 +71,59 @@
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the price of a cake and flowers combo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our cake and flowers combo is ₹1899, delivered with same-day combo gift delivery across Delhi NCR."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you sell teddy and chocolates combos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The teddy and chocolates combo at ₹1499 is a bestseller gift bundle for birthdays and anniversaries."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I order a birthday surprise box in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Our birthday surprise box at ₹1999 is a ready-to-give value gift bundle with same-day delivery."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body data-category="combo">
 

@@ -90,6 +90,59 @@
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which belt is best for gifting under 1000?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our brown leather belt at ₹799 and formal black belt at ₹699 are the best belts for men under 1000."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer same-day belt delivery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, belt gift delivery is available same day across Delhi NCR, with scheduled delivery across India."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I buy a leather belt for men online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Giftora sells leather belts online with gift wrapping and a personalised card."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body data-category="belts">
 

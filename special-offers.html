@@ -71,6 +71,59 @@
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Where can I find gift offers online in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Giftora's special offers page lists today's gift sale India discounts across cakes, flowers, teddy bears, clothes and combos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do discounted gifts come with same-day delivery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every discounted gift on this page is eligible for same-day delivery across Delhi NCR."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What gift combos are on sale under 2000?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cake and flower combos, teddy and chocolate bundles and more gift combos on sale — most priced under 2000."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body data-category="special">
 

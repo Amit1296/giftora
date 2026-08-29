@@ -104,6 +104,59 @@
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are the best sunglasses for gifting under 1500?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our polarized wayfarer sunglasses at ₹1499 and classic aviator sunglasses at ₹1299 are the best sunglasses under 1500 for gifting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you deliver sunglasses with same-day delivery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, sunglasses gift delivery is available same day across Delhi NCR, with scheduled delivery across India."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are the sunglasses UV protected?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Our sports UV sunglasses and polarized wayfarer sunglasses come with UV protection for outdoor wear."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body data-category="sunglasses">
 

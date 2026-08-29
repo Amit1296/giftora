@@ -79,6 +79,14 @@
   let cart = loadCart();
   let activeFilter = "all";
   let searchQuery = "";
+  (function () {
+    const q = new URLSearchParams(location.search).get("q");
+    if (q) {
+      searchQuery = q;
+      const si = document.getElementById("searchInput");
+      if (si) si.value = q;
+    }
+  })();
   let appliedCoupon = null;
   let appliedGiftCard = null;
 

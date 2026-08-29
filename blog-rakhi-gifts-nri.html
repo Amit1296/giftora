@@ -57,6 +57,59 @@
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can NRIs send rakhi to India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — order online from any country and your rakhi gift is hand-delivered the same day in Delhi NCR with a personalised rakhi card."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What payment methods work from abroad?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "International debit and credit cards, UPI and UPI QR are all accepted at Giftora checkout."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you deliver rakhi gifts before Raksha Bandhan day?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Order a few days ahead and we confirm a delivery slot that fits your plan, including same-day delivery before 5 PM."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body data-page="blog">
 

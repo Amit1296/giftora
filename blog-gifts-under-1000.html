@@ -57,6 +57,59 @@
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I get same-day delivery for gifts under ₹1000?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Order before 5 PM and Giftora delivers the same day across Delhi NCR, with no extra delivery charge on most orders."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to be in Delhi to send a gift?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. You can order from anywhere in the world — the USA, UK, Canada, Australia — and your gift is delivered the same day in Delhi NCR."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add a personalised note?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Write your message at checkout and we'll print it on a card and deliver it with the gift."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body data-page="blog">
 

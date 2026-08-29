@@ -141,6 +141,67 @@
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do you deliver gifts across all of India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Giftora delivers cakes, flowers, teddy bears, rakhi and gift combos to all metro and major cities across India, with same-day delivery in Delhi NCR."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which cities do you deliver to?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We deliver to Delhi, Mumbai, Bengaluru, Chennai, Kolkata, Hyderabad, Pune, Ahmedabad, Jaipur, Lucknow, Kochi, Guwahati and 30+ other major cities across India."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I send a rakhi gift to any city in India?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Giftora has dedicated rakhi combos, teddy bears, flowers, cakes and gift sets delivered across India."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I pay for a gift order?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pay by card, UPI or UPI QR at Giftora checkout. International cards are also accepted."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body data-page="nri">
 

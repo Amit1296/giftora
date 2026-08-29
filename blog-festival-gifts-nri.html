@@ -57,6 +57,59 @@
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I send festival gifts from abroad?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — order online from any country and your festival gift is delivered the same day in Delhi NCR with a personalised note."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the best gift for Diwali?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lucky plants, flower arrangements, sweets and gift combos are Diwali favourites with same-day delivery."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How early should I order for a festival?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Order at least a few days ahead for major festivals to lock your delivery slot; same-day orders before 5 PM are always welcome."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body data-page="blog">
 

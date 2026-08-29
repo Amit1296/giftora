@@ -57,6 +57,59 @@
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I send gifts to India from abroad?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Order online from the USA, UK, Europe, Canada, Australia or Africa and your gift is delivered the same day in Delhi NCR, wrapped with a personalised note."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do international credit cards work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — Visa, Mastercard and Amex are accepted at checkout, along with UPI and UPI QR."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you confirm the delivery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We call the recipient to confirm a convenient delivery time, then send you the confirmation and update."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body data-page="blog">
 

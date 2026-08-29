@@ -188,6 +188,59 @@
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are the best educational toys for kids online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our STEM building blocks set at ₹1499 is a top educational toy for kids, combining fun and learning."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I buy toys online under 1500?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every toy in this collection is under 1500, including the remote control racing car at ₹1249."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer same-day toys delivery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, same-day toys gift delivery is available across Delhi NCR."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body data-category="toys">
 

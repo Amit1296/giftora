@@ -209,6 +209,18 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
   return [
     {
       "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": site.url.replace(/\/$/, "") + "/#website",
+      name: site.name,
+      url: site.url.replace(/\/$/, "") + "/",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: { "@type": "EntryPoint", urlTemplate: site.url.replace(/\/$/, "") + "/?q={search_term_string}" },
+        "query-input": "required name=search_term_string",
+      },
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/index.html` },
@@ -276,10 +288,16 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
 }
 
 function productDescription(product, site) {
-  if (product.description) return fit(product.description, 160);
+  let txt = "";
+  if (product.description) {
+    txt = String(product.description).replace(/\s+/g, " ").trim();
+  }
+  if (txt) {
+    return fit(`Buy ${product.name} online with same-day delivery at ${site.name}. ${txt}`, 158);
+  }
   return fit(
-    `${product.name} for just ${fmtPrice(product.price)} with same-day delivery at ${site.name}. Free gift wrapping and secure online payments. Order online now!`,
-    160
+    `Buy ${product.name} online with same-day delivery at ${site.name} at just ${fmtPrice(product.price)}. Free gift wrapping and secure payments.`,
+    158
   );
 }
 

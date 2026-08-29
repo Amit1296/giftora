@@ -43,53 +43,160 @@
 <!-- SEO-JSONLD-START -->
 <script type="application/ld+json">
 [
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Giftora",
-  "url": "https://gift-ora.online",
-  "description": "Order gifts online at Giftora — clothes, toys, flowers, cakes, teddy bears and more. Same-day delivery, gift wrapping and easy checkout for every occasion."
-},
-{
-  "@context": "https://schema.org",
-  "@type": ["OnlineStore", "Organization"],
-  "@id": "https://gift-ora.online/#organization",
-  "name": "Giftora",
-  "alternateName": "Giftora Online Gift Shop",
-  "url": "https://gift-ora.online",
-  "logo": {
-    "@type": "ImageObject",
-    "url": "https://gift-ora.online/logo.svg"
-  },
-  "image": "https://gift-ora.online/uploads/og-image.jpg",
-  "description": "Order gifts online at Giftora — clothes, toys, flowers, cakes, teddy bears and more. Same-day delivery, gift wrapping and easy checkout for every occasion.",
-  "telephone": "+91 70880 84046",
-  "email": "amitwebdev163@gmail.com",
-  "foundingDate": "2020",
-  "priceRange": "₹200-₹20,000",
-  "currenciesAccepted": "INR",
-  "paymentAccepted": "UPI, Credit Card, Debit Card, Net Banking, International Cards",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Dilshad Colony, Delhi - 110095",
-    "addressCountry": "IN"
-  },
-  "areaServed": [
-    { "@type": "City", "name": "Delhi" },
-    { "@type": "City", "name": "Noida" },
-    { "@type": "City", "name": "Gurugram" },
-    { "@type": "City", "name": "Faridabad" },
-    { "@type": "City", "name": "Ghaziabad" },
-    { "@type": "Country", "name": "India" }
-  ],
-  "sameAs": [
-    "https://www.facebook.com/profile.php?id=61592856517972",
-    "https://www.instagram.com/amitwebdev1632026"
-  ]
-}
+  {
+    "@context": "https://schema.org",
+    "@type": [
+      "OnlineStore",
+      "Organization"
+    ],
+    "@id": "https://gift-ora.online/#organization",
+    "name": "Giftora",
+    "alternateName": "Giftora Online Gift Shop",
+    "url": "https://gift-ora.online",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gift-ora.online/logo.svg"
+    },
+    "image": "https://gift-ora.online/uploads/og-image.jpg",
+    "description": "Order gifts online at Giftora — clothes, toys, flowers, cakes, teddy bears and more. Same-day delivery, gift wrapping and easy checkout for every occasion.",
+    "telephone": "+91 70880 84046",
+    "email": "amitwebdev163@gmail.com",
+    "foundingDate": "2020",
+    "priceRange": "₹200-₹20,000",
+    "currenciesAccepted": "INR",
+    "paymentAccepted": "UPI, Credit Card, Debit Card, Net Banking, International Cards",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Dilshad Colony, Delhi - 110095",
+      "addressCountry": "IN"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Delhi"
+      },
+      {
+        "@type": "City",
+        "name": "Noida"
+      },
+      {
+        "@type": "City",
+        "name": "Gurugram"
+      },
+      {
+        "@type": "City",
+        "name": "Faridabad"
+      },
+      {
+        "@type": "City",
+        "name": "Ghaziabad"
+      },
+      {
+        "@type": "Country",
+        "name": "India"
+      }
+    ],
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61592856517972",
+      "https://www.instagram.com/amitwebdev1632026"
+    ]
+  }
 ]
 </script>
 <!-- SEO-JSONLD-END -->
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<!-- SITEWIDE-FAQ-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can I order gifts online with same-day delivery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Giftora offers same-day gift delivery across Delhi NCR and express delivery across India on all orders placed before 5 PM."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I send gifts to India from abroad?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. NRIs in the USA, UK, Canada and Australia can send gifts to India online with a personalised note. We accept international credit and debit cards."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you gift wrap the products?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every gift comes beautifully wrapped with a personalised card, ready to surprise your loved one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which gift is best for a birthday?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cakes, teddy bears, flowers and gift combos are our most popular birthday gift delivery options. You can also personalise a photo cake or add a handwritten note."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you deliver midnight cakes in Delhi NCR?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We offer midnight cake delivery across Delhi NCR — including Delhi, Noida, Gurugram, Faridabad and Ghaziabad. Order before 6 PM for midnight delivery."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What payment methods do you accept?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We accept UPI, credit/debit cards, net banking, wallets and international cards. All payments are 100% secure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I track my order after placing it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You'll receive a confirmation email and WhatsApp message with order details. Contact us anytime for real-time updates on your delivery."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer gift delivery on weekends and holidays?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Giftora delivers 7 days a week, including weekends and public holidays, so you never miss a celebration."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
