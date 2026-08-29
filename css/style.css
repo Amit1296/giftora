@@ -1806,7 +1806,7 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
 
   /* ===== Delivery pincode check ===== */
   .delivery-check {
-    padding: 16px 0;
+    padding: 16px 0 0;
     background:
       radial-gradient(640px 110px at 10% 0%, rgba(124,58,237,0.16), transparent 65%),
       radial-gradient(640px 110px at 90% 0%, rgba(225,29,72,0.12), transparent 65%),
