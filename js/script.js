@@ -107,6 +107,10 @@
     return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
   function normEntry(e) {
     if (e && typeof e === "object") {
       return { qty: Math.max(0, parseInt(e.qty, 10) || 0), size: String(e.size || "") };
