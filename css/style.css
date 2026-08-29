@@ -1869,9 +1869,9 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
   }
   .dark-mode .delivery-check-hint { color: #c7bef5; background: #2a2447; }
   .delivery-check-result { width: 100%; margin-top: 6px; font-size: 0.92rem; }
-  main > .delivery-check:first-child { padding-top: 112px; }
+  main > .delivery-check:first-child { padding-top: 96px; }
   @media (max-width: 640px) {
-    main > .delivery-check:first-child { padding-top: calc(80px + env(safe-area-inset-top)); }
+    main > .delivery-check:first-child { padding-top: calc(68px + env(safe-area-inset-top)); }
   }
 
   /* ===== Delivery check popup ===== */
