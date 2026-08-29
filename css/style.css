@@ -553,7 +553,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
 .category-nav a:hover, .category-nav a.active { background: var(--primary); border-color: var(--primary); color: #fff; }
 
 /* ---------- Festival offer ---------- */
-.festival-banner { padding: 104px 0 0; }
+.festival-banner { padding: 0 0 0; }
 .festival-banner-inner {
   display: flex; align-items: center; gap: 36px; flex-wrap: wrap;
   background: linear-gradient(120deg, #6d28d9 0%, #a855f7 45%, #f59e0b 100%);
