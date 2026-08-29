@@ -1868,6 +1868,10 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
   }
   .dark-mode .delivery-check-hint { color: #c7bef5; background: #2a2447; }
   .delivery-check-result { width: 100%; margin-top: 6px; font-size: 0.92rem; }
+  main > .delivery-check:first-child { padding-top: 112px; }
+  @media (max-width: 640px) {
+    main > .delivery-check:first-child { padding-top: calc(80px + env(safe-area-inset-top)); }
+  }
   .dcheck-ok { background: #e6f9ee; border-left: 4px solid #16a34a; padding: 10px 14px; border-radius: 8px; color: #14532d; }
   .dcheck-fail { background: #fef2f2; border-left: 4px solid #dc2626; padding: 10px 14px; border-radius: 8px; color: #7f1d1d; }
   .dcheck-info { background: #eef2ff; border-left: 4px solid #7c3aed; padding: 10px 14px; border-radius: 8px; color: #3b2f6b; }
