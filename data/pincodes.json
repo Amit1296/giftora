@@ -32,7 +32,7 @@
     "slug": "bengaluru",
     "start": "560001",
     "end": "560109",
-    "slaText": "within 48–72 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Bhopal",
@@ -60,7 +60,7 @@
     "slug": "chennai",
     "start": "600001",
     "end": "600131",
-    "slaText": "within 48–72 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Coimbatore",
@@ -88,7 +88,7 @@
     "slug": "delhi",
     "start": "110001",
     "end": "110097",
-    "slaText": "within 24-48 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Dhanbad",
@@ -102,7 +102,7 @@
     "slug": "faridabad",
     "start": "121001",
     "end": "121012",
-    "slaText": "within 24-48 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Gaya",
@@ -116,7 +116,7 @@
     "slug": "ghaziabad",
     "start": "201001",
     "end": "201015",
-    "slaText": "within 24-48 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Guwahati",
@@ -130,7 +130,7 @@
     "slug": "gurugram",
     "start": "122001",
     "end": "122017",
-    "slaText": "within 24-48 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Gwalior",
@@ -158,7 +158,7 @@
     "slug": "hyderabad",
     "start": "500001",
     "end": "500097",
-    "slaText": "within 48–72 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Indore",
@@ -179,7 +179,7 @@
     "slug": "jaipur",
     "start": "302001",
     "end": "302042",
-    "slaText": "within 24–48 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Jammu",
@@ -221,7 +221,7 @@
     "slug": "kolkata",
     "start": "700001",
     "end": "700162",
-    "slaText": "within 48–72 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Kozhikode",
@@ -270,7 +270,7 @@
     "slug": "mumbai",
     "start": "400001",
     "end": "400104",
-    "slaText": "within 48–72 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Mysuru",
@@ -298,7 +298,7 @@
     "slug": "noida",
     "start": "201301",
     "end": "201310",
-    "slaText": "within 24-48 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Panaji",
@@ -326,7 +326,7 @@
     "slug": "pune",
     "start": "411001",
     "end": "411062",
-    "slaText": "within 48–72 hours"
+    "slaText": "the same day (orders before 5 PM)"
   },
   {
     "city": "Raipur",
