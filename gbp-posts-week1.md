@@ -1,81 +1,75 @@
-# GBP Posts — Week 1 (Fri Aug 21 → Thu Aug 27, 2026)
+# GBP Posts — Week of Sep 1 (Tue Sep 1 → Mon Sep 7, 2026)
 
-Raksha Bandhan falls on **Friday, Aug 28** — so this week is peak urgency.
+Festival calendar this week: **Krishna Janmashtami — Fri Sep 4** · **Teachers' Day — Sat Sep 5** · **Ganesh Chaturthi — Mon Sep 14** (plan-ahead window). Raksha Bandhan (Aug 28) is over.
 Post once per day. Each post ≤1500 chars. Add a photo with every post (photos boost reach).
 Suggested time: between 8–10 AM.
-
 CTA buttons available in GBP: **Order online**, **Call now**, **Book**, **Learn more** — use *Order online* unless noted.
 
 ---
 
-### Day 1 — Fri Aug 21 · RAKHI COUNTDOWN (post this today)
+### Day 1 — Tue Sep 1 · JANMASHTAMI COUNTDOWN
 
-> 🪔 Rakhi is just ONE WEEK away! Send your brother a designer rakhi with fresh sweets — sets starting at just ₹599. Same-day delivery across Delhi NCR, all-India shipping to 62 cities, and every hamper includes roli-chawal and a personalised card. NRI? Order online from the USA, UK or Canada and we deliver in India for you. Book early — delivery slots fill up fast!
-> 👉 https://gift-ora.online/rakhi-gifts.html
+> 🪔 Krishna Janmashtami is THIS Friday! Send your family a festive surprise — fresh flowers, sweets and lucky plants — delivered across Delhi NCR and major metros the same day when you order before 5 PM, and to 60+ cities across India. Every hamper is gift-wrapped with a personalised card.
+> 👉 https://gift-ora.online/festival.html
 
-**Photo:** Rakhi combo set photo (from your uploads) · **CTA:** Order online
-
----
-
-### Day 2 — Sat Aug 22 · CAKE + FLOWERS COMBO
-
-> 🎂💐 Weekend birthday coming up? Our bestseller combo pairs a fresh-baked cake with hand-tied roses — delivered same-day across Delhi NCR. Chocolate truffle, pineapple cream, Oreo crunch & more, from ₹799. Roses from ₹499. Free gift wrapping + personalised card with every order. Order before 5 PM for delivery today!
-> 👉 https://gift-ora.online/combo.html
-
-**Photo:** Cake & flowers combo · **CTA:** Order online
+**Photo:** Festive hamper with flowers & sweets · **CTA:** Order online
 
 ---
 
-### Day 3 — Sun Aug 23 · MIDNIGHT DELIVERY
+### Day 2 — Wed Sep 2 · GANESH CHATURTHI — PLAN AHEAD
 
-> 🌙 Be the FIRST to wish them! Book midnight cake delivery and surprise them at 12 AM sharp. Fresh cakes, teddy bears and combos — available across Delhi NCR. Perfect for birthdays and anniversaries. Limited midnight slots daily — reserve yours today.
-> 👉 https://gift-ora.online/cakes.html
+> 🌺 Ganesh Chaturthi is Sep 14 — the festival of new beginnings. Plan now and we'll deliver puja-friendly flowers, fresh sweets and lucky bamboo right on the day — same-day across Delhi NCR and major metros, all-India delivery beyond. Book in advance and the gift lands on time, gift-wrapped with your message.
+> 👉 https://gift-ora.online/festival.html
 
-**Photo:** Birthday cake with candles · **CTA:** Order online
+**Photo:** Flowers & plant puja arrangement · **CTA:** Learn more
 
 ---
 
-### Day 4 — Mon Aug 24 · NRI GIFTS TO INDIA
+### Day 3 — Thu Sep 3 · TEACHERS' DAY COUNTDOWN
 
-> 🌍 Living abroad but family's heart is in India? Send gifts home from the USA, UK, Canada or Australia — order online in minutes, we deliver anywhere in India. Rakhis with mithai, cakes, flowers & hampers. Just in time for Raksha Bandhan next Friday! 🪔
+> 🍎 Teachers' Day is this Saturday! Thank the teacher who shaped you — a fresh cake, rose bunch or thoughtful gift, delivered with a personalised card. Same-day across Delhi NCR and major metros when you order before 5 PM, all-India delivery to 60+ cities. Surprise them without the wait!
+> 👉 https://gift-ora.online/teachers-day-gifts.html
+
+**Photo:** Cake with a thank-you card · **CTA:** Order online
+
+---
+
+### Day 4 — Fri Sep 4 · JANMASHTAMI TODAY
+
+> 🦚 Happy Janmashtami! Send treats and blooms to your family today — fresh flowers, sweets and lucky bamboo, hand-delivered across Delhi NCR and major metros (order before 5 PM). Living abroad? Order online from the USA, UK, Canada or Australia and we deliver in India for you.
+> 👉 https://gift-ora.online/festival.html
+
+**Photo:** Modak-style sweets + flower bunch · **CTA:** Order online
+
+---
+
+### Day 5 — Sat Sep 5 · TEACHERS' DAY TODAY
+
+> 📚 Happy Teachers' Day! Celebrate the teacher behind every success — custom cakes, hand-tied roses and gift combos delivered to schools and homes today. Same-day across Delhi NCR and major metros before 5 PM, with free gift wrapping and a personalised note on every order.
+> 👉 https://gift-ora.online/teachers-day-gifts.html
+
+**Photo:** Cake & flowers gift set · **CTA:** Order online
+
+---
+
+### Day 6 — Sun Sep 6 · NRI FESTIVAL EDITION
+
+> 🌍 Abroad this festival season? Send Janmashtami sweets, puja flowers, cakes and hampers home from the USA, UK, Canada or Australia — order online in minutes, we deliver anywhere in India. Same-day across Delhi NCR and major metros, express to 60+ cities. Make the distance feel smaller this festival run!
 > 👉 https://gift-ora.online/send-gifts-to-india.html
 
 **Photo:** Gift hamper packaging · **CTA:** Learn more
 
 ---
 
-### Day 5 — Tue Aug 25 · GIFTS UNDER ₹1000
+### Day 7 — Mon Sep 7 · BIG NEWS — SAME-DAY IN MORE CITIES
 
-> 💝 Thoughtful doesn't mean expensive! Gifts under ₹1000 that still arrive wrapped with a personalised card:
-> 🌹 12 red roses hand bunch — ₹499
-> 🪔 Designer rakhi + sweets — from ₹599
-> 🎂 Pineapple cream cake — ₹799
-> 🧸 Jumbo teddy bear — ₹1199
-> Same-day delivery in Delhi NCR. Order before 5 PM!
-> 👉 https://gift-ora.online/special-offers.html
+> 🗺️ Big news: same-day delivery has landed in more cities! Order before 5 PM and we hand-deliver the same day across Delhi NCR, Mumbai, Bengaluru, Chennai, Hyderabad, Kolkata, Pune and Jaipur — with express delivery to 60+ cities across India. Perfect for birthday surprises and Ganesh Chaturthi plans. Check your city today!
+> 👉 https://gift-ora.online/gift-delivery-india.html
 
-**Photo:** Flat-lay of small gifts · **CTA:** Order online
+**Photo:** Gift being delivered / happy recipient · **CTA:** Order online
 
 ---
 
-### Day 6 — Wed Aug 26 · TEDDY & PLANTS
+## After this week
 
-> 🧸 Big teddies. 🌿 Lucky bamboo. 🎂 And cake — obviously. Surprise combos from ₹1299 including our Triple Delight Box (bamboo plant + teddy + cake). Same-day delivery across Delhi NCR, gift-wrapped with a personalised note. Rakhi orders close soon — book now!
-> 👉 https://gift-ora.online/teddy.html
-
-**Photo:** Teddy bear combo · **CTA:** Order online
-
----
-
-### Day 7 — Thu Aug 27 · LAST-MINUTE RAKHI (day before)
-
-> 🚨 RAKHI IS TOMORROW! Last-minute? We've got you — same-day rakhi delivery across Delhi NCR when you order before 5 PM, and all-India delivery to 62 cities. Designer rakhis + fresh mithai from ₹599. Don't let distance come between you this Raksha Bandhan. Call +91 70880 84046 NOW.
-> 👉 https://gift-ora.online/rakhi-gifts.html
-
-**Photo:** Rakhi + sweets close-up · **CTA:** Call now
-
----
-
-## After Week 1
-
-Rotate these evergreen themes weekly: same-day flower delivery → custom cakes → corporate gifting → plants & housewarming → anniversary combos → city spotlights (e.g. "Now delivering to Patiala!") → customer review screenshot.
+Rotate these evergreen themes weekly: same-day flower delivery → custom cakes → corporate gifting → plants & housewarming → anniversary combos → city spotlights (e.g. "Now delivering same-day in Mumbai!") → customer review screenshot. From mid-Sep, start Diwali (Nov 8) pre-order messaging on NRI posts.
