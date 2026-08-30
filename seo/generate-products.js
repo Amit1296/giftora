@@ -23,6 +23,19 @@ const PRODUCTS_DIR = path.join(ROOT, "products");
 const PAGE_JS = path.join(ROOT, "js", "product-pages.js");
 const OUT_DIR = path.join(ROOT, "products");
 
+let _dims = null;
+function dimsMap() {
+  if (!_dims) {
+    try { _dims = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "img-dims.json"), "utf8")); }
+    catch (e) { _dims = {}; }
+  }
+  return _dims;
+}
+function dimAttr(src) {
+  const d = src && dimsMap()[src];
+  return d ? ` width="${d[0]}" height="${d[1]}"` : "";
+}
+
 const CATEGORY_META = {
   clothes: { name: "Clothes", file: "clothes.html" },
   toys: { name: "Toys", file: "toys.html" },
@@ -463,7 +476,7 @@ function productBody(product, slug, catMeta, site, products, faqs) {
     ? `\n            <span class="old-price" id="detailOldPrice">${fmtPrice(product.oldPrice)}</span>`
     : "";
   const media = product.image
-    ? `<img class="product-detail-img" src="${product.image}" alt="${esc(product.name)}">`
+    ? `<img class="product-detail-img" src="${product.image}"${dimAttr(product.image)} alt="${esc(product.name)}">`
     : `<span class="product-detail-emoji">${product.emoji || "🎁"}</span>`;
 
   const stock = typeof product.stock === "number" && product.stock >= 0 ? product.stock : Infinity;
@@ -663,7 +676,7 @@ ${meta.block}
 \t<link rel="icon" href="../logo.svg">
 \t<title>${meta.title.replace(/&/g, "&amp;")}</title>
 \t${FONT_LINK}
-\t<link rel="stylesheet" href="../css/style.css">
+\t<link rel="stylesheet" href="../css/style.min.css?v=4">
 <!-- SEO-JSONLD-START -->
 <script type="application/ld+json">
 ${jsonLd}
@@ -686,7 +699,7 @@ ${chrome.upi}
 
 <script src="../js/products.js"></script>
 <script src="../js/product-pages.js"></script>
-<script src="../js/script.js"></script>
+<script src="../js/script.min.js?v=5"></script>
 ${pageScript(product)}
 
 ${chrome.chatbot}

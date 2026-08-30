@@ -568,7 +568,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   pointer-events: none;
 }
 .festival-banner-inner::after {
-  content: ""; position: absolute; top: 0; left: -80%;
+  content: ""; position: absolute; top: 0; left: 0;
   width: 45%; height: 100%;
   background: linear-gradient(105deg, transparent, rgba(255,255,255,0.5), transparent);
   transform: skewX(-20deg);
@@ -576,8 +576,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   animation: festivalShine 3.4s ease-in-out infinite;
 }
 @keyframes festivalShine {
-  0% { left: -80%; }
-  55%, 100% { left: 140%; }
+  0% { translate: -178% 0; }
+  55%, 100% { translate: 311% 0; }
 }
 .festival-banner-inner:hover { transform: translateY(-4px) scale(1.01); box-shadow: var(--shadow-lg); }
 .festival-banner-float {
@@ -615,8 +615,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   animation: festivalPulse 2.6s ease-in-out infinite;
 }
 @keyframes festivalPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(0,0,0,0.18); }
-  50% { transform: scale(1.06); box-shadow: 0 14px 36px rgba(255,255,255,0.35); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
 }
 .festival-banner-discount strong { font-size: 3.4rem; line-height: 1; }
 .festival-banner-discount span { font-size: 1.35rem; font-weight: 800; }
@@ -790,9 +790,9 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.9), rgba(167,243,208,0.6) 45%, rgba(13,148,136,0.24) 100%);
 }
 @keyframes orbFloat {
-  0%, 100% { margin-top: 0; margin-right: 0; }
-  33% { margin-top: -16px; margin-right: 10px; }
-  66% { margin-top: 10px; margin-right: -12px; }
+  0%, 100% { translate: 0 0; }
+  33% { translate: 10px -16px; }
+  66% { translate: -12px 10px; }
 }
 
 .pb-accent {
@@ -1489,12 +1489,11 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
 .chatbot-status { font-size: 0.75rem; opacity: 0.92; display: flex; align-items: center; gap: 5px; }
 .chatbot-status i {
   width: 8px; height: 8px; border-radius: 50%; background: #4ade80;
-  box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); animation: chatPulse 1.6s infinite;
+  box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.25); animation: chatPulse 1.6s infinite;
 }
 @keyframes chatPulse {
-  0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
-  70% { box-shadow: 0 0 0 7px rgba(74, 222, 128, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }
 .chatbot-close {
   background: transparent; border: none; color: #fff; font-size: 1.5rem; line-height: 1;
@@ -1838,8 +1837,8 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
   .delivery-check-icon img { width: 44px; height: auto; }
   .dark-mode .delivery-check-icon { background: #fff; border-color: #e6e0f5; }
   @keyframes dcheckGlow {
-    0%, 100% { box-shadow: 0 8px 18px rgba(124,58,237,0.35); }
-    50% { box-shadow: 0 12px 26px rgba(225,29,72,0.42); }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
   }
   .delivery-check-info h3 { margin: 0 0 2px; font-size: 1.08rem; font-weight: 800; }
   .delivery-check-info p { margin: 0; font-size: 0.87rem; color: var(--muted, #5b6472); }

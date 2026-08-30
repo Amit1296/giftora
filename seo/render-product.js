@@ -5,6 +5,19 @@ const apply = require("./apply-seo");
 const ROOT = path.resolve(__dirname, "..");
 const SRC_PAGE = path.join(ROOT, "clothes.html");
 
+let _dims = null;
+function dimsMap() {
+  if (!_dims) {
+    try { _dims = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "img-dims.json"), "utf8")); }
+    catch (e) { _dims = {}; }
+  }
+  return _dims;
+}
+function dimAttr(src) {
+  const d = src && dimsMap()[src];
+  return d ? ` width="${d[0]}" height="${d[1]}"` : "";
+}
+
 const CATEGORY_META = {
   clothes: { name: "Clothes", file: "clothes.html" },
   toys: { name: "Toys", file: "toys.html" },
@@ -321,7 +334,7 @@ function relatedCards(product, products) {
           ${badge ? `<span class="product-badge${badge === "Premium" ? " premium" : ""}">${badge}</span>` : ""}
           <button class="wish-heart" data-wish="${p.id}" aria-label="Add ${esc(p.name)} to wishlist">\u2661</button>
           ${p.image
-            ? `<a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><img class="product-img" src="${p.image}" alt="${esc(p.name)}" loading="lazy"></a>`
+            ? `<a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><img class="product-img" src="${p.image}"${dimAttr(p.image)} alt="${esc(p.name)}" loading="lazy"></a>`
             : `<a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "\uD83C\uDF81"}</span></a>`}
         </div>
         <div class="product-info">
@@ -357,7 +370,7 @@ function productBody(product, slug, catMeta, site, products, faqs) {
     ? `\n            <span class="old-price" id="detailOldPrice">${fmtPrice(product.oldPrice)}</span>`
     : "";
   const media = product.image
-    ? `<img class="product-detail-img" src="${product.image}" alt="${esc(product.name)}">`
+    ? `<img class="product-detail-img" src="${product.image}"${dimAttr(product.image)} alt="${esc(product.name)}">`
     : `<span class="product-detail-emoji">${product.emoji || "\uD83C\uDF81"}</span>`;
 
   const stock = typeof product.stock === "number" && product.stock >= 0 ? product.stock : Infinity;
@@ -557,7 +570,7 @@ ${meta.block}
 \t<link rel="icon" href="../logo.svg">
 \t<title>${meta.title.replace(/&/g, "&amp;")}</title>
 \t${FONT_LINK}
-\t<link rel="stylesheet" href="../css/style.css">
+\t<link rel="stylesheet" href="../css/style.min.css?v=4">
 <!-- SEO-JSONLD-START -->
 <script type="application/ld+json">
 ${jsonLd}
@@ -580,7 +593,7 @@ ${chrome.upi}
 
 <script src="../js/products.js"></script>
 <script src="../js/product-pages.js"></script>
-<script src="../js/script.js"></script>
+<script src="../js/script.min.js?v=5"></script>
 ${pageScript(product)}
 
 ${chrome.chatbot}

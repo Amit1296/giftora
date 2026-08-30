@@ -91,7 +91,7 @@
     const detail = $("#productDetail");
     const crumb = $("#productCrumbCat");
     const media = p.image
-      ? `<img class="product-detail-img" src="${p.image}" alt="${esc(p.name)}">`
+      ? `<img class="product-detail-img" src="${p.image}"${(window.dimAttr || function () { return ""; })(p.image)} alt="${esc(p.name)}">`
       : `<span class="product-detail-emoji">${p.emoji || "🎁"}</span>`;
     const stock = stockOf(p);
     const oos = stock <= 0;
@@ -200,7 +200,7 @@
         const oldPrice = p.oldPrice ? effPrice(p, p.oldPrice) : 0;
         const href = productPageUrl(p);
         const media = p.image
-          ? `<a class="product-card-link" href="${href}" aria-label="View ${esc(p.name)}"><img class="product-img" src="${p.image}" alt="${esc(p.name)}" loading="lazy"></a>`
+          ? `<a class="product-card-link" href="${href}" aria-label="View ${esc(p.name)}"><img class="product-img" src="${p.image}"${(window.dimAttr || function () { return ""; })(p.image)} alt="${esc(p.name)}" loading="lazy"></a>`
           : `<a class="product-card-link" href="${href}" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>`;
         return `
         <article class="product-card reveal">
