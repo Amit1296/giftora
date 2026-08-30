@@ -1,36 +1,56 @@
 # Giftora — Online Gift Shop India
 
-## About
-Giftora is an online gift shop based in Delhi, India. We offer same-day gift delivery across Delhi NCR and express delivery across India. Our products include cakes, flowers, teddy bears, clothes, shoes, sunglasses, belts, plants, toys, and gift combos.
+> Giftora is an online gift shop based in Delhi, India. We offer same-day gift delivery across Delhi NCR and major metros (Mumbai, Bengaluru, Chennai, Hyderabad, Kolkata, Pune, Jaipur) on orders placed before 5 PM, and express delivery to 60+ cities across India. Our range includes cakes, flowers, teddy bears, clothes, shoes, sunglasses, belts, plants, toys, and gift combos. Orders are placed online and hand-delivered by our local delivery network; international gifting for NRIs in the USA, UK, Canada, Australia and Africa is also supported.
 
 ## Key Pages
-- Home: https://gift-ora.online/
-- Shop All Gifts: https://gift-ora.online/index.html#shop
-- Cakes: https://gift-ora.online/cakes.html
-- Flowers: https://gift-ora.online/flowers.html
-- Teddy Bears: https://gift-ora.online/teddy.html
-- Clothes: https://gift-ora.online/clothes.html
-- Plants: https://gift-ora.online/plants.html
-- Combo Offers: https://gift-ora.online/combo.html
-- Special Offers: https://gift-ora.online/special-offers.html
-- Occasion Gifts: https://gift-ora.online/occasion-gifts.html
-- Birthday Gifts: https://gift-ora.online/birthday-gifts.html
-- Anniversary Gifts: https://gift-ora.online/anniversary-gifts.html
-- Corporate Gifts: https://gift-ora.online/corporate-gifts.html
-- Send Gifts to India: https://gift-ora.online/send-gifts-to-india.html
-- Gift Delivery India: https://gift-ora.online/gift-delivery-india.html
-- Blog: https://gift-ora.online/blog.html
-- About: https://gift-ora.online/about.html
-- Contact: https://gift-ora.online/contact.html
 
-## Delivery Areas
-Same-day delivery in Delhi NCR (Delhi, Noida, Gurugram, Faridabad, Ghaziabad). Express delivery across India.
+- [Home](https://gift-ora.online/): Giftora landing page with shop, offers and banners
+- [Shop All Gifts](https://gift-ora.online/index.html#shop): Browse every category, product and combo
+- [Cakes](https://gift-ora.online/cakes.html): Fresh cream and designer cake delivery
+- [Flowers](https://gift-ora.online/flowers.html): Roses, bouquets and flower baskets
+- [Teddy Bears](https://gift-ora.online/teddy.html): Plush teddy bears and soft toys
+- [Clothes](https://gift-ora.online/clothes.html): Apparel and fashion gifts
+- [Shoes](https://gift-ora.online/shoes.html): Sneakers and footwear
+- [Plants](https://gift-ora.online/plants.html): Indoor and ornamental plants
+- [Toys](https://gift-ora.online/toys.html): Kids' toys and gift sets
+- [Combo Offers](https://gift-ora.online/combo.html): Bundled multi-item gift hampers
+- [Special Offers](https://gift-ora.online/special-offers.html): Current deals and promotions
+- [Festival Offers](https://gift-ora.online/festival.html): Seasonal festival gift collections
 
-## Contact
-- Phone: +91 70880 84046
-- Email: amitwebdev163@gmail.com
-- Address: Dilshad Colony, Delhi - 110095
-- Website: https://gift-ora.online
+## Occasions
 
-## Payment Methods
-UPI, Credit/Debit Cards, Net Banking, Wallets, International Cards
+- [Birthday Gifts](https://gift-ora.online/birthday-gifts.html): Birthday gift ideas with same-day delivery
+- [Anniversary Gifts](https://gift-ora.online/anniversary-gifts.html): Cakes, flowers and hampers for anniversaries
+- [Rakhi Gifts](https://gift-ora.online/rakhi-gifts.html): Raksha Bandhan gifts and designer rakhis
+- [Teachers' Day Gifts](https://gift-ora.online/teachers-day-gifts.html): Ideas for thanking teachers
+- [Corporate Gifts](https://gift-ora.online/corporate-gifts.html): Bulk and corporate gifting
+
+## NRI / International
+
+- [Send Gifts to India](https://gift-ora.online/send-gifts-to-india.html): Order from abroad with doorstep delivery in India
+- [USA to India](https://gift-ora.online/gifts-to-india-from-usa.html): Gifting guide for NRIs in the USA
+- [UK to India](https://gift-ora.online/gifts-to-india-from-uk.html): Gifting guide for NRIs in the UK
+- [Canada to India](https://gift-ora.online/gifts-to-india-from-canada.html): Gifting guide for NRIs in Canada
+
+## Delivery
+
+- [Gift Delivery India](https://gift-ora.online/gift-delivery-india.html): Cities covered and delivery speeds in one place
+- [Delhi NCR](https://gift-ora.online/gift-delivery-delhi.html): Same-day hand delivery in Delhi, Noida, Gurugram, Faridabad and Ghaziabad
+- [Mumbai](https://gift-ora.online/gift-delivery-mumbai.html): Same-day delivery for orders before 5 PM
+- [Bengaluru](https://gift-ora.online/gift-delivery-bengaluru.html): Same-day delivery for orders before 5 PM
+- [Chennai](https://gift-ora.online/gift-delivery-chennai.html): Same-day delivery for orders before 5 PM
+- [Jaipur](https://gift-ora.online/gift-delivery-jaipur.html): Same-day delivery for orders before 5 PM
+
+## Company
+
+- [About Giftora](https://gift-ora.online/about.html): Who we are and how our delivery network works
+- [Blog](https://gift-ora.online/blog.html): Gifting guides and ideas
+- [Track Order](https://gift-ora.online/track-order.html): Check the status of an order
+- [Contact](https://gift-ora.online/contact.html): Phone +91 70880 84046, email amitwebdev163@gmail.com
+- [Become a Vendor](https://gift-ora.online/vendors.html): Sell your products on Giftora
+
+## Optional
+
+- [Wedding Gifts](https://gift-ora.online/wedding-gifts.html): Wedding and housewarming gift ideas
+- [Gifts Under 1000](https://gift-ora.online/blog-gifts-under-1000.html): Budget-friendly gift suggestions
+- [Privacy Policy](https://gift-ora.online/privacy-policy.html): Data and privacy practices
