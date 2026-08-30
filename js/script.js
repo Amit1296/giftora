@@ -1509,9 +1509,39 @@
   });
   navLinks.addEventListener("click", () => navLinks.classList.remove("open"));
 
+  const currentPage = location.pathname.split("/").pop() || "index.html";
+  navLinks.querySelectorAll("a").forEach((a) => {
+    const href = (a.getAttribute("href") || "").split("#")[0];
+    if (href && href === currentPage) {
+      a.classList.add("active");
+      a.setAttribute("aria-current", "page");
+    }
+  });
+
+  const spyLinks = Array.from(navLinks.querySelectorAll('a[href^="#"]'));
+  const spyTargets = spyLinks
+    .map((a) => document.getElementById(a.getAttribute("href").slice(1)))
+    .filter(Boolean);
+  function updateScrollspy() {
+    if (!spyTargets.length) return;
+    let currentId = null;
+    spyTargets.forEach((sec) => {
+      const top = sec.getBoundingClientRect().top + window.scrollY;
+      if (window.scrollY >= top - 140 && window.scrollY < top + sec.offsetHeight - 120) currentId = sec.id;
+    });
+    spyLinks.forEach((a) => {
+      const on = a.getAttribute("href").slice(1) === currentId;
+      a.classList.toggle("active", on);
+      if (on) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    });
+  }
+
   window.addEventListener("scroll", () => {
     navbar.classList.toggle("scrolled", window.scrollY > 20);
+    updateScrollspy();
   }, { passive: true });
+  updateScrollspy();
 
   /* ---------- Contact form ---------- */
   if (contactForm) {
@@ -1849,88 +1879,7 @@
     input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); run(); } });
   }
 
-  function initHeaderDelivery() {
-    const actions = document.querySelector(".nav-actions");
-    if (!actions) return;
-    if (document.getElementById("headerDeliveryWrap")) return;
 
-    const saved = localStorage.getItem("giftora_delivery_city") || "";
-    const wrap = document.createElement("div");
-    wrap.className = "header-delivery";
-    wrap.id = "headerDeliveryWrap";
-    wrap.innerHTML =
-      '<button type="button" class="header-delivery-toggle" id="headerDeliveryToggle" aria-expanded="false" aria-haspopup="true">' +
-      '<span class="header-delivery-pin">📍</span>' +
-      '<span class="header-delivery-label" id="headerDeliveryLabel">' + esc(saved ? saved : "Enter pincode") + "</span>" +
-      "<span class=\"header-delivery-caret\">▾</span>" +
-      "</button>" +
-      '<div class="header-delivery-dropdown" id="headerDeliveryDropdown" hidden role="dialog" aria-label="Check delivery">' +
-      '<div class="header-delivery-head">📦 Check delivery to your area</div>' +
-      '<form class="header-delivery-form" id="headerDeliveryForm" action="#" onsubmit="return false;">' +
-      '<input type="text" id="headerDeliveryInput" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode" autocomplete="postal-code">' +
-      '<button type="submit" class="btn btn-primary" id="headerDeliveryBtn">Check</button>' +
-      "</form>" +
-      '<div class="header-delivery-result" id="headerDeliveryResult" hidden></div>' +
-      "</div>";
-    actions.insertBefore(wrap, actions.firstChild);
-
-    const toggle = $("#headerDeliveryToggle");
-    const dropdown = $("#headerDeliveryDropdown");
-    const input = $("#headerDeliveryInput");
-    const result = $("#headerDeliveryResult");
-    const label = $("#headerDeliveryLabel");
-    const form = $("#headerDeliveryForm");
-    if (!toggle || !dropdown || !input || !result || !label || !form) return;
-
-    toggle.addEventListener("click", () => {
-      const wasHidden = dropdown.hidden;
-      dropdown.hidden = !wasHidden;
-      toggle.setAttribute("aria-expanded", String(wasHidden));
-      toggle.classList.toggle("open", !dropdown.hidden);
-      if (!dropdown.hidden) input.focus();
-    });
-    document.addEventListener("click", (e) => {
-      if (!wrap.contains(e.target)) {
-        dropdown.hidden = true;
-        toggle.classList.remove("open");
-      }
-    });
-
-    function setResult(cls, text) {
-      result.hidden = false;
-      result.className = "header-delivery-result " + cls;
-      result.textContent = text;
-    }
-
-    async function run() {
-      const pc = input.value.replace(/\D/g, "").trim();
-      if (!/^\d{6}$/.test(pc)) { setResult("hdr-info", "Please enter a valid 6-digit pincode."); return; }
-      const btn = $("#headerDeliveryBtn");
-      if (btn) btn.disabled = true;
-      setResult("hdr-info", "Checking…");
-      try {
-        const resp = await fetch("/api/pincode-check?pincode=" + encodeURIComponent(pc));
-        const data = await resp.json();
-        if (data && data.success) {
-          setResult(data.available ? "hdr-ok" : "hdr-fail", data.message || "");
-          if (data.available && data.city) {
-            localStorage.setItem("giftora_delivery_city", data.city);
-            label.textContent = data.city;
-            const dstrip = $("#deliveryCheckResult");
-            if (dstrip) { dstrip.className = "delivery-check-result dcheck-ok"; dstrip.textContent = data.message || ""; }
-          }
-        } else {
-          setResult("hdr-info", (data && data.message) || "Something went wrong. Please retry.");
-        }
-      } catch (e) {
-        setResult("hdr-info", "Could not check right now. Please call or WhatsApp us to confirm delivery.");
-      }
-      if (btn) btn.disabled = false;
-    }
-
-    form.addEventListener("submit", (e) => { e.preventDefault(); run(); });
-    input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); run(); } });
-  }
 
   async function renderHomeBanners() {
     const section = $("#festivalBannerSlider");
@@ -2073,7 +2022,6 @@
   }
   safeInit(renderHomeBanners);
   safeInit(initDeliveryCheck);
-  safeInit(initHeaderDelivery);
   safeInit(initWhatsAppWidget);
   safeInit(initMobileNav);
 
