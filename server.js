@@ -894,7 +894,7 @@ async function handleRequest(req, res) {
     }
   }
 
-  const blocked = ["/data/", "/admin-config.json", "/mail-config.json", "/razorpay-config.json", "/upi-config.json", "/node_modules/", "/.env"];
+  const blocked = ["/data/", "/.opencode/", "/admin-config.json", "/mail-config.json", "/razorpay-config.json", "/upi-config.json", "/node_modules/", "/.env"];
   const lowerPath = pathname.toLowerCase();
   if (blocked.some((b) => lowerPath.startsWith(b))) {
     res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
