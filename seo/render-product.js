@@ -82,6 +82,18 @@ function fit(s, max) {
   return s.length <= max ? s : s.slice(0, max - 1).trimEnd() + "\u2026";
 }
 
+function trimLastChar(s) {
+  if (!s.length) return s;
+  return /[\uDC00-\uDFFF]$/.test(s) ? s.slice(0, -2) : s.slice(0, -1);
+}
+
+function fitEscaped(s, max) {
+  if (esc(s).length <= max) return s;
+  let d = s.slice(0, max - 1).trimEnd();
+  while (esc(d + "\u2026").length > max) d = trimLastChar(d);
+  return d.trimEnd() + "\u2026";
+}
+
 function fixPaths(html) {
   return html.replace(/(href|src)="(?!https?:|data:|#|\/|mailto:|tel:)([^"]+)"/g, '$1="../$2"');
 }
@@ -305,13 +317,10 @@ function productDescription(product, site) {
   if (product.description) {
     txt = String(product.description).replace(/\s+/g, " ").trim();
   }
-  if (txt) {
-    return fit(`Buy ${product.name} online with same-day delivery at ${site.name}. ${txt}`, 158);
-  }
-  return fit(
-    `Buy ${product.name} online with same-day delivery at ${site.name} at just ${fmtPrice(product.price)}. Free gift wrapping and secure payments.`,
-    158
-  );
+  const base = txt
+    ? `Buy ${product.name} online with same-day delivery at ${site.name}. ${txt}`
+    : `Buy ${product.name} online with same-day delivery at ${site.name} at just ${fmtPrice(product.price)}. Free gift wrapping and secure payments.`;
+  return fitEscaped(base, 156);
 }
 
 function relatedCards(product, products) {
