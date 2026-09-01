@@ -392,6 +392,13 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
 .empty-state { text-align: center; padding: 60px 0; color: var(--text-muted); font-size: 1.05rem; }
 
 /* ---------- Features ---------- */
+.popular-links { padding: 60px 0; background: var(--surface); border-block: 1px solid var(--border); }
+.popular-links-grid { list-style: none; padding: 0; margin: 28px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 28px; }
+.popular-links-grid li { margin: 0; }
+.popular-links-grid a { display: block; padding: 16px 18px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: var(--text); font-weight: 600; text-decoration: none; transition: border-color .2s, transform .2s; }
+.popular-links-grid a:hover { border-color: var(--primary, #e11d48); transform: translateY(-2px); }
+@media (max-width: 640px) { .popular-links-grid { grid-template-columns: 1fr; } }
+
 .features { padding: 60px 0; background: var(--surface); border-block: 1px solid var(--border); }
 .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
 .feature { text-align: center; }
