@@ -11,6 +11,8 @@ page automatically.
 | `keywords.json` | Fresh keywords, titles, descriptions and meta settings for every page |
 | `apply-seo.js` | Reusable script that applies the keywords to all HTML pages |
 | `generate-products.js` | Generates a dedicated SEO page for every product (in `products/`) |
+| `render-product.js` | Builds a dynamic product page (Product + FAQPage JSON-LD, offers) from a product object (used by the live server) |
+| `check-schema.js` | **Schema audit** — validates every Product JSON-LD on every page for Google-required fields. Fails the deploy on invalid schema. |
 | `google-search-console-guide.md` | Step-by-step guide to get the site indexed on Google/Bing |
 | `README.md` | This guide |
 
@@ -56,6 +58,48 @@ instead of duplicating them.
   `js/product-pages.js` is regenerated automatically so category/home cards
   always link to the right pages (products added later in the admin panel have
   no static page, so their cards simply don't link).
+- The live server also renders product pages dynamically from
+  `data/products.json` via `seo/render-product.js` — keep `data/products.json`
+  and `js/products.js` in sync so the static and dynamic pages match.
+
+## Schema audit — run before every deploy
+
+Google requires Product rich results to include an `image`, `name` and an
+`offers` block with `price`/`priceCurrency`/`availability`. Missing any of
+these blocks the schema (this is the exact issue we previously fixed across
+all category + product pages).
+
+To verify everything is valid at any time:
+
+```
+node seo/check-schema.js        # or: npm test / npm run seo:check
+```
+
+- **exit 0** = all Product schema valid
+- **exit 1** = error(s) found — must be fixed before deploying
+
+The script checks:
+- every root `.html` page AND every `products/*.html` page
+- every Product node has `name`, `image` (absolute URL) and `offers`
+- every Offer has `price`, `priceCurrency`, `availability`
+- AggregateOffer uses `lowPrice`/`highPrice` and each sub-offer has `price`
+- every product in `data/products.json` has an `image` (protects the dynamic
+  server-rendered pages too)
+
+**Enforced automatically:**
+- `npm test` and `npm run seo:apply` run it
+- `render.yaml` build command runs it before deploy — an invalid schema now
+  **blocks the deployment**
+- GitHub Actions (`.github/workflows/schema-audit.yml`) runs it on every push/PR
+
+If the audit reports a missing `image` on a root category page, you can
+auto-fix it from the product data and regenerate the individual pages:
+
+```
+node seo/check-schema.js --fix   # auto-fills image from data/products.json (root pages)
+node seo/generate-products.js     # regenerate products/*.html (already has image)
+node seo/check-schema.js          # re-verify -> should be exit 0
+```
 
 ## Tips
 

@@ -25,6 +25,7 @@
 <!-- SEO-BLOCK-END -->
 
 
+
 	<meta name="description" content="Learn about Giftora — a trusted online gift shop delivering thoughtful gifts since 2020. Discover our mission, values and what makes gifting with us…">
 	<link rel="icon" href="logo.svg">
 	<title>About Giftora — Our Story of Thoughtful Gifting</title>
@@ -33,8 +34,28 @@
 	<link rel="preload" href="fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="fonts/poppins-latin-500.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="fonts/dancing-script-latin.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="stylesheet" href="css/style.min.css?v=4">
+	<link rel="stylesheet" href="css/style.min.css?v=10">
 
+
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 <!-- SEO-JSONLD-START -->
 <script type="application/ld+json">
 [
@@ -67,39 +88,15 @@
     "name": "Giftora",
     "url": "https://gift-ora.online"
   },
-"about": {
-    "@type": ["OnlineStore", "Organization"],
-    "@id": "https://gift-ora.online/#organization",
+  "about": {
+    "@type": "Organization",
     "name": "Giftora",
-    "url": "https://gift-ora.online",
-    "sameAs": [
-      "https://www.facebook.com/profile.php?id=61592856517972",
-      "https://www.instagram.com/amitwebdev1632026"
-    ]
+    "url": "https://gift-ora.online"
   }
 }
 ]
 </script>
 <!-- SEO-JSONLD-END -->
-
-<!-- SITEWIDE-WEBSITE-SCHEMA -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "@id": "https://gift-ora.online/#website",
-  "name": "Giftora",
-  "url": "https://gift-ora.online/",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
-  }
-}
-</script>
 </head>
 <body>
 
@@ -405,7 +402,7 @@
 </div>
 
 <script src="js/qrcode.min.js" defer></script>
-<script src="js/script.min.js?v=5" defer></script>
+<script src="js/script.min.js?v=6" defer></script>
 
 
 
@@ -435,6 +432,7 @@
 </div>
 <script src="js/chatbot.js" defer></script>
 <!-- CHATBOT-END -->
+
 
 
 

@@ -5,7 +5,7 @@ services:
     repo: https://github.com/Amit1296/giftora
     branch: master
     plan: free
-    buildCommand: npm install --omit=dev
+    buildCommand: npm install --omit=dev && node seo/check-schema.js
     startCommand: node server.js
     healthCheckPath: /
     autoDeploy: true

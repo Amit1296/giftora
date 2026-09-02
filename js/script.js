@@ -338,6 +338,93 @@
     });
   }
 
+  /* ---------- Announcement bar ---------- */
+  const ANNOUNCE_MSGS = [
+    { icon: "🎁", text: "Free gift wrapping on every order" },
+    { icon: "🚚", text: "Same-day delivery across the city" },
+    { icon: "⚡", text: "Express delivery at just ₹99" },
+  ];
+  function initAnnounceBar() {
+    if (document.getElementById("announceBar")) return;
+    const bar = document.createElement("div");
+    bar.className = "announce-bar";
+    bar.id = "announceBar";
+    bar.innerHTML =
+      '<div class="announce-bar-inner"><span class="abar-msg" id="abarMsg"></span></div>';
+    const navbar = $("#navbar");
+    if (navbar) navbar.parentNode.insertBefore(bar, navbar);
+    document.body.classList.add("announce-visible");
+    const msgEl = $("#abarMsg");
+    let i = 0;
+    function show() {
+      if (!msgEl) return;
+      const m = ANNOUNCE_MSGS[i % ANNOUNCE_MSGS.length];
+      msgEl.innerHTML = `<span>${m.icon}</span><span>${m.text}</span>`;
+      i++;
+    }
+    show();
+    setInterval(show, 4000);
+  }
+
+  /* ---------- Header / mobile search ---------- */
+  function initHeaderSearch() {
+    const desktopHost = document.querySelector(".nav-actions");
+    if (desktopHost && !document.getElementById("headerSearch")) {
+      const wrap = document.createElement("div");
+      wrap.className = "header-search";
+      wrap.id = "headerSearch";
+      wrap.innerHTML =
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>' +
+        '<input type="search" id="headerSearchInput" placeholder="Search gifts..." aria-label="Search gifts" autocomplete="off">';
+      desktopHost.prepend(wrap);
+    }
+
+    const mobileHost = document.getElementById("navLinks");
+    if (mobileHost && !document.getElementById("mobileSearch")) {
+      const wrap = document.createElement("div");
+      wrap.className = "mobile-search";
+      wrap.id = "mobileSearch";
+      wrap.innerHTML =
+        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>' +
+        '<input type="search" id="mobileSearchInput" placeholder="Search gifts..." aria-label="Search gifts" autocomplete="off">';
+      mobileHost.prepend(wrap);
+    }
+
+    const bind = (input) => {
+      if (!input) return;
+      input.addEventListener("input", () => {
+        const q = input.value.trim();
+        const dest = document.getElementById("searchInput");
+        if (dest) {
+          dest.value = q;
+          searchQuery = q;
+          dest.dispatchEvent(new Event("input", { bubbles: true }));
+        } else if (q.length >= 2) {
+          location.href = "index.html?q=" + encodeURIComponent(q);
+        }
+      });
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const q = input.value.trim();
+          if (q) {
+            const dest = document.getElementById("searchInput");
+            if (dest) {
+              dest.value = q;
+              searchQuery = q;
+              dest.dispatchEvent(new Event("input", { bubbles: true }));
+              document.getElementById("shop") &&
+                document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
+            } else {
+              location.href = "index.html?q=" + encodeURIComponent(q);
+            }
+          }
+        }
+      });
+    };
+    bind($("#headerSearchInput"));
+    bind($("#mobileSearchInput"));
+  }
+
   /* ---------- Wishlist ---------- */
   const WL_KEY = "giftora_wishlist";
   function loadWishlist() { try { return JSON.parse(localStorage.getItem(WL_KEY)) || []; } catch { return []; } }
@@ -2117,6 +2204,8 @@
   safeInit(initDeliveryCheck);
   safeInit(initWhatsAppWidget);
   safeInit(initMobileNav);
+  safeInit(initAnnounceBar);
+  safeInit(initHeaderSearch);
 
   safeInit(() => { updateBadge(); observeReveals(); });
   if (productsGrid) safeInit(() => idle(() => { renderProducts(); refreshProducts(); }, 800));

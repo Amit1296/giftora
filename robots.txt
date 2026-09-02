@@ -6,6 +6,5 @@ Disallow: /checkout-preview.html
 Disallow: /gift-card-template.html
 Disallow: /data/
 Disallow: /seo/
-Disallow: /api/
 
 Sitemap: https://gift-ora.online/sitemap.xml

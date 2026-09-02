@@ -165,6 +165,7 @@ function buildJsonLd(page, cfg, site, products) {
             item: {
               "@type": "Product",
               name: p.name,
+              image: p.image ? `${site.url.replace(/\/$/, "")}${p.image}` : site.ogImage,
               offers: { "@type": "Offer", price: String(p.price), priceCurrency: site.currency, availability: "https://schema.org/InStock" },
             },
           })),
@@ -281,6 +282,15 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
   }
 
   for (const [file, c] of Object.entries(sitemapOnly)) {
+    // Guards: never advertise a URL that has no actual file on disk.
+    // A stale/removed product or page must NOT appear in the sitemap,
+    // otherwise Google/Bing crawl it and report 404s. This prevents the
+    // "orphaned product slug" bug from ever recurring.
+    const onDisk = fs.existsSync(path.join(ROOT, file));
+    if (!onDisk) {
+      console.warn("  [sitemap] skipped (no file on disk): " + file);
+      continue;
+    }
     addUrl(site.url + "/" + file, c.priority, c.changefreq);
   }
 

@@ -258,6 +258,7 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
       "@type": "Product",
       name: pageName,
       description,
+      image: product.image ? `${site.url.replace(/\/$/, "")}${product.image}` : site.ogImage,
       brand: { "@type": "Brand", name: site.name },
       aggregateRating: {
         "@type": "AggregateRating",
