@@ -259,7 +259,7 @@ function extractChrome() {
 
 function buildMeta(product, slug, catMeta, site, description) {
   const url = `${site.url}/products/${slug}.html`;
-  const title = `${product.name} — Buy Online at Giftora`;
+  const title = fit(`${product.name} — Buy Online at Giftora`, 60);
   const custom = PRODUCT_KEYWORDS[product.id];
   const keywords = custom && custom.length
     ? custom
@@ -284,11 +284,12 @@ function buildMeta(product, slug, catMeta, site, description) {
     '<meta property="og:type" content="product">',
     `<meta property="og:locale" content="${site.locale}">`,
   ];
-  const ogImage = site.ogImage;
+  const ogImage = product.image ? `${site.url.replace(/\/$/, "")}${product.image}` : site.ogImage;
+  const ogDim = product.image && dimsMap()[product.image];
   if (ogImage) {
     lines.push(`<meta property="og:image" content="${ogImage}">`);
-    lines.push(`<meta property="og:image:width" content="1200">`);
-    lines.push(`<meta property="og:image:height" content="800">`);
+    lines.push(`<meta property="og:image:width" content="${ogDim ? ogDim[0] : 1200}">`);
+    lines.push(`<meta property="og:image:height" content="${ogDim ? ogDim[1] : 800}">`);
   }
   lines.push('<meta name="twitter:card" content="summary_large_image">');
   lines.push(`<meta name="twitter:title" content="${esc(title)}">`);
