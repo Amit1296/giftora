@@ -858,6 +858,8 @@ body.announce-visible .navbar:not(.scrolled) {
 
 /* ---------- Premium banner slider ---------- */
 .banner-slider { margin-top: 0; }
+#festivalBannerSlider .slider-viewport { height: 300px; }
+#festivalBannerSlider .slider-track { height: 100%; }
 .banner-slide { perspective: 1200px; }
 .premium-banner {
   display: flex; align-items: center; gap: 34px; flex-wrap: wrap;
@@ -991,12 +993,83 @@ body.announce-visible .navbar:not(.scrolled) {
 .premium-banner:hover .pb-cta { transform: translateZ(75px); box-shadow: 0 16px 34px rgba(76,29,149,0.32); }
 .teachers-day-slide .pb-cta { background: #0f766e; box-shadow: 0 12px 28px rgba(15,118,110,0.24); }
 .teachers-day-slide .premium-banner:hover .pb-cta { box-shadow: 0 16px 34px rgba(15,118,110,0.32); }
+
+/* Giftora logo watermark in festival banners */
+.pb-logo {
+  position: absolute; top: 18px; right: 24px; width: 74px; z-index: 2;
+  opacity: 0.9; pointer-events: none;
+  filter: drop-shadow(0 2px 6px rgba(45,31,61,0.18));
+}
+.pb-logo img { width: 100%; height: auto; display: block; }
+
+/* ---------- Karwa Chauth (deep red & saffron) ---------- */
+.karwa-red-slide .premium-banner {
+  background: linear-gradient(135deg, #fff1f2 0%, #fecdd3 45%, #e11d48 100%);
+  border-color: #be123c;
+}
+.karwa-red-slide .premium-banner::after {
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(202,138,4,0.10), transparent 42%);
+}
+.karwa-red-slide .o1 {
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(252,211,77,0.8) 45%, rgba(202,138,4,0.35) 100%);
+}
+.karwa-red-slide .o2 {
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(254,205,211,0.9) 45%, rgba(225,29,72,0.3) 100%);
+}
+.karwa-red-slide .pb-accent { background: linear-gradient(180deg, #be123c, #f59e0b); }
+.karwa-red-slide .pb-eyebrow { color: #9f1239; background: #fff1f2; border-color: #fecdd3; }
+.karwa-red-slide .pb-code { border-color: #fda4af; color: #881337; }
+.karwa-red-slide .pb-cta { background: #be123c; box-shadow: 0 12px 28px rgba(190,18,60,0.28); }
+.karwa-red-slide .premium-banner:hover .pb-cta { box-shadow: 0 16px 34px rgba(190,18,60,0.36); }
+
+/* ---------- Diwali (maroon & gold diya) ---------- */
+.diwali-maroon-slide .premium-banner {
+  background: linear-gradient(135deg, #fdf2f8 0%, #fda4af 45%, #be123c 100%);
+  border-color: #9f1239;
+}
+.diwali-maroon-slide .premium-banner::after {
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(202,138,4,0.12), transparent 42%);
+}
+.diwali-maroon-slide .o1 {
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(253,230,138,0.8) 45%, rgba(202,138,4,0.35) 100%);
+}
+.diwali-maroon-slide .o2 {
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.9), rgba(244,114,182,0.7) 45%, rgba(190,18,60,0.3) 100%);
+}
+.diwali-maroon-slide .pb-accent { background: linear-gradient(180deg, #be123c, #f5b301); }
+.diwali-maroon-slide .pb-eyebrow { color: #9f1239; background: #fff1f2; border-color: #fecdd3; }
+.diwali-maroon-slide .pb-code { border-color: #fecdd3; color: #881337; }
+.diwali-maroon-slide .pb-cta { background: #9f1239; box-shadow: 0 12px 28px rgba(159,18,57,0.28); }
+.diwali-maroon-slide .premium-banner:hover .pb-cta { box-shadow: 0 16px 34px rgba(159,18,57,0.36); }
+
+/* ---------- Birthday special (confetti purple) ---------- */
+.bday-purple-slide .premium-banner {
+  background: linear-gradient(135deg, #f5f3ff 0%, #d8b4fe 45%, #9333ea 100%);
+  border-color: #7e22ce;
+}
+.bday-purple-slide .premium-banner::after {
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(253,224,71,0.14), transparent 42%);
+}
+.bday-purple-slide .o1 {
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(253,230,138,0.85) 45%, rgba(217,119,6,0.3) 100%);
+}
+.bday-purple-slide .o2 {
+  background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.95), rgba(216,180,254,0.9) 45%, rgba(147,51,234,0.3) 100%);
+}
+.bday-purple-slide .pb-accent { background: linear-gradient(180deg, #7e22ce, #f59e0b); }
+.bday-purple-slide .pb-eyebrow { color: #6b21a8; background: #f5f3ff; border-color: #ddd6fe; }
+.bday-purple-slide .pb-code { border-color: #d8b4fe; color: #581c87; }
+.bday-purple-slide .pb-cta { background: #7e22ce; box-shadow: 0 12px 28px rgba(126,34,206,0.28); }
+.bday-purple-slide .premium-banner:hover .pb-cta { box-shadow: 0 16px 34px rgba(126,34,206,0.36); }
+
 @media (max-width: 820px) {
   .premium-banner { padding: 26px 22px; gap: 20px; border-radius: 18px; transform: none !important; }
   .pb-media { width: 132px; height: 132px; font-size: 4rem; border-radius: 18px; transform: none; }
+  #festivalBannerSlider .slider-viewport { height: 196px; }
   .pb-sub { font-size: 0.92rem; }
   .pb-cta { padding: 12px 22px; font-size: 0.92rem; transform: none; }
   .orb.o3 { display: none; }
+  .pb-logo { top: 12px; right: 14px; width: 46px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .premium-banner { transform: none; transition: none; }

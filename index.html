@@ -31,12 +31,19 @@
 	<meta name="description" content="Order gifts online at Giftora — clothes, toys, flowers, cakes, teddy bears and more. Same-day delivery, gift wrapping and easy checkout for every occasion.">
 	<link rel="icon" href="logo.svg">
 	<title>Giftora — Online Gift Shop | Same-Day Gift Delivery</title>
-	<link rel="preconnect" href="https://gift-ora.online" crossorigin>
 	<link rel="preload" href="css/style.min.css?v=10" as="style">
-	<link rel="preload" href="css/fonts.css" as="style">
 	<link rel="preload" href="js/products.js" as="script">
-	<link rel="stylesheet" href="css/fonts.css">
-<link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+	<style>
+	@font-face{font-family:'Dancing Script';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/dancing-script-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+	@font-face{font-family:'Fraunces';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+	@font-face{font-family:'Fraunces';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+	@font-face{font-family:'Fraunces';font-style:normal;font-weight:800;font-display:swap;src:url('../fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+	@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/poppins-latin-400.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+	@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/poppins-latin-500.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+	@font-face{font-family:'Poppins';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/poppins-latin-600.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+	@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/poppins-latin-700.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+	</style>
+	<link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="fonts/poppins-latin-500.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="fonts/dancing-script-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -166,6 +173,10 @@
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="announce-bar" id="announceBar" role="region" aria-label="Announcements">
+	<div class="announce-bar-inner"><span class="abar-msg" id="abarMsg"><span>🎁</span><span>Free gift wrapping on every order</span></span></div>
+</div>
 
 <nav class="navbar" id="navbar">
 	<div class="container nav-container">
@@ -1013,8 +1024,8 @@
 		</div>
 	</div>
 </div>
-<script src="js/cookies.js"></script>
-<script src="js/track.js"></script>
+<script src="js/cookies.js" defer></script>
+<script src="js/track.js" defer></script>
 <!-- COOKIE-END -->
 </body>
 </html>

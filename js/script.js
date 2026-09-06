@@ -94,6 +94,7 @@
   const MIDNIGHT_FEE = 300;
 
   async function refreshProducts() {
+    if (PRODUCTS && PRODUCTS.length > 0) return;
     try {
       const res = await fetch("/api/products");
       if (!res.ok) return;
@@ -345,16 +346,16 @@
     { icon: "⚡", text: "Express delivery at just ₹99" },
   ];
   function initAnnounceBar() {
-    if (document.getElementById("announceBar")) return;
-    const bar = document.createElement("div");
-    bar.className = "announce-bar";
-    bar.id = "announceBar";
-    bar.innerHTML =
-      '<div class="announce-bar-inner"><span class="abar-msg" id="abarMsg"></span></div>';
-    const navbar = $("#navbar");
-    if (navbar) navbar.parentNode.insertBefore(bar, navbar);
+    let bar = document.getElementById("announceBar");
+    if (!bar) {
+      bar = document.createElement("div");
+      bar.className = "announce-bar";
+      bar.id = "announceBar";
+      bar.innerHTML =
+        '<div class="announce-bar-inner"><span class="abar-msg" id="abarMsg"></span></div>';
+    }
     document.body.classList.add("announce-visible");
-    const msgEl = $("#abarMsg");
+    const msgEl = $("#abarMsg") || bar.querySelector(".abar-msg");
     let i = 0;
     function show() {
       if (!msgEl) return;
@@ -1698,13 +1699,22 @@
   const spyTargets = spyLinks
     .map((a) => document.getElementById(a.getAttribute("href").slice(1)))
     .filter(Boolean);
+  const spyOffsets = [];
+  function measureSpyTargets() {
+    spyOffsets.length = 0;
+    spyTargets.forEach((sec) => {
+      const rect = sec.getBoundingClientRect();
+      spyOffsets.push({ id: sec.id, top: rect.top + window.scrollY, height: rect.height });
+    });
+  }
   function updateScrollspy() {
     if (!spyTargets.length) return;
+    if (spyOffsets.length === 0) measureSpyTargets();
     let currentId = null;
-    spyTargets.forEach((sec) => {
-      const top = sec.getBoundingClientRect().top + window.scrollY;
-      if (window.scrollY >= top - 140 && window.scrollY < top + sec.offsetHeight - 120) currentId = sec.id;
-    });
+    const y = window.scrollY;
+    for (const s of spyOffsets) {
+      if (y >= s.top - 140 && y < s.top + s.height - 120) currentId = s.id;
+    }
     spyLinks.forEach((a) => {
       const on = a.getAttribute("href").slice(1) === currentId;
       a.classList.toggle("active", on);
@@ -1717,7 +1727,12 @@
     navbar.classList.toggle("scrolled", window.scrollY > 20);
     updateScrollspy();
   }, { passive: true });
-  updateScrollspy();
+  const initScrollspy = () => {
+    measureSpyTargets();
+    updateScrollspy();
+  };
+  if (typeof requestIdleCallback === "function") requestIdleCallback(initScrollspy, { timeout: 1000 });
+  else setTimeout(initScrollspy, 500);
 
   /* ---------- Contact form ---------- */
   if (contactForm) {
@@ -2064,6 +2079,16 @@
     const dotsWrap = section.querySelector(".slider-dots");
     const prevBtn = section.querySelector("[data-slider-prev]");
     const nextBtn = section.querySelector("[data-slider-next]");
+
+    if (track && track.children.length > 0) {
+      section.style.display = "";
+      Array.from(track.children).forEach((el) => {
+        const cdEl = el.querySelector(".festival-countdown");
+        if (cdEl) startCountdown(cdEl);
+      });
+      return;
+    }
+
     let banners = [];
     try {
       const res = await fetch("/api/banners");
@@ -2090,11 +2115,16 @@
         ? `<span class="festival-countdown" data-countdown-enabled="true" data-countdown-target="${escAttr(cd.target || "")}" data-countdown-label="${escAttr(cd.label || "Time left")}" data-countdown-done="${escAttr(cd.done || "It's here! 🎉")}"></span>`
         : "";
       const linkAttr = b.link ? ` href="${escAttr(b.link)}"` : "";
+      const slideClass = b.slideClass ? escAttr(b.slideClass) : "";
+      const logoHTML = b.logo
+        ? '<span class="pb-logo"><img src="logo.svg" alt="Giftora" loading="lazy"></span>'
+        : "";
       return `
-        <div class="slide banner-slide">
+        <div class="slide banner-slide ${slideClass}">
           <a class="premium-banner"${linkAttr}>
             <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
             <span class="pb-accent"></span>
+            ${logoHTML}
             ${media}
             <span class="pb-copy">
               ${b.delivery ? `<span class="pb-delivery">${escAttr(b.delivery)}</span>` : ""}

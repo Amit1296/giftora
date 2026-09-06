@@ -17,5 +17,16 @@
   "dependencies": {
     "nodemailer": "^9.0.3",
     "pg": "^8.13.1"
-  }
+  },
+  "devDependencies": {
+    "terser": "^5.51.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amit1296/giftora.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Amit1296/giftora/issues"
+  },
+  "homepage": "https://github.com/Amit1296/giftora#readme"
 }

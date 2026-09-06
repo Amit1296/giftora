@@ -195,8 +195,23 @@ function readBody(req) {
 }
 
 function sendJson(res, status, payload) {
+  const raw = JSON.stringify(payload);
+  const acceptEncoding = (res.req && res.req.headers && res.req.headers["accept-encoding"]) || "";
+  const useGzip = acceptEncoding.includes("gzip") && raw.length > 512;
+  if (useGzip) {
+    res.writeHead(status, {
+      "Content-Type": "application/json; charset=utf-8",
+      "Content-Encoding": "gzip",
+      "Vary": "Accept-Encoding",
+    });
+    zlib.gzip(Buffer.from(raw, "utf8"), (err, compressed) => {
+      if (err) return res.end(raw);
+      res.end(compressed);
+    });
+    return;
+  }
   res.writeHead(status, { "Content-Type": "application/json; charset=utf-8" });
-  res.end(JSON.stringify(payload));
+  res.end(raw);
 }
 
 function badRequest(res, e, fallbackMsg) {
@@ -245,21 +260,29 @@ function requireAuth(req, res) {
 
 const CACHE_EXTENSIONS = {
   ".html": "no-cache",
-  ".js": "no-cache, must-revalidate",
-  ".css": "no-cache, must-revalidate",
+  ".js": "public, max-age=0, must-revalidate",
+  ".css": "public, max-age=0, must-revalidate",
   ".json": "no-cache, must-revalidate",
   ".txt": "no-cache, must-revalidate",
   ".xml": "no-cache, must-revalidate",
-  ".svg": "public, max-age=86400",
-  ".png": "public, max-age=86400",
-  ".jpg": "public, max-age=86400",
-  ".jpeg": "public, max-age=86400",
-  ".gif": "public, max-age=86400",
-  ".webp": "public, max-age=86400",
-  ".ico": "public, max-age=86400",
-  ".woff": "public, max-age=86400",
-  ".woff2": "public, max-age=86400",
+  ".svg": "public, max-age=31536000, immutable",
+  ".png": "public, max-age=31536000, immutable",
+  ".jpg": "public, max-age=31536000, immutable",
+  ".jpeg": "public, max-age=31536000, immutable",
+  ".gif": "public, max-age=31536000, immutable",
+  ".webp": "public, max-age=31536000, immutable",
+  ".ico": "public, max-age=31536000, immutable",
+  ".woff": "public, max-age=31536000, immutable",
+  ".woff2": "public, max-age=31536000, immutable",
 };
+
+function cacheControlFor(filePath, cacheControl, hasVersion) {
+  const ext = path.extname(filePath).toLowerCase();
+  if ((ext === ".js" || ext === ".css") && hasVersion) {
+    return "public, max-age=31536000, immutable";
+  }
+  return cacheControl;
+}
 
 const server = http.createServer(async (req, res) => {
   try {
@@ -942,7 +965,7 @@ async function handleRequest(req, res) {
 
   const ext = path.extname(filePath).toLowerCase();
   const type = MIME[ext] || "application/octet-stream";
-  const cacheControl = CACHE_EXTENSIONS[ext] || "no-cache";
+  const cacheControl = cacheControlFor(filePath, CACHE_EXTENSIONS[ext] || "no-cache", url.searchParams.has("v"));
 
   const acceptEncoding = req.headers["accept-encoding"] || "";
   const compressible = [".html", ".css", ".js", ".json", ".svg", ".woff2"].includes(ext);
