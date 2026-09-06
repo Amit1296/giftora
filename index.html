@@ -36,7 +36,7 @@
 	<style>
 	@font-face{font-family:'Dancing Script';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/dancing-script-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 	@font-face{font-family:'Fraunces';font-style:normal;font-weight:600;font-display:swap;src:url('../fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-	@font-face{font-family:'Fraunces';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 	@font-face{font-family:'Fraunces';font-style:normal;font-weight:800;font-display:swap;src:url('../fonts/fraunces-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 	@font-face{font-family:'Poppins';font-style:normal;font-weight:400;font-display:swap;src:url('../fonts/poppins-latin-400.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 	@font-face{font-family:'Poppins';font-style:normal;font-weight:500;font-display:swap;src:url('../fonts/poppins-latin-500.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
@@ -44,7 +44,7 @@
 	@font-face{font-family:'Poppins';font-style:normal;font-weight:700;font-display:swap;src:url('../fonts/poppins-latin-700.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 	</style>
 	<link rel="preload" href="fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-	<link rel="preload" href="fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="fonts/poppins-latin-500.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="preload" href="fonts/dancing-script-latin.woff2" as="font" type="font/woff2" crossorigin>
 	<link rel="stylesheet" href="css/style.min.css?v=10">
@@ -243,12 +243,72 @@
 <section class="festival-banner" id="festivalBannerSlider">
 		<div class="container">
 			<div class="occasion-slider banner-slider" data-slider data-autoplay="5000">
-				<div class="slider-viewport">
-					<div class="slider-track" id="bannerTrack"></div>
-				</div>
-				<button class="slider-arrow slider-prev" type="button" data-slider-prev aria-label="Previous banner">&#8249;</button>
-				<button class="slider-arrow slider-next" type="button" data-slider-next aria-label="Next banner">&#8250;</button>
-				<div class="slider-dots" aria-label="Festival banners"></div>
+<div class="slider-viewport">
+						<div class="slider-track" id="bannerTrack">
+							<div class="slide banner-slide karwa-red-slide">
+								<a class="premium-banner" href="index.html#home">
+									<span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+									<span class="pb-accent"></span>
+									<span class="pb-logo"><img src="logo.svg" alt="Giftora" loading="lazy"></span>
+									<span class="pb-media"><span class="pb-emoji">🌙</span></span>
+									<span class="pb-copy">
+										<span class="pb-delivery">🚚 Same-Day Delivery</span>
+										<span class="pb-eyebrow">💐 Karwa Chauth · 29 October</span>
+										<span class="pb-title">Celebrate the Bond You Cherish</span>
+										<span class="pb-sub">Couple&rsquo;s combos, roses, chocolates &amp; keepsakes &mdash; gift love on this special vrat day</span>
+										<span class="pb-row">
+											<span class="pb-code">Use code <strong>KARWA15</strong><em class="pb-off"><strong>15</strong>% OFF</em></span>
+											<span class="pb-limited">⏰ Ends 29 October</span>
+											<span class="festival-countdown" data-countdown-enabled="true" data-countdown-target="2026-10-29T00:00:00+05:30" data-countdown-label="Karwa Chauth in" data-countdown-done="Happy Karwa Chauth! 🌙"></span>
+										</span>
+										<span class="pb-cta">Shop Couple&rsquo;s Combos &rarr;</span>
+									</span>
+								</a>
+							</div>
+							<div class="slide banner-slide diwali-maroon-slide">
+								<a class="premium-banner" href="index.html#home">
+									<span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+									<span class="pb-accent"></span>
+									<span class="pb-logo"><img src="logo.svg" alt="Giftora" loading="lazy"></span>
+									<span class="pb-media"><span class="pb-emoji">🏮</span></span>
+									<span class="pb-copy">
+										<span class="pb-delivery">🚚 Same-Day Delivery</span>
+										<span class="pb-eyebrow">🪔 Deepawali · 8 November</span>
+										<span class="pb-title">Light Their Festival With a Gift</span>
+										<span class="pb-sub">Diyas, marigold d&eacute;cor, puja thalis &amp; sweet gift boxes delivered to their door</span>
+										<span class="pb-row">
+											<span class="pb-code">Use code <strong>DIWALI15</strong><em class="pb-off"><strong>15</strong>% OFF</em></span>
+											<span class="pb-limited">⏰ Ends 9 November</span>
+											<span class="festival-countdown" data-countdown-enabled="true" data-countdown-target="2026-11-08T00:00:00+05:30" data-countdown-label="Diwali in" data-countdown-done="Happy Deepawali! 🪔"></span>
+										</span>
+										<span class="pb-cta">Explore Diwali Hampers &rarr;</span>
+									</span>
+								</a>
+							</div>
+							<div class="slide banner-slide bday-purple-slide">
+								<a class="premium-banner" href="index.html#home">
+									<span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+									<span class="pb-accent"></span>
+									<span class="pb-logo"><img src="logo.svg" alt="Giftora" loading="lazy"></span>
+									<span class="pb-media"><span class="pb-emoji">🎂</span></span>
+									<span class="pb-copy">
+										<span class="pb-delivery">🚚 Same-Day Delivery</span>
+										<span class="pb-eyebrow">🎉 Birthday Special</span>
+										<span class="pb-title">Make Their Day Unforgettable</span>
+										<span class="pb-sub">Cakes, balloons, teddies &amp; surprise combos &mdash; a birthday they&rsquo;ll never forget</span>
+										<span class="pb-row">
+											<span class="pb-code">Use code <strong>BDAY15</strong><em class="pb-off"><strong>15</strong>% OFF</em></span>
+											<span class="pb-limited">🎁 For every birthday</span>
+										</span>
+										<span class="pb-cta">Shop Birthday Gifts &rarr;</span>
+									</span>
+								</a>
+							</div>
+						</div>
+					</div>
+					<button class="slider-arrow slider-prev" type="button" data-slider-prev aria-label="Previous banner">&#8249;</button>
+					<button class="slider-arrow slider-next" type="button" data-slider-next aria-label="Next banner">&#8250;</button>
+					<div class="slider-dots" aria-label="Festival banners"></div>
 			</div>
 		</div>
 	</section>	<!-- BANNER-SLOT:END -->

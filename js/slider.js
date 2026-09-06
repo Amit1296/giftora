@@ -13,18 +13,30 @@
     var timer = null;
     var autoplay = parseInt(slider.getAttribute("data-autoplay") || "0", 10);
 
-    slides.forEach(function (_, i) {
-      var dot = document.createElement("button");
-      dot.className = "slider-dot" + (i === 0 ? " active" : "");
-      dot.setAttribute("type", "button");
-      dot.setAttribute("aria-label", "Go to slide " + (i + 1));
-      dot.addEventListener("click", function () {
-        go(i);
-        restart();
-      });
-      dotsWrap.appendChild(dot);
-    });
     var dots = Array.prototype.slice.call(dotsWrap.children);
+    if (dots.length !== slides.length) {
+      dots.forEach(function (d) { d.remove(); });
+      dots = [];
+      slides.forEach(function (_, i) {
+        var dot = document.createElement("button");
+        dot.className = "slider-dot" + (i === 0 ? " active" : "");
+        dot.setAttribute("type", "button");
+        dot.setAttribute("aria-label", "Go to slide " + (i + 1));
+        dot.addEventListener("click", function () {
+          go(i);
+          restart();
+        });
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
+      });
+    } else {
+      dots.forEach(function (dot, i) {
+        dot.addEventListener("click", function () {
+          go(i);
+          restart();
+        });
+      });
+    }
 
     function go(i) {
       index = (i + slides.length) % slides.length;

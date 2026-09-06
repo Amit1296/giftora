@@ -451,15 +451,6 @@ body.announce-visible .navbar:not(.scrolled) {
 .filter-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
 
 .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-/* Skip layout/paint of below-the-fold static sections on first paint so the
-   initial (render-critical) layout pass stays small. `auto` lets Chrome
-   remember real heights after the first render to keep the scrollbar stable. */
-#occasions, #international, #delivery-areas,
-.testimonials, .popular-links, .features, #why-giftora, #how-it-works,
-.contact, .footer {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 520px;
-}
 .product-card {
   background: var(--surface);
   border: 1px solid var(--border);
