@@ -1408,9 +1408,11 @@
   }
 
   /* Build the product grid in idle chunks so the main thread yields between
-     batches. This splits one large blocking task (string building + all the
-     per-card helper calls) into many small slices, reducing Total Blocking
-     Time while keeping a single atomic DOM insertion (no layout thrash). */
+     batches. Each batch is appended to the DOM right after it is built, so
+     one large 117-card insert + layout pass is replaced by many small ones
+     (cuts the throttle-amplified style/layout long task). A render token
+     stops a stale render that a filter/search re-render superseded. */
+  let renderToken = 0;
   function renderProducts() {
     if (!productsGrid) return;
     const query = searchQuery.trim().toLowerCase();
@@ -1431,15 +1433,19 @@
       return matchPage && matchCat && matchQuery;
     });
 
+    const token = ++renderToken;
+    productsGrid.innerHTML = "";
     emptyState.hidden = list.length > 0;
 
     const batch = 5;
-    const parts = [];
     let idx = 0;
 
     function step() {
+      if (token !== renderToken) return;
       const end = Math.min(idx + batch, list.length);
-      for (; idx < end; idx++) parts.push(cardHTML(list[idx]));
+      let html = "";
+      for (; idx < end; idx++) html += cardHTML(list[idx]);
+      productsGrid.insertAdjacentHTML("beforeend", html);
       if (idx < list.length) {
         if (typeof requestIdleCallback === "function") {
           requestIdleCallback(step, { timeout: 30 });
@@ -1447,7 +1453,6 @@
           setTimeout(step, 0);
         }
       } else {
-        productsGrid.innerHTML = parts.join("");
         requestAnimationFrame(() => observeReveals());
       }
     }
