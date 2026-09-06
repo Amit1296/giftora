@@ -1369,39 +1369,18 @@
     return window.GIFT_PRODUCT_PAGES.includes(slug) ? "products/" + slug + ".html" : dynamic;
   }
 
-  function renderProducts() {
-    if (!productsGrid) return;
-    const query = searchQuery.trim().toLowerCase();
-    const list = PRODUCTS.filter((p) => {
-      const matchPage = PAGE_FESTIVAL
-        ? festivalProductIds.size === 0 || festivalProductIds.has(p.id)
-        : PAGE_RAKHI || PAGE_NRI
-          ? RAKHI_CATEGORIES.includes(p.category)
-          : PAGE_OCCASION
-            ? OCCASION_CATEGORIES === null || OCCASION_CATEGORIES.includes(p.category)
-            : !PAGE_CATEGORY
-              ? true
-              : PAGE_CATEGORY === "special"
-                ? p.oldPrice > 0
-                : p.category === PAGE_CATEGORY;
-      const matchCat = activeFilter === "all" || p.category === activeFilter;
-      const matchQuery = !query || p.name.toLowerCase().includes(query) || p.category.includes(query);
-      return matchPage && matchCat && matchQuery;
-    });
-
-    emptyState.hidden = list.length > 0;
-    productsGrid.innerHTML = list.map((p) => {
-      const discount = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
-      const badge = PAGE_CATEGORY === "special" && discount > 0 ? `${discount}% OFF` : p.badge;
-      const stock = stockOf(p);
-      const oos = stock <= 0;
-      const lowStock = !oos && stock !== Infinity && stock <= 5;
-      const startSize = defaultSize(p);
-      const showOld = !!p.oldPrice && (!hasSizePrices(p) || Number(p.sizePrices[startSize]) === Number(p.price));
-      const addControl = oos
-        ? `<button class="add-to-cart" data-id="${p.id}" disabled>Out of Stock</button>`
-        : `${p.sizes && p.sizes.length ? sizeSelectHtml(p) : ""}<button class="add-to-cart" data-id="${p.id}">Add to Cart</button>`;
-      return `
+  function cardHTML(p) {
+    const discount = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+    const badge = PAGE_CATEGORY === "special" && discount > 0 ? `${discount}% OFF` : p.badge;
+    const stock = stockOf(p);
+    const oos = stock <= 0;
+    const lowStock = !oos && stock !== Infinity && stock <= 5;
+    const startSize = defaultSize(p);
+    const showOld = !!p.oldPrice && (!hasSizePrices(p) || Number(p.sizePrices[startSize]) === Number(p.price));
+    const addControl = oos
+      ? `<button class="add-to-cart" data-id="${p.id}" disabled>Out of Stock</button>`
+      : `${p.sizes && p.sizes.length ? sizeSelectHtml(p) : ""}<button class="add-to-cart" data-id="${p.id}">Add to Cart</button>`;
+    return `
       <article class="product-card reveal">
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
           ${badge ? `<span class="product-badge${badge === "Premium" ? " premium" : ""}">${badge}</span>` : ""}
@@ -1426,9 +1405,53 @@
         </div>
       </article>
     `;
-    }).join("");
+  }
 
-    requestAnimationFrame(() => observeReveals());
+  /* Build the product grid in idle chunks so the main thread yields between
+     batches. This splits one large blocking task (string building + all the
+     per-card helper calls) into many small slices, reducing Total Blocking
+     Time while keeping a single atomic DOM insertion (no layout thrash). */
+  function renderProducts() {
+    if (!productsGrid) return;
+    const query = searchQuery.trim().toLowerCase();
+    const list = PRODUCTS.filter((p) => {
+      const matchPage = PAGE_FESTIVAL
+        ? festivalProductIds.size === 0 || festivalProductIds.has(p.id)
+        : PAGE_RAKHI || PAGE_NRI
+          ? RAKHI_CATEGORIES.includes(p.category)
+          : PAGE_OCCASION
+            ? OCCASION_CATEGORIES === null || OCCASION_CATEGORIES.includes(p.category)
+            : !PAGE_CATEGORY
+              ? true
+              : PAGE_CATEGORY === "special"
+                ? p.oldPrice > 0
+                : p.category === PAGE_CATEGORY;
+      const matchCat = activeFilter === "all" || p.category === activeFilter;
+      const matchQuery = !query || p.name.toLowerCase().includes(query) || p.category.includes(query);
+      return matchPage && matchCat && matchQuery;
+    });
+
+    emptyState.hidden = list.length > 0;
+
+    const batch = 5;
+    const parts = [];
+    let idx = 0;
+
+    function step() {
+      const end = Math.min(idx + batch, list.length);
+      for (; idx < end; idx++) parts.push(cardHTML(list[idx]));
+      if (idx < list.length) {
+        if (typeof requestIdleCallback === "function") {
+          requestIdleCallback(step, { timeout: 30 });
+        } else {
+          setTimeout(step, 0);
+        }
+      } else {
+        productsGrid.innerHTML = parts.join("");
+        requestAnimationFrame(() => observeReveals());
+      }
+    }
+    step();
   }
 
   function observeReveals() {
@@ -2230,7 +2253,7 @@
     if (typeof requestIdleCallback === "function") requestIdleCallback(fn, { timeout: ms });
     else setTimeout(fn, ms);
   }
-  safeInit(renderHomeBanners);
+  safeInit(() => idle(renderHomeBanners, 300));
   safeInit(initDeliveryCheck);
   safeInit(initWhatsAppWidget);
   safeInit(initMobileNav);
