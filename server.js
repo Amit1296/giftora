@@ -29,6 +29,12 @@ const apply = require("./seo/apply-seo");
 
 const PORT = process.env.PORT || 8080;
 
+const SITE_URL = (() => {
+  try { return (apply.loadConfig().site || {}).url || "https://gift-ora.online"; }
+  catch { return "https://gift-ora.online"; }
+})();
+const SITE_HOST = SITE_URL.replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+
 const DATA_DIR = db.DATA_DIR;
 const UPLOADS_DIR = process.env.UPLOADS_DIR ? path.resolve(process.env.UPLOADS_DIR) : path.join(ROOT, "uploads");
 const ADMIN_CONFIG = path.join(ROOT, "admin-config.json");
@@ -300,6 +306,16 @@ async function handleRequest(req, res) {
   const url = new URL(req.url, "http://localhost");
   const method = req.method;
   const ip = clientIp(req);
+
+  if (method === "GET" || method === "HEAD") {
+    const host = (req.headers.host || "").toLowerCase().split(":")[0];
+    const isLoopback = !host || host === "localhost" || host === "127.0.0.1" || host === "::1";
+    if (!isLoopback && host !== SITE_HOST) {
+      const dest = SITE_URL + url.pathname + (url.search || "");
+      res.writeHead(301, { Location: dest, "Cache-Control": "public, max-age=86400" });
+      return res.end();
+    }
+  }
 
   applySecurityHeaders(res, req);
 
