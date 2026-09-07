@@ -1082,6 +1082,14 @@
     "products/sunshine-pineapple-cream-cake.html": {
       "priority": "0.7",
       "changefreq": "weekly"
+    },
+    "deepawali-gifts.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "karwa-chauth-gifts.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
     }
   }
 }
