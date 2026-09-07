@@ -87,10 +87,19 @@
   /* ---------- Tabs ---------- */
   $$(".tab").forEach((tab) => {
     tab.addEventListener("click", () => {
+      const wasVisitors = tab.dataset.tab === "visitors";
       $$(".tab").forEach((t) => t.classList.remove("active"));
       $$(".tab-panel").forEach((p) => p.classList.remove("active"));
       tab.classList.add("active");
       $("#tab-" + tab.dataset.tab).classList.add("active");
+      if (wasVisitors) {
+        if (liveTimer) clearInterval(liveTimer);
+        pollLive();
+        liveTimer = setInterval(pollLive, 15000);
+      } else if (liveTimer) {
+        clearInterval(liveTimer);
+        liveTimer = null;
+      }
     });
   });
 
@@ -1002,9 +1011,55 @@
       if (!data.success) return;
       visitors = data.sessions || [];
       renderVisitorSummary(data.summary || {});
+      renderLiveNow({
+        counts: {
+          now5: (data.summary || {}).liveNow || 0,
+          active15: (data.summary || {}).active15 || 0,
+          activeHour: (data.summary || {}).activeHour || 0,
+        },
+        sessions: (data.summary || {}).liveSessions || [],
+        serverNow: data.serverNow,
+      });
       renderVisitors();
     } catch (e) {
       toast(e.message);
+    }
+  }
+
+  /* ---------- Live Now ---------- */
+  let liveTimer = null;
+
+  function renderLiveNow(data) {
+    const counts = data.counts || {};
+    const now5 = counts.now5 != null ? counts.now5 : data.liveNow || 0;
+    $("#live5Count").textContent = now5;
+    $("#live15Count").textContent = counts.active15 != null ? counts.active15 : 0;
+    $("#liveHourCount").textContent = counts.activeHour != null ? counts.activeHour : 0;
+    $("#liveDot").classList.toggle("live-dot-idle", now5 === 0);
+    if (data.serverNow) {
+      const secs = Math.max(0, Math.round((Date.now() - new Date(data.serverNow).getTime()) / 1000));
+      $("#liveUpdated").textContent = secs <= 1 ? "updated now" : "updated " + secs + "s ago";
+    }
+    const sessions = data.sessions || [];
+    $("#liveList").innerHTML = sessions.length
+      ? sessions
+          .map(
+            (s) => `
+            <div class="live-item">
+              <span class="live-item-meta">${esc(s.device || "?")} · ${esc(s.browser || "?")}${countryChip(s.country)} · ${esc(s.os || "")}</span>
+              <span class="live-item-page">${esc(s.page || "—")}</span>
+            </div>`
+          )
+          .join("")
+      : '<p class="empty-state live-empty">No one on the site right now.</p>';
+  }
+
+  async function pollLive() {
+    try {
+      const data = await api("/api/admin/visitors/live");
+      if (data.success) renderLiveNow(data);
+    } catch (e) {
+      /* keep last known state on network errors */
     }
   }
 

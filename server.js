@@ -867,6 +867,22 @@ async function handleRequest(req, res) {
       }
     }
 
+    if (url.pathname === "/api/admin/visitors/live" && method === "GET") {
+      const store = await db.getVisitors();
+      const orders = await db.getOrders();
+      const rep = buildVisitorsReport(store, orders);
+      return sendJson(res, 200, {
+        success: true,
+        serverNow: rep.serverNow,
+        counts: {
+          now5: rep.summary.liveNow,
+          active15: rep.summary.active15,
+          activeHour: rep.summary.activeHour,
+        },
+        sessions: rep.summary.liveSessions,
+      });
+    }
+
     if (url.pathname === "/api/admin/visitors" && method === "GET") {
       return sendJson(res, 200, buildVisitorsReport(await db.getVisitors(), await db.getOrders()));
     }
@@ -1103,6 +1119,13 @@ function buildVisitorsReport(store, orders) {
   let checkouts = 0;
   let conversions = 0;
   let activeToday = 0;
+  const nowMs = Date.now();
+  const MIN5 = 5 * 60 * 1000;
+  const MIN15 = 15 * 60 * 1000;
+  const HOUR = 60 * 60 * 1000;
+  let activeHour = 0;
+  const live15 = [];
+  const live5 = [];
 
   for (const s of enriched) {
     views += s.views;
@@ -1115,12 +1138,32 @@ function buildVisitorsReport(store, orders) {
     for (const [name, n] of Object.entries(s.productViews)) {
       productCounts[name] = (productCounts[name] || 0) + n;
     }
+    const lastMs = Date.parse(s.lastSeen);
+    if (isNaN(lastMs) || nowMs - lastMs > MIN15) continue;
+    const pages = s.pages || [];
+    const current = pages.length
+      ? { page: pages[pages.length - 1].path, pageTime: pages[pages.length - 1].time }
+      : { page: "", pageTime: "" };
+    const liveEntry = {
+      vid: s.vid,
+      device: s.device,
+      browser: s.browser,
+      os: s.os,
+      country: s.country,
+      lastSeen: s.lastSeen,
+      views: s.views,
+      ...current,
+    };
+    activeHour += 1;
+    live15.push(liveEntry);
+    if (nowMs - lastMs <= MIN5) live5.push(liveEntry);
   }
 
   const sortDesc = (obj, n) => Object.entries(obj).sort((a, b) => b[1] - a[1]).slice(0, n).map(([k, v]) => ({ key: k, count: v }));
 
   return {
     success: true,
+    serverNow: new Date().toISOString(),
     sessions: enriched.slice(0, 2000),
     summary: {
       totalSessions: sessions.length,
@@ -1132,6 +1175,10 @@ function buildVisitorsReport(store, orders) {
       topPages: sortDesc(pageCounts, 10),
       topProducts: sortDesc(productCounts, 10),
       interestBuckets,
+      liveNow: live5.length,
+      active15: live15.length,
+      activeHour,
+      liveSessions: live5.slice(0, 25),
     },
   };
 }
