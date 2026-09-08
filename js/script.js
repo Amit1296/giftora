@@ -93,12 +93,17 @@
   const CURRENCY = "₹";
   const MIDNIGHT_FEE = 300;
 
+  let liveFingerprint = fp32(JSON.stringify(window.GIFT_PRODUCTS || []));
+
   async function refreshProducts() {
     try {
       const res = await fetch("/api/products", { cache: "no-store" });
       if (!res.ok) return;
       const data = await res.json();
       if (data && Array.isArray(data.products) && data.products.length > 0) {
+        const fp = fp32(JSON.stringify(data.products));
+        if (liveFingerprint === fp) return;
+        liveFingerprint = fp;
         PRODUCTS = data.products;
         renderProducts();
       }
