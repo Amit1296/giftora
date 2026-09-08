@@ -1,5 +1,5 @@
 (() => {
-  const GA_ID = "G-12961296";
+  const GA_ID = "G-Q7T8ET73PE";
 
   function enabled() {
     return !!(window.GiftoraCookies && window.GiftoraCookies.accepted());

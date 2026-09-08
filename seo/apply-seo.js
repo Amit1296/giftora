@@ -372,6 +372,7 @@ function cookieBannerBlock(prefix, includeTrack) {
     `<script src="${prefix}js/cookies.js"></script>`,
   ];
   if (includeTrack) lines.push(`<script src="${prefix}js/track.js"></script>`);
+  lines.push(`<script src="${prefix}js/analytics.js" defer></script>`);
   lines.push(COOKIE_END);
   return lines.join("\n");
 }

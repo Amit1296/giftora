@@ -874,6 +874,7 @@ async function handleRequest(req, res) {
       return sendJson(res, 200, {
         success: true,
         serverNow: rep.serverNow,
+        traffic: rep.traffic,
         counts: {
           now5: rep.summary.liveNow,
           active15: rep.summary.active15,
@@ -1075,6 +1076,38 @@ function visitorInterest(session, orderCount) {
   return "cold";
 }
 
+function buildTrafficSeries(sessions) {
+  const HOUR_MS = 3600 * 1000;
+  const now = new Date();
+  const startLast = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), 0, 0, 0).getTime();
+  const startFirst = startLast - 23 * HOUR_MS;
+  const counts = new Array(24).fill(0);
+  const pageNow = {};
+  for (const s of sessions || []) {
+    for (const p of s.pages || []) {
+      const t = Date.parse(p.time);
+      if (isNaN(t)) continue;
+      const idx = Math.floor((t - startFirst) / HOUR_MS);
+      if (idx >= 0 && idx < 24) counts[idx] += 1;
+      if (t >= startLast - 2 * HOUR_MS && p.path) {
+        pageNow[p.path] = (pageNow[p.path] || 0) + 1;
+      }
+    }
+  }
+  const labels = counts.map((_, i) => {
+    const h = new Intl.DateTimeFormat("en-US", { hour: "2-digit", hour12: false, timeZone: "Asia/Kolkata" }).format(new Date(startFirst + i * HOUR_MS));
+    return h + ":00";
+  });
+  return {
+    labels,
+    values: counts,
+    topPagesNow: Object.entries(pageNow)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6)
+      .map(([path, count]) => ({ path, count })),
+  };
+}
+
 function buildVisitorsReport(store, orders) {
   const sessions = store.sessions || [];
   const orderByVid = {};
@@ -1164,6 +1197,7 @@ function buildVisitorsReport(store, orders) {
   return {
     success: true,
     serverNow: new Date().toISOString(),
+    traffic: buildTrafficSeries(sessions),
     sessions: enriched.slice(0, 2000),
     summary: {
       totalSessions: sessions.length,

@@ -1019,6 +1019,7 @@
         },
         sessions: (data.summary || {}).liveSessions || [],
         serverNow: data.serverNow,
+        traffic: data.traffic,
       });
       renderVisitors();
     } catch (e) {
@@ -1040,6 +1041,7 @@
       const secs = Math.max(0, Math.round((Date.now() - new Date(data.serverNow).getTime()) / 1000));
       $("#liveUpdated").textContent = secs <= 1 ? "updated now" : "updated " + secs + "s ago";
     }
+    renderTraffic(data.traffic);
     const sessions = data.sessions || [];
     $("#liveList").innerHTML = sessions.length
       ? sessions
@@ -1060,6 +1062,76 @@
       if (data.success) renderLiveNow(data);
     } catch (e) {
       /* keep last known state on network errors */
+    }
+  }
+
+  function trafficChartSVG(traffic) {
+    const labels = (traffic && traffic.labels) || [];
+    const values = ((traffic && traffic.values) || []).map((v) => Number(v) || 0);
+    const W = 720, H = 160, PAD = 8;
+    const max = Math.max.apply(null, values.concat([1]));
+    const n = values.length || 24;
+    const stepX = (W - PAD * 2) / Math.max(1, n - 1);
+    const y = (v) => H - PAD - (v / max) * (H - PAD * 2 - 18);
+    const pts = [];
+    for (let i = 0; i < n; i++) pts.push((PAD + i * stepX).toFixed(1) + "," + y(values[i]).toFixed(1));
+    const line = pts.join(" ");
+    const area = "M" + PAD + "," + (H - PAD) + " L" + pts.join(" L") + " L" + (W - PAD) + "," + (H - PAD) + " Z";
+    const last = values[n - 1] || 0;
+    let ticks = "";
+    if (labels.length) {
+      ticks = [0, 6, 12, 18, 23]
+        .filter((i) => i < n)
+        .map((i) => `<text x="${(PAD + i * stepX).toFixed(1)}" y="${H - 2}" text-anchor="middle" class="chart-tick">${esc(labels[i].slice(0, 5))}</text>`)
+        .join("");
+      ticks += `<text x="${W - PAD}" y="14" text-anchor="end" class="chart-peak">peak ${max}</text>`;
+    }
+    const lastX = (PAD + (n - 1) * stepX).toFixed(1);
+    const dot = last > 0
+      ? `<circle cx="${lastX}" cy="${y(last).toFixed(1)}" r="4" class="chart-dot" /><circle cx="${lastX}" cy="${y(last).toFixed(1)}" r="9" class="chart-dot-halo" />`
+      : "";
+    const gid = "g" + Math.random().toString(36).slice(2, 8);
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" class="chart-svg" role="img" aria-label="Traffic last 24 hours">
+      <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#d6336c" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#d6336c" stop-opacity="0.02"/>
+      </linearGradient></defs>
+      <path d="${area}" fill="url(#${gid})" />
+      <polyline points="${line}" fill="none" stroke="#d6336c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      ${dot}
+      ${ticks}
+    </svg>`;
+  }
+
+  function renderTraffic(traffic) {
+    const $chart = $("#liveChart");
+    if ($chart) $chart.innerHTML = trafficChartSVG(traffic);
+    const rows = (traffic && traffic.topPagesNow) || [];
+    const $bars = $("#liveTopPages");
+    if ($bars) {
+      if (!rows.length) {
+        $bars.innerHTML = '<p class="live-empty">No page views in the last 3 hours yet.</p>';
+      } else {
+        const maxc = Math.max.apply(null, rows.map((r) => r.count || 1));
+        $bars.innerHTML = rows
+          .map((r) => {
+            const w = Math.max(6, Math.round((r.count / maxc) * 100));
+            const raw = String(r.path || "").replace(/^\/+/, "");
+            const name = (raw.replace(/\.html$/, "").replace(/[-_]+/g, " ").trim() || "(home)");
+            return `<div class="bar-row">
+              <span class="bar-name" title="${esc(r.path)}">${esc(name)}</span>
+              <div class="bar-track"><div class="bar-fill" style="width:${w}%"></div></div>
+              <span class="bar-count">${r.count}</span>
+            </div>`;
+          })
+          .join("");
+      }
+    }
+    const $idle = $("#liveChartIdle");
+    if ($idle) {
+      const total = ((traffic && traffic.values) || []).reduce((a, b) => a + (Number(b) || 0), 0);
+      $idle.textContent = total ? "" : "no data in the last 24h";
+      $idle.style.display = total ? "none" : "inline";
     }
   }
 
