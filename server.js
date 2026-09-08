@@ -39,6 +39,30 @@ const DATA_DIR = db.DATA_DIR;
 const UPLOADS_DIR = process.env.UPLOADS_DIR ? path.resolve(process.env.UPLOADS_DIR) : path.join(ROOT, "uploads");
 const ADMIN_CONFIG = path.join(ROOT, "admin-config.json");
 
+/* ---------- Keep js/products.js (the site's baked catalog) in sync with the DB ---------- */
+function regenerateProductsJs(products) {
+  try {
+    const src = "window.GIFT_PRODUCTS = " + JSON.stringify(products, null, 2) + ";\n";
+    fs.writeFileSync(path.join(ROOT, "js", "products.js"), src, "utf8");
+  } catch (e) {
+    console.error("Could not regenerate js/products.js:", e.message);
+  }
+}
+
+let productsJsSynced = false;
+async function syncProductsJsOnce() {
+  if (productsJsSynced) return;
+  try {
+    const products = await db.getProducts();
+    if (Array.isArray(products) && products.length > 0) {
+      regenerateProductsJs(products);
+      productsJsSynced = true;
+    }
+  } catch (e) {
+    console.error("Could not sync js/products.js:", e.message);
+  }
+}
+
 const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || readLocalSecret("razorpay-key-id");
 const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || readLocalSecret("razorpay-key-secret");
 
@@ -584,6 +608,8 @@ async function handleRequest(req, res) {
   }
 
   /* ---------- Public GET endpoints ---------- */
+  syncProductsJsOnce();
+
   if (method === "GET" && url.pathname === "/api/products") {
     try {
       return sendJson(res, 200, { success: true, products: await db.getProducts() });
@@ -715,6 +741,8 @@ async function handleRequest(req, res) {
           });
         }
         await db.saveProducts(products);
+        regenerateProductsJs(products);
+        productsJsSynced = true;
         return sendJson(res, 200, { success: true });
       } catch (e) {
         return sendJson(res, 400, { success: false, message: "Could not save products." });
