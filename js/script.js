@@ -94,9 +94,8 @@
   const MIDNIGHT_FEE = 300;
 
   async function refreshProducts() {
-    if (PRODUCTS && PRODUCTS.length > 0) return;
     try {
-      const res = await fetch("/api/products");
+      const res = await fetch("/api/products", { cache: "no-store" });
       if (!res.ok) return;
       const data = await res.json();
       if (data && Array.isArray(data.products) && data.products.length > 0) {

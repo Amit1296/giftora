@@ -604,7 +604,7 @@ ${chrome.upi}
 
 <script src="../js/products.js"></script>
 <script src="../js/product-pages.js"></script>
-<script src="../js/script.min.js?v=5"></script>
+<script src="../js/script.min.js?v=6"></script>
 ${pageScript(product)}
 
 ${chrome.chatbot}
