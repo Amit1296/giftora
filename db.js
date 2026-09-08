@@ -191,7 +191,8 @@ const SIZE_LABEL_WORDS = new Set([
 ]);
 
 function normalizeProductSizes(p) {
-  if (!p || !Array.isArray(p.sizes) || !p.sizes.length) return p;
+  if (!p) return p;
+  if (!Array.isArray(p.sizes) || !p.sizes.length) return p;
   const merged = p.sizePrices && typeof p.sizePrices === "object" ? { ...p.sizePrices } : {};
   const clean = [];
   const seen = new Set();
@@ -211,22 +212,35 @@ function normalizeProductSizes(p) {
       if (m) {
         const cand = Number(m[2]);
         const nm = m[1].trim();
-        if (nm && /\d/.test(nm) && !isNaN(cand)) { name = nm; price = cand; }
+        if (
+          nm &&
+          (/\d/.test(nm) || /(?:^|[^a-z])(?:kg|gm|g|lb|oz|inch|cm)(?:\b|$)/i.test(nm)) &&
+          !isNaN(cand)
+        ) { name = nm; price = cand; }
       }
+    }
+    const mangledSize = /^(?:s\.?\s*)?size\s*(\d+(?:\.\d+)?)$/i.exec(name);
+    if (mangledSize) {
+      const bare = mangledSize[1];
+      if (price == null && merged[name] != null) {
+        price = Number(merged[name]);
+        delete merged[name];
+      }
+      if (price != null && merged[bare] == null) merged[bare] = price;
+      name = bare;
     }
     if (!name || seen.has(name)) continue;
     if (price == null && SIZE_LABEL_WORDS.has(name.toLowerCase())) continue;
-    const mangledSize = /^(?:s\.?\s*)?size\s+(\d+(?:\.\d+)?)$/i.exec(name);
-    if (mangledSize) name = mangledSize[1];
-    if (seen.has(name)) continue;
     seen.add(name);
     clean.push(name);
     if (price != null) merged[name] = price;
   }
-  if (clean.length) {
-    p.sizes = clean;
-    p.sizePrices = merged;
-  }
+  const pruned = {};
+  clean.forEach((n) => {
+    if (merged[n] != null) pruned[n] = merged[n];
+  });
+  p.sizes = clean;
+  p.sizePrices = pruned;
   return p;
 }
 

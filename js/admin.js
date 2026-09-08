@@ -300,13 +300,18 @@
     return (p && p.sizes || []).map((s) => (sp[s] != null ? `${s}=${sp[s]}` : s)).join(", ");
   }
 
+  function cleanSizeName(name) {
+    const m = /^(?:s\.?\s*)?size\s*(\d+(?:\.\d+)?)$/i.exec(String(name || "").trim());
+    return m ? m[1] : name;
+  }
+
   function parseSizeEntries(raw) {
     const sizes = [];
     const sizePrices = {};
     String(raw || "").split(",").map((s) => s.trim()).filter(Boolean).forEach((token) => {
       const eq = token.lastIndexOf("=");
       if (eq > 0) {
-        const name = token.slice(0, eq).trim();
+        const name = cleanSizeName(token.slice(0, eq));
         const price = Number(token.slice(eq + 1));
         if (name && !isNaN(price)) {
           sizes.push(name);
@@ -316,15 +321,15 @@
       }
       const m = /^(.*\S)\s+(\d+(?:\.\d+)?)$/.exec(token);
       if (m) {
-        const name = m[1].trim();
+        const name = cleanSizeName(m[1]);
         const price = Number(m[2]);
-        if (name && /\d/.test(name) && !isNaN(price)) {
+        if (name && (/\d/.test(name) || /(?:^|[^a-z])(?:kg|gm|g|lb|oz|inch|cm)(?:\b|$)/i.test(name)) && !isNaN(price)) {
           sizes.push(name);
           sizePrices[name] = price;
           return;
         }
       }
-      sizes.push(token);
+      sizes.push(cleanSizeName(token) || token);
     });
     return { sizes, sizePrices };
   }
