@@ -1368,6 +1368,11 @@
     return window.GIFT_PRODUCT_PAGES.includes(slug) ? "products/" + slug + ".html" : dynamic;
   }
 
+  function shortDesc(p) {
+    const d = (p && p.description) ? p.description : "";
+    return d.length > 130 ? d.slice(0, 127).trimEnd() + "..." : d;
+  }
+
   function cardHTML(p) {
     const discount = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
     const badge = PAGE_CATEGORY === "special" && discount > 0 ? `${discount}% OFF` : p.badge;
@@ -1393,7 +1398,7 @@
           ${productPageUrl(p)
             ? `<a class="product-card-link" href="${productPageUrl(p)}"><h3 class="product-name">${p.name}</h3></a>`
             : `<h3 class="product-name">${p.name}</h3>`}
-          ${p.description ? `<p class="product-desc">${escAttr(p.description)}</p>` : ""}
+          ${p.description ? `<p class="product-desc">${escAttr(shortDesc(p))}</p>` : ""}
           <div class="product-rating">${ratingLine(p)}</div>
           <div class="product-price">
             <span class="price">${formatPrice(effPrice(p, startSize))}</span>
