@@ -93,6 +93,15 @@
   const CURRENCY = "₹";
   const MIDNIGHT_FEE = 300;
 
+  function fp32(str) {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = (h * 0x01000193) >>> 0;
+    }
+    return h >>> 0;
+  }
+
   let liveFingerprint = fp32(JSON.stringify(window.GIFT_PRODUCTS || []));
 
   async function refreshProducts() {
