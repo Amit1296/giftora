@@ -885,7 +885,7 @@
       if (!p) return "";
       const size = n.size ? ` <span class="os-muted">(${escAttr(n.size)})</span>` : "";
       const thumbHtml = p.image
-        ? `<img class="os-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}">`
+        ? `<img class="os-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}" loading="lazy" decoding="async">`
         : `<span class="os-emoji">${p.emoji || "🎁"}</span>`;
       return `
         <div class="os-row">
@@ -1408,7 +1408,7 @@
           ${badge ? `<span class="product-badge${badge === "Premium" ? " premium" : ""}">${badge}</span>` : ""}
           ${wishHeartBtn(p.id)}
           ${p.image
-            ? `${productPageUrl(p) ? `<a class="product-card-link" href="${productPageUrl(p)}" aria-label="View ${p.name}"><img class="product-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}" loading="lazy"></a>` : `<img class="product-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}" loading="lazy">`}`
+            ? `${productPageUrl(p) ? `<a class="product-card-link" href="${productPageUrl(p)}" aria-label="View ${p.name}"><img class="product-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}" loading="lazy" decoding="async"></a>` : `<img class="product-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}" loading="lazy" decoding="async">`}`
             : `${productPageUrl(p) ? `<a class="product-card-link" href="${productPageUrl(p)}" aria-label="View ${p.name}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>` : `<span class="product-emoji">${p.emoji || "🎁"}</span>`}`}
         </div>
         <div class="product-info">
@@ -1599,7 +1599,7 @@
         : "";
       return `
         <div class="cart-item">
-          <div class="cart-item-thumb" style="background:${p.gradient}">${p.image ? `<img class="cart-item-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}">` : p.emoji}</div>
+          <div class="cart-item-thumb" style="background:${p.gradient}">${p.image ? `<img class="cart-item-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}" decoding="async">` : p.emoji}</div>
           <div class="cart-item-info">
             <p class="cart-item-name">${p.name}</p>
             <p class="cart-item-price">${formatPrice(effPrice(p, n.size))}</p>
@@ -1908,7 +1908,7 @@
         const subtitle = $("#festivalBannerSubtitle");
         const discount = $("#festivalBannerDiscount");
         const code = $("#festivalBannerCode");
-        if (f.image) media.innerHTML = `<img src="${f.image}"${dimAttr(f.image)} alt="${escAttr(f.title)}">`;
+        if (f.image) media.innerHTML = `<img src="${f.image}"${dimAttr(f.image)} alt="${escAttr(f.title)}" loading="lazy" decoding="async">`;
         else media.innerHTML = `<span class="festival-banner-emoji">${f.emoji || "🎁"}</span>`;
         title.textContent = f.title || "Festival Offer";
         subtitle.textContent = f.subtitle || "";
@@ -1926,7 +1926,7 @@
         if (discount) discount.textContent = f.discount || 0;
         if (code) code.textContent = f.code || "";
         if (note) note.innerHTML = `Use code <strong>${escAttr(f.code || "")}</strong> at checkout`;
-        if (f.image) heroMedia.innerHTML = `<img src="${f.image}"${dimAttr(f.image)} alt="${escAttr(f.title)}">`;
+        if (f.image) heroMedia.innerHTML = `<img src="${f.image}"${dimAttr(f.image)} alt="${escAttr(f.title)}" loading="lazy" decoding="async">`;
         else heroMedia.innerHTML = `<span class="festival-hero-emoji">${f.emoji || "🎁"}</span>`;
       }
     } catch {}
@@ -2156,7 +2156,7 @@
     track.innerHTML = banners.map((b) => {
       const cd = b.countdown || {};
       const media = b.image
-        ? `<span class="pb-media"><img src="${escAttr(b.image)}"${dimAttr(b.image)} alt="${escAttr(b.imageAlt || b.title || "")}" loading="lazy"></span>`
+        ? `<span class="pb-media"><img src="${escAttr(b.image)}"${dimAttr(b.image)} alt="${escAttr(b.imageAlt || b.title || "")}" loading="lazy" decoding="async"></span>`
         : `<span class="pb-media"><span class="pb-emoji">${escAttr(b.emoji || "🎁")}</span></span>`;
       const codeHTML = b.code
         ? `<span class="pb-code">${escAttr(b.codeLabel || "Use code")} <strong>${escAttr(b.code)}</strong>${b.discount ? ` <em class="pb-off"><strong>${escAttr(b.discount)}</strong>% OFF</em>` : ""}</span>`
