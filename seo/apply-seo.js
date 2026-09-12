@@ -71,6 +71,11 @@ function buildMetaBlock(page, cfg, site) {
   }
 
   lines.push(`<link rel="canonical" href="${url}">`);
+  if (cfg.type !== "admin") {
+    const altHreflang = String(site.locale || "en_IN").toLowerCase().replace("_", "-") || "en-in";
+    lines.push(`<link rel="alternate" hreflang="${altHreflang}" href="${url}">`);
+    lines.push(`<link rel="alternate" hreflang="x-default" href="${url}">`);
+  }
   lines.push(`<meta property="og:site_name" content="${site.name}">`);
   lines.push(`<meta property="og:title" content="${esc(title)}">`);
   lines.push(`<meta property="og:description" content="${esc(desc)}">`);
@@ -267,15 +272,24 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
   const lastmod = todayIso();
   const urlSet = new Map();
 
-  const addUrl = (loc, priority, changefreq) => {
-    urlSet.set(loc, { priority: String(priority || "0.5"), changefreq: changefreq || "weekly" });
+  const fileDate = (file) => {
+    try {
+      const d = fs.statSync(path.join(ROOT, file)).mtime;
+      return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+    } catch (e) {
+      return lastmod;
+    }
+  };
+
+  const addUrl = (loc, priority, changefreq, file) => {
+    urlSet.set(loc, { priority: String(priority || "0.5"), changefreq: changefreq || "weekly", file });
   };
 
   const pageUrl = (file) => (file === "index.html" ? site.url + "/" : site.url + "/" + file);
 
   for (const [file, c] of Object.entries(pages)) {
     if (!c.sitemap) continue;
-    addUrl(pageUrl(file), c.sitemap.priority, c.sitemap.changefreq);
+    addUrl(pageUrl(file), c.sitemap.priority, c.sitemap.changefreq, file);
   }
 
   for (const u of extraUrls) {
@@ -292,7 +306,7 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
       console.warn("  [sitemap] skipped (no file on disk): " + file);
       continue;
     }
-    addUrl(site.url + "/" + file, c.priority, c.changefreq);
+    addUrl(site.url + "/" + file, c.priority, c.changefreq, file);
   }
 
   const excluded = ["admin.html", "product.html", "checkout-preview.html", "gift-card-template.html", "banner-template.html", "logos/logo-concepts.html"];
@@ -300,13 +314,13 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
     for (const f of fs.readdirSync(dir)) {
       const full = path.join(dir, f);
       if (fs.statSync(full).isDirectory()) {
-        if (["node_modules", "backups", "banners", "data", "uploads", "seo", ".git"].includes(f)) continue;
+        if (["node_modules", "backups", "banners", "data", "uploads", "seo", "previews", ".git"].includes(f)) continue;
         walk(full);
       } else if (f.endsWith(".html")) {
         if (/^google[0-9a-f]{8,}\.html$/i.test(f) || /^ms[0-9a-f]{8,}\.txt$/i.test(f)) continue;
         const rel = path.relative(ROOT, full).replace(/\\/g, "/");
         if (!excluded.includes(rel) && !urlSet.has(pageUrl(rel))) {
-          addUrl(pageUrl(rel), "0.5", "weekly");
+          addUrl(pageUrl(rel), "0.5", "weekly", rel);
         }
       }
     }
@@ -327,7 +341,7 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
   const urls = sorted.map(([loc, m]) => [
     "  <url>",
     `    <loc>${esc(loc)}</loc>`,
-    `    <lastmod>${lastmod}</lastmod>`,
+    `    <lastmod>${m.file ? fileDate(m.file) : lastmod}</lastmod>`,
     `    <changefreq>${m.changefreq}</changefreq>`,
     `    <priority>${m.priority}</priority>`,
     "  </url>",
