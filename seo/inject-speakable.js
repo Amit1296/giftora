@@ -28,13 +28,49 @@ const TARGETS = [
   "blog-teachers-day-gifts.html",
   "blog-diwali-gifts.html",
   "blog-karwa-chauth-gifts.html",
+  "belts.html",
+  "cakes.html",
+  "caps.html",
+  "clothes.html",
+  "combo.html",
+  "festival.html",
+  "flowers.html",
+  "gift-delivery-india.html",
+  "plants.html",
+  "send-gifts-to-india.html",
+  "shoes.html",
+  "special-offers.html",
+  "sunglasses.html",
+  "teachers-day-gifts.html",
+  "teddy.html",
+  "toys.html",
 ];
 
 const CSS_HOME = ['"#why-giftora .seo-copy"', '"#why-giftora .faq-list"'];
 const CSS_BLOG = ['"#faq .faq-list"'];
+const CSS_CATEGORY = ['".faq-list"'];
+
+const CATEGORY_PAGES = new Set([
+  "belts.html",
+  "cakes.html",
+  "caps.html",
+  "clothes.html",
+  "combo.html",
+  "festival.html",
+  "flowers.html",
+  "gift-delivery-india.html",
+  "plants.html",
+  "send-gifts-to-india.html",
+  "shoes.html",
+  "special-offers.html",
+  "sunglasses.html",
+  "teachers-day-gifts.html",
+  "teddy.html",
+  "toys.html",
+]);
 
 function buildBlock(page, url, title) {
-  const selectors = page === "index.html" ? CSS_HOME : CSS_BLOG;
+  const selectors = page === "index.html" ? CSS_HOME : CATEGORY_PAGES.has(page) ? CSS_CATEGORY : CSS_BLOG;
   return [
     MARKER,
     '<script type="application/ld+json">',
