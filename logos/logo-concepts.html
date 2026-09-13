@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giftora — Logo Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Poppins:wght@400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Poppins", sans-serif; background: #fdf6f8; color: #241a30; padding: 40px 24px; }
+  .page { max-width: 1080px; margin: 0 auto; }
+  h1 { font-family: "Fraunces", serif; font-size: 2rem; margin-bottom: 6px; }
+  .sub { color: #6d5b7d; margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .card { background: #fff; border: 1px solid #e7d8f0; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 12px 32px rgba(45,31,61,.10); }
+  .card .preview { display: flex; align-items: center; justify-content: center; min-height: 180px; background: #fff; border-radius: 12px; padding: 20px; }
+  .card .preview.dark { background: #241a30; }
+  .card h2 { font-family: "Fraunces", serif; font-size: 1.1rem; }
+  .card p { font-size: .85rem; color: #6d5b7d; }
+  .meta { font-size: .78rem; color: #7c3aed; font-weight: 600; }
+  .card svg { max-width: 100%; }
+  .anim { animation: pulse 2.4s ease-in-out infinite; transform-origin: center; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+  .spin { animation: spin 14s linear infinite; transform-origin: center; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .sway { animation: sway 2.8s ease-in-out infinite; transform-origin: center; }
+  .sway2 { animation: sway 2.8s ease-in-out .6s infinite; transform-origin: center; }
+  @keyframes sway { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+  .twinkle { animation: twinkle 2s ease-in-out infinite; opacity: 0; }
+  @keyframes twinkle { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+  .sheen { animation: sheen 3.6s ease-in-out infinite; }
+  @keyframes sheen { 0%,60%,100% { opacity: 0; transform: translateX(-40px); } 70% { opacity: .9; transform: translateX(0); } 85% { opacity: 0; transform: translateX(40px); } }
+  .heartbeat { animation: heartbeat 1.6s ease-in-out infinite; transform-origin: center; }
+  @keyframes heartbeat { 0%,100% { transform: scale(1); } 25% { transform: scale(1.15); } 40% { transform: scale(.95); } 55% { transform: scale(1.1); } }
+  .smilebounce { animation: smilebounce 1.2s ease-in-out infinite; }
+  @keyframes smilebounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  .bob { animation: bob 3s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .orbit { animation: spin 30s linear infinite; transform-origin: 130px 110px; }
+  .counter { animation: spin 30s linear infinite reverse; }
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Giftora — Logo Concepts</h1>
+  <p class="sub">Six directions using your brand palette: purple #7c3aed, gold #f5b301, cream #fdf6f8. Concept 6 is the one live on the site.</p>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="preview">
+        <svg width="240" height="200" viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#8b5cf6"/>
+              <stop offset="1" stop-color="#5b21b6"/>
+            </linearGradient>
+            <linearGradient id="g1b" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fbbf24"/>
+              <stop offset="1" stop-color="#d97706"/>
+            </linearGradient>
+          </defs>
+          <g class="anim">
+            <rect x="55" y="78" width="130" height="92" rx="14" fill="url(#g1)"/>
+            <rect x="55" y="78" width="130" height="34" rx="14" fill="#7c3aed"/>
+            <rect x="118" y="55" width="8" height="115" fill="url(#g1b)"/>
+            <rect x="55" y="94" width="130" height="8" fill="url(#g1b)"/>
+            <circle cx="120" cy="58" r="4" fill="#f5b301"/>
+            <ellipse class="sway" cx="95" cy="42" rx="16" ry="11" fill="none" stroke="url(#g1b)" stroke-width="7" transform="rotate(-20 95 42)"/>
+            <ellipse class="sway2" cx="145" cy="42" rx="16" ry="11" fill="none" stroke="url(#g1b)" stroke-width="7" transform="rotate(20 145 42)"/>
+            <text x="120" y="125" text-anchor="middle" font-family="Fraunces, serif" font-weight="800" font-size="40" fill="#ffffff">G</text>
+            <rect x="120" y="94" width="5" height="44" fill="#ffffff" class="sheen" opacity="0"/>
+          </g>
+          <g fill="#f5b301">
+            <path class="twinkle" style="animation-delay:.3s" d="M40 150 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+            <path class="twinkle" style="animation-delay:1.2s" d="M196 46 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+            <path class="twinkle" style="animation-delay:.8s" d="M30 60 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+          </g>
+        </svg>
+      </div>
+      <div><span class="meta">Concept 1</span></div>
+      <h2>Gift-Box Monogram</h2>
+      <p>A rounded gift box with a gold ribbon and bow. The white serif "G" anchors the brand name.</p>
+    </div>
+
+    <div class="card">
+      <div class="preview">
+        <svg width="280" height="170" viewBox="0 0 280 170" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fbbf24"/>
+              <stop offset="1" stop-color="#d97706"/>
+            </linearGradient>
+          </defs>
+          <g class="bob">
+            <g font-family="Fraunces, serif" font-weight="800" font-size="64" fill="#241a30">
+              <text x="20" y="105">Gift</text>
+            </g>
+            <g font-family="Dancing Script, cursive" font-weight="700" font-size="72" fill="url(#g2)">
+              <text x="196" y="105">ora</text>
+            </g>
+            <ellipse class="sway" cx="40" cy="18" rx="14" ry="9" fill="none" stroke="url(#g2)" stroke-width="6" transform="rotate(-18 40 18)"/>
+            <ellipse class="sway2" cx="72" cy="18" rx="14" ry="9" fill="none" stroke="url(#g2)" stroke-width="6" transform="rotate(18 72 18)"/>
+            <circle cx="56" cy="22" r="4" fill="#f5b301"/>
+          </g>
+          <path class="twinkle" style="animation-delay:1s" fill="#f5b301" d="M252 84 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+          <path class="twinkle" style="animation-delay:.5s" fill="#7c3aed" d="M20 96 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+        </svg>
+      </div>
+      <div><span class="meta">Concept 2</span></div>
+      <h2>Script Wordmark + Bow</h2>
+      <p>Keeps your current lockup — "Gift" in Fraunces, "ora" in Dancing Script — with a gold bow floating above.</p>
+    </div>
+
+    <div class="card">
+      <div class="preview dark">
+        <svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8b5cf6"/>
+              <stop offset="1" stop-color="#5b21b6"/>
+            </linearGradient>
+            <linearGradient id="g3b" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fbbf24"/>
+              <stop offset="1" stop-color="#d97706"/>
+            </linearGradient>
+          </defs>
+          <g class="anim">
+            <circle cx="110" cy="110" r="100" fill="url(#g3)"/>
+            <circle cx="110" cy="110" r="78" fill="none" stroke="#d8b4fe" stroke-width="2"/>
+            <path id="ring" d="M110 18 a92 92 0 1 1 0 184 a92 92 0 1 1 0 -184" fill="none"/>
+            <text font-family="Fraunces, serif" font-weight="700" font-size="24" letter-spacing="5" fill="#ffffff">
+              <textPath href="#ring" startOffset="0">G I F T O R A</textPath>
+            </text>
+            <path d="M110 30 a80 80 0 1 1 0 160 a80 80 0 1 1 0 -160" fill="none" stroke="#d8b4fe" stroke-width="1.4" stroke-dasharray="4 8" class="spin"/>
+            <rect x="78" y="118" width="64" height="46" rx="8" fill="#ffffff"/>
+            <rect x="78" y="118" width="64" height="17" rx="8" fill="#f5b301"/>
+            <rect x="107" y="106" width="7" height="58" fill="#d97706"/>
+            <rect x="78" y="127" width="64" height="6" fill="#d97706"/>
+            <rect x="80" y="124" width="8" height="58" fill="#ffffff" class="sheen" opacity="0"/>
+            <ellipse class="sway" cx="97" cy="99" rx="8" ry="6" fill="none" stroke="#f5b301" stroke-width="5" transform="rotate(-20 97 99)"/>
+            <ellipse class="sway2" cx="123" cy="99" rx="8" ry="6" fill="none" stroke="#f5b301" stroke-width="5" transform="rotate(20 123 99)"/>
+            <circle cx="110" cy="102" r="3" fill="#f5b301"/>
+          </g>
+          <g fill="#f5b301">
+            <path class="twinkle" style="animation-delay:.2s" d="M178 40 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+            <path class="twinkle" style="animation-delay:1s" d="M40 150 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+            <path class="twinkle" style="animation-delay:1.6s" d="M36 48 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+            <path class="twinkle" style="animation-delay:.7s" d="M182 150 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+          </g>
+        </svg>
+      </div>
+      <div><span class="meta">Concept 3</span></div>
+      <h2>Tied-Ribbon Emblem</h2>
+      <p>A circular seal with "GIFTORA" on the ring and a wrapped gift at the core. Feels premium — great for packaging and stamps.</p>
+    </div>
+
+    <div class="card">
+      <div class="preview">
+        <svg width="240" height="200" viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fbbf24"/>
+              <stop offset="1" stop-color="#d97706"/>
+            </linearGradient>
+          </defs>
+          <g class="bob">
+            <text x="30" y="160" font-family="Fraunces, serif" font-weight="800" font-size="170" fill="#7c3aed">G</text>
+            <path class="heartbeat" d="M168 96 C186 104 200 118 200 134 C200 150 188 160 174 160 C160 160 148 150 148 134 C148 118 162 104 168 96 Z" fill="url(#g4)"/>
+            <circle cx="168" cy="112" r="6" fill="#ffffff" class="twinkle" style="animation-delay:.4s"/>
+          </g>
+        </svg>
+      </div>
+      <div><span class="meta">Concept 4</span></div>
+      <h2>Serif "G" with Gold Heart</h2>
+      <p>One bold Fraunces "G" whose tail curls into a gold heart. Minimal, modern, great favicon.</p>
+    </div>
+
+    <div class="card">
+      <div class="preview">
+        <svg width="260" height="200" viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g5" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8b5cf6"/>
+              <stop offset="1" stop-color="#5b21b6"/>
+            </linearGradient>
+            <linearGradient id="g5b" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fbbf24"/>
+              <stop offset="1" stop-color="#d97706"/>
+            </linearGradient>
+          </defs>
+          <g class="anim">
+            <rect x="55" y="78" width="150" height="84" rx="16" fill="url(#g5)"/>
+            <rect x="55" y="78" width="150" height="30" rx="16" fill="#7c3aed"/>
+            <path d="M55 78 Q55 58 75 58 L185 58 Q205 58 205 78 Z" fill="#7c3aed"/>
+            <path d="M70 58 C70 40 130 40 130 58" fill="none" stroke="url(#g5b)" stroke-width="9" stroke-linecap="round"/>
+            <rect x="126" y="58" width="8" height="104" fill="url(#g5b)"/>
+            <rect x="55" y="92" width="150" height="7" fill="url(#g5b)"/>
+            <ellipse class="sway" cx="98" cy="40" rx="15" ry="10" fill="none" stroke="url(#g5b)" stroke-width="7" transform="rotate(-20 98 40)"/>
+            <ellipse class="sway2" cx="154" cy="40" rx="15" ry="10" fill="none" stroke="url(#g5b)" stroke-width="7" transform="rotate(20 154 40)"/>
+            <circle cx="126" cy="44" r="4" fill="#f5b301"/>
+            <path class="smilebounce" d="M85 152 Q130 178 175 152" fill="none" stroke="#f5b301" stroke-width="8" stroke-linecap="round"/>
+          </g>
+          <path class="twinkle" style="animation-delay:.6s" fill="#f5b301" d="M224 78 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+          <path class="twinkle" style="animation-delay:1.4s" fill="#f5b301" d="M30 150 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+        </svg>
+      </div>
+      <div><span class="meta">Concept 5</span></div>
+      <h2>Wrapped Gift + Smile</h2>
+      <p>A wrapped gift whose ribbon loop forms a handle and a gold smile under it — "delivered with love".</p>
+    </div>
+
+    <div class="card">
+      <div class="preview">
+        <svg width="260" height="220" viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g6" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#8b5cf6"/>
+              <stop offset="1" stop-color="#5b21b6"/>
+            </linearGradient>
+            <linearGradient id="g6b" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fbbf24"/>
+              <stop offset="1" stop-color="#d97706"/>
+            </linearGradient>
+          </defs>
+          <g class="orbit">
+            <circle cx="130" cy="110" r="80" fill="none" stroke="#d8b4fe" stroke-width="1.5" stroke-dasharray="3 7"/>
+            <text class="counter" style="transform-origin:130px 30px" x="130" y="30" font-size="22" text-anchor="middle" dominant-baseline="central">👗</text>
+            <text class="counter" style="transform-origin:90px 40.7px" x="90" y="40.7" font-size="22" text-anchor="middle" dominant-baseline="central">🧸</text>
+            <text class="counter" style="transform-origin:199.3px 70px" x="199.3" y="70" font-size="22" text-anchor="middle" dominant-baseline="central">💐</text>
+            <text class="counter" style="transform-origin:210px 110px" x="210" y="110" font-size="22" text-anchor="middle" dominant-baseline="central">🎂</text>
+            <text class="counter" style="transform-origin:199.3px 150px" x="199.3" y="150" font-size="22" text-anchor="middle" dominant-baseline="central">👟</text>
+            <text class="counter" style="transform-origin:170px 179.3px" x="170" y="179.3" font-size="22" text-anchor="middle" dominant-baseline="central">🐻</text>
+            <text class="counter" style="transform-origin:130px 190px" x="130" y="190" font-size="22" text-anchor="middle" dominant-baseline="central">🪴</text>
+            <text class="counter" style="transform-origin:90px 179.3px" x="90" y="179.3" font-size="22" text-anchor="middle" dominant-baseline="central">🎁</text>
+            <text class="counter" style="transform-origin:60.7px 150px" x="60.7" y="150" font-size="22" text-anchor="middle" dominant-baseline="central">🔥</text>
+            <text class="counter" style="transform-origin:50px 110px" x="50" y="110" font-size="22" text-anchor="middle" dominant-baseline="central">🕶️</text>
+            <text class="counter" style="transform-origin:60.7px 70px" x="60.7" y="70" font-size="22" text-anchor="middle" dominant-baseline="central">🧢</text>
+            <text class="counter" style="transform-origin:90px 40.7px" x="90" y="40.7" font-size="22" text-anchor="middle" dominant-baseline="central">🪢</text>
+          </g>
+          <g class="anim">
+            <rect x="105" y="98" width="50" height="40" rx="8" fill="url(#g6)"/>
+            <rect x="105" y="98" width="50" height="15" rx="8" fill="#7c3aed"/>
+            <rect x="127" y="92" width="6" height="46" fill="url(#g6b)"/>
+            <rect x="105" y="107" width="50" height="5" fill="url(#g6b)"/>
+            <ellipse class="sway" cx="116" cy="88" rx="6" ry="4.5" fill="none" stroke="url(#g6b)" stroke-width="4" transform="rotate(-20 116 88)"/>
+            <ellipse class="sway2" cx="144" cy="88" rx="6" ry="4.5" fill="none" stroke="url(#g6b)" stroke-width="4" transform="rotate(20 144 88)"/>
+            <circle cx="130" cy="90" r="2.5" fill="#f5b301"/>
+          </g>
+          <path class="twinkle" style="animation-delay:.5s" fill="#f5b301" d="M238 34 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+          <path class="twinkle" style="animation-delay:1.2s" fill="#f5b301" d="M22 190 l2.4 5 5 2.4 -5 2.4 -2.4 5 -2.4 -5 -5 -2.4 5 -2.4 Z"/>
+        </svg>
+      </div>
+      <div><span class="meta">Concept 6 — LIVE on the site</span></div>
+      <h2>All-Categories Orbit</h2>
+      <p>Your gift box sits at the centre while all 12 category items orbit around it — clothes, toys, flowers, cakes, shoes, teddy, plants, combos, offers, sunglasses, caps, belts.</p>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

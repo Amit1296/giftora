@@ -2,10 +2,34 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+	<meta name="theme-color" content="#7c3aed">
+<!-- SEO-BLOCK-START -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="google-site-verification" content="ZswpaM65gvYE2ojyUcyWDhmb5MWd0n-XYvnLdthC9sU">
+<meta name="msvalidate.01" content="3e17f5817712417594605f5f18d7cb37">
+<link rel="canonical" href="https://gift-ora.online/admin.html">
+<meta property="og:site_name" content="Giftora">
+<meta property="og:title" content="Giftora Admin Dashboard">
+<meta property="og:description" content="Giftora admin dashboard — manage products, orders, enquiries, vendors and festival offers.">
+<meta property="og:url" content="https://gift-ora.online/admin.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_IN">
+<meta property="og:image" content="https://gift-ora.online/uploads/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="800">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Giftora Admin Dashboard">
+<meta name="twitter:description" content="Giftora admin dashboard — manage products, orders, enquiries, vendors and festival offers.">
+<meta name="twitter:image" content="https://gift-ora.online/uploads/og-image.jpg">
+<!-- SEO-BLOCK-END -->
+
+
+
+
 	<meta name="robots" content="noindex, nofollow">
 	<title>Giftora Admin Dashboard</title>
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
+	<link rel="icon" href="logo.svg">
 	<link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
@@ -45,9 +69,15 @@
 		<nav class="admin-tabs">
 			<button class="tab active" data-tab="products">Products</button>
 			<button class="tab" data-tab="festival">Festival Offer</button>
+ <button class="tab" data-tab="banners">Banners</button>
+ <button class="tab" data-tab="pincodes">Delivery / Pincodes</button>
+ <button class="tab" data-tab="upi">UPI QR</button>
 			<button class="tab" data-tab="orders">Orders <span id="orderCount" class="tab-count"></span></button>
+						<button class="tab" data-tab="coupons">Coupons <span id="couponCount" class="tab-count"></span></button>
+						<button class="tab" data-tab="giftcards">Gift Cards <span id="giftcardCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="enquiries">Enquiries <span id="enquiryCount" class="tab-count"></span></button>
 			<button class="tab" data-tab="vendors">Vendors <span id="vendorCount" class="tab-count"></span></button>
+			<button class="tab" data-tab="visitors">Visitors <span id="visitorCount" class="tab-count"></span></button>
 		</nav>
 
 		<main class="admin-main">
@@ -72,6 +102,7 @@
 						</select>
 						<input type="text" id="productSearch" placeholder="Search products..." class="search-input">
 						<button class="btn btn-add" id="addProductBtn">+ Add Product</button>
+						<button class="btn" id="restoreProductsBtn">↩ Restore Backup</button>
 						<button class="btn btn-primary" id="saveProductsBtn">Save Changes</button>
 					</div>
 				</div>
@@ -113,7 +144,7 @@
 						</div>
 						<div class="form-group">
 							<label>Promo Code</label>
-							<input type="text" id="fCode" placeholder="RAKHI15">
+							<input type="text" id="fCode" placeholder="e.g. FESTIVE15">
 						</div>
 					</div>
 					<div class="form-group field-full">
@@ -129,6 +160,76 @@
 						</div>
 						<div class="festival-preview" id="fPreview"></div>
 					</div>
+					<div class="form-group field-full">
+						<label>Festival Products</label>
+						<p class="field-note">Pick which products are part of this offer. Leave all unchecked to apply the discount to every product.</p>
+						<div class="festival-picker-head">
+							<input type="text" id="fProductSearch" class="search-input" placeholder="Search products...">
+							<button type="button" class="btn btn-ghost" id="fSelectAllBtn">Select all</button>
+							<button type="button" class="btn btn-ghost" id="fClearAllBtn">Clear</button>
+						</div>
+						<div class="festival-product-list" id="fProductList"></div>
+					</div>
+				</div>
+			</section>
+
+			<section id="tab-banners" class="tab-panel">
+				<div class="panel-head">
+					<h2>Homepage Banners</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="addBannerBtn">+ Add Banner</button>
+						<button class="btn btn-primary" id="saveBannersBtn">Save All Banners</button>
+					</div>
+				</div>
+				<p class="save-msg" id="bannerMsg"></p>
+				<p class="field-note">Add one or more homepage banner(s). The <strong>Save All Banners</strong> button pushes every change live. Drag the ⠿ handle to reorder (top = shown first). Banners marked active and enabled are displayed in the homepage slider.</p>
+				<div class="banners-list" id="bannersList"></div>
+			</section>
+
+			<!-- Delivery / Pincodes tab -->
+			<section id="tab-pincodes" class="tab-panel">
+				<div class="panel-head">
+					<h2>Delivery Coverage (Pincodes)</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="addPincodeBtn">+ Add City</button>
+						<button class="btn btn-primary" id="savePincodesBtn">Save All Pincodes</button>
+					</div>
+				</div>
+				<p class="save-msg" id="pincodeMsg"></p>
+				<p class="field-note">Each row maps a city to the <strong>pincode range</strong> you deliver to (start–end) and the <strong>delivery time</strong> shown to customers. When someone enters a pincode on the website, it matches against these ranges to confirm delivery. Save when done.</p>
+				<div class="pincodes-list" id="pincodesList"></div>
+			</section>
+
+			<!-- UPI QR tab -->
+			<section id="tab-upi" class="tab-panel">
+				<div class="panel-head">
+					<h2>UPI QR Payments</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="saveUpiBtn">Save Changes</button>
+					</div>
+				</div>
+				<p class="save-msg" id="upiMsg"></p>
+				<div class="festival-form">
+					<div class="form-row">
+						<div class="form-group">
+							<label>UPI ID</label>
+							<input type="text" id="upiId" placeholder="yourname@okhdfcbank">
+						</div>
+						<div class="form-group">
+							<label>Payee Name</label>
+							<input type="text" id="upiPayee" placeholder="Giftora">
+						</div>
+					</div>
+					<div class="form-group field-full">
+						<label>QR Code Image</label>
+						<div class="upload-row">
+							<input type="file" id="upiQrInput" class="upload-input" accept="image/png,image/jpeg,image/gif,image/webp">
+							<button type="button" class="upload-label" id="upiQrUploadBtn">📁 Upload QR Code</button>
+							<span class="upload-status" id="upiQrStatus"></span>
+						</div>
+						<p class="save-msg" style="margin-top:8px">Customers always get a QR with the order amount pre-filled. Optionally upload your official bank/UPI QR image (GPay, PhonePe, Paytm) to show as an alternative.</p>
+						<div class="festival-preview" id="upiQrPreview"></div>
+					</div>
 				</div>
 			</section>
 
@@ -138,6 +239,114 @@
 					<h2>Orders</h2>
 				</div>
 				<div class="orders-list" id="ordersList"></div>
+			</section>
+
+			<!-- Coupons tab -->
+			<section id="tab-coupons" class="tab-panel">
+				<div class="panel-head">
+					<h2>Coupon Codes</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="createCouponsBtn">Generate Coupon(s)</button>
+					</div>
+				</div>
+				<p class="save-msg" id="couponMsg"></p>
+				<div class="coupon-form festival-form">
+					<div class="form-row">
+						<div class="form-group">
+							<label>Code (optional — leave blank to auto generate)</label>
+							<input type="text" id="cCode" placeholder="e.g. FESTIVE20" autocomplete="off" spellcheck="false">
+						</div>
+						<div class="form-group">
+							<label>Prefix for generated codes</label>
+							<input type="text" id="cPrefix" placeholder="e.g. GIFT" autocomplete="off" spellcheck="false">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>How many codes to generate</label>
+							<input type="number" id="cCount" min="1" max="500" value="1">
+						</div>
+						<div class="form-group">
+							<label>Discount type</label>
+							<select id="cType">
+								<option value="percent">Percentage (%)</option>
+								<option value="fixed">Fixed amount (₹)</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label id="cValueLabel">Discount value (%)</label>
+							<input type="number" id="cValue" min="0" step="any" value="10">
+						</div>
+						<div class="form-group">
+							<label>Usage limit (0 = unlimited, 1 = single use)</label>
+							<input type="number" id="cUsage" min="0" value="1">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Minimum order value (₹) — optional</label>
+							<input type="number" id="cMinOrder" min="0" step="any" value="0">
+						</div>
+						<div class="form-group">
+							<label>Maximum discount (₹) — optional, % only</label>
+							<input type="number" id="cMaxDiscount" min="0" step="any" value="0">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Valid from (optional)</label>
+							<input type="date" id="cValidFrom">
+						</div>
+						<div class="form-group">
+							<label>Valid until (optional)</label>
+							<input type="date" id="cValidUntil">
+						</div>
+					</div>
+					<div class="form-group field-full">
+						<label class="checkbox-label"><input type="checkbox" id="cActive" checked> Active (redeemable at checkout)</label>
+					</div>
+					<p class="field-note">Tip: leave "Code" blank and set "How many codes" to 5 to instantly create 5 unique single-use codes. Customers enter the code at checkout to get the discount.</p>
+				</div>
+				<h3 class="coupon-list-title">Existing coupons</h3>
+				<div class="coupons-list" id="couponsList"></div>
+			</section>
+
+			<!-- Gift Cards tab -->
+			<section id="tab-giftcards" class="tab-panel">
+				<div class="panel-head">
+					<h2>Gift Card Codes</h2>
+					<div class="panel-tools">
+						<button class="btn btn-primary" id="createGiftCardsBtn">Generate Gift Card(s)</button>
+					</div>
+				</div>
+				<p class="save-msg" id="giftcardMsg"></p>
+				<div class="coupon-form festival-form">
+					<div class="form-row">
+						<div class="form-group">
+							<label>Card value (₹)</label>
+							<input type="number" id="gcAmount" min="100" max="100000" step="1" value="1000">
+						</div>
+						<div class="form-group">
+							<label>How many cards to generate</label>
+							<input type="number" id="gcCount" min="1" max="200" value="1">
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group">
+							<label>Valid for (months from today)</label>
+							<input type="number" id="gcMonths" min="1" max="60" value="12">
+						</div>
+						<div class="form-group">
+							<label>Note (optional — who it's for)</label>
+							<input type="text" id="gcNote" placeholder="e.g. For Anil's birthday" autocomplete="off">
+						</div>
+					</div>
+					<p class="field-note">Tip: generate a card, collect payment via UPI, then open the card design link and send the screenshot on WhatsApp. Codes are single-balance — each use reduces the remaining balance.</p>
+				</div>
+				<h3 class="coupon-list-title">Existing gift cards</h3>
+				<div class="coupons-list" id="giftcardsList"></div>
 			</section>
 
 			<!-- Enquiries tab -->
@@ -155,12 +364,83 @@
 				</div>
 				<div class="vendors-list" id="vendorsList"></div>
 			</section>
+
+			<!-- Visitors tab -->
+			<section id="tab-visitors" class="tab-panel">
+				<div class="panel-head">
+					<h2>Visitors &amp; Buying Interest</h2>
+					<div class="panel-tools">
+						<input type="text" id="visitorSearch" placeholder="Search visitor, product, page..." class="search-input">
+						<button class="btn btn-add" id="exportVisitorsBtn">Export CSV</button>
+						<button class="btn btn-danger" id="clearVisitorsBtn">Clear Data</button>
+					</div>
+				</div>
+				<div class="live-now">
+					<div class="live-now-head">
+						<h3><span class="live-dot" id="liveDot"></span> Live Now</h3>
+						<span class="live-updated" id="liveUpdated">—</span>
+					</div>
+<div class="live-now-stats">
+					<div class="live-stat"><b id="live5Count">0</b><span>right now (5 min)</span></div>
+					<div class="live-stat"><b id="live15Count">0</b><span>last 15 min</span></div>
+					<div class="live-stat"><b id="liveHourCount">0</b><span>last hour</span></div>
+				</div>
+				<div class="live-chart-block">
+					<div class="live-chart-head">
+						<span>Traffic activity — last 24 hours</span>
+						<span class="live-chart-idle" id="liveChartIdle"></span>
+					</div>
+					<div class="live-chart" id="liveChart"></div>
+					<div class="live-top-pages" id="liveTopPages"></div>
+				</div>
+				<div class="live-list" id="liveList"></div>
+				</div>
+				<div class="visitor-stats" id="visitorStats"></div>
+				<div class="visitor-insight">
+					<div class="visitor-interest" id="visitorInterest"></div>
+					<div class="visitor-top" id="visitorTop"></div>
+				</div>
+				<div class="visitors-list" id="visitorsList"></div>
+			</section>
 		</main>
 	</div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script src="js/admin.js"></script>
+<script src="js/admin.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- COOKIE-START -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie consent" aria-hidden="true">
+	<div class="cookie-banner-inner">
+		<div class="cookie-banner-text">
+			<span class="cookie-banner-icon" aria-hidden="true">🍪</span>
+			<p>We use cookies to keep your cart saved and improve your experience. <a href="privacy-policy.html">See our Privacy Policy</a>.</p>
+		</div>
+		<div class="cookie-banner-actions">
+			<button type="button" class="cookie-btn cookie-btn-ghost" data-cookie-decline>Decline</button>
+			<button type="button" class="cookie-btn cookie-btn-primary" data-cookie-accept>Accept All</button>
+		</div>
+	</div>
+</div>
+<script src="js/cookies.js" defer></script>
+<script src="js/analytics.js" defer></script>
+<!-- COOKIE-END -->
 </body>
 </html>

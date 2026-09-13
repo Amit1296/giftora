@@ -16,6 +16,9 @@
   let products = [];
   let productSearchTerm = "";
   let productFilter = "all";
+  let festivalProductIds = new Set();
+  let festivalProductSearch = "";
+  let festivalDiscount = 0;
 
   function toast(msg) {
     toastEl.textContent = msg;
@@ -84,10 +87,19 @@
   /* ---------- Tabs ---------- */
   $$(".tab").forEach((tab) => {
     tab.addEventListener("click", () => {
+      const wasVisitors = tab.dataset.tab === "visitors";
       $$(".tab").forEach((t) => t.classList.remove("active"));
       $$(".tab-panel").forEach((p) => p.classList.remove("active"));
       tab.classList.add("active");
       $("#tab-" + tab.dataset.tab).classList.add("active");
+      if (wasVisitors) {
+        if (liveTimer) clearInterval(liveTimer);
+        pollLive();
+        liveTimer = setInterval(pollLive, 15000);
+      } else if (liveTimer) {
+        clearInterval(liveTimer);
+        liveTimer = null;
+      }
     });
   });
 
@@ -98,6 +110,7 @@
       if (data.success) {
         products = data.products;
         renderProductList();
+        renderFestivalProductList();
       }
     } catch (e) {
       toast(e.message);
@@ -122,9 +135,10 @@
         const media = p.image
           ? `<img src="${p.image}" alt="">`
           : `<span>${p.emoji || "🎁"}</span>`;
+        const badge = stockBadge(p.stock);
         return `
         <div class="product-row" data-id="${p.id}">
-          <div class="product-page-label">Appears on: <a href="${esc(p.category)}.html" target="_blank">${esc(pageName(p.category))}</a></div>
+          <div class="product-page-label">Appears on: <a href="${esc(p.category)}.html" target="_blank">${esc(pageName(p.category))}</a> ${badge}</div>
           <div class="product-thumb" style="background:${grad}">${media}</div>
           <div class="product-fields">
             <div class="form-group field-full">
@@ -144,10 +158,19 @@
             <div class="form-group">
               <label>Price (₹)</label>
               <input type="number" class="f-price" value="${p.price}" min="0">
+              <span class="price-preview" data-preview="${p.id}"></span>
             </div>
             <div class="form-group">
               <label>Old Price (₹)</label>
               <input type="number" class="f-oldprice" value="${p.oldPrice || 0}" min="0">
+            </div>
+            <div class="form-group">
+              <label>Stock</label>
+              <input type="number" class="f-stock" value="${p.stock == null ? "" : p.stock}" min="0" placeholder="∞ (unlimited)">
+            </div>
+            <div class="form-group">
+              <label>SKU</label>
+              <input type="text" class="f-sku" value="${esc(p.sku || "")}" placeholder="GFT-CLO-001">
             </div>
             <div class="form-group">
               <label>Badge</label>
@@ -160,6 +183,10 @@
               <input type="color" class="f-gradient" value="${toHex(grad)}" title="Pick a background color">
             </div>
             <div class="form-group field-full">
+              <label>Sizes (comma separated, optional =price)</label>
+              <input type="text" class="f-sizes" value="${esc(sizeEntriesHtml(p))}" placeholder="0.5 Kg=799, 1 Kg=999, 2 Kg=1799 — or S, M, L for no pricing">
+            </div>
+            <div class="form-group field-full">
               <label>Image</label>
               <div class="upload-row">
                 <input type="file" class="upload-input" accept="image/png,image/jpeg,image/gif,image/webp" data-id="${p.id}">
@@ -167,6 +194,10 @@
                 ${p.image ? `<a href="${p.image}" target="_blank" class="upload-status ok">view</a>` : ""}
                 <span class="upload-status" data-status="${p.id}"></span>
               </div>
+            </div>
+            <div class="form-group field-full">
+              <label>Description</label>
+              <textarea class="f-desc" rows="3" placeholder="Product description, details and quantities (shown on product page)">${esc(p.description || "")}</textarea>
             </div>
           </div>
           <div class="product-actions">
@@ -184,29 +215,66 @@
     el.querySelectorAll(".upload-input").forEach((input) => {
       input.addEventListener("change", () => uploadImage(input));
     });
+    el.querySelectorAll(".f-price, .f-oldprice").forEach((input) => {
+      input.addEventListener("input", updatePricePreviews);
+    });
     el.querySelectorAll("[data-remove]").forEach((btn) => {
       btn.addEventListener("click", () => {
         products = products.filter((p) => p.id !== Number(btn.dataset.remove));
+        festivalProductIds.delete(Number(btn.dataset.remove));
         renderProductList();
+        renderFestivalProductList();
       });
+    });
+    updatePricePreviews();
+  }
+
+  function updatePricePreviews() {
+    const rows = $$("#productList .product-row");
+    rows.forEach((row) => {
+      const id = Number(row.dataset.id);
+      const priceInput = row.querySelector(".f-price");
+      const oldInput = row.querySelector(".f-oldprice");
+      const preview = row.querySelector(".price-preview");
+      if (!priceInput || !preview) return;
+      const p = products.find((x) => x.id === id) || {};
+      const price = Number(priceInput.value) || 0;
+      const oldPrice = Number(oldInput.value) || 0;
+      if (festivalDiscount > 0 && isFestivalProduct(p)) {
+        const cust = customerPrice(p, price);
+        const custOld = oldPrice ? customerPrice(p, oldPrice) : 0;
+        preview.className = "price-preview off";
+        preview.textContent =
+          `Customers pay ${fmtINR(cust)}${custOld ? ` (was ${fmtINR(custOld)})` : ""} — ${festivalDiscount}% festival off`;
+      } else {
+        preview.className = "price-preview";
+        preview.textContent = `Customers pay ${fmtINR(price)}`;
+      }
     });
   }
 
   function addProduct() {
     const maxId = products.reduce((m, p) => Math.max(m, p.id || 0), 0);
     const id = maxId + 1;
+    const category = productFilter !== "all" ? productFilter : (products[0] ? products[0].category : "clothes");
     products.unshift({
       id,
       name: "New Product",
-      category: products[0] ? products[0].category : "clothes",
+      category,
       emoji: "🎁",
       price: 0,
       oldPrice: 0,
+      stock: 10,
+      sku: "",
+      sizes: [],
+      sizePrices: {},
       badge: null,
       gradient: "linear-gradient(135deg,#f1f5f9,#e2e8f0)",
       image: "",
+      description: "",
     });
     renderProductList();
+    renderFestivalProductList();
     toast("New product added. Fill in details and click Save.");
     const nameInput = document.querySelector(`.product-row[data-id="${id}"] .f-name`);
     if (nameInput) {
@@ -227,8 +295,59 @@
       .join("");
   }
 
+  function sizeEntriesHtml(p) {
+    const sp = (p && p.sizePrices) || {};
+    return (p && p.sizes || []).map((s) => (sp[s] != null ? `${s}=${sp[s]}` : s)).join(", ");
+  }
+
+  function cleanSizeName(name) {
+    const m = /^(?:s\.?\s*)?size\s*(\d+(?:\.\d+)?)$/i.exec(String(name || "").trim());
+    return m ? m[1] : name;
+  }
+
+  function parseSizeEntries(raw) {
+    const sizes = [];
+    const sizePrices = {};
+    String(raw || "").split(",").map((s) => s.trim()).filter(Boolean).forEach((token) => {
+      const eq = token.lastIndexOf("=");
+      if (eq > 0) {
+        const name = cleanSizeName(token.slice(0, eq));
+        const price = Number(token.slice(eq + 1));
+        if (name && !isNaN(price)) {
+          sizes.push(name);
+          sizePrices[name] = price;
+          return;
+        }
+      }
+      const m = /^(.*\S)\s+(\d+(?:\.\d+)?)$/.exec(token);
+      if (m) {
+        const name = cleanSizeName(m[1]);
+        const price = Number(m[2]);
+        if (name && (/\d/.test(name) || /(?:^|[^a-z])(?:kg|gm|g|lb|oz|inch|cm)(?:\b|$)/i.test(name)) && !isNaN(price)) {
+          sizes.push(name);
+          sizePrices[name] = price;
+          return;
+        }
+      }
+      sizes.push(cleanSizeName(token) || token);
+    });
+    return { sizes, sizePrices };
+  }
+
   function esc(s) {
     return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function fmtINR(n) {
+    return "₹" + Number(n || 0).toLocaleString("en-IN");
+  }
+
+  function isFestivalProduct(p) {
+    return festivalProductIds.size === 0 || festivalProductIds.has(p.id);
+  }
+
+  function customerPrice(p, price) {
+    return festivalDiscount > 0 && isFestivalProduct(p) ? Math.round((price * (100 - festivalDiscount)) / 100) : price;
   }
 
   const PAGE_NAMES = {
@@ -249,6 +368,13 @@
     return PAGE_NAMES[cat] || cat || "—";
   }
 
+  function stockBadge(stock) {
+    if (stock == null || stock === "") return "";
+    const cls = stock <= 0 ? "stock-badge out" : stock <= 5 ? "stock-badge low" : "stock-badge ok";
+    const txt = stock <= 0 ? "Out of stock" : stock <= 5 ? `Low: ${stock} left` : `${stock} in stock`;
+    return `<span class="${cls}">${txt}</span>`;
+  }
+
   function toHex(gradient) {
     const m = String(gradient || "").match(/#[0-9a-fA-F]{6}/);
     return m ? m[0] : "#f1f5f9";
@@ -264,20 +390,35 @@
     try {
       const rows = $$("#productList .product-row");
       const original = products;
-      products = Array.from(rows).map((row) => {
+      if (rows.length === 0) {
+        msg.className = "save-msg err";
+        msg.textContent = "Nothing to save — no products are shown. Clear the search/filter or add a product first.";
+        return;
+      }
+      const edited = new Map();
+      Array.from(rows).forEach((row) => {
         const id = Number(row.dataset.id);
-        return {
+        const stockVal = row.querySelector(".f-stock").value.trim();
+        const sizeData = parseSizeEntries(row.querySelector(".f-sizes").value);
+        edited.set(id, {
           id,
           name: row.querySelector(".f-name").value.trim() || "Untitled",
           category: row.querySelector(".f-category").value,
           emoji: row.querySelector(".f-emoji").value.trim() || "🎁",
           price: Number(row.querySelector(".f-price").value) || 0,
           oldPrice: Number(row.querySelector(".f-oldprice").value) || 0,
+          stock: stockVal === "" ? null : Math.max(0, parseInt(stockVal, 10) || 0),
+          sku: row.querySelector(".f-sku").value.trim(),
+          sizes: sizeData.sizes,
+          sizePrices: sizeData.sizePrices,
           badge: row.querySelector(".f-badge").value || null,
           gradient: "linear-gradient(135deg," + row.querySelector(".f-gradient").value + ",#f1f5f9)",
           image: (original.find((p) => p.id === id) || {}).image || "",
-        };
+          description: row.querySelector(".f-desc").value.trim(),
+        });
       });
+      const keep = original.filter((p) => p && typeof p.id !== "undefined" && !edited.has(p.id));
+      products = [...keep, ...edited.values()];
       const res = await api("/api/admin/products", {
         method: "PUT",
         body: JSON.stringify({ products }),
@@ -297,6 +438,43 @@
     } finally {
       saveBtn.disabled = false;
       saveBtn.textContent = "Save Changes";
+    }
+  }
+
+  async function restoreProducts() {
+    try {
+      const data = await api("/api/admin/products/history");
+      const history = (data.success && data.history) || [];
+      if (history.length === 0) {
+        toast("No backups found.");
+        return;
+      }
+      const label = (h, i) =>
+        `${i + 1}. ${new Date(h.savedAt).toLocaleString()} — ${h.count} product${h.count === 1 ? "" : "s"}`;
+      const pick = prompt(
+        "Choose a backup to restore (this replaces the current catalog):\n\n" +
+          history.map(label).join("\n") +
+          "\n\nEnter 1–" + history.length + ":",
+        "1"
+      );
+      if (pick === null) return;
+      const index = parseInt(pick, 10) - 1;
+      if (isNaN(index) || index < 0 || index >= history.length) {
+        toast("Invalid choice.");
+        return;
+      }
+      const res = await api("/api/admin/products/restore", {
+        method: "POST",
+        body: JSON.stringify({ index }),
+      });
+      if (res.success) {
+        toast("Catalog restored from backup ✓");
+        loadProducts();
+      } else {
+        toast(res.message || "Could not restore.");
+      }
+    } catch (e) {
+      toast(e.message);
     }
   }
 
@@ -374,6 +552,18 @@
           .map((i) => `<li><span>${i.qty} × ${esc(i.name)}</span><span>₹${Number(i.price || 0).toLocaleString("en-IN")}</span></li>`)
           .join("");
         const status = o.status || "New";
+        const paid = o.paid === true;
+        const isOnline = o.payment === "UPI" || o.payment === "Card";
+        const isUpiQr = o.payment === "UPI QR";
+        const payLabel = isUpiQr && !paid ? "Unpaid" : "Paid";
+        const payClass = isUpiQr && !paid ? "pay-badge pending" : "pay-badge paid";
+        const markPaidBtn = isUpiQr && !paid
+          ? `<button class="mark-paid-btn" data-order="${esc(o._file || o.orderId || "")}">Mark as Paid</button>`
+          : "";
+        const rzpId = o.razorpayPaymentId || "";
+        const rzpLine = isOnline && rzpId
+          ? `<div class="order-rzp"><b>Razorpay ID</b><a href="https://dashboard.razorpay.com/app/payments/${esc(rzpId)}" target="_blank" rel="noopener" title="View in Razorpay dashboard">${esc(rzpId)}</a></div>`
+          : "";
         return `
         <div class="order-card">
           <div class="order-head">
@@ -382,12 +572,20 @@
           </div>
           <div class="order-customer">
             <div><b>Phone</b>${esc(o.phone || "")}</div>
+            ${o.email ? `<div><b>Email</b>${esc(o.email)}</div>` : ""}
+            ${o.message ? `<div><b>Customer Message</b>${esc(o.message)}</div>` : ""}
+            ${o.senderName || o.senderPhone || o.senderCity ? `<div><b>Sender</b>${esc([o.senderName, o.senderPhone, o.senderCity].filter(Boolean).join(" · "))}</div>` : ""}
             <div><b>Address</b>${esc(o.address || "")}</div>
-            <div><b>Payment</b>${esc(o.payment || "Cash on Delivery")}</div>
+            <div><b>Payment</b>${esc(o.payment || "UPI")} <span class="${payClass}">${payLabel}</span></div>
+            ${rzpLine}
+            ${o.deliveryDate ? `<div><b>Delivery Date</b>${esc(o.deliveryDate)}</div>` : ""}
+            ${o.midnightDelivery ? `<div><b>Midnight Delivery</b>Yes (+₹${Number(o.midnightFee || 300)})</div>` : ""}
+            ${o.coupon ? `<div><b>Coupon</b>${esc(o.coupon)} (−₹${Number(o.couponDiscount || 0).toLocaleString("en-IN")})</div>` : ""}
           </div>
           <ul class="order-items">${items}</ul>
           <div class="order-foot">
             <span class="order-total">₹${Number(o.total || 0).toLocaleString("en-IN")}</span>
+            ${markPaidBtn}
             <select class="status-select status-${status.toLowerCase()}" data-order="${esc(o._file || o.orderId || "")}">
               ${["New", "Processing", "Delivered", "Cancelled"].map((s) => `<option value="${s}"${s === status ? " selected" : ""}>${s}</option>`).join("")}
             </select>
@@ -405,6 +603,19 @@
         if (res.success) {
           sel.className = "status-select status-" + sel.value.toLowerCase();
           toast("Order marked " + sel.value + " ✓");
+        }
+      });
+    });
+
+    el.querySelectorAll(".mark-paid-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const res = await api("/api/admin/orders", {
+          method: "PUT",
+          body: JSON.stringify({ file: btn.dataset.order, paid: true }),
+        });
+        if (res.success) {
+          toast("Payment marked as received ✓");
+          loadOrders();
         }
       });
     });
@@ -481,6 +692,598 @@
       .join("");
   }
 
+  /* ---------- Coupons ---------- */
+  let coupons = [];
+
+  async function loadCoupons() {
+    try {
+      const data = await api("/api/admin/coupons");
+      if (!data.success) return;
+      coupons = data.coupons || [];
+      const countEl = $("#couponCount");
+      if (countEl) countEl.textContent = coupons.length;
+      renderCoupons();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function couponStatus(c) {
+    if (!c.active) return { label: "Inactive", cls: "coupon-badge off" };
+    const today = new Date().toISOString().slice(0, 10);
+    if (c.validUntil && today > c.validUntil.slice(0, 10)) return { label: "Expired", cls: "coupon-badge expired" };
+    if (c.validFrom && today < c.validFrom.slice(0, 10)) return { label: "Scheduled", cls: "coupon-badge scheduled" };
+    if ((Number(c.usageLimit) || 0) > 0 && (Number(c.used) || 0) >= Number(c.usageLimit)) return { label: "Exhausted", cls: "coupon-badge exhausted" };
+    return { label: "Active", cls: "coupon-badge live" };
+  }
+
+  function renderCoupons() {
+    const el = $("#couponsList");
+    if (!el) return;
+    if (!coupons.length) {
+      el.innerHTML = '<p class="empty-state">No coupons yet. Create some above to start.</p>';
+      return;
+    }
+    el.innerHTML = coupons
+      .map((c) => {
+        const st = couponStatus(c);
+        const typeLabel = c.type === "fixed" ? `₹${Number(c.value || 0).toLocaleString("en-IN")} off` : `${Number(c.value || 0)}% off`;
+        const usage = (Number(c.usageLimit) || 0) > 0 ? `${Number(c.used || 0)} / ${c.usageLimit} used` : `${Number(c.used || 0)} used (unlimited)`;
+        const dates = c.validFrom || c.validUntil
+          ? `${c.validFrom ? "From " + esc(c.validFrom) : ""}${c.validFrom && c.validUntil ? " " : ""}${c.validUntil ? "to " + esc(c.validUntil) : ""}`
+          : "No expiry";
+        return `
+        <div class="coupon-card">
+          <div class="coupon-card-head">
+            <span class="coupon-code">${esc(c.code)}<button type="button" class="coupon-copy" data-copy="${esc(c.code)}" title="Copy code">Copy</button></span>
+            <span class="${st.cls}">${st.label}</span>
+          </div>
+          <div class="coupon-meta">
+            <span>${typeLabel}</span>
+            ${c.minOrder ? `<span>Min order ₹${Number(c.minOrder).toLocaleString("en-IN")}</span>` : ""}
+            ${c.type === "percent" && c.maxDiscount ? `<span>Max ₹${Number(c.maxDiscount).toLocaleString("en-IN")}</span>` : ""}
+            <span>${usage}</span>
+            <span>${dates}</span>
+            <span>Created ${new Date(c.created).toLocaleDateString("en-IN")}</span>
+          </div>
+          <div class="coupon-actions">
+            <label class="coupon-toggle"><input type="checkbox" data-active="${esc(c.code)}"${c.active ? " checked" : ""}> Active</label>
+            <button type="button" class="btn btn-danger" data-delete="${esc(c.code)}">Delete</button>
+          </div>
+        </div>`;
+      })
+      .join("");
+  }
+
+  async function createCoupons() {
+    const btn = $("#createCouponsBtn");
+    const msg = $("#couponMsg");
+    const count = Math.max(1, Math.min(500, parseInt($("#cCount").value, 10) || 1));
+    const type = $("#cType").value;
+    const value = Number($("#cValue").value);
+    msg.className = "save-msg";
+    msg.textContent = "";
+    if (!(value > 0)) {
+      msg.className = "save-msg err";
+      msg.textContent = "Please enter a discount value greater than 0.";
+      return;
+    }
+    if (type === "percent" && value > 100) {
+      msg.className = "save-msg err";
+      msg.textContent = "Percentage discount cannot exceed 100%.";
+      return;
+    }
+    const payload = {
+      coupon: {
+        code: $("#cCode").value.trim(),
+        type,
+        value,
+        usageLimit: Math.max(0, parseInt($("#cUsage").value, 10) || 0),
+        minOrder: Math.max(0, Number($("#cMinOrder").value) || 0),
+        maxDiscount: Math.max(0, Number($("#cMaxDiscount").value) || 0),
+        validFrom: $("#cValidFrom").value,
+        validUntil: $("#cValidUntil").value,
+        active: $("#cActive").checked,
+      },
+      count,
+      prefix: $("#cPrefix").value.trim(),
+    };
+    btn.disabled = true;
+    btn.textContent = "Generating...";
+    try {
+      const res = await api("/api/admin/coupons", {
+        method: "POST",
+        body: JSON.stringify(payload),
+      });
+      if (res.success) {
+        const n = (res.coupons || []).length;
+        msg.className = "save-msg ok";
+        msg.textContent = `${n} coupon${n === 1 ? "" : "s"} generated.`;
+        toast(`${n} coupon${n === 1 ? "" : "s"} generated ✓`);
+        $("#cCode").value = "";
+        $("#cPrefix").value = "";
+        $("#cCount").value = 1;
+        loadCoupons();
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not generate coupons.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Generate Coupon(s)";
+    }
+  }
+
+  async function toggleCoupon(code, active) {
+    try {
+      const res = await api("/api/admin/coupons", {
+        method: "PUT",
+        body: JSON.stringify({ code, patch: { active } }),
+      });
+      if (res.success) {
+        toast(active ? "Coupon activated ✓" : "Coupon deactivated");
+      } else {
+        toast(res.message || "Could not update coupon.");
+      }
+      loadCoupons();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  async function deleteCoupon(code) {
+    if (!confirm(`Delete coupon ${code}? This cannot be undone.`)) return;
+    try {
+      const res = await api("/api/admin/coupons", {
+        method: "DELETE",
+        body: JSON.stringify({ code }),
+      });
+      if (res.success) {
+        toast("Coupon deleted ✓");
+        loadCoupons();
+      } else {
+        toast(res.message || "Could not delete coupon.");
+      }
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  async function copyCoupon(code) {
+    try {
+      await navigator.clipboard.writeText(code);
+      toast("Code copied ✓");
+    } catch {
+      toast(code);
+    }
+  }
+
+  /* ---------- Gift cards ---------- */
+  let giftCards = [];
+
+  async function loadGiftCards() {
+    try {
+      const data = await api("/api/admin/giftcards");
+      if (!data.success) return;
+      giftCards = data.cards || [];
+      const countEl = $("#giftcardCount");
+      if (countEl) countEl.textContent = giftCards.length;
+      renderGiftCards();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function giftCardStatus(c) {
+    if (!c.active) return { label: "Inactive", cls: "coupon-badge off" };
+    if (new Date(c.expires).getTime() < Date.now()) return { label: "Expired", cls: "coupon-badge expired" };
+    if ((Number(c.balance) || 0) <= 0) return { label: "Fully used", cls: "coupon-badge exhausted" };
+    if ((Number(c.balance) || 0) < (Number(c.amount) || 0)) return { label: "Partially used", cls: "coupon-badge scheduled" };
+    return { label: "Active", cls: "coupon-badge live" };
+  }
+
+  function giftCardLink(c) {
+    const p = new URLSearchParams({ code: c.code, amount: c.amount, balance: c.balance, expires: String(c.expires).slice(0, 10) });
+    if (c.note) p.set("note", c.note);
+    return "/gift-card-template.html?" + p.toString();
+  }
+
+  function renderGiftCards() {
+    const el = $("#giftcardsList");
+    if (!el) return;
+    if (!giftCards.length) {
+      el.innerHTML = '<p class="empty-state">No gift cards yet. Generate one above to start selling.</p>';
+      return;
+    }
+    el.innerHTML = giftCards
+      .map((c) => {
+        const st = giftCardStatus(c);
+        return `
+        <div class="coupon-card">
+          <div class="coupon-card-head">
+            <span class="coupon-code">${esc(c.code)}<button type="button" class="coupon-copy" data-gc-copy="${esc(c.code)}" title="Copy code">Copy</button></span>
+            <span class="${st.cls}">${st.label}</span>
+          </div>
+          <div class="coupon-meta">
+            <span>Value ₹${Number(c.amount).toLocaleString("en-IN")}</span>
+            <span>Balance ₹${Number(c.balance).toLocaleString("en-IN")}</span>
+            <span>Expires ${String(c.expires).slice(0, 10)}</span>
+            ${c.note ? `<span>${esc(c.note)}</span>` : ""}
+            <span>Created ${new Date(c.created).toLocaleDateString("en-IN")}</span>
+          </div>
+          <div class="coupon-actions">
+            <button type="button" class="btn btn-primary btn-sm" data-gc-design="${esc(giftCardLink(c))}">Open card design</button>
+            <label class="coupon-toggle"><input type="checkbox" data-gc-active="${esc(c.code)}"${c.active ? " checked" : ""}> Active</label>
+          </div>
+        </div>`;
+      })
+      .join("");
+  }
+
+  async function createGiftCardsFlow() {
+    const msg = $("#giftcardMsg");
+    const btn = $("#createGiftCardsBtn");
+    btn.disabled = true;
+    btn.textContent = "Generating...";
+    try {
+      const res = await api("/api/admin/giftcards", {
+        method: "POST",
+        body: JSON.stringify({
+          amount: Number($("#gcAmount").value),
+          count: Number($("#gcCount").value),
+          validMonths: Number($("#gcMonths").value),
+          note: $("#gcNote").value,
+        }),
+      });
+      if (res.success && res.cards && res.cards.length) {
+        msg.className = "save-msg ok";
+        msg.textContent = `${res.cards.length} gift card${res.cards.length === 1 ? "" : "s"} generated.`;
+        toast(`${res.cards.length} gift card${res.cards.length === 1 ? "" : "s"} generated ✓`);
+        $("#gcNote").value = "";
+        loadGiftCards();
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not generate gift cards.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Generate Gift Card(s)";
+    }
+  }
+
+  async function toggleGiftCard(code, active) {
+    try {
+      const res = await api("/api/admin/giftcards", {
+        method: "PUT",
+        body: JSON.stringify({ code, active }),
+      });
+      if (res.success) {
+        toast(active ? "Gift card activated ✓" : "Gift card deactivated");
+      } else {
+        toast(res.message || "Could not update gift card.");
+      }
+      loadGiftCards();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  /* ---------- Visitors & buying interest ---------- */
+  let visitors = [];
+  let visitorSearchTerm = "";
+
+  const INTEREST_LABEL = {
+    converted: "Converted",
+    checkout: "Checkout",
+    hot: "Hot 🔥",
+    warm: "Warm",
+    cold: "Cold",
+  };
+
+  const COUNTRY_FLAGS = {
+    IN: "🇮🇳", US: "🇺🇸", GB: "🇬🇧", AE: "🇦🇪", PK: "🇵🇰", BD: "🇧🇩", AU: "🇦🇺",
+    CA: "🇨🇦", SG: "🇸🇬", DE: "🇩🇪", FR: "🇫🇷", JP: "🇯🇵", QA: "🇶🇦", SA: "🇸🇦",
+  };
+
+  function fmtTime(iso) {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    if (isNaN(d)) return iso;
+    return d.toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return "—";
+    const d = new Date(iso);
+    if (isNaN(d)) return iso;
+    return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+  }
+
+  function countryChip(code) {
+    if (!code) return "";
+    return `<span class="v-chip">${COUNTRY_FLAGS[code] || ""} ${esc(code)}</span>`;
+  }
+
+  async function loadVisitors() {
+    try {
+      const data = await api("/api/admin/visitors");
+      if (!data.success) return;
+      visitors = data.sessions || [];
+      renderVisitorSummary(data.summary || {});
+      renderLiveNow({
+        counts: {
+          now5: (data.summary || {}).liveNow || 0,
+          active15: (data.summary || {}).active15 || 0,
+          activeHour: (data.summary || {}).activeHour || 0,
+        },
+        sessions: (data.summary || {}).liveSessions || [],
+        serverNow: data.serverNow,
+        traffic: data.traffic,
+      });
+      renderVisitors();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  /* ---------- Live Now ---------- */
+  let liveTimer = null;
+
+  function renderLiveNow(data) {
+    const counts = data.counts || {};
+    const now5 = counts.now5 != null ? counts.now5 : data.liveNow || 0;
+    $("#live5Count").textContent = now5;
+    $("#live15Count").textContent = counts.active15 != null ? counts.active15 : 0;
+    $("#liveHourCount").textContent = counts.activeHour != null ? counts.activeHour : 0;
+    $("#liveDot").classList.toggle("live-dot-idle", now5 === 0);
+    if (data.serverNow) {
+      const secs = Math.max(0, Math.round((Date.now() - new Date(data.serverNow).getTime()) / 1000));
+      $("#liveUpdated").textContent = secs <= 1 ? "updated now" : "updated " + secs + "s ago";
+    }
+    renderTraffic(data.traffic);
+    const sessions = data.sessions || [];
+    $("#liveList").innerHTML = sessions.length
+      ? sessions
+          .map(
+            (s) => `
+            <div class="live-item">
+              <span class="live-item-meta">${esc(s.device || "?")} · ${esc(s.browser || "?")}${countryChip(s.country)} · ${esc(s.os || "")}</span>
+              <span class="live-item-page">${esc(s.page || "—")}</span>
+            </div>`
+          )
+          .join("")
+      : '<p class="empty-state live-empty">No one on the site right now.</p>';
+  }
+
+  async function pollLive() {
+    try {
+      const data = await api("/api/admin/visitors/live");
+      if (data.success) renderLiveNow(data);
+    } catch (e) {
+      /* keep last known state on network errors */
+    }
+  }
+
+  function trafficChartSVG(traffic) {
+    const labels = (traffic && traffic.labels) || [];
+    const values = ((traffic && traffic.values) || []).map((v) => Number(v) || 0);
+    const W = 720, H = 160, PAD = 8;
+    const max = Math.max.apply(null, values.concat([1]));
+    const n = values.length || 24;
+    const stepX = (W - PAD * 2) / Math.max(1, n - 1);
+    const y = (v) => H - PAD - (v / max) * (H - PAD * 2 - 18);
+    const pts = [];
+    for (let i = 0; i < n; i++) pts.push((PAD + i * stepX).toFixed(1) + "," + y(values[i]).toFixed(1));
+    const line = pts.join(" ");
+    const area = "M" + PAD + "," + (H - PAD) + " L" + pts.join(" L") + " L" + (W - PAD) + "," + (H - PAD) + " Z";
+    const last = values[n - 1] || 0;
+    let ticks = "";
+    if (labels.length) {
+      ticks = [0, 6, 12, 18, 23]
+        .filter((i) => i < n)
+        .map((i) => `<text x="${(PAD + i * stepX).toFixed(1)}" y="${H - 2}" text-anchor="middle" class="chart-tick">${esc(labels[i].slice(0, 5))}</text>`)
+        .join("");
+      ticks += `<text x="${W - PAD}" y="14" text-anchor="end" class="chart-peak">peak ${max}</text>`;
+    }
+    const lastX = (PAD + (n - 1) * stepX).toFixed(1);
+    const dot = last > 0
+      ? `<circle cx="${lastX}" cy="${y(last).toFixed(1)}" r="4" class="chart-dot" /><circle cx="${lastX}" cy="${y(last).toFixed(1)}" r="9" class="chart-dot-halo" />`
+      : "";
+    const gid = "g" + Math.random().toString(36).slice(2, 8);
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" class="chart-svg" role="img" aria-label="Traffic last 24 hours">
+      <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#d6336c" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#d6336c" stop-opacity="0.02"/>
+      </linearGradient></defs>
+      <path d="${area}" fill="url(#${gid})" />
+      <polyline points="${line}" fill="none" stroke="#d6336c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      ${dot}
+      ${ticks}
+    </svg>`;
+  }
+
+  function renderTraffic(traffic) {
+    const $chart = $("#liveChart");
+    if ($chart) $chart.innerHTML = trafficChartSVG(traffic);
+    const rows = (traffic && traffic.topPagesNow) || [];
+    const $bars = $("#liveTopPages");
+    if ($bars) {
+      if (!rows.length) {
+        $bars.innerHTML = '<p class="live-empty">No page views in the last 3 hours yet.</p>';
+      } else {
+        const maxc = Math.max.apply(null, rows.map((r) => r.count || 1));
+        $bars.innerHTML = rows
+          .map((r) => {
+            const w = Math.max(6, Math.round((r.count / maxc) * 100));
+            const raw = String(r.path || "").replace(/^\/+/, "");
+            const name = (raw.replace(/\.html$/, "").replace(/[-_]+/g, " ").trim() || "(home)");
+            return `<div class="bar-row">
+              <span class="bar-name" title="${esc(r.path)}">${esc(name)}</span>
+              <div class="bar-track"><div class="bar-fill" style="width:${w}%"></div></div>
+              <span class="bar-count">${r.count}</span>
+            </div>`;
+          })
+          .join("");
+      }
+    }
+    const $idle = $("#liveChartIdle");
+    if ($idle) {
+      const total = ((traffic && traffic.values) || []).reduce((a, b) => a + (Number(b) || 0), 0);
+      $idle.textContent = total ? "" : "no data in the last 24h";
+      $idle.style.display = total ? "none" : "inline";
+    }
+  }
+
+  function renderVisitorSummary(summary) {
+    $("#visitorCount").textContent = summary.totalSessions || 0;
+    const stats = [
+      { label: "Total Visitors", value: summary.totalSessions || 0 },
+      { label: "Active Today", value: summary.activeToday || 0 },
+      { label: "Page Views", value: summary.views || 0 },
+      { label: "Cart Adds", value: summary.cartAdds || 0 },
+      { label: "Checkouts", value: summary.checkouts || 0 },
+      { label: "Converted (Orders)", value: summary.conversions || 0 },
+    ];
+    $("#visitorStats").innerHTML = stats
+      .map((s) => `<div class="stat-card"><span class="stat-value">${s.value.toLocaleString("en-IN")}</span><span class="stat-label">${s.label}</span></div>`)
+      .join("");
+
+    const buckets = summary.interestBuckets || {};
+    $("#visitorInterest").innerHTML =
+      '<div class="insight-title">Interest levels</div>' +
+      ["converted", "checkout", "hot", "warm", "cold"]
+        .filter((k) => buckets[k])
+        .map((k) => `<span class="interest-badge interest-${k}">${INTEREST_LABEL[k]}: ${buckets[k]}</span>`)
+        .join("");
+
+    const topHtml = [];
+    const pages = summary.topPages || [];
+    const products = summary.topProducts || [];
+    if (pages.length) {
+      topHtml.push(
+        '<div class="top-col"><div class="insight-title">Top pages</div><ul>' +
+        pages.map((p) => `<li><span>${esc(p.key)}</span><b>${p.count}</b></li>`).join("") +
+        "</ul></div>"
+      );
+    }
+    if (products.length) {
+      topHtml.push(
+        '<div class="top-col"><div class="insight-title">Most viewed products</div><ul>' +
+        products.map((p) => `<li><span>${esc(p.key)}</span><b>${p.count}</b></li>`).join("") +
+        "</ul></div>"
+      );
+    }
+    $("#visitorTop").innerHTML = topHtml.join("");
+  }
+
+  function renderVisitors() {
+    const term = visitorSearchTerm.toLowerCase();
+    const list = visitors.filter((v) => {
+      if (!term) return true;
+      const hay = [
+        v.vid, v.device, v.browser, v.os, v.country, v.referrer,
+        ...Object.keys(v.productViews || {}),
+        ...(v.cartAdds || []).map((a) => a.product),
+        ...(v.pages || []).map((p) => p.path),
+      ].join(" ").toLowerCase();
+      return hay.includes(term);
+    });
+
+    const el = $("#visitorsList");
+    if (list.length === 0) {
+      el.innerHTML = '<p class="empty-state">No visitor data yet. Visitors are tracked after they accept cookies on the site.</p>';
+      return;
+    }
+
+    el.innerHTML = list.map((v) => {
+      const products = [...Object.keys(v.productViews || {})];
+      const added = (v.cartAdds || []).map((a) => `${a.product}${a.qty > 1 ? " ×" + a.qty : ""}`);
+      const pages = (v.pages || []).map((p) => p.path).join(", ") || "—";
+      const interest = INTEREST_LABEL[v.interest] || "Cold";
+      return `
+      <div class="visitor-card interest-${v.interest}">
+        <div class="visitor-head">
+          <h3>${esc(v.device || "Device")} · ${esc(v.browser || "Browser")} ${countryChip(v.country)} ${v.orderCount ? `<span class="interest-badge interest-converted">🛍 ${v.orderCount} order${v.orderCount > 1 ? "s" : ""}</span>` : ""}</h3>
+          <div class="visitor-meta">
+            <span>Last seen: ${fmtTime(v.lastSeen)}</span>
+            <span>First visit: ${fmtDate(v.firstSeen)}</span>
+            <span class="interest-badge interest-${v.interest}">${interest}</span>
+          </div>
+        </div>
+        <div class="visitor-counters">
+          <span>👁 ${v.views} views</span>
+          <span>🛒 ${(v.cartAdds || []).length} cart adds</span>
+          <span>💳 ${v.checkoutStarted} checkouts</span>
+          ${v.lastOrderId ? `<span class="order-id">Order: ${esc(v.lastOrderId)}</span>` : ""}
+        </div>
+        ${added.length ? `<div class="visitor-row"><b>Added to cart:</b> ${added.map(esc).join(" · ")}</div>` : ""}
+        ${products.length ? `<div class="visitor-row"><b>Interested in:</b> ${products.map(esc).join(" · ")}</div>` : ""}
+        <div class="visitor-row"><b>Pages:</b> ${esc(pages)}</div>
+        ${v.referrer ? `<div class="visitor-row"><b>Referrer:</b> ${esc(v.referrer)}</div>` : ""}
+      </div>`;
+    }).join("");
+  }
+
+  function exportVisitorsCsv() {
+    if (!visitors.length) {
+      toast("No visitor data to export.");
+      return;
+    }
+    const escCsv = (s) => '"' + String(s == null ? "" : s).replace(/"/g, '""') + '"';
+    const rows = visitors.map((v) => [
+      v.vid,
+      v.firstSeen,
+      v.lastSeen,
+      v.device,
+      v.browser,
+      v.os,
+      v.country,
+      v.referrer,
+      v.views,
+      (v.cartAdds || []).length,
+      v.checkoutStarted,
+      v.orderCount,
+      v.interest,
+      Object.keys(v.productViews || {}).join(" | "),
+      (v.cartAdds || []).map((a) => a.product).join(" | "),
+      (v.pages || []).map((p) => p.path).join(" | "),
+    ].map(escCsv).join(","));
+    const csv = [
+      "vid,firstSeen,lastSeen,device,browser,os,country,referrer,views,cartAdds,checkouts,orders,interest,viewedProducts,addedProducts,pages",
+      ...rows,
+    ].join("\n");
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "giftora-visitors-" + new Date().toISOString().slice(0, 10) + ".csv";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(a.href);
+    toast("CSV exported ✓");
+  }
+
+  async function clearVisitorsData() {
+    if (!confirm("Delete ALL visitor tracking data? This cannot be undone.")) return;
+    try {
+      const res = await api("/api/admin/visitors", { method: "DELETE" });
+      if (res.success) {
+        visitors = [];
+        renderVisitorSummary({});
+        renderVisitors();
+        toast("Visitor data cleared ✓");
+      }
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
   /* ---------- Festival Offer ---------- */
   function renderFestivalPreview() {
     const url = $("#fImageInput").dataset.url || "";
@@ -507,6 +1310,10 @@
       $("#fCode").value = f.code || "";
       $("#fNote").value = f.note || "";
       $("#fImageInput").dataset.url = f.image || "";
+      festivalProductIds = new Set(Array.isArray(f.productIds) ? f.productIds.map(Number) : []);
+      festivalDiscount = f.active ? (Number(f.discount) || 0) : 0;
+      renderFestivalProductList();
+      renderProductList();
       renderFestivalPreview();
     } catch (e) {
       toast(e.message);
@@ -553,6 +1360,38 @@
     input.value = "";
   }
 
+  function renderFestivalProductList() {
+    const listEl = $("#fProductList");
+    if (!listEl) return;
+    const term = festivalProductSearch.toLowerCase();
+    const list = products.filter(
+      (p) =>
+        !term ||
+        p.name.toLowerCase().includes(term) ||
+        p.category.toLowerCase().includes(term)
+    );
+    if (list.length === 0) {
+      listEl.innerHTML = '<p class="empty-state">No products match.</p>';
+      return;
+    }
+    listEl.innerHTML = list
+      .map((p) => {
+        const checked = festivalProductIds.has(p.id) ? " checked" : "";
+        const grad = p.gradient || "#f1f5f9";
+        const media = p.image
+          ? `<img src="${p.image}" alt="">`
+          : `<span>${p.emoji || "🎁"}</span>`;
+        return `
+        <label class="fp-row">
+          <input type="checkbox" class="fp-check" data-id="${p.id}"${checked}>
+          <span class="fp-thumb" style="background:${grad}">${media}</span>
+          <span class="fp-name">${esc(p.name)}</span>
+          <span class="fp-cat">${esc(pageName(p.category))}</span>
+        </label>`;
+      })
+      .join("");
+  }
+
   async function saveFestival() {
     const btn = $("#saveFestivalBtn");
     const msg = $("#festivalMsg");
@@ -565,6 +1404,7 @@
       code: $("#fCode").value.trim().toUpperCase(),
       note: $("#fNote").value.trim(),
       image: $("#fImageInput").dataset.url || "",
+      productIds: Array.from($$("#fProductList .fp-check:checked")).map((c) => Number(c.dataset.id)),
     };
     btn.disabled = true;
     btn.textContent = "Saving...";
@@ -592,9 +1432,643 @@
     }
   }
 
+  /* ---------- Banners ---------- */
+  let banners = [];
+  let bannerDirty = false;
+
+  function emptyBanner() {
+    return {
+      id: "b_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      active: true,
+      sortOrder: banners.length,
+      delivery: "🚚 Same-Day Delivery",
+      eyebrow: "",
+      title: "",
+      subtitle: "",
+      codeLabel: "Use code",
+      code: "",
+      discount: "",
+      endsText: "",
+      image: "",
+      imageAlt: "",
+      link: "",
+      cta: "",
+      countdown: { enabled: false, target: "", label: "Time left", done: "It's here! 🎉" },
+    };
+  }
+
+  async function loadBanners() {
+    try {
+      const data = await api("/api/admin/banners");
+      if (!data.success) return;
+      banners = Array.isArray(data.banners) ? data.banners : [];
+      banners.sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+      renderBanners();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function bannerFieldHtml(b, key) {
+    const v = b[key] == null ? "" : b[key];
+    return esc(String(v));
+  }
+
+  function renderBanners() {
+    const listEl = $("#bannersList");
+    if (!listEl) return;
+    if (banners.length === 0) {
+      listEl.innerHTML = '<p class="empty-state">No banners yet. Click "+ Add Banner" to create one.</p>';
+      return;
+    }
+    listEl.innerHTML = banners
+      .map((b, i) => {
+        const img = b.image
+          ? `<img src="${b.image}" alt="" style="max-height:80px;max-width:140px;border-radius:8px">`
+          : `<span>No image</span>`;
+        const cd = b.countdown || {};
+        const cdChecked = cd.enabled ? " checked" : "";
+        return `
+        <div class="banner-card" data-id="${b.id}">
+          <div class="banner-card-head">
+            <span class="banner-grip" title="Reorder">⠿</span>
+            <strong class="banner-card-title">${esc(b.title || "Untitled banner")}</strong>
+            <span class="banner-order-badge">#${i + 1}</span>
+            <span class="banner-tools">
+              <button type="button" class="btn btn-ghost banner-up" data-up="${b.id}" ${i === 0 ? "disabled" : ""}>↑</button>
+              <button type="button" class="btn btn-ghost banner-down" data-down="${b.id}" ${i === banners.length - 1 ? "disabled" : ""}>↓</button>
+              <label class="coupon-toggle banner-active"><input type="checkbox" data-bactive="${b.id}"${b.active ? " checked" : ""}> Active</label>
+              <button type="button" class="btn btn-danger banner-del" data-del="${b.id}">Delete</button>
+            </span>
+          </div>
+          <div class="banner-fields">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" data-field="title" value="${bannerFieldHtml(b, "title")}" placeholder="Rakhi Special">
+              </div>
+              <div class="form-group">
+                <label>Delivery line</label>
+                <input type="text" data-field="delivery" value="${bannerFieldHtml(b, "delivery")}" placeholder="🚚 Same-Day Delivery">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Eyebrow / tag</label>
+                <input type="text" data-field="eyebrow" value="${bannerFieldHtml(b, "eyebrow")}" placeholder="🍎 Teacher's Day · 5 September">
+              </div>
+              <div class="form-group">
+                <label>Subtitle</label>
+                <input type="text" data-field="subtitle" value="${bannerFieldHtml(b, "subtitle")}" placeholder="Thank the teachers who shaped you">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Promo code label</label>
+                <input type="text" data-field="codeLabel" value="${bannerFieldHtml(b, "codeLabel")}" placeholder="Use code">
+              </div>
+              <div class="form-group">
+                <label>Promo code</label>
+                <input type="text" data-field="code" value="${bannerFieldHtml(b, "code")}" placeholder="TEACHER15">
+              </div>
+              <div class="form-group">
+                <label>Discount %</label>
+                <input type="text" data-field="discount" value="${bannerFieldHtml(b, "discount")}" placeholder="15">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Ends text (optional)</label>
+                <input type="text" data-field="endsText" value="${bannerFieldHtml(b, "endsText")}" placeholder="⏰ Ends 5 September">
+              </div>
+              <div class="form-group">
+                <label>Button text (CTA)</label>
+                <input type="text" data-field="cta" value="${bannerFieldHtml(b, "cta")}" placeholder="Shop Teacher's Day Gifts →">
+              </div>
+              <div class="form-group">
+                <label>Link (page, e.g. teachers-day-gifts.html)</label>
+                <input type="text" data-field="link" value="${bannerFieldHtml(b, "link")}" placeholder="teachers-day-gifts.html">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" data-field="image" value="${bannerFieldHtml(b, "image")}" placeholder="/uploads/teacher-books.jpg">
+              </div>
+              <div class="form-group">
+                <label>Image alt text</label>
+                <input type="text" data-field="imageAlt" value="${bannerFieldHtml(b, "imageAlt")}" placeholder="Teacher's Day gifts">
+              </div>
+              <div class="form-group">
+                <label>Upload image</label>
+                <div class="upload-row">
+                  <input type="file" class="upload-input banner-img-input" data-upimg="${b.id}" accept="image/png,image/jpeg,image/gif,image/webp">
+                  <button type="button" class="upload-label" data-uimg="${b.id}">📁 Upload</button>
+                </div>
+              </div>
+            </div>
+            <div class="banner-countdown-block">
+              <label class="checkbox-label"><input type="checkbox" data-cdenabled="${b.id}"${cdChecked}> Enable countdown</label>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Countdown label</label>
+                  <input type="text" data-cdlabel="${b.id}" value="${bannerFieldHtml(cd, "label")}" placeholder="Rakhi in">
+                </div>
+                <div class="form-group">
+                  <label>Message after date</label>
+                  <input type="text" data-cddone="${b.id}" value="${bannerFieldHtml(cd, "done")}" placeholder="Happy Rakhi! 🎉">
+                </div>
+                <div class="form-group">
+                  <label>Target date/time (YYYY-MM-DDTHH:MM:SS+05:30)</label>
+                  <input type="text" data-cdtarget="${b.id}" value="${bannerFieldHtml(cd, "target")}" placeholder="2026-09-05T00:00:00+05:30">
+                </div>
+              </div>
+            </div>
+            <div class="banner-preview-area">
+              <label class="preview-label">Live preview</label>
+              <div class="banner-preview-img" data-previewimg="${b.id}"></div>
+              <div class="banner-preview" data-preview="${b.id}"></div>
+            </div>
+          </div>
+        </div>`;
+      })
+      .join("");
+    bannerDirty = false;
+    renderAllBannerPreviews();
+  }
+
+  function renderBannerPreview(b) {
+    const card = document.querySelector(`.banner-card[data-id="${b.id}"]`);
+    if (!card) return;
+    collectBannerFromDom(b);
+    const preview = card.querySelector(`[data-preview="${b.id}"]`);
+    const imgWrap = card.querySelector(`[data-previewimg="${b.id}"]`);
+
+    if (imgWrap) {
+      imgWrap.innerHTML = b.image
+        ? `<img src="${b.image}" alt="banner image preview" onerror="this.style.display='none'"><span class="img-thumb-ok">Image loaded</span>`
+        : `<span class="img-thumb-empty">No image — emoji fallback shown</span>`;
+    }
+
+    if (!preview) return;
+    const cd = b.countdown || {};
+    const media = b.image
+      ? `<span class="ppt-media"><img src="${b.image}" alt="" onerror="this.style.opacity=0"></span>`
+      : `<span class="ppt-media ppt-emoji">${esc(b.emoji || "🎁")}</span>`;
+    const codeHTML = b.code
+      ? `<span class="ppt-code">${esc(b.codeLabel || "Use code")} <strong>${esc(b.code)}</strong>${b.discount ? ` <em>${esc(b.discount)}% OFF</em>` : ""}</span>`
+      : "";
+    const cdHTML = cd && cd.enabled
+      ? `<span class="ppt-countdown">${esc(cd.label || "Countdown")} ...</span>`
+      : "";
+    preview.innerHTML = `
+      <div class="banner-slide">
+        <a class="premium-banner" target="_blank" rel="noopener"
+           href="${b.link ? esc(b.link) : "#"}"
+           onclick="event.stopPropagation()">
+          <span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span>
+          <span class="pb-accent"></span>
+          ${media}
+          <span class="pb-copy">
+            ${b.delivery ? `<span class="pb-delivery">${esc(b.delivery)}</span>` : ""}
+            ${b.eyebrow ? `<span class="pb-eyebrow">${esc(b.eyebrow)}</span>` : ""}
+            <span class="pb-title">${esc(b.title || "Festival Offer")}</span>
+            ${b.subtitle ? `<span class="pb-sub">${esc(b.subtitle)}</span>` : ""}
+            <span class="pb-row">
+              ${codeHTML}
+              ${b.endsText ? `<span class="pb-limited">${esc(b.endsText)}</span>` : ""}
+              ${cdHTML}
+            </span>
+            ${b.cta ? `<span class="pb-cta">${esc(b.cta)}</span>` : ""}
+          </span>
+        </a>
+      </div>`;
+  }
+
+  function renderAllBannerPreviews() {
+    banners.forEach((b) => renderBannerPreview(b));
+  }
+
+  function handleBannerImgUpload(input, id) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      toast("Max 5 MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        const base64 = reader.result.split(",")[1];
+        const res = await api("/api/admin/upload", {
+          method: "POST",
+          body: JSON.stringify({ name: file.name, data: base64 }),
+        });
+        if (res.success) {
+          const b = banners.find((x) => x.id === id);
+          if (b) {
+            b.image = res.url;
+            bannerDirty = true;
+            renderBanners();
+            toast("Image uploaded ✓");
+          }
+        } else {
+          toast(res.message || "Upload failed.");
+        }
+      } catch (e) {
+        toast(e.message);
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function collectBannerFromDom(b) {
+    const card = document.querySelector(`.banner-card[data-id="${b.id}"]`);
+    if (!card) return b;
+    card.querySelectorAll("[data-field]").forEach((el) => {
+      b[el.dataset.field] = el.value;
+    });
+    const cdEl = card.querySelector(`[data-cdenabled="${b.id}"]`);
+    if (cdEl) b.countdown.enabled = cdEl.checked;
+    const cdLabel = card.querySelector(`[data-cdlabel="${b.id}"]`);
+    if (cdLabel) b.countdown.label = cdLabel.value;
+    const cdDone = card.querySelector(`[data-cddone="${b.id}"]`);
+    if (cdDone) b.countdown.done = cdDone.value;
+    const cdTarget = card.querySelector(`[data-cdtarget="${b.id}"]`);
+    if (cdTarget) b.countdown.target = cdTarget.value;
+    const bActive = card.querySelector(`[data-bactive="${b.id}"]`);
+    if (bActive) b.active = bActive.checked;
+    return b;
+  }
+
+  function collectAllBanners() {
+    banners.forEach((b) => collectBannerFromDom(b));
+    banners.forEach((b, i) => (b.sortOrder = i));
+    return banners;
+  }
+
+  async function saveBanners() {
+    const btn = $("#saveBannersBtn");
+    const msg = $("#bannerMsg");
+    const payload = collectAllBanners();
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+    msg.className = "save-msg";
+    msg.textContent = "";
+    try {
+      const res = await api("/api/admin/banners", {
+        method: "PUT",
+        body: JSON.stringify({ banners: payload }),
+      });
+      if (res.success) {
+        msg.className = "save-msg ok";
+        msg.textContent = "Banners saved. They're live on the homepage.";
+        toast("Banners saved ✓");
+        bannerDirty = false;
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not save.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Save All Banners";
+    }
+  }
+
+  function addBanner() {
+    const b = emptyBanner();
+    banners.push(b);
+    bannerDirty = true;
+    renderBanners();
+    toast("Banner added — fill in the fields and press Save All Banners.");
+  }
+
+  function deleteBannerLocal(id) {
+    banners = banners.filter((b) => b.id !== id);
+    bannerDirty = true;
+    renderBanners();
+  }
+
+  function moveBanner(id, dir) {
+    const idx = banners.findIndex((b) => b.id === id);
+    const target = idx + dir;
+    if (idx < 0 || target < 0 || target >= banners.length) return;
+    const tmp = banners[idx];
+    banners[idx] = banners[target];
+    banners[target] = tmp;
+    bannerDirty = true;
+    renderBanners();
+  }
+
+  function initBanners() {
+    const btn = $("#saveBannersBtn");
+    if (btn) btn.addEventListener("click", saveBanners);
+    const add = $("#addBannerBtn");
+    if (add) add.addEventListener("click", addBanner);
+    const list = $("#bannersList");
+    if (!list) return;
+    list.addEventListener("click", (e) => {
+      const del = e.target.closest("[data-del]");
+      if (del) { deleteBannerLocal(del.dataset.del); return; }
+      const up = e.target.closest("[data-up]");
+      if (up) { moveBanner(up.dataset.up, -1); return; }
+      const down = e.target.closest("[data-down]");
+      if (down) { moveBanner(down.dataset.down, 1); return; }
+      const uimg = e.target.closest("[data-uimg]");
+      if (uimg) {
+        const card = uimg.closest(".banner-card");
+        const inp = card && card.querySelector(".banner-img-input");
+        if (inp) inp.click();
+      }
+    });
+    list.addEventListener("change", (e) => {
+      const img = e.target.closest(".banner-img-input");
+      if (img && img.dataset.upimg) {
+        handleBannerImgUpload(img, img.dataset.upimg);
+        img.value = "";
+        return;
+      }
+    });
+    list.addEventListener("input", (e) => {
+      bannerDirty = true;
+      const card = e.target.closest(".banner-card");
+      if (card && card.dataset.id) {
+        const b = banners.find((x) => x.id === card.dataset.id);
+        if (b) renderBannerPreview(b);
+      }
+    });
+    list.addEventListener("change", (e) => {
+      const t = e.target.closest("[data-bactive], [data-cdenabled]");
+      if (t) {
+        bannerDirty = true;
+        const card = t.closest(".banner-card");
+        if (card && card.dataset.id) {
+          const b = banners.find((x) => x.id === card.dataset.id);
+          if (b) renderBannerPreview(b);
+        }
+      }
+    });
+  }
+
+  /* ---------- Delivery pincodes ---------- */
+  let pincodes = [];
+
+  function emptyPincode() {
+    return {
+      city: "",
+      slug: "",
+      start: "",
+      end: "",
+      slaText: "within 24-48 hours",
+    };
+  }
+
+  function slugify(s) {
+    return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  }
+
+  async function loadPincodes() {
+    try {
+      const data = await api("/api/admin/pincodes");
+      if (!data.success) return;
+      pincodes = Array.isArray(data.pincodes) ? data.pincodes : [];
+      renderPincodes();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  function renderPincodes() {
+    const listEl = $("#pincodesList");
+    if (!listEl) return;
+    if (pincodes.length === 0) {
+      listEl.innerHTML = `<p class="empty-state">No cities added yet. Use “+ Add City” to start.</p>`;
+      return;
+    }
+    listEl.innerHTML = pincodes
+      .map((pc, i) => {
+        const cd = pc.countdown || {};
+        return `
+          <div class="pincode-card" data-id="${pc.slug}">
+            <div class="pincode-head">
+              <span class="pincode-index">${i + 1}</span>
+              <input type="text" class="pincode-city" data-field="city" value="${esc(pc.city || "")}" placeholder="City name">
+              <div class="pincode-tools">
+                <button type="button" class="btn-ghost danger" data-del="${pc.slug}" title="Delete">🗑 Delete</button>
+              </div>
+            </div>
+            <div class="pincode-fields">
+              <div class="form-group">
+                <label>Pincode range start</label>
+                <input type="text" data-field="start" value="${esc(pc.start || "")}" maxlength="6" placeholder="110001">
+              </div>
+              <div class="form-group">
+                <label>Pincode range end</label>
+                <input type="text" data-field="end" value="${esc(pc.end || "")}" maxlength="6" placeholder="110097">
+              </div>
+              <div class="form-group">
+                <label>Delivery time shown to customers</label>
+                <input type="text" data-field="slaText" value="${esc(pc.slaText || "")}" placeholder="within 24-48 hours">
+              </div>
+            </div>
+          </div>`;
+      })
+      .join("");
+  }
+
+  function collectPincodeFromDom(pc) {
+    const card = document.querySelector(`.pincode-card[data-id="${pc.slug}"]`);
+    if (!card) return pc;
+    card.querySelectorAll("[data-field]").forEach((el) => {
+      pc[el.dataset.field] = el.value.trim();
+    });
+    pc.slug = slugify(pc.city || pc.slug || "city");
+    return pc;
+  }
+
+  function collectAllPincodes() {
+    pincodes.forEach((pc) => collectPincodeFromDom(pc));
+    return pincodes;
+  }
+
+  async function savePincodes() {
+    const btn = $("#savePincodesBtn");
+    const msg = $("#pincodeMsg");
+    const payload = collectAllPincodes().filter((pc) => pc.city && pc.start && pc.end);
+    if (payload.length === 0) {
+      msg.className = "save-msg err";
+      msg.textContent = "Add at least one city with a pincode range before saving.";
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+    msg.className = "save-msg";
+    msg.textContent = "";
+    try {
+      const res = await api("/api/admin/pincodes", {
+        method: "PUT",
+        body: JSON.stringify({ pincodes: payload }),
+      });
+      if (res.success) {
+        msg.className = "save-msg ok";
+        msg.textContent = "Pincode data saved. The delivery check now uses this coverage.";
+        toast("Pincode data saved ✓");
+        renderPincodes();
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not save.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Save All Pincodes";
+    }
+  }
+
+  function addPincode() {
+    pincodes.push(emptyPincode());
+    renderPincodes();
+    toast("City added — fill in the range and press Save All Pincodes.");
+  }
+
+  function deletePincodeLocal(slug) {
+    pincodes = pincodes.filter((pc) => pc.slug !== slug);
+    renderPincodes();
+  }
+
+  function initPincodes() {
+    const btn = $("#savePincodesBtn");
+    if (btn) btn.addEventListener("click", savePincodes);
+    const add = $("#addPincodeBtn");
+    if (add) add.addEventListener("click", addPincode);
+    const list = $("#pincodesList");
+    if (!list) return;
+    list.addEventListener("click", (e) => {
+      const del = e.target.closest("[data-del]");
+      if (del) { deletePincodeLocal(del.dataset.del); return; }
+    });
+    list.addEventListener("input", (e) => {
+      const card = e.target.closest(".pincode-card");
+      if (card && card.dataset.id) {
+        const pc = pincodes.find((x) => x.slug === card.dataset.id);
+        if (pc && e.target.hasAttribute("data-field")) {
+          if (e.target.dataset.field === "city") {
+            e.target.value = e.target.value.replace(/\d/g, "");
+          }
+        }
+      }
+    });
+  }
+
+  /* ---------- UPI QR ---------- */
+  function renderUpiPreview() {
+    const url = $("#upiQrInput").dataset.url || "";
+    const preview = $("#upiQrPreview");
+    if (url) {
+      preview.innerHTML = `<img src="${url}" alt="UPI QR preview">`;
+      preview.style.display = "";
+    } else {
+      preview.innerHTML = "";
+      preview.style.display = "none";
+    }
+  }
+
+  async function loadUpi() {
+    try {
+      const data = await api("/api/admin/upi");
+      if (!data.success) return;
+      const u = data.upi || {};
+      $("#upiId").value = u.upiId || "";
+      $("#upiPayee").value = u.payeeName || "Giftora";
+      $("#upiQrInput").dataset.url = u.qrImage || "";
+      renderUpiPreview();
+    } catch (e) {
+      toast(e.message);
+    }
+  }
+
+  async function uploadUpiQr() {
+    const input = $("#upiQrInput");
+    const file = input.files && input.files[0];
+    const status = $("#upiQrStatus");
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      status.textContent = "Max 5 MB.";
+      status.className = "upload-status err";
+      return;
+    }
+    status.textContent = "Uploading...";
+    status.className = "upload-status";
+    try {
+      const dataUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+      const base64 = dataUrl.split(",")[1];
+      const res = await api("/api/admin/upload", {
+        method: "POST",
+        body: JSON.stringify({ name: file.name, data: base64 }),
+      });
+      if (res.success) {
+        input.dataset.url = res.url;
+        renderUpiPreview();
+        status.textContent = "Uploaded ✓";
+        status.className = "upload-status ok";
+      } else {
+        status.textContent = res.message || "Upload failed.";
+        status.className = "upload-status err";
+      }
+    } catch (e) {
+      status.textContent = e.message;
+      status.className = "upload-status err";
+    }
+    input.value = "";
+  }
+
+  async function saveUpi() {
+    const btn = $("#saveUpiBtn");
+    const msg = $("#upiMsg");
+    const payload = {
+      upiId: $("#upiId").value.trim(),
+      payeeName: $("#upiPayee").value.trim(),
+      qrImage: $("#upiQrInput").dataset.url || "",
+    };
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+    msg.className = "save-msg";
+    msg.textContent = "";
+    try {
+      const res = await api("/api/admin/upi", {
+        method: "PUT",
+        body: JSON.stringify({ upi: payload }),
+      });
+      if (res.success) {
+        msg.className = "save-msg ok";
+        msg.textContent = "UPI settings saved.";
+        toast("UPI settings saved ✓");
+      } else {
+        msg.className = "save-msg err";
+        msg.textContent = res.message || "Could not save.";
+      }
+    } catch (e) {
+      msg.className = "save-msg err";
+      msg.textContent = e.message;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Save Changes";
+    }
+  }
+
   /* ---------- Load all ---------- */
   async function loadAll() {
-    await Promise.all([loadProducts(), loadFestival(), loadOrders(), loadEnquiries(), loadVendors()]);
+    await Promise.all([loadProducts(), loadFestival(), loadUpi(), loadOrders(), loadEnquiries(), loadVendors(), loadCoupons(), loadGiftCards(), loadVisitors(), loadBanners(), loadPincodes()]);
   }
 
   $("#productSearch").addEventListener("input", (e) => {
@@ -607,9 +2081,76 @@
   });
   $("#saveProductsBtn").addEventListener("click", saveProducts);
   $("#addProductBtn").addEventListener("click", addProduct);
+  $("#restoreProductsBtn").addEventListener("click", restoreProducts);
   $("#saveFestivalBtn").addEventListener("click", saveFestival);
   $("#fUploadBtn").addEventListener("click", () => $("#fImageInput").click());
   $("#fImageInput").addEventListener("change", uploadBanner);
+  $("#fProductSearch").addEventListener("input", (e) => {
+    festivalProductSearch = e.target.value;
+    renderFestivalProductList();
+  });
+  $("#fSelectAllBtn").addEventListener("click", () => {
+    $$("#fProductList .fp-check").forEach((c) => {
+      c.checked = true;
+      festivalProductIds.add(Number(c.dataset.id));
+    });
+  });
+  $("#fClearAllBtn").addEventListener("click", () => {
+    $$("#fProductList .fp-check").forEach((c) => {
+      c.checked = false;
+      festivalProductIds.delete(Number(c.dataset.id));
+    });
+  });
+  $("#fProductList").addEventListener("change", (e) => {
+    if (e.target.classList.contains("fp-check")) {
+      const id = Number(e.target.dataset.id);
+      if (e.target.checked) festivalProductIds.add(id);
+      else festivalProductIds.delete(id);
+    }
+  });
+  $("#saveUpiBtn").addEventListener("click", saveUpi);
+  $("#upiQrUploadBtn").addEventListener("click", () => $("#upiQrInput").click());
+  $("#upiQrInput").addEventListener("change", uploadUpiQr);
+  $("#visitorSearch").addEventListener("input", (e) => {
+    visitorSearchTerm = e.target.value;
+    renderVisitors();
+  });
+  $("#exportVisitorsBtn").addEventListener("click", exportVisitorsCsv);
+  $("#clearVisitorsBtn").addEventListener("click", clearVisitorsData);
+  $("#createCouponsBtn").addEventListener("click", createCoupons);
+  $("#cType").addEventListener("change", (e) => {
+    const label = $("#cValueLabel");
+    if (label) label.textContent = e.target.value === "fixed" ? "Discount value (₹)" : "Discount value (%)";
+  });
+  $("#couponsList").addEventListener("click", (e) => {
+    const copyBtn = e.target.closest("[data-copy]");
+    if (copyBtn) {
+      copyCoupon(copyBtn.dataset.copy);
+      return;
+    }
+    const delBtn = e.target.closest("[data-delete]");
+    if (delBtn) deleteCoupon(delBtn.dataset.delete);
+  });
+  $("#couponsList").addEventListener("change", (e) => {
+    const t = e.target.closest("[data-active]");
+    if (t) toggleCoupon(t.dataset.active, t.checked);
+  });
+  $("#createGiftCardsBtn").addEventListener("click", createGiftCardsFlow);
+  $("#giftcardsList").addEventListener("click", (e) => {
+    const copyBtn = e.target.closest("[data-gc-copy]");
+    if (copyBtn) {
+      copyCoupon(copyBtn.dataset.gcCopy);
+      return;
+    }
+    const designBtn = e.target.closest("[data-gc-design]");
+    if (designBtn) window.open(designBtn.dataset.gcDesign, "_blank");
+  });
+  $("#giftcardsList").addEventListener("change", (e) => {
+    const t = e.target.closest("[data-gc-active]");
+    if (t) toggleGiftCard(t.dataset.gcActive, t.checked);
+  });
+  initBanners();
+  initPincodes();
   loginBtn.addEventListener("click", doLogin);
   loginPass.addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
   logoutBtn.addEventListener("click", () => {

@@ -1,0 +1,84 @@
+# Giftora — Online Gift Shop India
+
+> Giftora is an online gift shop based in Delhi, India. We offer same-day gift delivery across Delhi NCR and major metros (Mumbai, Bengaluru, Chennai, Hyderabad, Kolkata, Pune, Jaipur) on orders placed before 5 PM, and express delivery to 60+ cities across India. Our range includes cakes, flowers, teddy bears, clothes, shoes, sunglasses, belts, plants, toys, and gift combos. Orders are placed online and hand-delivered by our local delivery network; international gifting for NRIs in the USA, UK, Canada, Australia and Africa is also supported.
+
+## Key Pages
+
+- [Home](https://gift-ora.online/): Giftora landing page with shop, offers and banners — "Order gifts online at Giftora — clothes, toys, flowers, cakes, teddy bears and more. Same-day delivery, gift wrapping and easy checkout for every occasion."
+- [Shop All Gifts](https://gift-ora.online/index.html#shop): Browse every category, product and combo
+- [Cakes](https://gift-ora.online/cakes.html): Fresh cream and designer cake delivery — "Order cake delivery online — chocolate truffle, red velvet, vanilla and strawberry cakes baked fresh with same-day birthday cake delivery."
+- [Flowers](https://gift-ora.online/flowers.html): Roses, bouquets and flower baskets — "Order fresh flower bouquets online — roses, tulips, sunflowers and orchids with same-day delivery."
+- [Teddy Bears](https://gift-ora.online/teddy.html): Plush teddy bears and soft toys — "Buy teddy bear gifts online — giant, heart and huggable teddy bears with gift baskets and same-day delivery for birthdays and anniversaries."
+- [Clothes](https://gift-ora.online/clothes.html): Apparel and fashion gifts — "Shop clothes as gifts online — shirts, dresses, sarees, kids' outfits and more with same-day delivery and beautiful gift wrapping."
+- [Shoes](https://gift-ora.online/shoes.html): Sneakers and footwear — "Buy shoes as gifts online — sneakers, sports shoes, sandals and formal footwear with same-day delivery."
+- [Plants](https://gift-ora.online/plants.html): Indoor and ornamental plants — "Buy indoor plants online — money plants, lucky bamboo, snake plants and peace lilies with same-day delivery. Green gifts that keep on giving."
+- [Toys](https://gift-ora.online/toys.html): Kids' toys and gift sets — "Buy toys online in India — teddy bears, STEM building blocks, remote control cars and baby doll sets with same-day delivery."
+- [Combo Offers](https://gift-ora.online/combo.html): Bundled multi-item gift hampers — "Shop combo gift offers online — cake and flower combos, teddy and chocolate bundles, and birthday surprise boxes at unbeatable prices."
+- [Special Offers](https://gift-ora.online/special-offers.html): Current deals and promotions — "Shop special gift offers online — discounted products across all categories at unbeatable prices."
+- [Festival Offers](https://gift-ora.online/festival.html): Seasonal festival gift collections — "Special discounts and gifts for Raksha Bandhan, Diwali, Rakhi and every festival celebration with same-day delivery."
+
+## Occasions
+
+- [Birthday Gifts](https://gift-ora.online/birthday-gifts.html): Birthday gift ideas with same-day delivery — "Cakes, flowers, teddy bears & combos" for every birthday celebration.
+- [Anniversary Gifts](https://gift-ora.online/anniversary-gifts.html): Cakes, flowers and hampers for anniversaries — "Cakes, roses, teddy bears & more."
+- [Rakhi Gifts](https://gift-ora.online/rakhi-gifts.html): Raksha Bandhan gifts and designer rakhis
+- [Teachers' Day Gifts](https://gift-ora.online/teachers-day-gifts.html): Ideas for thanking teachers — "Fresh flowers, a celebration cake, a lucky plant or a flower-plus-cake combo are the most appreciated Teacher's Day gifts in India."
+- [Corporate Gifts](https://gift-ora.online/corporate-gifts.html): Bulk and corporate gifting — "Bulk gifting for businesses."
+
+## NRI / International
+
+- [Send Gifts to India](https://gift-ora.online/send-gifts-to-india.html): Order from abroad with doorstep delivery in India — "Order online from the USA, UK, Europe, Canada, Australia or Africa and your gift is delivered the same day in Delhi NCR, wrapped with a personalised note. Visa, Mastercard and Amex are accepted at checkout."
+- [USA to India](https://gift-ora.online/gifts-to-india-from-usa.html): Gifting guide for NRIs in the USA
+- [UK to India](https://gift-ora.online/gifts-to-india-from-uk.html): Gifting guide for NRIs in the UK
+- [Canada to India](https://gift-ora.online/gifts-to-india-from-canada.html): Gifting guide for NRIs in Canada
+- [Australia to India](https://gift-ora.online/gifts-to-india-from-australia.html): Gifting guide for NRIs in Australia
+- [Africa to India](https://gift-ora.online/gifts-to-india-from-africa.html): Gifting guide for NRIs in Africa
+
+## Delivery
+
+- [Gift Delivery India](https://gift-ora.online/gift-delivery-india.html): Cities covered and delivery speeds in one place — "Same-day delivery across Delhi NCR and major metros, express delivery nationwide."
+- [Delhi NCR](https://gift-ora.online/gift-delivery-delhi.html): Same-day hand delivery in Delhi, Noida, Gurugram, Faridabad and Ghaziabad — "We deliver to every major area in Delhi NCR — including CP, South Delhi, Dwarka, Rohini, Karol Bagh."
+- [Mumbai](https://gift-ora.online/gift-delivery-mumbai.html): Same-day delivery for orders before 5 PM
+- [Bengaluru](https://gift-ora.online/gift-delivery-bengaluru.html): Same-day delivery for orders before 5 PM
+- [Chennai](https://gift-ora.online/gift-delivery-chennai.html): Same-day delivery for orders before 5 PM
+- [Jaipur](https://gift-ora.online/gift-delivery-jaipur.html): Same-day delivery for orders before 5 PM
+
+## Blog & Guides
+
+- [NRI Gift Guide](https://gift-ora.online/blog-nri-gift-guide.html): "Step-by-step guide for NRIs to send gifts to India — same-day delivery in Delhi NCR, international card payment, personalised notes, tips and FAQs."
+- [Rakhi Gifts for NRIs](https://gift-ora.online/blog-rakhi-gifts-nri.html): "Yes — order online from any country and your rakhi gift is hand-delivered the same day in Delhi NCR with a personalised rakhi card."
+- [Festival Gifts for NRIs](https://gift-ora.online/blog-festival-gifts-nri.html): Festival gift ideas NRIs can send to India
+- [Gifts Under ₹1000](https://gift-ora.online/blog-gifts-under-1000.html): "Order before 5 PM and Giftora delivers the same day across Delhi NCR, with no extra delivery charge on most orders."
+- [Birthday Gifts in Delhi](https://gift-ora.online/blog-birthday-gifts-delhi.html): "Giftora offers same-day birthday cake delivery across all major areas in Delhi NCR. Simply place your order before 5 PM and we'll deliver a freshly baked cake the same evening."
+- [Cake Delivery in Faridabad](https://gift-ora.online/blog-cake-delivery-faridabad.html): "Giftora offers midnight cake delivery between 11:30 PM and 12:15 AM across NIT, Sector 15, and most other areas in Faridabad."
+- [Best Online Gift Shop in India](https://gift-ora.online/blog-best-online-gift-shop-india.html): What makes an online gift shop worth ordering from in India
+- [Teacher's Day Gifts](https://gift-ora.online/blog-teachers-day-gifts.html): 10 thoughtful ideas to say thank you
+- [Diwali Gifts](https://gift-ora.online/blog-diwali-gifts.html): "Dry fruit hampers, diyas and home decor, fresh flowers, celebration cakes, chocolates or a flower-plus-cake combo are the most loved Diwali gifts in India."
+- [Karwa Chauth Gifts](https://gift-ora.online/blog-karwa-chauth-gifts.html): "A bouquet of roses, a celebration cake, chocolates, a flower-plus-cake combo or a sargi-style dry fruit hamper with a personalised note are the most loved Karwa Chauth gifts for a wife."
+
+## Company
+
+- [About Giftora](https://gift-ora.online/about.html): Who we are and how our delivery network works — "A trusted online gift shop delivering thoughtful gifts."
+- [Track Order](https://gift-ora.online/track-order.html): Check the status of an order — "Enter your order ID to see current status — placed, confirmed, out for delivery or delivered."
+- [Contact](https://gift-ora.online/contact.html): "Phone +91 70880 84046, email amitwebdev163@gmail.com. Our gift experts reply within a few hours."
+- [Become a Vendor](https://gift-ora.online/vendors.html): Sell your products on Giftora — "Join our vendor and partner network to reach thousands of customers, get fast payments and easy onboarding."
+
+## FAQ — Direct Answers
+
+> Giftora delivers same-day across Delhi NCR and major metros on orders placed before 5 PM, and express delivery across 60+ cities. Every gift is wrapped with a personalised card. NRIs can order from the USA, UK, Canada, Australia and Africa using international cards. Payment methods: UPI, credit/debit cards, net banking, wallets and international cards. Midnight cake delivery is available across Delhi NCR — Delhi, Noida, Gurugram, Faridabad and Ghaziabad. Delivery runs 7 days a week, including weekends and public holidays.
+
+## Optional
+
+- [Wedding Gifts](https://gift-ora.online/wedding-gifts.html): Wedding and housewarming gift ideas
+- [Housewarming Gifts](https://gift-ora.online/housewarming-gifts.html): Plants, combos and new-home gifts
+- [Baby Shower Gifts](https://gift-ora.online/baby-shower-gifts.html): Teddy bears, toys and combos
+- [Congratulations Gifts](https://gift-ora.online/congratulations-gifts.html): Celebration cakes, flowers and hampers
+- [Thank You Gifts](https://gift-ora.online/thank-you-gifts.html): Flowers, chocolates and heartfelt combos
+- [Engagement Gifts](https://gift-ora.online/engagement-gifts.html): Roses, cakes and romantic surprises
+- [Graduation Gifts](https://gift-ora.online/graduation-gifts.html): Congratulatory cakes and gift combos
+- [Deepawali Gifts](https://gift-ora.online/deepawali-gifts.html): Diwali gift ideas
+- [Karwa Chauth Gifts](https://gift-ora.online/karwa-chauth-gifts.html): Karwa Chauth gift ideas
+- [Occasion Gifts](https://gift-ora.online/occasion-gifts.html): Gifts for every celebration
+- [Privacy Policy](https://gift-ora.online/privacy-policy.html): Data and privacy practices
+
+<!-- Note: llms.txt is a plain-text companion file for AI models (llmstxt.org standard). Quoted text within entries is intended to be directly citable by AI engines and answer engines when describing Giftora products, services and delivery policies. -->
