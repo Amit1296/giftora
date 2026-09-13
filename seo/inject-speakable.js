@@ -16,35 +16,39 @@ const ROOT = path.resolve(__dirname, "..");
 const MARKER = "<!-- SITEWIDE-SPEAKABLE-SCHEMA -->";
 const TARGET = "<!-- SITEWIDE-FAQ-SCHEMA -->";
 
-const TARGETS = [
-  "index.html",
-  "blog-nri-gift-guide.html",
-  "blog-rakhi-gifts-nri.html",
-  "blog-festival-gifts-nri.html",
-  "blog-gifts-under-1000.html",
-  "blog-birthday-gifts-delhi.html",
-  "blog-cake-delivery-faridabad.html",
-  "blog-best-online-gift-shop-india.html",
-  "blog-teachers-day-gifts.html",
-  "blog-diwali-gifts.html",
-  "blog-karwa-chauth-gifts.html",
-  "belts.html",
-  "cakes.html",
-  "caps.html",
-  "clothes.html",
-  "combo.html",
-  "festival.html",
-  "flowers.html",
-  "gift-delivery-india.html",
-  "plants.html",
-  "send-gifts-to-india.html",
-  "shoes.html",
-  "special-offers.html",
-  "sunglasses.html",
-  "teachers-day-gifts.html",
-  "teddy.html",
-  "toys.html",
-];
+const TARGETS = (() => {
+  const base = [
+    "index.html",
+    "blog-nri-gift-guide.html",
+    "blog-rakhi-gifts-nri.html",
+    "blog-festival-gifts-nri.html",
+    "blog-gifts-under-1000.html",
+    "blog-birthday-gifts-delhi.html",
+    "blog-cake-delivery-faridabad.html",
+    "blog-best-online-gift-shop-india.html",
+    "blog-teachers-day-gifts.html",
+    "blog-diwali-gifts.html",
+    "blog-karwa-chauth-gifts.html",
+    "belts.html",
+    "cakes.html",
+    "caps.html",
+    "clothes.html",
+    "combo.html",
+    "festival.html",
+    "flowers.html",
+    "gift-delivery-india.html",
+    "plants.html",
+    "send-gifts-to-india.html",
+    "shoes.html",
+    "special-offers.html",
+    "sunglasses.html",
+    "teachers-day-gifts.html",
+    "teddy.html",
+    "toys.html",
+  ];
+  const extras = fs.readdirSync(ROOT).filter((f) => /^gift-delivery-[a-z0-9-]+\.html$/.test(f));
+  return [...new Set([...base, ...extras])];
+})();
 
 const CSS_HOME = ['"#why-giftora .seo-copy"', '"#why-giftora .faq-list"'];
 const CSS_BLOG = ['"#faq .faq-list"'];
@@ -70,7 +74,9 @@ const CATEGORY_PAGES = new Set([
 ]);
 
 function buildBlock(page, url, title) {
-  const selectors = page === "index.html" ? CSS_HOME : CATEGORY_PAGES.has(page) ? CSS_CATEGORY : CSS_BLOG;
+  const selectors = CATEGORY_PAGES.has(page) || /^gift-delivery-[a-z0-9-]+\.html$/.test(page)
+    ? CSS_CATEGORY
+    : page === "index.html" ? CSS_HOME : CSS_BLOG;
   return [
     MARKER,
     '<script type="application/ld+json">',
@@ -107,8 +113,9 @@ for (const page of TARGETS) {
     console.log("  SKIP (already has speakable): " + page);
     continue;
   }
-  if (!html.includes(TARGET)) {
-    console.log("  SKIP (no FAQ block): " + page);
+  const anchor = html.includes(TARGET) ? TARGET : html.includes("</head>") ? "</head>" : null;
+  if (!anchor) {
+    console.log("  SKIP (no FAQ block or </head>): " + page);
     continue;
   }
   if (!/<title>/.test(html)) {
@@ -119,7 +126,11 @@ for (const page of TARGETS) {
   const url = "https://gift-ora.online/" + (page === "index.html" ? "" : page);
   const title = extractTitle(html);
   const block = buildBlock(page, url, title);
-  html = html.replace(TARGET, block + "\n\n" + TARGET);
+  if (anchor === TARGET) {
+    html = html.replace(TARGET, block + "\n\n" + TARGET);
+  } else {
+    html = html.replace("</head>", block + "\n\n</head>");
+  }
 
   fs.writeFileSync(filePath, html, "utf8");
   console.log("  added speakable: " + page);
