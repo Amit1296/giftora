@@ -978,6 +978,57 @@ async function handleRequest(req, res) {
     }
   }
 
+  /* ---------- Google Merchant Center feed ---------- */
+  if (url.pathname === "/merchant-feed.xml" && method === "GET") {
+    try {
+      const cfg = apply.loadConfig();
+      const site = cfg.site;
+      const base = (site.url || SITE_URL).replace(/\/$/, "");
+      const products = await db.getProducts();
+      const items = products
+        .filter((p) => p && p.name && (typeof p.price === "number") && p.price > 0)
+        .map((p) => {
+          const id = String(p.id);
+          const slug = require("./seo/render-product").slugifyName(p.name);
+          const link = `${base}/products/${slug}.html`;
+          const image = p.image ? `${base}${p.image}` : "";
+          const prices = p.sizePrices && Object.keys(p.sizePrices).length
+            ? Object.keys(p.sizePrices).map((s) => Number(p.sizePrices[s])).filter((n) => n > 0)
+            : [];
+          const price = prices.length ? Math.min.apply(null, prices) : Number(p.price);
+          const availability = typeof p.stock === "number" && p.stock <= 0
+            ? "out of stock"
+            : "in stock";
+          const title = p.name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;");
+          const description = (p.description || `Buy ${title} online with same-day delivery at ${site.name}.`)
+            .replace(/\s+/g, " ").trim().replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;");
+          const category = ((require("./seo/render-product").CATEGORY_META || {})[p.category] || {}).name || p.category || "";
+          const lines = [
+            "    <item>",
+            `      <g:id>${id}</g:id>`,
+            `      <g:title>${title}</g:title>`,
+            `      <g:description>${description}</g:description>`,
+            `      <g:link>${link}</g:link>`,
+            image ? `      <g:image_link>${image}</g:image_link>` : "",
+            `      <g:availability>${availability}</g:availability>`,
+            `      <g:price>${price.toFixed(2)} ${site.currency || "INR"}</g:price>`,
+            `      <g:brand>${(site.name || "Giftora").replace(/&/g, "&amp;")}</g:brand>`,
+            `      <g:condition>new</g:condition>`,
+            category ? `      <g:product_type>${category.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;")}</g:product_type>` : "",
+            "    </item>",
+          ].filter(Boolean).join("\n");
+          return lines;
+        }).join("\n");
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n  <channel>\n    <title>${(site.name || "Giftora").replace(/&/g, "&amp;")} Products</title>\n    <link>${base}/</link>\n    <description>Giftora product feed for Google Merchant Center.</description>\n${items}\n  </channel>\n</rss>\n`;
+      res.writeHead(200, { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "no-cache" });
+      return res.end(xml);
+    } catch (e) {
+      console.error("Merchant feed error:", e.message);
+      res.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
+      return res.end("Feed error");
+    }
+  }
+
   const blocked = ["/data/", "/.opencode/", "/admin-config.json", "/mail-config.json", "/razorpay-config.json", "/upi-config.json", "/node_modules/", "/.env"];
   const lowerPath = pathname.toLowerCase();
   if (blocked.some((b) => lowerPath.startsWith(b))) {

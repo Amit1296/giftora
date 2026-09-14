@@ -272,6 +272,7 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
         const availability = typeof product.stock === "number" && product.stock <= 0
           ? "https://schema.org/OutOfStock"
           : "https://schema.org/InStock";
+        const priceValidUntil = "2027-01-01";
         if (hasSizePrices(product) && product.sizes.length) {
           const perSize = product.sizes.map((s) => ({
             "@type": "Offer",
@@ -289,6 +290,7 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
             highPrice: String(Math.max.apply(null, prices)),
             priceCurrency: site.currency,
             availability,
+            priceValidUntil,
             offers: perSize,
           };
         }
@@ -298,6 +300,7 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
           priceCurrency: site.currency,
           availability,
           itemCondition: "https://schema.org/NewCondition",
+          priceValidUntil,
           url,
         };
       })(),
