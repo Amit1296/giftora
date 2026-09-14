@@ -948,6 +948,20 @@ async function handleRequest(req, res) {
       const products = await db.getProducts();
       const slug = productMatch[1];
       const product = products.find((p) => renderProduct.slugifyName(p.name) === slug);
+      if (!product) {
+        // Permanent 301s for slugs from before product names were cleaned up.
+        const renamed = {
+          "mini-fittonia-green-nerve-plant-great-for-highlighting-desk-friendly-size": "mini-fittonia-green-nerve-plant",
+          "aglaonema-red-chinese-evergreen-classic-simple-and-recognizable": "aglaonema-red-chinese-evergreen",
+          "jadey-simple-sweet-and-classic": "jadey",
+          "blushing-passion-highlights-the-soft-pink-tones-alongside-the-bold-red": "blushing-passion",
+        };
+        const target = renamed[slug];
+        if (target) {
+          res.writeHead(301, { Location: `${site.url}/products/${target}.html`, "Cache-Control": "no-cache" });
+          return res.end();
+        }
+      }
       if (product) {
         const html = renderProduct.renderProductPage(product, products, site);
         if (html) {
