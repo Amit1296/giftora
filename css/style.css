@@ -1090,26 +1090,29 @@ body.announce-visible .navbar:not(.scrolled) {
 }
 
 /* ---------- Footer ---------- */
-.footer { background: var(--text); color: #f5ece9; padding-top: 72px; }
+.footer { position: relative; background: linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%); color: rgba(255,255,255,0.72); padding-top: 72px; }
+.footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, #f5b301, #f59e0b); }
 .footer-container { display: flex; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding-bottom: 56px; }
 .footer-brand { max-width: 320px; }
 .footer-brand .logo { color: #fff; }
-.footer-brand p { font-size: 0.9rem; color: rgba(245,236,233,0.6); margin-top: 14px; }
+.footer-brand .logo span { color: #fde68a; }
+.footer-brand p { font-size: 0.9rem; color: rgba(255,255,255,0.72); margin-top: 14px; }
 .footer-social { display: flex; gap: 10px; margin-top: 20px; }
 .footer-social a {
   display: inline-flex; align-items: center; justify-content: center;
   width: 38px; height: 38px; border-radius: 50%;
-  background: rgba(245,236,233,0.1); color: #f5ece9;
+  background: rgba(255,255,255,0.14); color: #fde68a;
   transition: background 0.2s, color 0.2s, transform 0.2s;
 }
-.footer-social a:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
+.footer-social a:hover { background: #f59e0b; color: #fff; transform: translateY(-2px); }
 .footer-links { display: flex; gap: 72px; flex-wrap: wrap; }
-.footer-col h3 { font-family: var(--font-head); font-size: 1.1rem; margin-bottom: 16px; }
+.footer-col h3 { font-family: var(--font-head); font-size: 1.05rem; letter-spacing: 0.04em; text-transform: uppercase; color: #fde68a; margin-bottom: 16px; }
 .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
-.footer-col a { font-size: 0.92rem; color: rgba(245,236,233,0.6); transition: color 0.2s; }
-.footer-col a:hover { color: var(--primary-light); }
-.footer-bottom { border-top: 1px solid rgba(245,236,233,0.12); padding: 20px 0; }
-.footer-bottom p { font-size: 0.85rem; color: rgba(245,236,233,0.5); text-align: center; }
+.footer-col a { font-size: 0.92rem; color: rgba(255,255,255,0.72); transition: color 0.2s; }
+.footer-col a:hover { color: #fde68a; }
+.footer-contact a { color: #fde68a; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.14); padding: 20px 0; }
+.footer-bottom p { font-size: 0.85rem; color: rgba(255,255,255,0.72); text-align: center; }
 
 /* ---------- Cart Drawer ---------- */
 .cart-overlay {
