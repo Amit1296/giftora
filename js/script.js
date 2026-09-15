@@ -994,6 +994,19 @@
       const emailNote = document.getElementById("successEmailNote");
       if (emailNote) emailNote.hidden = !email;
       saveOrder({ orderId: String(res.orderId), name: name || "", phone: phone || "", total: payableTotal(), date: new Date().toISOString(), payment, senderName });
+      try {
+        window.gtag && window.gtag("event", "purchase", {
+          currency: "INR",
+          value: Number(payload.total) || 0,
+          transaction_id: "giftora-" + res.orderId,
+          items: items.map((it) => ({
+            item_id: String(it.id),
+            item_name: it.name || "Item",
+            price: Number(it.price) || 0,
+            quantity: Number(it.qty) || 1,
+          })),
+        });
+      } catch (e) {}
       const waTrack = checkoutSuccess.querySelector(".wa-track");
       if (!waTrack) {
         const a = document.createElement("a");
