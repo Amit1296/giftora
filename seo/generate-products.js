@@ -300,6 +300,42 @@ function buildMeta(product, slug, catMeta, site, description) {
 }
 
 function faqEntries(product) {
+  const extra = [];
+  if (product.sizes && product.sizes.length) {
+    extra.push({
+      q: `What sizes is ${product.name} available in?`,
+      a: `Giftora's ${product.name} is available in ${product.sizes.length > 1 ? "these sizes" : "this size"}: ${product.sizes.join(", ")}. Choose your preferred size when you add it to the cart.`,
+    });
+  }
+  if (typeof product.price === "number") {
+    extra.push({
+      q: `How much does ${product.name} cost?`,
+      a: `You can buy ${product.name} online from Giftora for just ${fmtPrice(product.price)} with same-day delivery and free gift wrapping included.`,
+    });
+  }
+  const catFaq = {
+    cakes: {
+      q: `How fresh is ${product.name}?`,
+      a: `${product.name} is baked fresh to order at Giftora. Place your order before the daily cut-off for same-day delivery in most cities.`,
+    },
+    flowers: {
+      q: `Will the flowers in ${product.name} stay fresh?`,
+      a: `Yes — Giftora's ${product.name} is arranged with freshly sourced flowers shortly before delivery, and ships with easy care instructions.`,
+    },
+    plants: {
+      q: `How should I care for ${product.name}?`,
+      a: `Giftora's ${product.name} arrives healthy and ready to display. Keep it in bright, indirect light and water when the top of the soil feels dry.`,
+    },
+    teddy: {
+      q: `Is ${product.name} good as a gift?`,
+      a: `Definitely — ${product.name} makes a heartfelt gift for birthdays, anniversaries, Valentine's Day, and everyday surprises.`,
+    },
+  }[product.category];
+  if (catFaq) extra.push(catFaq);
+  extra.push({
+    q: `What occasions suit ${product.name}?`,
+    a: `${product.name} is a beautiful pick for birthdays, anniversaries, festivals, and corporate gifting — delivered across India with free gift wrapping and a personalised note.`,
+  });
   return [
     {
       q: `Is same-day delivery available for ${product.name}?`,
@@ -313,6 +349,7 @@ function faqEntries(product) {
       q: "What payment methods can I use?",
       a: "You can pay by UPI or Card. All payments are secure and 100% safe.",
     },
+    ...extra,
   ];
 }
 
@@ -403,6 +440,16 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
         name: f.q,
         acceptedAnswer: { "@type": "Answer", text: f.a },
       })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      url,
+      name: pageName,
+      speakable: {
+        "@type": "SpeakableSpecification",
+        cssSelector: ["h1", ".product-detail-desc"],
+      },
     },
   ];
 }
