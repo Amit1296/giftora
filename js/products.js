@@ -168,7 +168,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Kids Cycle 14-T",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_18_16_27_23dba2b7.png",
     "price": 5049,
     "sizes": [],
@@ -184,7 +184,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Hero Cycles Typhoon IBC 26T Single Speed Mountain Bike",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_18_16_21_465424e3.png",
     "price": 8699,
     "sizes": [],
@@ -257,7 +257,7 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#082b4e,#f1f5f9)",
     "oldPrice": 1199,
     "sizePrices": {},
-    "description": "Here is a detailed product description tailored for a Home Baby Soft Plush Cushion Baby Sofa Seat, formatted to fit seamlessly into your Giftora product catalog:\n\nProduct Description\nProvide your little one with a cozy, safe, and supportive place to sit with the Home Baby Soft Plush Cushion Baby Sofa Seat! Beautifully crafted with ultra-soft plush fabric and ergonomic back support, this adorable baby chair helps infants learn to sit up independently while surrounding them in 360-degree plush comfort. Perfect for floor playtime, reading, or relaxing in the nursery!\n\nKey Features:\n360´┐¢ Comfortable Support: Wrapped-around plush support securely cradles your baby's back, sides, and legs, preventing them from sliding or tipping over.\n\nErgonomic Sitting Position: Designed to stabilize your infant's back and promote healthy posture while they learn to sit upright.\n\nUltra-Soft & Non-Toxic Fabric: Made with premium skin-friendly plush fabric and filled with high-density PP cotton for maximum softness and durability.\n\nAnti-Slip Bottom: Features a textured non-slip base to keep the seat securely anchored on smooth floors and play mats.\n\nLightweight & Portable: Easily move it from room to room so your baby always has a comfortable spot nearby whether in the living room, bedroom, or play area.\n\nProduct Details:\nSuitable Age: 3 to 12 Months (Infants learning to sit)\n\nMaterial: Super Soft Velvet / Plush Outer Cover & High-Elastic PP Cotton Filling\n\nDimensions: Fits standard infant sizes comfortably\n\nCare Instructions: Spot clean or gentle hand wash with mild detergent\n\nIdeal For: Posture support, floor play, nursery decor, photo props, and baby shower gifting"
+    "description": "Here is a detailed product description tailored for a Home Baby Soft Plush Cushion Baby Sofa Seat, formatted to fit seamlessly into your Giftora product catalog:\n\nProduct Description\nProvide your little one with a cozy, safe, and supportive place to sit with the Home Baby Soft Plush Cushion Baby Sofa Seat! Beautifully crafted with ultra-soft plush fabric and ergonomic back support, this adorable baby chair helps infants learn to sit up independently while surrounding them in 360-degree plush comfort. Perfect for floor playtime, reading, or relaxing in the nursery!\n\nKey Features:\n360� Comfortable Support: Wrapped-around plush support securely cradles your baby's back, sides, and legs, preventing them from sliding or tipping over.\n\nErgonomic Sitting Position: Designed to stabilize your infant's back and promote healthy posture while they learn to sit upright.\n\nUltra-Soft & Non-Toxic Fabric: Made with premium skin-friendly plush fabric and filled with high-density PP cotton for maximum softness and durability.\n\nAnti-Slip Bottom: Features a textured non-slip base to keep the seat securely anchored on smooth floors and play mats.\n\nLightweight & Portable: Easily move it from room to room so your baby always has a comfortable spot nearby whether in the living room, bedroom, or play area.\n\nProduct Details:\nSuitable Age: 3 to 12 Months (Infants learning to sit)\n\nMaterial: Super Soft Velvet / Plush Outer Cover & High-Elastic PP Cotton Filling\n\nDimensions: Fits standard infant sizes comfortably\n\nCare Instructions: Spot clean or gentle hand wash with mild detergent\n\nIdeal For: Posture support, floor play, nursery decor, photo props, and baby shower gifting"
   },
   {
     "id": 102,
@@ -278,7 +278,7 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#247dd6,#f1f5f9)",
     "oldPrice": 6999,
     "sizePrices": {},
-    "description": "Experience ultimate comfort, safety, and convenience on every outing with the Premium Lightweight Baby Stroller! Designed with modern parents in mind, this all-terrain stroller combines effortless maneuverability with an ultra-comfortable ride for your little one. Whether running errands, strolling through the park, or traveling, it makes every journey smooth and hassle-free.\n\nKey Features:\nMulti-Recline Positions: Features an adjustable seat recline-from upright sitting to a flat lay-back position-perfect for naps on the go.\n\nOne-Hand Fold Mechanism: Effortlessly folds down in seconds into a compact, lightweight size for quick storage in car trunks or tight spaces.\n\nAll-Terrain Wheel Suspension: Equipped with 360´┐¢ front swivel wheels and shock-absorbing rear suspension to ensure a smooth, stable ride on any surface.\n\nExtended Sun Canopy & Mesh Window: Adjustable UPF 50+ canopy shields your baby from harsh sunlight and wind, while the peek-a-boo window keeps them cool and visible.\n\nMaximum Safety & Comfort: Includes a padded 5-point safety harness, removable front bumper bar, and a single-touch rear foot brake for maximum security.\n\nSpacious Storage Basket: Extra-large under-seat basket offers ample space to store diaper bags, toys, snacks, and shopping items.\n\nProduct Details:\nSuitable Age: 0 to 36 Months (Infants to Toddlers)\n\nMax Weight Capacity: Up to 15 kg\n\nMaterial: Heavy-duty, lightweight Alloy Frame & Breathable, Non-Toxic Fabric\n\nSafety Features: 5-Point Safety Harness, Rear Foot Brakes & Front Wheel Locks\n\nIdeal For: Daily outdoor walks, travel, shopping trips, and everyday errands"
+    "description": "Experience ultimate comfort, safety, and convenience on every outing with the Premium Lightweight Baby Stroller! Designed with modern parents in mind, this all-terrain stroller combines effortless maneuverability with an ultra-comfortable ride for your little one. Whether running errands, strolling through the park, or traveling, it makes every journey smooth and hassle-free.\n\nKey Features:\nMulti-Recline Positions: Features an adjustable seat recline-from upright sitting to a flat lay-back position-perfect for naps on the go.\n\nOne-Hand Fold Mechanism: Effortlessly folds down in seconds into a compact, lightweight size for quick storage in car trunks or tight spaces.\n\nAll-Terrain Wheel Suspension: Equipped with 360� front swivel wheels and shock-absorbing rear suspension to ensure a smooth, stable ride on any surface.\n\nExtended Sun Canopy & Mesh Window: Adjustable UPF 50+ canopy shields your baby from harsh sunlight and wind, while the peek-a-boo window keeps them cool and visible.\n\nMaximum Safety & Comfort: Includes a padded 5-point safety harness, removable front bumper bar, and a single-touch rear foot brake for maximum security.\n\nSpacious Storage Basket: Extra-large under-seat basket offers ample space to store diaper bags, toys, snacks, and shopping items.\n\nProduct Details:\nSuitable Age: 0 to 36 Months (Infants to Toddlers)\n\nMax Weight Capacity: Up to 15 kg\n\nMaterial: Heavy-duty, lightweight Alloy Frame & Breathable, Non-Toxic Fabric\n\nSafety Features: 5-Point Safety Harness, Rear Foot Brakes & Front Wheel Locks\n\nIdeal For: Daily outdoor walks, travel, shopping trips, and everyday errands"
   },
   {
     "id": 93,
@@ -333,7 +333,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Blushing Passion",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_12_17_45_53368132.png",
     "price": 1599,
     "sizes": [],
@@ -349,7 +349,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Radiant Red Rose & Chocolate Hamper",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_17_54_4277e4c8.png",
     "price": 999,
     "sizes": [],
@@ -365,7 +365,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Passionate Romance Dual-Rose Bunch",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_17_27_340b68d1.png",
     "price": 1299,
     "sizes": [],
@@ -381,7 +381,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Radiant Bliss 10 Mixed Rose & Cake Set",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_02_16_09_33156e89.png",
     "price": 1299,
     "sizes": [],
@@ -397,7 +397,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Scarlet Elegance 20 Red Rose Bunch",
     "badge": "Sale",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_02_16_05_4629aab8.png",
     "price": 999,
     "sizes": [],
@@ -413,7 +413,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Sweet Affection 10 Red Rose Cellophane Wrap",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_02_16_01_149442ec.png",
     "price": 599,
     "sizes": [],
@@ -429,7 +429,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Passionate Purple & Pink Rose Charm",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_02_15_54_31da5409.png",
     "price": 1399,
     "sizes": [],
@@ -445,7 +445,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Golden Affection Rose & Rocher Heart",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_27_36728a8d.png",
     "price": 5599,
     "sizes": [],
@@ -461,7 +461,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Majestic Pink Bloom & Truffle Celebration",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_22_416ce25f.png",
     "price": 2899,
     "sizes": [],
@@ -477,7 +477,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Sweet Affection Red & White Rose Trio",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_18_42c07567.png",
     "price": 1099,
     "sizes": [],
@@ -493,7 +493,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Symphony of Smiles Cake & Bouquet Set",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_12_4548cff6.png",
     "price": 1799,
     "sizes": [],
@@ -509,7 +509,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Vibrant Sunset Lily & Carnation Bunch",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_09_420f80bd.png",
     "price": 1499,
     "sizes": [],
@@ -525,7 +525,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Celestial Radiance White Lily Bunch",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_06_26713517.png",
     "price": 1599,
     "sizes": [],
@@ -541,7 +541,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Passionate Blush Asiatic Lily Bunch",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_15_59_573b79bd.png",
     "price": 1599,
     "sizes": [],
@@ -557,7 +557,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Radiant Romance 24 Red Rose Silver Basket",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_23_16_28_45a971f0.png",
     "price": 1199,
     "sizes": [],
@@ -566,14 +566,14 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#0f3861,#f1f5f9)",
     "oldPrice": 1299,
     "sizePrices": {},
-    "description": "Make an unforgettable romantic gesture with this exquisite arrangement of 24 fresh, velvety red roses. Artfully hand-arranged in a classic basket accented with a sleek silver lining and fresh green foliage, this floral display radiates elegance, charm, and deep affection. Perfect for making any milestone feel extra special and memorable.\n\nKey Features:\n\n24 Premium Red Roses: Hand-picked, long-stemmed red roses selected for full blooms, vibrant color, and lasting freshness.\n\nSilver-Lined Basket Accent: Elegantly presented in a sturdy arrangement basket accented with silver detailing for a touch of modern luxury.\n\nArtisanal Styling: Carefully styled with lush seasonal green fillers and tied with a decorative ribbon bow.\n\nFreshness Guaranteed: Hand-crafted by expert florists using freshly cut flowers to ensure maximum bloom life and fragrance.\n\nProduct Specifications:\n\nFloral Composition: 24 Fresh-Cut Red Roses with seasonal green fillers\n\nPackaging: Woven gift basket with silver lining design and accent ribbon\n\nPlacement: Tabletop / Countertop display\n\nFreshness: Hand-arranged upon order to ensure long-lasting freshness\n\nIdeal For:\n\nBirthdays, anniversaries, romantic surprises, proposals, ValentineÔÇÖs Day, or expressing deep love and appreciation.\n\n#24RedRoses #RoseBasketArrangement #SilverLinedBasket #RomanticGift #FlowerDelivery #Giftora #LuxuryFlowers #AnniversaryGift #BirthdayRoses #LoveAndElegance"
+    "description": "Make an unforgettable romantic gesture with this exquisite arrangement of 24 fresh, velvety red roses. Artfully hand-arranged in a classic basket accented with a sleek silver lining and fresh green foliage, this floral display radiates elegance, charm, and deep affection. Perfect for making any milestone feel extra special and memorable.\n\nKey Features:\n\n24 Premium Red Roses: Hand-picked, long-stemmed red roses selected for full blooms, vibrant color, and lasting freshness.\n\nSilver-Lined Basket Accent: Elegantly presented in a sturdy arrangement basket accented with silver detailing for a touch of modern luxury.\n\nArtisanal Styling: Carefully styled with lush seasonal green fillers and tied with a decorative ribbon bow.\n\nFreshness Guaranteed: Hand-crafted by expert florists using freshly cut flowers to ensure maximum bloom life and fragrance.\n\nProduct Specifications:\n\nFloral Composition: 24 Fresh-Cut Red Roses with seasonal green fillers\n\nPackaging: Woven gift basket with silver lining design and accent ribbon\n\nPlacement: Tabletop / Countertop display\n\nFreshness: Hand-arranged upon order to ensure long-lasting freshness\n\nIdeal For:\n\nBirthdays, anniversaries, romantic surprises, proposals, Valentine’s Day, or expressing deep love and appreciation.\n\n#24RedRoses #RoseBasketArrangement #SilverLinedBasket #RomanticGift #FlowerDelivery #Giftora #LuxuryFlowers #AnniversaryGift #BirthdayRoses #LoveAndElegance"
   },
   {
     "id": 140,
     "sku": "",
     "name": "Crimson Delight Rose & Cadbury Combo",
     "badge": null,
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_23_16_24_05f56d5e.png",
     "price": 899,
     "sizes": [],
@@ -582,14 +582,14 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#2d7ac8,#f1f5f9)",
     "oldPrice": 999,
     "sizePrices": {},
-    "description": "Red Roses Bouquet & Dairy Milk Chocolates\n\nExpress your deepest affection and bring an instant smile to your loved oneÔÇÖs face with this classic gift combo featuring a vibrant Red Roses Bouquet and rich Cadbury Dairy Milk Chocolates. Combining the timeless romance of fresh, velvety red roses with the smooth, creamy delight of iconic chocolates, this arrangement is crafted to turn any ordinary moment into a cherished memory.\n\nKey Features:\n\nFresh & Vibrant Roses: Premium, long-stemmed red roses hand-picked for their vibrant color, full petals, and lasting beauty.\n\nClassic Chocolate Delight: Paired with smooth Cadbury Dairy Milk chocolate bars for a delicious touch of sweetness.\n\nArtisanal Wrapping: Beautifully wrapped in elegant craft paper and finished with a stylish satin ribbon bow.\n\nHandcrafted Presentation: Designed by expert florists to ensure a breathtaking and heartwarming gift display.\n\nProduct Specifications:\n\nFloral Composition: Fresh-cut Red Roses with seasonal green foliage\n\nChocolates: Delicious Cadbury Dairy Milk Chocolate Bars\n\nPackaging: Premium wrapping paper finished with a satin bow accent\n\nFreshness: Hand-arranged upon order to guarantee maximum bloom freshness\n\nIdeal For:\n\nBirthdays, anniversaries, ValentineÔÇÖs Day, romantic surprises, proposals, or simply saying \"I Love You.\"\n\n#RedRosesBouquet #DairyMilkChocolates #RoseAndChocolateCombo #RomanticGift #FlowerDelivery #Giftora #GiftHamper #AnniversaryGift #BirthdaySurprise #LoveAndSweetness"
+    "description": "Red Roses Bouquet & Dairy Milk Chocolates\n\nExpress your deepest affection and bring an instant smile to your loved one’s face with this classic gift combo featuring a vibrant Red Roses Bouquet and rich Cadbury Dairy Milk Chocolates. Combining the timeless romance of fresh, velvety red roses with the smooth, creamy delight of iconic chocolates, this arrangement is crafted to turn any ordinary moment into a cherished memory.\n\nKey Features:\n\nFresh & Vibrant Roses: Premium, long-stemmed red roses hand-picked for their vibrant color, full petals, and lasting beauty.\n\nClassic Chocolate Delight: Paired with smooth Cadbury Dairy Milk chocolate bars for a delicious touch of sweetness.\n\nArtisanal Wrapping: Beautifully wrapped in elegant craft paper and finished with a stylish satin ribbon bow.\n\nHandcrafted Presentation: Designed by expert florists to ensure a breathtaking and heartwarming gift display.\n\nProduct Specifications:\n\nFloral Composition: Fresh-cut Red Roses with seasonal green foliage\n\nChocolates: Delicious Cadbury Dairy Milk Chocolate Bars\n\nPackaging: Premium wrapping paper finished with a satin bow accent\n\nFreshness: Hand-arranged upon order to guarantee maximum bloom freshness\n\nIdeal For:\n\nBirthdays, anniversaries, Valentine’s Day, romantic surprises, proposals, or simply saying \"I Love You.\"\n\n#RedRosesBouquet #DairyMilkChocolates #RoseAndChocolateCombo #RomanticGift #FlowerDelivery #Giftora #GiftHamper #AnniversaryGift #BirthdaySurprise #LoveAndSweetness"
   },
   {
     "id": 136,
     "sku": "",
     "name": "Ultimate Passion Flower & Rocher Celebration",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_21_18_15_1188f168.png",
     "price": 5199,
     "sizes": [],
@@ -605,7 +605,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Boundless Passion Red-White Heart Arrangement",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_21_18_06_18d26646.png",
     "price": 2999,
     "sizes": [],
@@ -614,14 +614,14 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#010304,#f1f5f9)",
     "oldPrice": 0,
     "sizePrices": {},
-    "description": "Express deep love and pure devotion with our handcrafted Heart Shape Arrangement of 40 Red & White Roses. Featuring a striking blend of velvet red and pristine white roses artistically arranged into a classic heart shape, this luxurious arrangement creates an unforgettable romantic statement.\n\nFloral Composition: Premium red and white fresh-cut roses arranged in a precise heart form.\n\nDesign & Arrangement: Sculpted heart presentation with fresh green accents to highlight every bloom.\n\nSize & Count: 40 premium long-stemmed roses.\n\nPackaging: Elegant base arrangement designed to keep stems hydrated and fresh upon delivery.\n\nIdeal For: Anniversaries, ValentineÔÇÖs Day, Proposals, Weddings, Birthday Surprises, or Special Romantic Moments!\n\n#RoseArrangement #HeartShapeRoses #RedAndWhiteRoses #LuxuryFlowers #RomanticGifts #FlowerDelivery #AnniversaryGift #ProposalFlowers #FloralDesign #GiftExpress"
+    "description": "Express deep love and pure devotion with our handcrafted Heart Shape Arrangement of 40 Red & White Roses. Featuring a striking blend of velvet red and pristine white roses artistically arranged into a classic heart shape, this luxurious arrangement creates an unforgettable romantic statement.\n\nFloral Composition: Premium red and white fresh-cut roses arranged in a precise heart form.\n\nDesign & Arrangement: Sculpted heart presentation with fresh green accents to highlight every bloom.\n\nSize & Count: 40 premium long-stemmed roses.\n\nPackaging: Elegant base arrangement designed to keep stems hydrated and fresh upon delivery.\n\nIdeal For: Anniversaries, Valentine’s Day, Proposals, Weddings, Birthday Surprises, or Special Romantic Moments!\n\n#RoseArrangement #HeartShapeRoses #RedAndWhiteRoses #LuxuryFlowers #RomanticGifts #FlowerDelivery #AnniversaryGift #ProposalFlowers #FloralDesign #GiftExpress"
   },
   {
     "id": 128,
     "sku": "",
     "name": "Vibrant Orchid & Pastel Rose Baske",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_20_16_57_18af714e.png",
     "price": 1599,
     "sizes": [],
@@ -637,7 +637,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Exotic Purple Orchid & Pineapple Delight",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_20_17_01_33ae0ed5.png",
     "price": 2299,
     "sizes": [],
@@ -653,7 +653,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Classic Red Rose & Indulgent Rocher Cake Set",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_20_16_30_49b9ed57.png",
     "price": 3999,
     "sizes": [],
@@ -662,7 +662,7 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#13385e,#f1f5f9)",
     "oldPrice": 4099,
     "sizePrices": {},
-    "description": "Celebrate lifeÔÇÖs most precious moments with the ultimate tri-combo gift set featuring a 1 Kg rich Chocolate Cake, a bouquet of 18 fresh Red Roses, and an indulgent bunch of 16 Ferrero Rocher chocolates. Designed to bring warmth, luxury, and pure delight, this grand hamper offers a sweet feast, romantic florals, and gourmet chocolate treats all in one package.\n\n1 Kg Rich Chocolate Cake: Freshly baked, moist chocolate sponge coated in a silky, rich chocolate cream frosting.\n\n18 Fresh Red Roses Bunch: A lush arrangement of 18 premium long-stemmed red roses artfully wrapped in elegant packaging paper and tied with a satin ribbon.\n\n16 Ferrero Rocher Bunch: A uniquely crafted chocolate bouquet featuring 16 iconic hazelnut chocolates wrapped in golden foil.\n\nPackaging: Beautifully coordinated wrapping paper and decorative ribbon accents designed for premium presentation.\n\nIdeal For: Birthdays, anniversaries, Valentine's Day, midnight surprises, and grand festive celebrations.\nchocolate cake and red roses combo, 1kg chocolate cake with bouquet, ferrero rocher bouquet combo, 18 red roses bunch, birthday cake and flower delivery, romantic gift hamper, luxury rose and chocolate bouquet, anniversary cake flowers combo, complete celebration gift box"
+    "description": "Celebrate life’s most precious moments with the ultimate tri-combo gift set featuring a 1 Kg rich Chocolate Cake, a bouquet of 18 fresh Red Roses, and an indulgent bunch of 16 Ferrero Rocher chocolates. Designed to bring warmth, luxury, and pure delight, this grand hamper offers a sweet feast, romantic florals, and gourmet chocolate treats all in one package.\n\n1 Kg Rich Chocolate Cake: Freshly baked, moist chocolate sponge coated in a silky, rich chocolate cream frosting.\n\n18 Fresh Red Roses Bunch: A lush arrangement of 18 premium long-stemmed red roses artfully wrapped in elegant packaging paper and tied with a satin ribbon.\n\n16 Ferrero Rocher Bunch: A uniquely crafted chocolate bouquet featuring 16 iconic hazelnut chocolates wrapped in golden foil.\n\nPackaging: Beautifully coordinated wrapping paper and decorative ribbon accents designed for premium presentation.\n\nIdeal For: Birthdays, anniversaries, Valentine's Day, midnight surprises, and grand festive celebrations.\nchocolate cake and red roses combo, 1kg chocolate cake with bouquet, ferrero rocher bouquet combo, 18 red roses bunch, birthday cake and flower delivery, romantic gift hamper, luxury rose and chocolate bouquet, anniversary cake flowers combo, complete celebration gift box"
   },
   {
     "id": 118,
@@ -742,7 +742,7 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#19599a,#f1f5f9)",
     "oldPrice": 2299,
     "sizePrices": {},
-    "description": "Make any occasion unforgettable with the ultimate expression of love, sweetness, and celebration! This grand gift combo features a breathtaking hand-arranged bunch of 30 fresh red roses, paired with a delicious ´┐¢ kg classic Black Forest cake and two creamy Cadbury Dairy Milk chocolate bars. Whether you're celebrating a milestone or creating a magical surprise, this luxurious gift hamper is designed to deliver pure delight.\n\nProduct Details:\n30 Fresh Red Roses: A lush, hand-crafted bouquet of 30 long-stemmed, premium red roses wrapped in stylish craft paper and finished with a decorative ribbon bow.\n\n´┐¢ kg Black Forest Cake: A rich, freshly baked cake layered with moist chocolate sponge, fluffy whipped cream, juicy cherries, and fine dark chocolate shavings.\n\n2 Cadbury Dairy Milk Chocolates: Two classic Cadbury Dairy Milk chocolate bars to add an extra layer of sweetness to your gift.\n\nFreshness Guaranteed: Carefully prepared and hand-arranged by expert florists and bakers using the freshest ingredients and blooms.\n\nIdeal For:\nBirthdays & Anniversaries\n\nValentine's Day & Romantic Surprises\n\nMidnight Celebrations\n\nExpressing Love, Appreciation & Warm Wishes"
+    "description": "Make any occasion unforgettable with the ultimate expression of love, sweetness, and celebration! This grand gift combo features a breathtaking hand-arranged bunch of 30 fresh red roses, paired with a delicious � kg classic Black Forest cake and two creamy Cadbury Dairy Milk chocolate bars. Whether you're celebrating a milestone or creating a magical surprise, this luxurious gift hamper is designed to deliver pure delight.\n\nProduct Details:\n30 Fresh Red Roses: A lush, hand-crafted bouquet of 30 long-stemmed, premium red roses wrapped in stylish craft paper and finished with a decorative ribbon bow.\n\n� kg Black Forest Cake: A rich, freshly baked cake layered with moist chocolate sponge, fluffy whipped cream, juicy cherries, and fine dark chocolate shavings.\n\n2 Cadbury Dairy Milk Chocolates: Two classic Cadbury Dairy Milk chocolate bars to add an extra layer of sweetness to your gift.\n\nFreshness Guaranteed: Carefully prepared and hand-arranged by expert florists and bakers using the freshest ingredients and blooms.\n\nIdeal For:\nBirthdays & Anniversaries\n\nValentine's Day & Romantic Surprises\n\nMidnight Celebrations\n\nExpressing Love, Appreciation & Warm Wishes"
   },
   {
     "id": 109,
@@ -941,7 +941,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Red Roses Hand Bunch",
     "badge": "Bestseller",
-    "emoji": "´┐¢YZ´┐¢",
+    "emoji": "�YZ�",
     "image": "/uploads/img_2026_08_21_18_17_37a0257b.png",
     "price": 499,
     "sizes": [],
@@ -957,7 +957,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Juicy Pineapple Sponge Surprise",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_12_17_55_12201c4a.png",
     "price": 649,
     "sizes": [
@@ -981,7 +981,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Picture Perfect Strawberry Vanilla Bliss",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_18_16_3013f29f.png",
     "price": 999,
     "sizes": [
@@ -1005,7 +1005,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Velvet Chocolate Walnut Truffle Cake",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_18_05_52eb34a5.png",
     "price": 999,
     "sizes": [
@@ -1029,7 +1029,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Royal Irish Coffee Infusion Cake",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_18_01_08152e94.png",
     "price": 999,
     "sizes": [
@@ -1053,7 +1053,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Heavenly White Forest Whisper",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_02_15_43_29f3c1ca.png",
     "price": 549,
     "sizes": [
@@ -1066,9 +1066,9 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#113b64,#f1f5f9)",
     "oldPrice": 599,
     "sizePrices": {
+      "0.5 kg": 549,
       "1 kg": 999,
-      "2 kg": 1599,
-      "0.5 kg": 549
+      "2 kg": 1599
     },
     "description": "White Forest Cream Cake\n\nIndulge in a light, delicate twist on a classic favorite with our White Forest Cream Cake! Crafted with layers of ultra-soft, airy vanilla sponge, fluffy whipped cream, and sweet cherry compote. Lavishly topped with white chocolate curls, cream rosettes, and juicy maraschino cherries, this exquisite dessert offers the perfect blend of creamy sweetness and fruit elegance in every single bite.\n\nFlavor Profile: Vanilla sponge, sweet cherry filling, and rich white chocolate frosting.\n\nTexture & Decor: Light and airy sponge covered in silky whipped cream, crowned with white chocolate shavings and fresh cherries.\n\nIdeal For: Birthdays, Anniversaries, Weddings, Romantic Surprises, or Special Celebrations.\n\n#WhiteForestCake #WhiteChocolateCake #CherryCake #VanillaSponge #Giftora #OrderCakeOnline #BirthdayCake #AnniversaryCake #GourmetCakes #SweetIndulgence #CakeLovers"
   },
@@ -1077,7 +1077,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Heavenly Truffle Indulgence Heart Cake",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_58_30672031.png",
     "price": 1199,
     "sizes": [
@@ -1101,7 +1101,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Victorian Pink Ribbon Elegance Cake",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_54_33a8753c.png",
     "price": 749,
     "sizes": [
@@ -1114,18 +1114,18 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#091c2f,#f1f5f9)",
     "oldPrice": 899,
     "sizePrices": {
+      "half kg": 749,
       "one kg": 1399,
-      "two kg": 1999,
-      "half kg": 749
+      "two kg": 1999
     },
-    "description": "Step into a world of timeless charm with our Pink Vintage Ribbon Cake! Handcrafted with intricate pipework, classic borders, and delicate bow accents, this elegant cake brings a touch of nostalgic romance to your special day. Beneath its gorgeous vintage exterior lies soft, airy sponge layered with rich, silky creamÔÇömaking it as delicious as it is aesthetically dreamy.\n\n#VintageRibbonCake #PinkVintageCake #CoquetteCake #BowCake #RetroCakes #Giftora #CustomCakes #BirthdayCake #OrderCakeOnline #TrendyCakes #AestheticCake"
+    "description": "Step into a world of timeless charm with our Pink Vintage Ribbon Cake! Handcrafted with intricate pipework, classic borders, and delicate bow accents, this elegant cake brings a touch of nostalgic romance to your special day. Beneath its gorgeous vintage exterior lies soft, airy sponge layered with rich, silky cream—making it as delicious as it is aesthetically dreamy.\n\n#VintageRibbonCake #PinkVintageCake #CoquetteCake #BowCake #RetroCakes #Giftora #CustomCakes #BirthdayCake #OrderCakeOnline #TrendyCakes #AestheticCake"
   },
   {
     "id": 154,
     "sku": "",
     "name": "Whimsical Jungle Friends Delight",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_47_0326fff1.png",
     "price": 1499,
     "sizes": [
@@ -1149,7 +1149,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Radiant Heart Berry & Fruit Medley",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_43_025157c5.png",
     "price": 999,
     "sizes": [
@@ -1166,14 +1166,14 @@ window.GIFT_PRODUCTS = [
       "2 kg": 1699,
       "3 kg": 2399
     },
-    "description": "Express your deepest affection with a sweet, healthy twist! Our 1 kg Heart-Shaped Fresh Fruit Cake features soft, fluffy vanilla sponge layers smothered in silky whipped cream and juicy fruit fillings. Artfully carved into a romantic heart shape and lavishly topped with glazed seasonal fruitsÔÇöincluding kiwi, berries, and pineapplesÔÇöit serves as the perfect blend of elegance, freshness, and indulgence.\n\n#HeartShapeCake #FreshFruitCake #1kgCake #RomanticCake #FruitFrescaCake #Giftora #AnniversaryCake #BirthdayCake #SweetSurprise #FruitOverloadCake #OrderCakeOnline"
+    "description": "Express your deepest affection with a sweet, healthy twist! Our 1 kg Heart-Shaped Fresh Fruit Cake features soft, fluffy vanilla sponge layers smothered in silky whipped cream and juicy fruit fillings. Artfully carved into a romantic heart shape and lavishly topped with glazed seasonal fruits—including kiwi, berries, and pineapples—it serves as the perfect blend of elegance, freshness, and indulgence.\n\n#HeartShapeCake #FreshFruitCake #1kgCake #RomanticCake #FruitFrescaCake #Giftora #AnniversaryCake #BirthdayCake #SweetSurprise #FruitOverloadCake #OrderCakeOnline"
   },
   {
     "id": 152,
     "sku": "",
     "name": "Celestial Berry & Fruit Harmony Stand",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_39_10b43ece.png",
     "price": 3599,
     "sizes": [
@@ -1190,14 +1190,14 @@ window.GIFT_PRODUCTS = [
       "4 kg": 5999,
       "6 kg": 7999
     },
-    "description": "Elevate your grandest celebrations with our magnificent 2-tier Fresh Fruit Cake! Handcrafted to perfection, this spectacular multi-tiered masterpiece features ultra-soft vanilla sponge layers filled with silky whipped cream and juicy tropical fruit compote. Generously crowned and draped with a vibrant array of fresh, handpicked seasonal fruitsÔÇöincluding glazed kiwi, berries, and pineappleÔÇöit offers a refreshing, light, and regal dessert experience for every guest.\n\n#TwoTierCake #FreshFruitCake #GrandCelebrations #2TierFruitCake #FruitFrescaCake #Giftora #WeddingCake #AnniversaryCake #MilestoneBirthday #GourmetCakes #TropicalDessert"
+    "description": "Elevate your grandest celebrations with our magnificent 2-tier Fresh Fruit Cake! Handcrafted to perfection, this spectacular multi-tiered masterpiece features ultra-soft vanilla sponge layers filled with silky whipped cream and juicy tropical fruit compote. Generously crowned and draped with a vibrant array of fresh, handpicked seasonal fruits—including glazed kiwi, berries, and pineapple—it offers a refreshing, light, and regal dessert experience for every guest.\n\n#TwoTierCake #FreshFruitCake #GrandCelebrations #2TierFruitCake #FruitFrescaCake #Giftora #WeddingCake #AnniversaryCake #MilestoneBirthday #GourmetCakes #TropicalDessert"
   },
   {
     "id": 142,
     "sku": "",
     "name": "Forever Sweet Heart Black Forest Cake",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_23_16_35_50200693.png",
     "price": 999,
     "sizes": [
@@ -1214,14 +1214,14 @@ window.GIFT_PRODUCTS = [
       "2 kg": 1599,
       "3 kg": 2199
     },
-    "description": "1 kg Heart Shape Black Forest Cake\n\nCelebrate love and sweet cravings with this romantic 1 kg Heart Shape Black Forest Cake. Handcrafted with rich, moist chocolate sponge layers, fluffy whipped cream, and sweet cherry compote, this classic indulgence is shaped into a charming heart to make every romantic occasion extra special. Finished with fine dark chocolate shavings, luscious cream rosettes, and fresh maraschino cherries, it is as delightful to look at as it is to savor.\n\nKey Features:\n\nClassic Heart Design: Beautifully crafted in a heart shape, making it an ideal centerpiece for romantic surprises.\n\nRich Chocolate & Cream: Layered with dark chocolate sponge, light whip cream, and authentic cherry filling.\n\nHandcrafted Decoration: Topped with generous dark chocolate curls, cream swirls, and vibrant cherries.\n\nFreshly Baked: Made to order using high-quality ingredients to ensure maximum freshness and taste.\n\nProduct Specifications:\n\nFlavor Profile: Classic Black Forest (Chocolate, Cream & Cherry)\n\nShape: Heart Shape\n\nWeight & Serving: 1 kg (Serves 8ÔÇô12 guests)\n\nPackaging: Securely packaged to preserve shape and freshness during delivery\n\nIdeal For:\n\nBirthdays, anniversaries, ValentineÔÇÖs Day, proposals, romantic surprises, or milestone celebrations.\n\n#HeartShapeCake #BlackForestCake #1kgCake #RomanticCake #BirthdayCake #AnniversaryCake #ChocolateCake #OrderCakeOnline #Giftora #SweetSurprise"
+    "description": "1 kg Heart Shape Black Forest Cake\n\nCelebrate love and sweet cravings with this romantic 1 kg Heart Shape Black Forest Cake. Handcrafted with rich, moist chocolate sponge layers, fluffy whipped cream, and sweet cherry compote, this classic indulgence is shaped into a charming heart to make every romantic occasion extra special. Finished with fine dark chocolate shavings, luscious cream rosettes, and fresh maraschino cherries, it is as delightful to look at as it is to savor.\n\nKey Features:\n\nClassic Heart Design: Beautifully crafted in a heart shape, making it an ideal centerpiece for romantic surprises.\n\nRich Chocolate & Cream: Layered with dark chocolate sponge, light whip cream, and authentic cherry filling.\n\nHandcrafted Decoration: Topped with generous dark chocolate curls, cream swirls, and vibrant cherries.\n\nFreshly Baked: Made to order using high-quality ingredients to ensure maximum freshness and taste.\n\nProduct Specifications:\n\nFlavor Profile: Classic Black Forest (Chocolate, Cream & Cherry)\n\nShape: Heart Shape\n\nWeight & Serving: 1 kg (Serves 8–12 guests)\n\nPackaging: Securely packaged to preserve shape and freshness during delivery\n\nIdeal For:\n\nBirthdays, anniversaries, Valentine’s Day, proposals, romantic surprises, or milestone celebrations.\n\n#HeartShapeCake #BlackForestCake #1kgCake #RomanticCake #BirthdayCake #AnniversaryCake #ChocolateCake #OrderCakeOnline #Giftora #SweetSurprise"
   },
   {
     "id": 135,
     "sku": "",
     "name": "Royal Pineapple Chocolate Harmony",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_21_18_10_4832cd88.png",
     "price": 999,
     "sizes": [
@@ -1234,18 +1234,18 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#0c2641,#f1f5f9)",
     "oldPrice": 0,
     "sizePrices": {
+      "0.5 kg": 999,
       "1 kg": 1499,
-      "2 kg": 1999,
-      "0.5 kg": 999
+      "2 kg": 1999
     },
-    "description": "Indulge in a perfect harmony of tropical tang and rich sweetness! Our 0.5 Kg Pineapple Cream Cake with Chocolate Decoration features soft, airy vanilla sponge layers infused with real pineapple juice and layered with silky whipped cream and juicy pineapple bits. Elegantly topped with handcrafted dark chocolate decorations, drizzles, and fresh cream swirls, it brings a luxurious twist to a timeless tropical favorite.\n\nFlavor Profile: Refreshing pineapple-infused vanilla sponge paired with silky whipped cream and authentic fruit filling.\n\nTexture & Decor: Ultra-moist sponge crowned with artisan dark chocolate garnishes, glazed pineapple accents, and whipped cream rosettes.\n\nWeight & Serving: 0.5 Kg (Serves 4ÔÇô6 guests).\n\nPackaging: Freshly baked and securely packaged to preserve freshness and ensure flawless presentation upon delivery.\n\nIdeal For: Birthdays, Small Parties, Anniversary Surprises, High-Tea Indulgences, or Gifting Pineapple & Chocolate Lovers!\n\n#PineappleCake #ChocolateDecoration #PineappleCreamCake #HalfKgCake #TropicalDesserts #FreshlyBaked #GourmetCakes #OrderCakeOnline #SweetCravings #DessertLovers"
+    "description": "Indulge in a perfect harmony of tropical tang and rich sweetness! Our 0.5 Kg Pineapple Cream Cake with Chocolate Decoration features soft, airy vanilla sponge layers infused with real pineapple juice and layered with silky whipped cream and juicy pineapple bits. Elegantly topped with handcrafted dark chocolate decorations, drizzles, and fresh cream swirls, it brings a luxurious twist to a timeless tropical favorite.\n\nFlavor Profile: Refreshing pineapple-infused vanilla sponge paired with silky whipped cream and authentic fruit filling.\n\nTexture & Decor: Ultra-moist sponge crowned with artisan dark chocolate garnishes, glazed pineapple accents, and whipped cream rosettes.\n\nWeight & Serving: 0.5 Kg (Serves 4–6 guests).\n\nPackaging: Freshly baked and securely packaged to preserve freshness and ensure flawless presentation upon delivery.\n\nIdeal For: Birthdays, Small Parties, Anniversary Surprises, High-Tea Indulgences, or Gifting Pineapple & Chocolate Lovers!\n\n#PineappleCake #ChocolateDecoration #PineappleCreamCake #HalfKgCake #TropicalDesserts #FreshlyBaked #GourmetCakes #OrderCakeOnline #SweetCravings #DessertLovers"
   },
   {
     "id": 133,
     "sku": "",
     "name": "Fresca Berry & Fruit Medley",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_21_17_57_595301f7.png",
     "price": 999,
     "sizes": [
@@ -1258,18 +1258,18 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#1f6bb7,#f1f5f9)",
     "oldPrice": 0,
     "sizePrices": {
+      "0.5 kg": 999,
       "1 kg": 1499,
-      "2 kg": 1999,
-      "0.5 kg": 999
+      "2 kg": 1999
     },
-    "description": "Fresh Fruit Fresca Cake\n\nDelight in the crisp, refreshing flavors of our 0.5 Kg Fruit Fresca Cake! Crafted with ultra-soft vanilla sponge layers, smooth whipped cream, and rich fruit fillings, this light and breezy dessert is topped with a vibrant spread of fresh, handpicked seasonal fruits. Glazed to juicy perfection, it brings the ideal balance of natural sweetness and creamy goodness to every bite.\n\nFlavor Profile: Delicate vanilla sponge paired with luscious whipped cream and authentic fresh fruit flavor.\n\nTexture & Decor: Light, airy sponge crowned with glazed seasonal fruits, fresh kiwi slices, citrus accents, and berries.\n\nWeight & Serving: 0.5 Kg (Serves 4ÔÇô6 guests).\n\nPackaging: Freshly baked and securely packaged to preserve freshness and ensure pristine presentation upon delivery.\n\nIdeal For: Small Birthday Parties, Intimate Celebrations, Housewarmings, Weekend Indulgences, or Gifting Fruit Enthusiasts!\n\n#FruitFrescaCake #FreshFruitCake #FruitToppingCake #HalfKgCake #TropicalDesserts #FreshlyBaked #OrderCakeOnline #GourmetCakes #SweetCravings #DessertLovers"
+    "description": "Fresh Fruit Fresca Cake\n\nDelight in the crisp, refreshing flavors of our 0.5 Kg Fruit Fresca Cake! Crafted with ultra-soft vanilla sponge layers, smooth whipped cream, and rich fruit fillings, this light and breezy dessert is topped with a vibrant spread of fresh, handpicked seasonal fruits. Glazed to juicy perfection, it brings the ideal balance of natural sweetness and creamy goodness to every bite.\n\nFlavor Profile: Delicate vanilla sponge paired with luscious whipped cream and authentic fresh fruit flavor.\n\nTexture & Decor: Light, airy sponge crowned with glazed seasonal fruits, fresh kiwi slices, citrus accents, and berries.\n\nWeight & Serving: 0.5 Kg (Serves 4–6 guests).\n\nPackaging: Freshly baked and securely packaged to preserve freshness and ensure pristine presentation upon delivery.\n\nIdeal For: Small Birthday Parties, Intimate Celebrations, Housewarmings, Weekend Indulgences, or Gifting Fruit Enthusiasts!\n\n#FruitFrescaCake #FreshFruitCake #FruitToppingCake #HalfKgCake #TropicalDesserts #FreshlyBaked #OrderCakeOnline #GourmetCakes #SweetCravings #DessertLovers"
   },
   {
     "id": 132,
     "sku": "",
     "name": "Exotic Berry & Pineapple Fruit Harmony",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_21_17_52_34e02718.png",
     "price": 999,
     "sizes": [
@@ -1286,14 +1286,14 @@ window.GIFT_PRODUCTS = [
       "two kg": 1499,
       "three kg": 1999
     },
-    "description": "Fresh Tropical Fruit Delight Cake\n\nIndulge in a fresh, vibrant, and light dessert loaded with natural sweetness! Our 1 Kg Fresh Fruit Cake features soft, airy vanilla sponge layers filled with silky whipped cream and juicy tropical fruit bites. Beautifully topped with fresh pineapple slices, vibrant seasonal fruits, and glazed to perfection, this cake is as delightful to look at as it is to eat.\n\nFlavor Profile: Fluffy vanilla sponge infused with real fruit juices, layered with fresh whipped cream and diced fruits.\n\nTexture & Decor: Light and ultra-moist sponge generously crowned with fresh pineapple rings, seasonal berries, kiwi, and glazed fruit slices.\n\nWeight & Serving: 1 Kg (Serves 8ÔÇô12 guests).\n\nPackaging: Freshly baked and securely packaged to maintain peak presentation and freshness during delivery.\n\nIdeal For: Birthdays, Anniversaries, Summer Parties, Family Gatherings, Office Celebrations, or Gifting to Fruit Lovers!\n\n#FreshFruitCake #PineappleCake #SeasonalFruitCake #TropicalDesserts #FreshBakedCake #FruitOverloadCake #BirthdayCake #OrderCakeOnline #GourmetCakes #SweetCravings"
+    "description": "Fresh Tropical Fruit Delight Cake\n\nIndulge in a fresh, vibrant, and light dessert loaded with natural sweetness! Our 1 Kg Fresh Fruit Cake features soft, airy vanilla sponge layers filled with silky whipped cream and juicy tropical fruit bites. Beautifully topped with fresh pineapple slices, vibrant seasonal fruits, and glazed to perfection, this cake is as delightful to look at as it is to eat.\n\nFlavor Profile: Fluffy vanilla sponge infused with real fruit juices, layered with fresh whipped cream and diced fruits.\n\nTexture & Decor: Light and ultra-moist sponge generously crowned with fresh pineapple rings, seasonal berries, kiwi, and glazed fruit slices.\n\nWeight & Serving: 1 Kg (Serves 8–12 guests).\n\nPackaging: Freshly baked and securely packaged to maintain peak presentation and freshness during delivery.\n\nIdeal For: Birthdays, Anniversaries, Summer Parties, Family Gatherings, Office Celebrations, or Gifting to Fruit Lovers!\n\n#FreshFruitCake #PineappleCake #SeasonalFruitCake #TropicalDesserts #FreshBakedCake #FruitOverloadCake #BirthdayCake #OrderCakeOnline #GourmetCakes #SweetCravings"
   },
   {
     "id": 130,
     "sku": "",
     "name": "Rich Dark Chocolate & Cream Fusion",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_20_17_11_107e3ba5.png",
     "price": 599,
     "sizes": [
@@ -1306,9 +1306,9 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#4194e6,#f1f5f9)",
     "oldPrice": 699,
     "sizePrices": {
-      "2 kg": 1499,
+      "half kg": 599,
       "one kg": 999,
-      "half kg": 599
+      "2 kg": 1499
     },
     "description": "Indulge in the ultimate chocolate fantasy with this exquisite Dark Chocolate & Cream Creation! Crafted with rich, dark cocoa sponge layers and smothered in silky, fresh whip cream, this delicious dessert offers the perfect harmony of deep dark chocolate richness and velvety smooth creaminess. Handcrafted to perfection, every single bite is a heavenly treat for serious dessert lovers.\n\nFlavor Profile: Premium dark chocolate sponge infused with rich cocoa and layered with silky cream frosting.\n\nTexture: Super moist, light sponge balanced by smooth, melt-in-your-mouth whipped cream layers.\n\nDesign & Topping: Decorated with rich chocolate drizzle, fine cocoa dusting, and handcrafted chocolate shards or rosettes.\n\nPackaging: Freshly baked and securely packaged to maintain peak freshness during delivery.\n\nIdeal For: Birthdays, Anniversaries, Romantic Surprises, Dessert Parties, or Evening Indulgences."
   },
@@ -1317,7 +1317,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Forever Love Couple Cake",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_20_17_05_23b8109f.png",
     "price": 999,
     "sizes": [
@@ -1330,9 +1330,9 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#0d263f,#f1f5f9)",
     "oldPrice": 0,
     "sizePrices": {
+      "one kg": 999,
       "2 kg": 1699,
-      "3 kg": 2299,
-      "one kg": 999
+      "3 kg": 2299
     },
     "description": "Celebrate your special bond with this charming, handcrafted creation designed to make romantic moments unforgettable. Featuring a sweet and detailed cute couple love cake topper, this freshly baked cake is a beautiful symbol of affection, togetherness, and joy. Soft, flavorful layers coated in smooth cream create a stunning centerpiece for your romantic celebrations.\n\nDesign: Elegantly decorated cake crowned with an adorable \"Cute Couple Love\" topper and charming decorative accents.\n\nTexture & Taste: Ultra-soft, moist sponge layered with silky, rich cream and delicious flavor fillings.\n\nCustomization: Available in a variety of delicious flavors and sizes to match your celebration size.\n\nPackaging: Securely packed with care to ensure safe delivery and pristine presentation.\n\nIdeal For: Anniversaries, Valentine's Day, Engagements, Proposals, Romantic Birthday Surprises, or Celebrating Love."
   },
@@ -1370,9 +1370,9 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#11385f,#f1f5f9)",
     "oldPrice": 699,
     "sizePrices": {
+      "0.5 kg": 599,
       "1 kg": 999,
-      "2 kg": 1499,
-      "0.5 kg": 599
+      "2 kg": 1499
     },
     "description": "Indulge in a sweet, velvety treat with our Blue Berry White Cream Cake! Featuring soft, moist vanilla sponge layers smothered in silky white whipped cream and filled with sweet, tangy blueberry compote. Beautifully decorated with vibrant blueberry drippings, luscious cream swirls, and handcrafted dark chocolate garnishes for an elegant touch and irresistible flavor contrast.\n\nProduct Details:\n\nFlavor: Creamy White Chocolate & Tangy Blueberry\n\nTexture: Ultra-soft, fresh sponge layered with smooth whipped cream and authentic blueberry filling.\n\nTopping: Finished with rich blueberry glaze, fresh cream rosettes, and delicate dark chocolate curls/shards.\n\nIdeal For: Birthdays, Anniversaries, Elegant Dinner Parties, Office Celebrations, or Gifting to Dessert Lovers!"
   },
@@ -1506,9 +1506,9 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#f1f5f9,#f1f5f9)",
     "oldPrice": 899,
     "sizePrices": {
+      "0.5 kg": 799,
       "1 kg": 1099,
-      "2 kg": 1499,
-      "0.5 kg": 799
+      "2 kg": 1499
     },
     "description": "Indulge in the light, sweet, and tropical flavors of our Fresh Pineapple Cake! Made with fluffy sponge layers, whipped cream, and real pineapple chunks, this classic treat is freshly baked to perfection and guaranteed to bring a burst of joy to any celebration.\n\nProduct Details:\n\nFlavor: Fresh Pineapple & Cream\n\nWeight: 0.5 Kg (Serves 4-6 people)\n\nType: Moist vanilla sponge infused with fresh pineapple juice, layered with light whipped cream and pineapple pieces.\n\nTopping: Decorated with sweet maraschino cherries, fresh cream swirls, and glazed pineapple slices.\n\nIdeal For: Birthdays, Anniversaries, Office Celebrations, Housewarming Parties, or any everyday sweet craving!"
   },
@@ -1517,7 +1517,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Red Velvet Caramel Craze Cake",
     "badge": "Bestseller",
-    "emoji": "´┐¢YZ,",
+    "emoji": "�YZ,",
     "image": "/uploads/img_2026_08_21_17_42_47240cc7.png",
     "price": 999,
     "sizes": [],
@@ -1526,14 +1526,14 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#b62f7c,#f1f5f9)",
     "oldPrice": 1199,
     "sizePrices": {},
-    "description": "A luxurious blend of rich red velvet and warm, buttery sweetness! Featuring soft, vibrant red velvet sponge layers filled with smooth cream cheese frosting and rich caramel filling. Crowned with an intoxicating golden caramel drip, delicate cream rosettes, and crunchy caramel or chocolate accents, this striking cake balances tangy creaminess with decadent caramel sweetness for an unforgettable treat.\n\nFlavor Profile: Classic red velvet sponge layered with tangy cream cheese frosting and rich caramel sauce.\n\nTexture & Decor: Ultra-moist sponge topped with a rich caramel drip glaze and creamy rosettes.\n\nWeight & Serving: 1 Kg (Serves 8ÔÇô12 guests).\n\nPackaging: Freshly baked and securely packaged to maintain peak presentation and freshness during delivery.\n\nIdeal For: Birthdays, Anniversaries, Romantic Surprises, Milestone Celebrations, or Gifting to Dessert Lovers!\n#RedVelvet #CaramelDripCake #RedVelvetCaramel #CakeDesigns #BirthdayCake #AnniversaryCake #OrderCakeOnline #SweetCravings #GourmetCakes"
+    "description": "A luxurious blend of rich red velvet and warm, buttery sweetness! Featuring soft, vibrant red velvet sponge layers filled with smooth cream cheese frosting and rich caramel filling. Crowned with an intoxicating golden caramel drip, delicate cream rosettes, and crunchy caramel or chocolate accents, this striking cake balances tangy creaminess with decadent caramel sweetness for an unforgettable treat.\n\nFlavor Profile: Classic red velvet sponge layered with tangy cream cheese frosting and rich caramel sauce.\n\nTexture & Decor: Ultra-moist sponge topped with a rich caramel drip glaze and creamy rosettes.\n\nWeight & Serving: 1 Kg (Serves 8–12 guests).\n\nPackaging: Freshly baked and securely packaged to maintain peak presentation and freshness during delivery.\n\nIdeal For: Birthdays, Anniversaries, Romantic Surprises, Milestone Celebrations, or Gifting to Dessert Lovers!\n#RedVelvet #CaramelDripCake #RedVelvetCaramel #CakeDesigns #BirthdayCake #AnniversaryCake #OrderCakeOnline #SweetCravings #GourmetCakes"
   },
   {
     "id": 184,
     "sku": "",
     "name": "Grand Chocolate Delight Basket & Silk Assortment",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_12_18_06_07e34ed8.png",
     "price": 2999,
     "sizes": [],
@@ -1549,7 +1549,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Sweet Romance 15 Red Roses & Motichoor Ladoo Combo",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_12_18_02_34215454.png",
     "price": 1599,
     "sizes": [],
@@ -1565,7 +1565,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Eternal Love 50 Red Roses Heart Basket & Strawberry Cake Combo",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_12_17_58_55e41d44.png",
     "price": 3999,
     "sizes": [],
@@ -1581,7 +1581,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Radiant Joy Rose, Carnation & Rocher Celebration",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_12_17_49_32f1fd22.png",
     "price": 2999,
     "sizes": [],
@@ -1597,7 +1597,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Silk & Sparkle Karwa Chauth Pooja Thali Set",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_17_57_2842c5d2.png",
     "price": 899,
     "sizes": [],
@@ -1606,14 +1606,14 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#124578,#f1f5f9)",
     "oldPrice": 0,
     "sizePrices": {},
-    "description": "Celebrate the cherished tradition of Karwa Chauth with an exquisite blend of devotion and sweetness! This complete Pooja Thali Set features a beautifully crafted decorative Thali, a matching Channi (sieve), and an elegant Karva (Lota) for the moon-sighting rituals. To add a modern touch of indulgence to your celebrations, the set includes 3 decadent Cadbury Dairy Milk Silk chocolate barsÔÇömaking your post-fast sweet bite extra special.\n\nCombo Includes:\n\n1 Designer Pooja Thali: Intricately decorated traditional thali crafted for holding your puja essentials.\n\n1 Decorative Channi (Sieve): Matching sieve styled for the sacred moon-sighting ceremony.\n\n1 Karwa Chauth Lota (Karva): Elegantly adorned traditional vessel for offering water.\n\n3 Cadbury Dairy Milk Silk Chocolates: Rich, smooth, and creamy chocolate bars for a delightful treat.\n\nIdeal For: Karwa Chauth Celebrations, Sargi Gift for Daughter-in-law, Romantic Gift for Wife, or Traditional Festive Gifting.\n\n#KarwaChauth #KarwaChauthThali #CadburySilk #KarwaChauthHamper #PoojaThaliSet #Giftora #FestiveGifting #SargiGifts #TraditionalGifts #KarwaChauthSpecial #SweetIndulgence"
+    "description": "Celebrate the cherished tradition of Karwa Chauth with an exquisite blend of devotion and sweetness! This complete Pooja Thali Set features a beautifully crafted decorative Thali, a matching Channi (sieve), and an elegant Karva (Lota) for the moon-sighting rituals. To add a modern touch of indulgence to your celebrations, the set includes 3 decadent Cadbury Dairy Milk Silk chocolate bars—making your post-fast sweet bite extra special.\n\nCombo Includes:\n\n1 Designer Pooja Thali: Intricately decorated traditional thali crafted for holding your puja essentials.\n\n1 Decorative Channi (Sieve): Matching sieve styled for the sacred moon-sighting ceremony.\n\n1 Karwa Chauth Lota (Karva): Elegantly adorned traditional vessel for offering water.\n\n3 Cadbury Dairy Milk Silk Chocolates: Rich, smooth, and creamy chocolate bars for a delightful treat.\n\nIdeal For: Karwa Chauth Celebrations, Sargi Gift for Daughter-in-law, Romantic Gift for Wife, or Traditional Festive Gifting.\n\n#KarwaChauth #KarwaChauthThali #CadburySilk #KarwaChauthHamper #PoojaThaliSet #Giftora #FestiveGifting #SargiGifts #TraditionalGifts #KarwaChauthSpecial #SweetIndulgence"
   },
   {
     "id": 171,
     "sku": "",
     "name": "Shubh Karwa Chauth Pooja Thali & Gourmet Chocolate Set",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_17_50_37124630.png",
     "price": 1699,
     "sizes": [],
@@ -1629,7 +1629,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Grand Diwali Indulgence: Ferrero Rocher, Soan Papdi & Diyas",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_17_45_56398755.png",
     "price": 1599,
     "sizes": [],
@@ -1645,7 +1645,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "diwali hammper",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_17_38_232231a4.png",
     "price": 999,
     "sizes": [],
@@ -1661,7 +1661,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Pink Velvet & Ferrero Rocher Indulgence",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_17_31_59448192.png",
     "price": 1999,
     "sizes": [],
@@ -1677,7 +1677,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Petite Affection Rose & Chocolate Duo",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_02_16_20_469b31e1.png",
     "price": 999,
     "sizes": [],
@@ -1693,7 +1693,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Imperial Bliss Orchids, White Roses & Truffle Feast",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_02_16_17_27fa6e9a.png",
     "price": 2599,
     "sizes": [],
@@ -1709,7 +1709,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Heavenly Touch Rose & Carnation Cake Trio",
     "badge": "Premium",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_02_16_14_19a26271.png",
     "price": 1999,
     "sizes": [],
@@ -1725,7 +1725,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Orchid Sparkle & Mini Cake Delight",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_02_15_48_32ba89e5.png",
     "price": 999,
     "sizes": [],
@@ -1741,7 +1741,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Royal Orchid Elegance & Cocoa Delight",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_17_07_28c16edc.png",
     "price": 1399,
     "sizes": [],
@@ -1757,7 +1757,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Pure Friendship & Chocolate Hugs Set",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_35_1948057a.png",
     "price": 3199,
     "sizes": [],
@@ -1773,7 +1773,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Gentleman's Choice Rocher & Care Hamper",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_16_30_34110eb0.png",
     "price": 3399,
     "sizes": [],
@@ -1789,7 +1789,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Tri-Delight Rose & Cake Express",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_25_17_02_1920aa0d.png",
     "price": 1499,
     "sizes": [],
@@ -1805,7 +1805,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Traditional Royal Rakhi Combo: Motichoor Laddoo & Crunchy Almonds",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_20_16_14_5239a1fa.png",
     "price": 1399,
     "sizes": [],
@@ -1821,7 +1821,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Golden Kaju & Silk Thread Rakhi Gift Box",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_20_16_06_52b97696.png",
     "price": 1499,
     "sizes": [],
@@ -1837,7 +1837,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Shubh Bandhan Sweet Duo Rakhi Hamper",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_18_16_34_47da2ef8.png",
     "price": 1799,
     "sizes": [],
@@ -1846,7 +1846,7 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#0c457d,#f1f5f9)",
     "oldPrice": 1899,
     "sizePrices": {},
-    "description": "Celebrate the special bond of sibling love with the ultimate festive treat! This grand Raksha Bandhan gift hamper combines traditional hand-crafted Rakhis with two full kilograms of mouth-watering Indian sweetsÔÇöfeaturing both classic White Rasgullas and rich Dark Black Rasgullas (Gulab Jamun/Kala Jamun). It is the perfect blend of tradition, warmth, and sweetness to make your celebrations unforgettable.\n\nCombo Includes:\n\n6 Handcrafted Designer Rakhis: Beautifully detailed, artisan-made Rakhis styled with intricate beads and vibrant threads for your brothers.\n\n1 Kg White Rasgullas: Soft, spongy, and juicy cottage cheese balls soaked in a light, sweet sugar syrup.\n\n1 Kg Black Rasgullas / Kala Jamun: Rich, soft, and delicious fried sweet dumplings soaked in fragrant sugar syrup.\n\nAuspicious Ritual Extras: Complimentary packets of Roli & Chawal included for the traditional tilak ceremony.\n\nProduct Specifications:\n\nSweets Quantity: 2 Kg Total (1 Kg White Rasgulla + 1 Kg Black Rasgulla)\n\nRakhi Count: 6 Designer Rakhis\n\nPackaging: Premium festive gift packaging designed for safe delivery and direct gifting\n\nIdeal For: Raksha Bandhan celebrations, festive sweet gifting for family & brothers, and creating memorable sweet moments"
+    "description": "Celebrate the special bond of sibling love with the ultimate festive treat! This grand Raksha Bandhan gift hamper combines traditional hand-crafted Rakhis with two full kilograms of mouth-watering Indian sweets—featuring both classic White Rasgullas and rich Dark Black Rasgullas (Gulab Jamun/Kala Jamun). It is the perfect blend of tradition, warmth, and sweetness to make your celebrations unforgettable.\n\nCombo Includes:\n\n6 Handcrafted Designer Rakhis: Beautifully detailed, artisan-made Rakhis styled with intricate beads and vibrant threads for your brothers.\n\n1 Kg White Rasgullas: Soft, spongy, and juicy cottage cheese balls soaked in a light, sweet sugar syrup.\n\n1 Kg Black Rasgullas / Kala Jamun: Rich, soft, and delicious fried sweet dumplings soaked in fragrant sugar syrup.\n\nAuspicious Ritual Extras: Complimentary packets of Roli & Chawal included for the traditional tilak ceremony.\n\nProduct Specifications:\n\nSweets Quantity: 2 Kg Total (1 Kg White Rasgulla + 1 Kg Black Rasgulla)\n\nRakhi Count: 6 Designer Rakhis\n\nPackaging: Premium festive gift packaging designed for safe delivery and direct gifting\n\nIdeal For: Raksha Bandhan celebrations, festive sweet gifting for family & brothers, and creating memorable sweet moments"
   },
   {
     "id": 108,
@@ -2106,9 +2106,9 @@ window.GIFT_PRODUCTS = [
     "gradient": "linear-gradient(135deg,#f1f5f9,#f1f5f9)",
     "oldPrice": 699,
     "sizePrices": {
+      "0.5 kg": 599,
       "1 kg": 899,
-      "2 kg": 1399,
-      "0.5 kg": 599
+      "2 kg": 1399
     },
     "description": "Premium set of 6 handcrafted designer Rakhis accompanied by 500g of fresh traditional Besan Laddus, including Roli and Rice packets for the auspicious tilak ritual. Perfect for celebrating Raksha Bandhan with family and loved ones."
   },
@@ -2117,7 +2117,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Rakhi celi",
     "badge": "Premium",
-    "emoji": "´┐¢YZ´┐¢",
+    "emoji": "�YZ�",
     "image": "/uploads/img_2026_08_04_00_29_04359c64.jpg",
     "price": 700,
     "sizes": [],
@@ -2133,7 +2133,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "rakhi combo offer",
     "badge": "Premium",
-    "emoji": "´┐¢YZ´┐¢",
+    "emoji": "�YZ�",
     "image": "/uploads/img_2026_08_04_00_25_12ae37b0.jpg",
     "price": 699,
     "sizes": [],
@@ -2149,7 +2149,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Mini Fittonia Green (Nerve Plant)",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_23_16_18_269a8ef8.png",
     "price": 499,
     "sizes": [],
@@ -2165,7 +2165,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Aglaonema Red (Chinese Evergreen)",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_23_16_12_48c81f2a.png",
     "price": 899,
     "sizes": [],
@@ -2181,7 +2181,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Jadey",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_08_23_15_52_13a90b34.png",
     "price": 499,
     "sizes": [],
@@ -2277,7 +2277,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Elevate Lace-Up High Heel Casual Lady Boots",
     "badge": "Sale",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_12_18_25_5999514f.png",
     "price": 999,
     "sizes": [
@@ -2299,7 +2299,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Nike Everyday Men's Comfort Casual Shoes",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_12_18_16_056cfdca.png",
     "price": 2499,
     "sizes": [
@@ -2321,7 +2321,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "Red Tape RT Nimbus Urban",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_12_18_12_46794f20.png",
     "price": 1699,
     "sizes": [
@@ -2343,7 +2343,7 @@ window.GIFT_PRODUCTS = [
     "sku": "",
     "name": "ASIAN Men Streetwear Logo Print Casual Shoes",
     "badge": "Bestseller",
-    "emoji": "­ƒÄü",
+    "emoji": "🎁",
     "image": "/uploads/img_2026_09_10_18_10_50b3e911.png",
     "price": 899,
     "sizes": [
