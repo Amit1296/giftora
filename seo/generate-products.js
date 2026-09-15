@@ -373,7 +373,6 @@ function ratingRow(p, page) {
 function buildJsonLd(product, slug, catMeta, site, description, faqs) {
   const url = `${site.url}/products/${slug}.html`;
   const pageName = product.name;
-  const r = ratingFor(product.id);
   return [
     {
       "@context": "https://schema.org",
@@ -391,13 +390,6 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
       description,
       image: product.image ? `${site.url.replace(/\/$/, "")}${product.image}` : site.ogImage,
       brand: { "@type": "Brand", name: site.name },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: String(r.rating),
-        reviewCount: String(r.count),
-        bestRating: "5",
-        worstRating: "1",
-      },
       offers: (() => {
         const availability = typeof product.stock === "number" && product.stock <= 0
           ? "https://schema.org/OutOfStock"
