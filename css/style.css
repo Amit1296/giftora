@@ -1105,14 +1105,48 @@ body.announce-visible .navbar:not(.scrolled) {
   transition: background 0.2s, color 0.2s, transform 0.2s;
 }
 .footer-social a:hover { background: #f59e0b; color: #fff; transform: translateY(-2px); }
-.footer-links { display: flex; gap: 72px; flex-wrap: wrap; }
+.footer-links { display: flex; gap: 60px; flex-wrap: wrap; }
 .footer-col h3 { font-family: var(--font-head); font-size: 1.05rem; letter-spacing: 0.04em; text-transform: uppercase; color: #fde68a; margin-bottom: 16px; }
 .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
 .footer-col a { font-size: 0.92rem; color: rgba(255,255,255,0.72); transition: color 0.2s; }
 .footer-col a:hover { color: #fde68a; }
-.footer-cities ul { flex-direction: row; flex-wrap: wrap; max-width: 520px; }
-.footer-cities li { width: 160px; }
-@media (max-width: 600px) { .footer-cities li { width: 140px; } }
+.footer-cities {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 18px 22px 20px;
+  min-width: min(520px, 100%);
+  flex: 1 1 60%;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+}
+.footer-cities h3 { position: relative; padding-bottom: 10px; margin-bottom: 14px; }
+.footer-cities h3::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 36px; height: 3px; border-radius: 3px;
+  background: linear-gradient(90deg, #f5b301, #f59e0b);
+}
+.footer-cities ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px 18px;
+}
+.footer-cities li { margin: 0; }
+.footer-cities a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 5px 8px; margin-left: -8px; border-radius: 8px;
+  font-size: 0.9rem; line-height: 1.6;
+}
+.footer-cities a::before {
+  content: "\2022"; color: #f5b301; font-size: 1.1rem;
+  flex-shrink: 0; text-shadow: 0 0 8px rgba(245,179,1,0.55);
+}
+.footer-cities a:hover {
+  background: rgba(255,255,255,0.1);
+  color: #fde68a;
+  transform: translateX(2px);
+}
+@media (max-width: 900px) { .footer-cities { flex: 1 1 100%; } }
+@media (max-width: 600px) { .footer-cities ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .footer-contact a { color: #fde68a; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.14); padding: 20px 0; }
 .footer-bottom p { font-size: 0.85rem; color: rgba(255,255,255,0.72); text-align: center; }
