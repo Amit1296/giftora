@@ -1,0 +1,632 @@
+{
+  "clothes.html": {
+    "tag": "Buying guide",
+    "h2": "How to choose clothes as a gift and get the style right",
+    "paragraphs": [
+      "Clothing is one of the most personal gifts you can give, so shop by fabric and fit rather than by trend. A soft cotton kurta, a festive saree or a relaxed shirt-and-chinos set all wear well, photograph beautifully and suit everything from office Diwali gifting to a friend's housewarming.",
+      "If you are unsure about sizing, pair an outfit with an accessory from the same category - a scarf, cap or belt fits almost everyone. Every apparel order ships with free gift wrapping and a card, and we can help organise a size exchange after delivery."
+    ],
+    "tipsTitle": "How to pick the right outfit",
+    "tips": [
+      "Match the fabric to the weather - breathable cotton for summer, richer weaves for weddings and winter nights.",
+      "When torn between two sizes, size up; taking a garment in is simpler than stretching it out.",
+      "Choose colours from the receiver's existing wardrobe instead of the loudest trend of the season.",
+      "For couples or families, coordinated sets feel far more thoughtful than a single piece."
+    ],
+    "faqs": [
+      { "q": "Can I gift clothes if I do not know the exact size?", "a": "Yes. Pick the size you believe fits best and add a note at checkout. Accessories such as caps and belts are a safe size-free alternative, and our team can arrange an exchange if needed." },
+      { "q": "Is gift wrapping included on clothing orders?", "a": "Every clothing order is wrapped free of charge with a personalised card, and we never include the price in the parcel." }
+    ],
+    "links": [
+      { "href": "shoes.html", "text": "designer shoes and sneakers" },
+      { "href": "sunglasses.html", "text": "trendy sunglasses" },
+      { "href": "caps.html", "text": "caps and hats" },
+      { "href": "belts.html", "text": "genuine leather belts" }
+    ]
+  },
+  "shoes.html": {
+    "tag": "Buying guide",
+    "h2": "Choosing shoes as a gift without getting the size wrong",
+    "paragraphs": [
+      "Shoes make a confident gift because they are practical and instantly usable, but sizing is everything. Ask for the receiver's usual UK or EU size before ordering, or choose a style that runs forgiving such as slip-on sneakers or open slides.",
+      "Athletic shoes are the safest crowd-pleaser, while formal leather pairs suit a promotion or retirement gift. Each pair arrives boxed with free wrapping, so it is ready to hand over the moment it is delivered."
+    ],
+    "tipsTitle": "Getting the shoe gift right",
+    "tips": [
+      "Confirm the exact UK or EU size rather than guessing - shoe sizing varies sharply between brands.",
+      "Neutral colours like white, black and tan get worn far more often than statement shades.",
+      "Slip-on and lace-up sneakers suit almost any age and occasion.",
+      "If the size is uncertain, a gift card toward shoes avoids a poor fit entirely."
+    ],
+    "faqs": [
+      { "q": "What is the safest shoe style to gift?", "a": "Classic white or black sneakers are the most universally liked. For office gifting, a leather belt-and-shoe pairing works especially well." },
+      { "q": "Can I exchange shoes if the size is wrong?", "a": "Yes. Keep the box and tags intact and contact us within the exchange window; our team will help arrange a replacement size." }
+    ],
+    "links": [
+      { "href": "clothes.html", "text": "clothing to match" },
+      { "href": "belts.html", "text": "leather belts" },
+      { "href": "sunglasses.html", "text": "sunglasses" }
+    ]
+  },
+  "teddy.html": {
+    "tag": "Buying guide",
+    "h2": "How to choose a teddy bear they will keep for years",
+    "paragraphs": [
+      "A teddy bear is the most reliable soft gift there is, and size is the quickest way to make an impression. A jumbo bear commands a room and suits birthdays and anniversaries, while a small plush is perfect as a desk companion or part of a larger hamper.",
+      "Look for dense, soft plush and securely stitched eyes rather than the cheapest option, especially if the gift is for a child. Pair a bear with chocolates or a rose bunch to turn a simple soft toy into a full surprise."
+    ],
+    "tipsTitle": "Picking the perfect plush",
+    "tips": [
+      "Jumbo bears make a statement for milestones; medium bears suit everyday surprises.",
+      "Check for child-safe stitching if the gift is going to a toddler.",
+      "A bear plus chocolates or flowers always feels more complete than a lone toy.",
+      "Neutral cream and brown bears suit every age and room decor."
+    ],
+    "faqs": [
+      { "q": "What size teddy bear is best as a gift?", "a": "A medium bear suits most everyday gifts, while a jumbo bear makes the biggest impact for birthdays and anniversaries. See the teddy collection above for exact sizes." },
+      { "q": "Are your teddy bears safe for young children?", "a": "We stock soft, well-stitched plush toys, but always supervise very young children and remove any tags or ribbons before handing the bear over." }
+    ],
+    "links": [
+      { "href": "products/sweetheart-jumbo-teddy-bear.html", "text": "Sweetheart jumbo teddy bear" },
+      { "href": "cakes.html", "text": "cakes" },
+      { "href": "flowers.html", "text": "fresh flowers" }
+    ]
+  },
+  "sunglasses.html": {
+    "tag": "Buying guide",
+    "h2": "Sunglasses that flatter - a gifting shortlist",
+    "paragraphs": [
+      "Sunglasses are a fashionable, one-size-fits-most gift that works for men and women alike. Shape matters more than brand: round faces suit angular frames, while square faces soften with round or aviator styles.",
+      "Polarised lenses are the detail that makes a pair feel premium, cutting glare on Delhi roads and beach holidays alike. Every pair arrives with a protective case and free wrapping, ready to gift."
+    ],
+    "tipsTitle": "Choosing the right frames",
+    "tips": [
+      "Round or oval faces pair best with square and wayfarer frames.",
+      "Square and strong jawlines suit round, aviator and oversized frames.",
+      "Polarised lenses are worth the small premium for daily drivers.",
+      "Classic black, tortoise and gold frames outlast loud seasonal colours."
+    ],
+    "faqs": [
+      { "q": "Are sunglasses a good gift for someone whose style I do not know?", "a": "Yes - understated black or tortoise frames in a classic shape are a safe, stylish choice for almost anyone." },
+      { "q": "Do the sunglasses come with a case?", "a": "Every pair ships with a protective case and free gift wrapping." }
+    ],
+    "links": [
+      { "href": "clothes.html", "text": "summer clothing" },
+      { "href": "caps.html", "text": "caps and hats" },
+      { "href": "shoes.html", "text": "sneakers" }
+    ]
+  },
+  "caps.html": {
+    "tag": "Buying guide",
+    "h2": "Caps and hats: the easy, size-free gift",
+    "paragraphs": [
+      "A cap is the rare gift that is genuinely one-size-fits-most, which makes it ideal when you cannot confirm measurements. Adjustable snapbacks and classic dad caps suit casual wardrobes, while a structured cap reads smarter for office-casual teams.",
+      "Caps are also a favourite for corporate gifting and sports fans because they are light to ship and hard to get wrong. Choose breathable cotton for Indian summers and a darker colour if it will be worn outdoors."
+    ],
+    "tipsTitle": "What to look for in a cap",
+    "tips": [
+      "Adjustable straps make caps a safe gift when sizing is unknown.",
+      "Breathable cotton beats synthetic fabric for Indian summers.",
+      "Structured front panels suit formal and office-casual looks.",
+      "Darker colours hide dust and everyday wear better than white."
+    ],
+    "faqs": [
+      { "q": "Is a cap a safe gift if I do not know their size?", "a": "Yes - adjustable caps fit almost every adult head and are one of the safest apparel gifts you can send." },
+      { "q": "Do you offer caps for corporate gifting?", "a": "Absolutely. Caps are popular for team and client gifting; contact us for bulk orders with custom notes." }
+    ],
+    "links": [
+      { "href": "clothes.html", "text": "clothing" },
+      { "href": "belts.html", "text": "belts" },
+      { "href": "sunglasses.html", "text": "sunglasses" }
+    ]
+  },
+  "belts.html": {
+    "tag": "Buying guide",
+    "h2": "Leather belts: a practical gift that gets used daily",
+    "paragraphs": [
+      "A good leather belt is the quietly useful gift that people reach for every morning, which is why it outperforms flashier presents for colleagues, fathers and brothers. Genuine leather softens with age and lasts years, unlike bonded or faux leather that peels within months.",
+      "Reversible belts solve the colour-matching problem entirely - black on one side, brown on the other - and a simple prong or automatic buckle suits both formal and casual trousers."
+    ],
+    "tipsTitle": "Choosing a belt that lasts",
+    "tips": [
+      "Choose genuine leather over bonded leather for real longevity.",
+      "A reversible belt matches both black and brown shoes effortlessly.",
+      "Match the buckle finish to the receiver's watch - steel with steel, gold with gold.",
+      "For gifting, stick to classic widths of 3 to 3.5 cm."
+    ],
+    "faqs": [
+      { "q": "How do I choose the right belt size as a gift?", "a": "If unsure, choose a standard 32 to 34 inch belt or a reversible style, and add a note. Belts are easy to exchange at most stores." },
+      { "q": "Is genuine leather worth it over faux leather?", "a": "Yes. Genuine leather moulds to the wearer and lasts years, while faux leather tends to crack within a few months." }
+    ],
+    "links": [
+      { "href": "products/executive-craft-classic-genuine-leather-belt.html", "text": "executive genuine leather belt" },
+      { "href": "shoes.html", "text": "formal shoes" },
+      { "href": "clothes.html", "text": "office clothing" }
+    ]
+  },
+  "flowers.html": {
+    "tag": "Buying guide",
+    "h2": "How to choose flowers that arrive fresh and make an impact",
+    "paragraphs": [
+      "Flowers say what words cannot, and the arrangement matters more than the price tag. A tight hand-tied bunch of roses reads romantic, a mixed seasonal bunch feels cheerful and friendly, and a basket arrangement looks substantial enough for a milestone or condolence.",
+      "Freshness is everything, so order from a florist that cuts on the day of delivery. Mention the occasion and we will steer you toward colours that fit - reds for love, whites and lilies for sympathy and formal events, mixed blooms for celebrations."
+    ],
+    "tipsTitle": "Flower gifting, done well",
+    "tips": [
+      "Roses for romance, lilies and orchids for elegance, mixed gerberas for cheer.",
+      "Basket arrangements look more impressive than a wrapped bunch for milestones.",
+      "Avoid strongly scented lilies for hospital or condolence deliveries.",
+      "Pair flowers with a cake or chocolates to make the moment complete."
+    ],
+    "faqs": [
+      { "q": "How long will the flowers stay fresh?", "a": "Our flowers are arranged on the day of delivery and typically last five to seven days with the sachet and a fresh cut stem every couple of days." },
+      { "q": "What flowers are appropriate for a condolence gift?", "a": "White lilies, white roses and simple green arrangements are the most appropriate. Avoid brightly coloured or highly scented blooms." }
+    ],
+    "links": [
+      { "href": "products/red-roses-hand-bunch.html", "text": "red roses hand bunch" },
+      { "href": "cakes.html", "text": "cakes" },
+      { "href": "plants.html", "text": "long-lasting plants" }
+    ]
+  },
+  "plants.html": {
+    "tag": "Buying guide",
+    "h2": "Plants as gifts: living presents that outlast flowers",
+    "paragraphs": [
+      "A plant is the thoughtful alternative to flowers - it keeps growing long after the occasion passes. Low-maintenance varieties such as money plant, snake plant and peace lily thrive in Indian homes with minimal water, making them ideal for first-time plant owners.",
+      "Match the plant to the light available: bright desks suit aglaonema and fittonia, while darker corners are perfect for snake plant and peace lily. Each plant arrives in a decorative pot with care instructions and free wrapping."
+    ],
+    "tipsTitle": "Picking a hard-to-kill plant",
+    "tips": [
+      "Snake plant and money plant survive low light and missed watering.",
+      "Peace lily and fittonia are best for brighter, shaded spots.",
+      "Decorative pots make the plant gift-ready without extra work.",
+      "Avoid flowering plants for homes with pets unless confirmed pet-safe."
+    ],
+    "faqs": [
+      { "q": "Which plant is the easiest to keep alive?", "a": "Snake plant and money plant are the most forgiving - they tolerate low light and irregular watering, making them ideal for beginners." },
+      { "q": "Do plants come with care instructions?", "a": "Yes. Every plant ships in a decorative pot with simple watering and light guidance." }
+    ],
+    "links": [
+      { "href": "products/prosperity-clean-air-snake-plant-in-pot.html", "text": "snake plant in pot" },
+      { "href": "products/fortune-prosperity-money-plant-in-pot.html", "text": "money plant" },
+      { "href": "flowers.html", "text": "fresh flowers" }
+    ]
+  },
+  "cakes.html": {
+    "tag": "Buying guide",
+    "h2": "How to order the right cake for the occasion",
+    "paragraphs": [
+      "Choosing a cake comes down to three things: flavour, size and timing. Chocolate truffle and black forest remain the safest crowd-pleasers, red velvet and butterscotch suit celebrations, and fruit or vanilla cakes work for daytime office events.",
+      "For size, allow roughly half a kilogram for every four to five guests. Eggless options are available across most of the range and taste just as rich, and adding a personalised message turns any cake into a centrepiece."
+    ],
+    "tipsTitle": "Cake ordering checklist",
+    "tips": [
+      "Budget about 0.5 kg per four to five guests to avoid running short.",
+      "Chocolate and black forest are the safest flavours for mixed groups.",
+      "Eggless versions are available and taste equally rich.",
+      "Order a day ahead for custom messages and midnight delivery."
+    ],
+    "faqs": [
+      { "q": "How much cake should I order per person?", "a": "As a rule, allow half a kilogram for every four to five guests when cake is the main dessert." },
+      { "q": "Are eggless cakes available?", "a": "Yes. Eggless options are clearly marked and available across most of our cake range." }
+    ],
+    "links": [
+      { "href": "products/red-velvet-caramel-craze-cake.html", "text": "red velvet caramel cake" },
+      { "href": "products/classic-oreo-crunch-celebration-cake.html", "text": "Oreo celebration cake" },
+      { "href": "flowers.html", "text": "flowers to match" }
+    ]
+  },
+  "toys.html": {
+    "tag": "Buying guide",
+    "h2": "Choosing toys that are safe and age-appropriate",
+    "paragraphs": [
+      "The best toy gift matches the child's age and stage, not the loudest box on the shelf. Ride-ons and cycles build confidence for toddlers, building toys and puzzles reward slightly older children, and plush toys are a safe bet from the very first birthday.",
+      "Always check the recommended age and look for smooth edges and non-toxic finishes. If you are sending to a home with more than one child, a shared toy such as a ride-on tends to get the most use."
+    ],
+    "tipsTitle": "Toy safety and suitability",
+    "tips": [
+      "Always follow the age recommendation on the toy.",
+      "Choose smooth, non-toxic finishes for children under three.",
+      "Ride-ons and cycles suit toddlers; puzzles and building sets suit older kids.",
+      "Shared toys get far more use in homes with siblings."
+    ],
+    "faqs": [
+      { "q": "What is a safe toy gift for a one-year-old?", "a": "Soft plush toys and simple, smooth-edged sensory toys are the safest choice for a first birthday." },
+      { "q": "Do ride-on toys require assembly?", "a": "Some ride-ons arrive part-assembled and need minor setup. Assembly guidance is included with the toy." }
+    ],
+    "links": [
+      { "href": "products/panda-paws-deluxe-musical-ride-on.html", "text": "musical ride-on" },
+      { "href": "products/littleexplorer-foldable-stroller.html", "text": "foldable stroller" },
+      { "href": "teddy.html", "text": "teddy bears" }
+    ]
+  },
+  "combo.html": {
+    "tag": "Buying guide",
+    "h2": "Gift combos: more value, more impact, one delivery",
+    "paragraphs": [
+      "A combo bundles two or three gifts into a single delivery, which almost always lands better than one item alone. The classic rose-and-cake pairing is unbeatable for romance, while a teddy plus chocolates suits birthdays and a plant plus dry fruits works beautifully for housewarmings.",
+      "Combos also simplify logistics: one order, one delivery slot and one beautifully wrapped parcel. Build yours around the occasion first, then add a personalised note to make it feel genuinely personal."
+    ],
+    "tipsTitle": "Building a combo people remember",
+    "tips": [
+      "Lead with the occasion, then choose one hero gift and one supporting extra.",
+      "Roses plus cake is the safest romantic combination.",
+      "Teddy plus chocolates works for nearly any birthday.",
+      "A plant plus dry fruits is ideal for housewarming and corporate gifting."
+    ],
+    "faqs": [
+      { "q": "Can I create a custom combo?", "a": "Yes. Choose any two or three items and we will deliver them together in one wrapped parcel. Contact us if you need help combining products." },
+      { "q": "Do combos arrive in one delivery?", "a": "Yes. A combo ships as a single order and a single delivery slot, which also keeps costs down." }
+    ],
+    "links": [
+      { "href": "products/sweet-traditions-rose-choco-combo.html", "text": "rose and chocolate combo" },
+      { "href": "products/sweet-elegance-cadbury-vanilla-cake-pink-roses-combo.html", "text": "cake and roses combo" },
+      { "href": "special-offers.html", "text": "current offers" }
+    ]
+  },
+  "special-offers.html": {
+    "tag": "Buying guide",
+    "h2": "How to get the best value on gifts",
+    "paragraphs": [
+      "The best deal is rarely the deepest discount - it is the offer that matches what you already planned to send. Seasonal combos and festive hampers usually carry the biggest saving, while off-season single items stay closest to full price.",
+      "Timing matters too: order a day or two before a festival peak to avoid rush pricing and delivery delays. Set a realistic budget first, then pick the offer that fits it rather than stretching for a deal you do not need."
+    ],
+    "tipsTitle": "Getting the most from every order",
+    "tips": [
+      "Shop combos and hampers for the highest value per rupee.",
+      "Order early around Diwali, Rakhi and year-end to avoid peak delays.",
+      "Compare the total delivered price, not the headline discount.",
+      "Set your budget before browsing so an offer cannot upsell you."
+    ],
+    "faqs": [
+      { "q": "Do Giftora offers change often?", "a": "Yes. Offers refresh with festivals and seasons, so check this page before every order for the current deals." },
+      { "q": "Can I combine a coupon with an existing offer?", "a": "In most cases a single coupon applies per order. Enter your code at checkout and the system will apply the best available price." }
+    ],
+    "links": [
+      { "href": "combo.html", "text": "combo offers" },
+      { "href": "flowers.html", "text": "flowers" },
+      { "href": "cakes.html", "text": "cakes" }
+    ]
+  },
+
+  "birthday-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "How to plan a birthday gift they will actually remember",
+    "paragraphs": [
+      "A great birthday gift starts with one question: what does this person use every day? Everyday objects - a warm hoodie, a leather belt, a favourite fragrance, a plant for their desk - beat novelty items because they keep giving long after the candles are blown out.",
+      "Then layer on the moment. A cake with a personalised message, a bunch of flowers and a handwritten note turn a simple present into an occasion. If you are ordering from another city or country, schedule the delivery for the morning of the birthday so the surprise lands at the start of their day."
+    ],
+    "tipsTitle": "Birthday gifting ideas by relationship",
+    "tips": [
+      "For a partner: roses or an orchid with a rich chocolate cake.",
+      "For parents: a plant, a photo gift or a dry-fruit hamper.",
+      "For a friend: a fun combo of chocolates, a teddy and a handwritten note.",
+      "For a colleague: keep it simple with chocolates or a desk plant.",
+      "Order before 4 PM for same-day delivery across Delhi NCR."
+    ],
+    "faqs": [
+      { "q": "What is the most popular birthday gift?", "a": "Rose-and-cake combos remain the most popular, followed closely by jumbo teddy bears and personalised photo gifts." },
+      { "q": "Can I schedule a birthday gift to arrive in the morning?", "a": "Yes. Choose your preferred delivery date and, where available in Delhi NCR, a morning or midnight slot at checkout." }
+    ],
+    "links": [
+      { "href": "products/classic-oreo-crunch-celebration-cake.html", "text": "birthday cakes" },
+      { "href": "teddy.html", "text": "teddy bears" },
+      { "href": "flowers.html", "text": "fresh flowers" },
+      { "href": "blog-best-online-gift-shop-india.html", "text": "our gift-shopping guide" }
+    ]
+  },
+  "anniversary-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Anniversary gifts ranked by year and by thought",
+    "paragraphs": [
+      "Anniversaries reward sentiment over price. The classic pairing of red roses and a heart-shaped cake still works because it is unmistakably romantic, while a lasting gift such as a plant or a keepsake adds something that survives beyond the evening.",
+      "If you are celebrating from a distance, coordinate delivery for the exact date and add a note referencing a shared memory. Small, specific gestures - a favourite flavour, a colour they love - consistently beat generic luxury."
+    ],
+    "tipsTitle": "Anniversary gift ideas that land",
+    "tips": [
+      "Red roses plus a heart-shaped cake is the safest romantic combination.",
+      "For a lasting gift, choose a plant, an orchid or a keepsake.",
+      "Reference a shared memory in your personalised note.",
+      "Book delivery for the exact date, ideally a morning surprise."
+    ],
+    "faqs": [
+      { "q": "What is a good first-anniversary gift?", "a": "The first anniversary traditionally calls for paper, but in practice a romantic rose-and-cake combo or a lasting plant both work beautifully." },
+      { "q": "Can I send an anniversary gift to another city?", "a": "Yes. We deliver across India and can schedule the delivery for the exact date you choose." }
+    ],
+    "links": [
+      { "href": "products/forever-love-couple-cake.html", "text": "couple cakes" },
+      { "href": "products/red-roses-hand-bunch.html", "text": "red roses" },
+      { "href": "plants.html", "text": "lasting plants" }
+    ]
+  },
+  "wedding-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Wedding gifts that suit every budget and tradition",
+    "paragraphs": [
+      "Wedding gifting should feel generous but never awkward. For close family, a substantial hamper or a lasting decor piece works; for colleagues and distant guests, a tasteful dry-fruit box, a plant or a premium chocolate assortment is entirely appropriate.",
+      "Because weddings involve logistics, timing is part of the gift. Send to the couple's home rather than the venue unless the couple has asked otherwise, and add a card so the gift is clearly from you amid the crowd."
+    ],
+    "tipsTitle": "Wedding gifting by relationship and budget",
+    "tips": [
+      "Close family: a large hamper or lasting decor piece.",
+      "Friends and colleagues: dry fruits, chocolates or a premium plant.",
+      "Send to the couple's home, not the venue, unless requested.",
+      "Always attach a card - wedding crowds make unnamed gifts get lost."
+    ],
+    "faqs": [
+      { "q": "What is an appropriate wedding gift for a colleague?", "a": "A dry-fruit box, premium chocolates or a tasteful plant is appropriate and does not feel overly personal." },
+      { "q": "Can you deliver a wedding gift discreetly?", "a": "Yes. We can deliver to the couple's home or a specified address with a card and no price details." }
+    ],
+    "links": [
+      { "href": "combo.html", "text": "gift hampers" },
+      { "href": "plants.html", "text": "decor plants" },
+      { "href": "housewarming-gifts.html", "text": "housewarming gifts" }
+    ]
+  },
+  "housewarming-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Housewarming gifts that suit a brand-new home",
+    "paragraphs": [
+      "A housewarming gift works best when it adds to the home rather than clutters it. Green plants, especially money plant and snake plant, are the near-universal favourite because they are decorative, easy to keep alive and symbolically auspicious.",
+      "For a bigger gesture, pair a plant with a dry-fruit or chocolate hamper, or choose tasteful decor pieces. Avoid items that need specific wall space or personal taste - the goal is something the household can immediately place and enjoy."
+    ],
+    "tipsTitle": "What to send for a new home",
+    "tips": [
+      "Money plant and snake plant are safe, auspicious and easy to care for.",
+      "Pair a plant with dry fruits for a fuller gift.",
+      "Avoid artwork or personalised decor that may not match their taste.",
+      "A handwritten note about their new chapter goes a long way."
+    ],
+    "faqs": [
+      { "q": "What is the most popular housewarming gift?", "a": "A money plant or snake plant in a decorative pot, often paired with dry fruits, is the most popular and universally appreciated choice." },
+      { "q": "Are plants easy to keep alive for beginners?", "a": "Yes. Money plant and snake plant tolerate low light and infrequent watering, making them ideal for first-time plant owners." }
+    ],
+    "links": [
+      { "href": "plants.html", "text": "housewarming plants" },
+      { "href": "products/prosperity-clean-air-snake-plant-in-pot.html", "text": "snake plant" },
+      { "href": "combo.html", "text": "hamper combos" }
+    ]
+  },
+  "baby-shower-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Baby shower gifts for the parents-to-be",
+    "paragraphs": [
+      "The best baby shower gifts are gentle on the parents and genuinely useful. Soft plush toys, baby-care hampers and celebration cakes for the gathering all work, while practical items the parents would otherwise have to buy are always appreciated.",
+      "Choose neutral, hypoallergenic materials where children are involved, and avoid anything with small detachable parts. If you are gifting the mother, a hamper of treats for her - not only the baby - is a thoughtful touch that is often overlooked."
+    ],
+    "tipsTitle": "Baby shower gifting ideas",
+    "tips": [
+      "Soft, safe plush toys are the most popular choice.",
+      "Gift something for the parents too, not only the baby.",
+      "Avoid small detachable parts on anything for a newborn.",
+      "A celebration cake makes the shower itself feel complete."
+    ],
+    "faqs": [
+      { "q": "What is a safe baby shower gift?", "a": "Soft plush toys in hypoallergenic fabric and baby-care hampers are safe and universally welcomed. Avoid items with small detachable parts." },
+      { "q": "Can I send a cake for the baby shower event?", "a": "Yes. Order a celebration cake with a personalised message for the shower date and we will deliver it on time." }
+    ],
+    "links": [
+      { "href": "teddy.html", "text": "soft plush toys" },
+      { "href": "toys.html", "text": "toys" },
+      { "href": "cakes.html", "text": "celebration cakes" }
+    ]
+  },
+  "corporate-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Corporate gifting that lands with teams and clients",
+    "paragraphs": [
+      "Corporate gifts succeed when they are consistent, useful and easy to distribute. Choose a single premium item across the team rather than mixing price tiers, and favour consumables such as dry-fruit boxes, chocolate assortments or desk plants over branded clutter.",
+      "For client gifting, timing around festivals and year-end is expected and appropriate. Keep a card from the leadership team and, where relevant, arrange delivery directly to home addresses so recipients do not have to carry gifts back from the office."
+    ],
+    "tipsTitle": "Planning a corporate gifting run",
+    "tips": [
+      "Give everyone the same premium item rather than tiered gifts.",
+      "Dry fruits, chocolates and desk plants are universally welcome.",
+      "Time deliveries around Diwali, New Year and company milestones.",
+      "Offer home delivery so recipients are not burdened at the office."
+    ],
+    "faqs": [
+      { "q": "Do you offer bulk corporate gifting?", "a": "Yes. We handle team and client gifting at volume with a consistent item and personalised cards. Contact us to plan quantities and dates." },
+      { "q": "What is the best corporate gift?", "a": "A premium dry-fruit box or chocolate assortment with a branded card is the safest and most appreciated corporate gift." }
+    ],
+    "links": [
+      { "href": "combo.html", "text": "gift hampers" },
+      { "href": "plants.html", "text": "desk plants" },
+      { "href": "special-offers.html", "text": "bulk offers" }
+    ]
+  },
+  "congratulations-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Congratulations gifts for promotions, results and new beginnings",
+    "paragraphs": [
+      "Congratulations gifts should feel like a raised toast. A celebratory cake with a bold message, a flowering plant that lasts, or a premium hamper all fit promotions, exam results, new jobs and new homes equally well.",
+      "Match the scale of the gift to the size of the moment - a small chocolate box for a good exam result, a hamper for a promotion - and always include a card with the specific achievement named. Specificity makes the praise feel real."
+    ],
+    "tipsTitle": "Matching the gift to the achievement",
+    "tips": [
+      "Exam or result: chocolates or a small cake.",
+      "Promotion or new job: a premium hamper or desk plant.",
+      "New home or new business: an auspicious plant with dry fruits.",
+      "Name the achievement specifically in your note."
+    ],
+    "faqs": [
+      { "q": "What is a good congratulations gift for a promotion?", "a": "A premium hamper or a desk plant with a card praising the specific achievement is ideal." },
+      { "q": "Can I send a congratulations gift the same day?", "a": "Yes, same-day delivery is available across Delhi NCR for most items when ordered before the daily cut-off." }
+    ],
+    "links": [
+      { "href": "plants.html", "text": "congratulatory plants" },
+      { "href": "cakes.html", "text": "celebration cakes" },
+      { "href": "combo.html", "text": "hampers" }
+    ]
+  },
+  "thank-you-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Thank-you gifts that feel genuine, not obligatory",
+    "paragraphs": [
+      "A thank-you gift works when it is proportionate and personal. For a teacher, doctor or mentor, a plant or a box of premium chocolates with a heartfelt note is more meaningful than anything expensive.",
+      "The note is the real gift here. Name exactly what you are thanking them for, keep it short, and choose a gift that suits their setting - a desk plant for an office, chocolates for a home, flowers for a host."
+    ],
+    "tipsTitle": "Saying thank you well",
+    "tips": [
+      "Match the gift to the setting: desk plant for an office, flowers for a host.",
+      "Keep the note specific about what you are grateful for.",
+      "For teachers and mentors, chocolates or a plant are ideal.",
+      "A token gift plus a sincere note beats an expensive generic one."
+    ],
+    "faqs": [
+      { "q": "What is a good thank-you gift for a teacher?", "a": "A desk plant or a box of premium chocolates with a note naming their impact is ideal for teachers." },
+      { "q": "Can I send a thank-you gift anonymously?", "a": "Yes. We can deliver without revealing the sender if you prefer, though a signed note usually means more." }
+    ],
+    "links": [
+      { "href": "plants.html", "text": "desk plants" },
+      { "href": "flowers.html", "text": "flowers" },
+      { "href": "products/pure-friendship-chocolate-hugs-set.html", "text": "chocolate sets" }
+    ]
+  },
+  "engagement-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Engagement gifts for the couple and the celebration",
+    "paragraphs": [
+      "Engagements blend two families and two tastes, so neutral, celebratory gifts are the safest: flowers, a ring-themed cake, a premium chocolate hamper or a plant for their future home. Avoid anything that leans too strongly toward one person's taste.",
+      "If you are attending the ceremony, a gift delivered to the venue that morning keeps the celebration seamless. If you are celebrating from afar, schedule delivery for the engagement date and add a note wishing them well as a couple."
+    ],
+    "tipsTitle": "Engagement gifting ideas",
+    "tips": [
+      "Keep it neutral - the gift is for the couple, not one person.",
+      "Flowers and a celebration cake suit the ceremony itself.",
+      "A plant or hamper makes a good gift for their future home.",
+      "For long-distance, schedule delivery for the engagement date."
+    ],
+    "faqs": [
+      { "q": "What is a good engagement gift for a couple?", "a": "A celebratory cake, flowers, or a premium hamper for their future home are all appropriate and tasteful choices." },
+      { "q": "Can you deliver to the engagement venue?", "a": "Yes. Provide the venue address and timing at checkout and we will coordinate the delivery on the day." }
+    ],
+    "links": [
+      { "href": "products/forever-love-couple-cake.html", "text": "couple cakes" },
+      { "href": "flowers.html", "text": "flowers" },
+      { "href": "wedding-gifts.html", "text": "wedding gifts" }
+    ]
+  },
+  "graduation-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Graduation gifts for a milestone worth marking",
+    "paragraphs": [
+      "Graduation marks years of effort, so the gift should celebrate the achievement and look forward to what comes next. A premium pen or watch, a desk plant for a first job, or a hamper of treats for a new graduate all land well.",
+      "If the graduate is moving cities for work, choose something portable - a plant in a small pot, a leather accessory, a gift that travels easily. Add a note congratulating the specific course or result to make it personal."
+    ],
+    "tipsTitle": "Graduation gift ideas",
+    "tips": [
+      "A desk plant or leather accessory suits a first job.",
+      "For travel, keep the gift portable and durable.",
+      "Chocolates or a hamper work well for a group of graduates.",
+      "Name the course or result in your congratulatory note."
+    ],
+    "faqs": [
+      { "q": "What is a good graduation gift for a new job?", "a": "A desk plant, a leather belt or a premium chocolate hamper are all thoughtful for someone starting their first job." },
+      { "q": "Can I send a graduation gift to a hostel or campus?", "a": "Yes. Share the hostel or campus address and the receiver's number and our rider will coordinate the handover." }
+    ],
+    "links": [
+      { "href": "plants.html", "text": "desk plants" },
+      { "href": "belts.html", "text": "leather belts" },
+      { "href": "combo.html", "text": "celebration hampers" }
+    ]
+  },
+  "deepawali-gifts.html": {
+    "tag": "Festival guide",
+    "h2": "Diwali gifts that suit family, friends and clients",
+    "paragraphs": [
+      "Diwali gifting is about abundance and good fortune, so dry-fruit boxes, chocolate assortments and diya-and-sweets hampers are the timeless choices. For homes, a money plant or an auspicious decor piece carries the same festive meaning and lasts well beyond the festival.",
+      "Order early. The two weeks around Diwali are the busiest of the year, and placing orders ahead secures both the item you want and a reliable delivery slot. For clients, keep the gift consistent across recipients and add a card from the team."
+    ],
+    "tipsTitle": "Diwali gifting, sorted",
+    "tips": [
+      "Dry fruits and premium chocolates are the safest family and client gifts.",
+      "Money plant and auspicious decor suit homes and offices.",
+      "Order at least a week early to avoid festival-week delays.",
+      "Keep corporate Diwali gifts consistent across all recipients."
+    ],
+    "faqs": [
+      { "q": "What is the most popular Diwali gift?", "a": "A dry-fruit and sweets hamper remains the most popular Diwali gift, with money plants and chocolate assortments close behind." },
+      { "q": "How early should I order Diwali gifts?", "a": "Place your order at least a week before Diwali for the best choice and reliable delivery, as festival week is our busiest period." }
+    ],
+    "links": [
+      { "href": "products/grand-diwali-indulgence-ferrero-rocher-soan-papdi-diyas.html", "text": "grand Diwali hamper" },
+      { "href": "plants.html", "text": "money plants" },
+      { "href": "special-offers.html", "text": "festive offers" }
+    ]
+  },
+  "karwa-chauth-gifts.html": {
+    "tag": "Festival guide",
+    "h2": "Karwa Chauth gifts for wives, husbands and families",
+    "paragraphs": [
+      "Karwa Chauth centres on the bond between partners, so the best gifts echo that devotion - a pooja thali set, a sargi hamper for the morning, or jewellery-style keepsakes. Red roses and traditional sweets suit the occasion and pair naturally with a thali.",
+      "Sargi is the practical detail: order a dry-fruit and sweets hamper that arrives early on the morning of the fast. If you are the husband, a rose-and-gift combo delivered the evening before feels especially attentive."
+    ],
+    "tipsTitle": "Karwa Chauth gifting ideas",
+    "tips": [
+      "Sargi hampers should arrive on the morning of the fast.",
+      "A pooja thali set is the traditional centrepiece gift.",
+      "Red roses and traditional sweets suit the occasion.",
+      "For couples, a thali plus a hamper makes a complete gesture."
+    ],
+    "faqs": [
+      { "q": "What should a sargi hamper contain?", "a": "A typical sargi hamper includes dry fruits, sweets and small treats for the morning meal. Order for early-morning delivery on the day of the fast." },
+      { "q": "What is a good Karwa Chauth gift for a wife?", "a": "A pooja thali set, red roses or a traditional sweet hamper are all fitting, especially delivered with a handwritten note." }
+    ],
+    "links": [
+      { "href": "products/silk-sparkle-karwa-chauth-pooja-thali-set.html", "text": "Karwa Chauth pooja thali set" },
+      { "href": "flowers.html", "text": "red roses" },
+      { "href": "products/sweet-traditions-cadbury-soan-papdi-combo.html", "text": "sweets combos" }
+    ]
+  },
+  "occasion-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Find the right gift for any occasion",
+    "paragraphs": [
+      "Every occasion has a gift language, and reading it makes shopping quick. Birthdays call for cakes and teddies, anniversaries for roses and keepsakes, housewarmings for plants, and graduations or promotions for something forward-looking.",
+      "Use this page as a starting point: pick the occasion, then choose a hero gift and one supporting extra - chocolates, flowers or a personalised note. That two-part formula works for almost every event on the calendar."
+    ],
+    "tipsTitle": "Gift ideas by occasion",
+    "tips": [
+      "Birthday: cake plus teddy or flowers.",
+      "Anniversary: roses plus a heart cake or a lasting gift.",
+      "Housewarming: a plant plus dry fruits.",
+      "Congratulations: a hamper or desk plant.",
+      "Festivals: sweets, dry fruits and auspicious plants."
+    ],
+    "faqs": [
+      { "q": "How do I choose a gift for any occasion?", "a": "Pick one hero gift suited to the occasion and one supporting extra such as chocolates or flowers, then add a personalised note to make it specific." },
+      { "q": "Do you have gifts for every festival?", "a": "Yes. We cover Diwali, Rakhi, Karwa Chauth, Teachers Day and more, with dedicated festival pages linked from this section." }
+    ],
+    "links": [
+      { "href": "birthday-gifts.html", "text": "birthday gifts" },
+      { "href": "anniversary-gifts.html", "text": "anniversary gifts" },
+      { "href": "deepawali-gifts.html", "text": "Diwali gifts" },
+      { "href": "karwa-chauth-gifts.html", "text": "Karwa Chauth gifts" }
+    ]
+  },
+  "festival.html": {
+    "tag": "Festival guide",
+    "h2": "Festival gifting across the Indian calendar",
+    "paragraphs": [
+      "India celebrates year-round, and each festival has its own gifting rhythm. Diwali leans toward sweets and dry fruits, Rakhi centres on the sibling bond, Karwa Chauth on the couple, and Teachers Day on gratitude and small tokens.",
+      "Planning by festival saves both stress and money. Order a week ahead for the big dates, and choose gifts that travel well when you are sending across cities - hampers, chocolates and plants are the most reliable festival gifts."
+    ],
+    "tipsTitle": "Festival gifting at a glance",
+    "tips": [
+      "Diwali: dry fruits, sweets and money plants.",
+      "Rakhi: rakhi combos, chocolates and sweets.",
+      "Karwa Chauth: sargi hampers, thali sets and roses.",
+      "Teachers Day: chocolates, plants and heartfelt notes."
+    ],
+    "faqs": [
+      { "q": "Which festival gifts are best for sending across India?", "a": "Hampers, premium chocolates and potted plants travel reliably and suit almost every festival." },
+      { "q": "Should I order festival gifts in advance?", "a": "Yes. For major festivals such as Diwali and Rakhi, order at least a week early to secure your item and delivery slot." }
+    ],
+    "links": [
+      { "href": "deepawali-gifts.html", "text": "Diwali gifts" },
+      { "href": "karwa-chauth-gifts.html", "text": "Karwa Chauth gifts" },
+      { "href": "occasion-gifts.html", "text": "all occasion gifts" }
+    ]
+  }
+}
