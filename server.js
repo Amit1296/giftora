@@ -992,6 +992,27 @@ async function handleRequest(req, res) {
     }
   }
 
+  /* ---------- Legacy dynamic product URLs -> canonical static pages ---------- */
+  if (pathname === "/product.html" && method === "GET") {
+    const id = url.searchParams.get("id");
+    if (id) {
+      try {
+        const renderProduct = require("./seo/render-product");
+        const cfg = apply.loadConfig();
+        const base = ((cfg.site && cfg.site.url) || SITE_URL).replace(/\/$/, "");
+        const products = await db.getProducts();
+        const product = products.find((p) => String(p.id) === String(id));
+        if (product) {
+          const slug = renderProduct.slugifyName(product.name);
+          res.writeHead(301, { Location: `${base}/products/${slug}.html`, "Cache-Control": "no-cache" });
+          return res.end();
+        }
+      } catch (e) {
+        console.error("Legacy product redirect error:", e.message);
+      }
+    }
+  }
+
   /* ---------- Google Merchant Center feed ---------- */
   if (url.pathname === "/merchant-feed.xml" && method === "GET") {
     try {

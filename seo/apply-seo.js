@@ -255,7 +255,6 @@ function writeRobots(site) {
     "Allow: /",
     "",
     "Disallow: /admin.html",
-    "Disallow: /product.html",
     "Disallow: /checkout-preview.html",
     "Disallow: /gift-card-template.html",
     "Disallow: /banner-template.html",
