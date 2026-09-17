@@ -1,0 +1,108 @@
+{
+  "clothes.html": [
+    { "href": "blog-gifts-under-1000.html", "text": "gifts under Rs 1000" },
+    { "href": "blog-best-online-gift-shop-india.html", "text": "choosing an online gift shop in India" }
+  ],
+  "shoes.html": [
+    { "href": "blog-gifts-under-1000.html", "text": "affordable gift ideas under Rs 1000" },
+    { "href": "blog-best-online-gift-shop-india.html", "text": "online gift shopping guide" }
+  ],
+  "teddy.html": [
+    { "href": "blog-birthday-gifts-delhi.html", "text": "birthday gift ideas for Delhi delivery" },
+    { "href": "blog-gifts-under-1000.html", "text": "gifts under Rs 1000" }
+  ],
+  "sunglasses.html": [
+    { "href": "blog-gifts-under-1000.html", "text": "stylish gifts under Rs 1000" }
+  ],
+  "caps.html": [
+    { "href": "blog-gifts-under-1000.html", "text": "budget gift ideas" }
+  ],
+  "belts.html": [
+    { "href": "blog-gifts-under-1000.html", "text": "gifts under Rs 1000" },
+    { "href": "blog-best-online-gift-shop-india.html", "text": "same-day gift delivery guide" }
+  ],
+  "flowers.html": [
+    { "href": "blog-birthday-gifts-delhi.html", "text": "birthday flower and cake ideas" },
+    { "href": "blog-cake-delivery-faridabad.html", "text": "same-day cake delivery in Faridabad" }
+  ],
+  "plants.html": [
+    { "href": "blog-best-online-gift-shop-india.html", "text": "online gift delivery guide" },
+    { "href": "blog-gifts-under-1000.html", "text": "gifts under Rs 1000" }
+  ],
+  "cakes.html": [
+    { "href": "blog-cake-delivery-faridabad.html", "text": "cake delivery in Faridabad" },
+    { "href": "blog-birthday-gifts-delhi.html", "text": "birthday gifts in Delhi" }
+  ],
+  "toys.html": [
+    { "href": "blog-birthday-gifts-delhi.html", "text": "birthday gifts for kids in Delhi" },
+    { "href": "blog-gifts-under-1000.html", "text": "affordable kids gift ideas" }
+  ],
+  "combo.html": [
+    { "href": "blog-best-online-gift-shop-india.html", "text": "best online gift shop in India" },
+    { "href": "blog-gifts-under-1000.html", "text": "gifts under Rs 1000" },
+    { "href": "blog-birthday-gifts-delhi.html", "text": "birthday gift combinations" }
+  ],
+  "special-offers.html": [
+    { "href": "blog-gifts-under-1000.html", "text": "24 affordable gift ideas" },
+    { "href": "blog-best-online-gift-shop-india.html", "text": "same-day delivery guide" }
+  ],
+  "birthday-gifts.html": [
+    { "href": "blog-birthday-gifts-delhi.html", "text": "15 best birthday gifts in Delhi" },
+    { "href": "blog-gifts-under-1000.html", "text": "birthday gifts under Rs 1000" }
+  ],
+  "anniversary-gifts.html": [
+    { "href": "blog-best-online-gift-shop-india.html", "text": "same-day anniversary delivery" },
+    { "href": "blog-gifts-under-1000.html", "text": "thoughtful gifts under Rs 1000" }
+  ],
+  "wedding-gifts.html": [
+    { "href": "blog-best-online-gift-shop-india.html", "text": "online wedding gift delivery" },
+    { "href": "blog-festival-gifts-nri.html", "text": "sending gifts to India from abroad" }
+  ],
+  "housewarming-gifts.html": [
+    { "href": "blog-best-online-gift-shop-india.html", "text": "online gift delivery guide" },
+    { "href": "blog-gifts-under-1000.html", "text": "housewarming gifts under Rs 1000" }
+  ],
+  "baby-shower-gifts.html": [
+    { "href": "blog-birthday-gifts-delhi.html", "text": "gift ideas for little ones" },
+    { "href": "blog-gifts-under-1000.html", "text": "baby shower gifts under Rs 1000" }
+  ],
+  "corporate-gifts.html": [
+    { "href": "blog-best-online-gift-shop-india.html", "text": "bulk online gift delivery" },
+    { "href": "blog-nri-gift-guide.html", "text": "sending gifts to India from abroad" }
+  ],
+  "congratulations-gifts.html": [
+    { "href": "blog-best-online-gift-shop-india.html", "text": "same-day congratulations delivery" },
+    { "href": "blog-gifts-under-1000.html", "text": "gifts under Rs 1000" }
+  ],
+  "thank-you-gifts.html": [
+    { "href": "blog-teachers-day-gifts.html", "text": "Teacher's Day gift ideas" },
+    { "href": "blog-gifts-under-1000.html", "text": "thank-you gifts under Rs 1000" }
+  ],
+  "engagement-gifts.html": [
+    { "href": "blog-best-online-gift-shop-india.html", "text": "online engagement gift delivery" },
+    { "href": "blog-gifts-under-1000.html", "text": "engagement gifts under Rs 1000" }
+  ],
+  "graduation-gifts.html": [
+    { "href": "blog-teachers-day-gifts.html", "text": "thoughtful note-and-gift ideas" },
+    { "href": "blog-gifts-under-1000.html", "text": "graduation gifts under Rs 1000" }
+  ],
+  "deepawali-gifts.html": [
+    { "href": "blog-diwali-gifts.html", "text": "12 thoughtful Diwali gift ideas" },
+    { "href": "blog-nri-gift-guide.html", "text": "sending Diwali gifts from abroad" },
+    { "href": "blog-festival-gifts-nri.html", "text": "festival gifts to India from abroad" }
+  ],
+  "karwa-chauth-gifts.html": [
+    { "href": "blog-karwa-chauth-gifts.html", "text": "12 Karwa Chauth gift ideas" },
+    { "href": "blog-festival-gifts-nri.html", "text": "festival gifts to India from abroad" }
+  ],
+  "occasion-gifts.html": [
+    { "href": "blog-best-online-gift-shop-india.html", "text": "best online gift shop in India" },
+    { "href": "blog-birthday-gifts-delhi.html", "text": "birthday gifts in Delhi" },
+    { "href": "blog-gifts-under-1000.html", "text": "gifts under Rs 1000" }
+  ],
+  "festival.html": [
+    { "href": "blog-festival-gifts-nri.html", "text": "festival gifts to India from abroad" },
+    { "href": "blog-diwali-gifts.html", "text": "Diwali gift ideas" },
+    { "href": "blog-rakhi-gifts-nri.html", "text": "sending Rakhi to India from abroad" }
+  ]
+}

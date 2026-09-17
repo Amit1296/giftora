@@ -17,6 +17,7 @@ const path = require("path");
 
 const ROOT = path.join(__dirname, "..");
 const DATA = path.join(__dirname, "guide-content.json");
+const BLOGS = path.join(__dirname, "blog-links.json");
 
 const esc = (s) =>
   String(s == null ? "" : s)
@@ -25,10 +26,18 @@ const esc = (s) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
-function guideBlock(page) {
+function guideBlock(page, blogs) {
   const paragraphs = page.paragraphs
     .map((p) => `\t\t\t\t<p>${esc(p)}</p>`)
     .join("\n");
+
+  const reading = (blogs || []).length
+    ? `\t\t\t<div class="city-copy">
+\t\t\t\t<p>Further reading: ${blogs
+        .map((l, i) => `${i ? ", " : ""}<a href="${esc(l.href)}">${esc(l.text)}</a>`)
+        .join("")}</p>
+\t\t\t</div>\n`
+    : "";
 
   const tips = page.tips
     .map((t) => `\t\t\t\t\t<li>${esc(t)}</li>`)
@@ -57,7 +66,7 @@ ${tips}
 			<div class="city-copy">
 				<p>Related: ${links}</p>
 			</div>
-		</div>
+${reading}		</div>
 	</section>
 	<!-- GUIDE-BLOCK-END -->`;
 }
@@ -76,11 +85,11 @@ ${items}
 \t\t\t\t<!-- GUIDE-FAQ-END -->`;
 }
 
-function inject(html, page) {
+function inject(html, page, blogs) {
   const changed = [];
 
   // 1. Guide block before the first FAQ section (fallback: before </main>)
-  const block = guideBlock(page);
+  const block = guideBlock(page, blogs);
   const blockRe = /<!-- GUIDE-BLOCK-START -->[\s\S]*?<!-- GUIDE-BLOCK-END -->/;
   const anchorRe = /<section class="faq"/;
   if (blockRe.test(html)) {
@@ -121,6 +130,7 @@ function inject(html, page) {
 
 function main() {
   const data = JSON.parse(fs.readFileSync(DATA, "utf8"));
+  const blogs = fs.existsSync(BLOGS) ? JSON.parse(fs.readFileSync(BLOGS, "utf8")) : {};
   const pages = Object.keys(data);
 
   let updated = 0;
@@ -132,7 +142,7 @@ function main() {
       continue;
     }
     const original = fs.readFileSync(full, "utf8");
-    const [next, changes] = inject(original, data[file]);
+    const [next, changes] = inject(original, data[file], blogs[file]);
     if (next !== original) {
       fs.writeFileSync(full, next, "utf8");
       updated++;
