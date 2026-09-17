@@ -28,6 +28,13 @@
     "slaText": "within 48–72 hours"
   },
   {
+    "city": "Bareilly",
+    "slug": "bareilly",
+    "start": "243001",
+    "end": "243407",
+    "slaText": "within 48–72 hours"
+  },
+  {
     "city": "Bengaluru",
     "slug": "bengaluru",
     "start": "560001",
@@ -354,6 +361,13 @@
     "slug": "salem",
     "start": "636001",
     "end": "636020",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Shahjahanpur",
+    "slug": "shahjahanpur",
+    "start": "242001",
+    "end": "242407",
     "slaText": "within 48–72 hours"
   },
   {

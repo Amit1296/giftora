@@ -27,6 +27,13 @@
      {"q":"Do you deliver during the Ambadevi temple festival days?","a":"Yes, though roads near Rajkamal Chowk get crowded — we recommend ordering a day ahead so your gift arrives well before the procession routes."},
      {"q":"Is same-week delivery available in Wadali and Kathora?","a":"Yes, both areas sit on our regular Amravati route and receive gifts within 48–72 hours."}]},
 
+{"slug":"bareilly","name":"Bareilly","state":"Uttar Pradesh","zone":"north","slaText":"within 48–72 hours",
+   "intro":"Known as \u201CNath Nagri\u201D for its four famous Shiva temples and the hub of zardozi embroidery, Bareilly blends a lively bazaar culture with a modern ring of colonies and campuses. We deliver from Civil Lines and Model Town across the old-city lanes of Qila and Chowk, up the Pilibhit Road stretch and around the Cantonment.",
+   "areas":["Civil Lines","Model Town","Qila","Chowk","Cantonment","Pilibhit Road","Sharda Nagar","Subhash Nagar","Prem Nagar","Delapeer","Badaun Road","Shahjahanpur Road"],
+   "faqs":[
+     {"q":"Can you deliver to the Bareilly Cantonment area?","a":"Yes — Cantonment and the Civil Lines belt are covered with a call-ahead confirmation at the gate or reception."},
+     {"q":"Do you deliver gifts on festival days in Bareilly?","a":"Yes — order a day ahead during Diwali, Raksha Bandhan and Navratri so our express network holds your slot for Bareilly delivery."}]},
+
   {"slug":"bengaluru","name":"Bengaluru","state":"Karnataka","zone":"south","slaText":"within 48–72 hours",
    "intro":"India’s garden city works hard and celebrates harder — midnight cake cuttings in Koramangala flats, Diwali hampers to Whitefield tech parks, roses for anniversaries along Indiranagar’s 100 Feet Road. Our courier network spans Bengaluru from Electronic City to Yelahanka.",
    "areas":["Koramangala","Indiranagar","Whitefield","Jayanagar","HSR Layout","Electronic City","Hebbal","Marathahalli","Malleshwaram","BTM Layout","Yelahanka"],
@@ -355,6 +362,13 @@
    "faqs":[
      {"q":"Do you offer mango-season gifting in Salem?","a":"Summer is Salem’s sweet spot — customers often pair our hampers with local mango boxes; ask us about combined delivery."},
      {"q":"Is Shevapet’s market area serviceable for deliveries?","a":"Yes — the wholesale lanes get bike-based drops with call-ahead coordination."}]},
+
+  {"slug":"shahjahanpur","name":"Shahjahanpur","state":"Uttar Pradesh","zone":"north","slaText":"within 48–72 hours",
+   "intro":"Named after Mughal prince Shah Jahan and set along the Ramganga’s banks, Shahjahanpur is a laid-back Rohilkhand city with leafy Civil Lines, the old Katra market and a growing student belt. We deliver cakes, flowers, rakhi and combos across Civil Lines to Station Road, the college area of Medical College Road and the Tilhar-Fatehganj stretch under our express network.",
+   "areas":["Civil Lines","Katra","Station Road","Medical College Road","Tilhar","Fatehganj","Jalilbagh","Sandila","Khalilabad","Pistangunj","Chauhan","Barah Gaon"],
+   "faqs":[
+     {"q":"Can you deliver to college hostels in Shahjahanpur?","a":"Yes — hostels on Medical College Road and nearby colleges accept orders via a call-ahead to the warden or front desk."},
+     {"q":"Do you deliver to seasonal bazaar events in Shahjahanpur?","a":"Yes — during melas and festive bazaars we add extra couriers, so keep an eye on the promised delivery window by phone."}]},
 
   {"slug":"shillong","name":"Shillong","state":"Meghalaya","zone":"northeast","slaText":"within 48–72 hours",
    "intro":"The Scotland of the East trades in pine air, rock concerts and cherry blossoms. We deliver cakes, flowers and cosy gift hampers up the winding roads from Police Bazar to Laitumkhrah and Laban.",
