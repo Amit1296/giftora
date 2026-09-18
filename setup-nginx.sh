@@ -50,7 +50,7 @@ echo "[5/5] Adding default server (raw IP -> app -> canonical redirect)..."
 ssh root@$VPS_IP "cat > /etc/nginx/sites-available/giftora-default << 'EOF'
 server {
     listen 80 default_server;
-    listen 443 ssl default_server;
+    listen 443 ssl http2 default_server;
     server_name _;
 
     ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
@@ -77,7 +77,18 @@ server {
     }
 }
 EOF"
-ssh root@$VPS_IP "ln -sf /etc/nginx/sites-available/giftora-default /etc/nginx/sites-enabled/giftora-default && nginx -t && systemctl reload nginx"
+ssh root@$VPS_IP "ln -sf /etc/nginx/sites-available/giftora-default /etc/nginx/sites-enabled/giftora-default"
+
+echo "[6/6] Performance tweaks: HTTP/2, gzip level 6, TCP Fast Open..."
+ssh root@$VPS_IP "sed -i 's/listen 443 ssl;/listen 443 ssl http2;/' /etc/nginx/sites-available/giftora"
+ssh root@$VPS_IP "cat > /etc/nginx/conf.d/gzip.conf << 'EOF'
+gzip_comp_level 6;
+gzip_vary on;
+gzip_min_length 512;
+gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss image/svg+xml;
+EOF"
+ssh root@$VPS_IP "sysctl -w net.ipv4.tcp_fastopen=3 && echo 'net.ipv4.tcp_fastopen = 3' > /etc/sysctl.d/99-tcp-fastopen.conf"
+ssh root@$VPS_IP "nginx -t && systemctl reload nginx"
 
 ssh root@$VPS_IP "ufw allow 22/tcp && ufw allow 80/tcp && ufw allow 443/tcp && ufw --force enable"
 
