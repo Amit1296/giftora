@@ -1553,7 +1553,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label>Image URL</label>
-                <input type="text" data-field="image" value="${bannerFieldHtml(b, "image")}" placeholder="/uploads/teacher-books.jpg">
+                <input type="text" data-field="image" value="${bannerFieldHtml(b, "image")}" placeholder="/uploads/teacher-books.webp">
               </div>
               <div class="form-group">
                 <label>Image alt text</label>
