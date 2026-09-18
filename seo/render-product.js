@@ -1,4 +1,4 @@
-const fs = require("fs");
+﻿const fs = require("fs");
 const path = require("path");
 const apply = require("./apply-seo");
 
@@ -623,7 +623,7 @@ ${meta.block}
 \t<link rel="icon" href="../logo.svg">
 \t<title>${meta.title.replace(/&/g, "&amp;")}</title>
 \t${FONT_LINK}
-\t<link rel="stylesheet" href="../css/style.min.css?v=4">
+\t<link rel="stylesheet" href="../css/style.min.css?v=15">
 <!-- SEO-JSONLD-START -->
 <script type="application/ld+json">
 ${jsonLd}
