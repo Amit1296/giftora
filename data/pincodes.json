@@ -460,5 +460,131 @@
     "start": "506001",
     "end": "506015",
     "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Amritsar",
+    "slug": "amritsar",
+    "start": "143001",
+    "end": "143010",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Jodhpur",
+    "slug": "jodhpur",
+    "start": "342001",
+    "end": "342012",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Udaipur",
+    "slug": "udaipur",
+    "start": "313001",
+    "end": "313012",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Aurangabad",
+    "slug": "aurangabad",
+    "start": "431001",
+    "end": "431012",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Prayagraj",
+    "slug": "prayagraj",
+    "start": "211001",
+    "end": "211012",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Mangaluru",
+    "slug": "mangaluru",
+    "start": "575001",
+    "end": "575012",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Puducherry",
+    "slug": "puducherry",
+    "start": "605001",
+    "end": "605013",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Kollam",
+    "slug": "kollam",
+    "start": "691001",
+    "end": "691013",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Ajmer",
+    "slug": "ajmer",
+    "start": "305001",
+    "end": "305004",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Bhilai",
+    "slug": "bhilai",
+    "start": "490006",
+    "end": "490023",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Bikaner",
+    "slug": "bikaner",
+    "start": "334001",
+    "end": "334004",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Gorakhpur",
+    "slug": "gorakhpur",
+    "start": "273001",
+    "end": "273013",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Jalandhar",
+    "slug": "jalandhar",
+    "start": "144001",
+    "end": "144004",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Jhansi",
+    "slug": "jhansi",
+    "start": "284001",
+    "end": "284003",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Kota",
+    "slug": "kota",
+    "start": "324001",
+    "end": "324007",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Panipat",
+    "slug": "panipat",
+    "start": "132103",
+    "end": "132113",
+    "slaText": "within 24–48 hours"
+  },
+  {
+    "city": "Solapur",
+    "slug": "solapur",
+    "start": "413001",
+    "end": "413007",
+    "slaText": "within 48–72 hours"
+  },
+  {
+    "city": "Vellore",
+    "slug": "vellore",
+    "start": "632001",
+    "end": "632014",
+    "slaText": "within 48–72 hours"
   }
 ]

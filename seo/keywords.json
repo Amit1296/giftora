@@ -463,6 +463,78 @@
     }
   },
   "sitemapOnly": {
+    "gift-delivery-vellore.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-solapur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-panipat.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-kota.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-jhansi.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-jalandhar.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-gorakhpur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-bikaner.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-bhilai.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-ajmer.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-kollam.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-puducherry.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-mangaluru.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-prayagraj.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-aurangabad.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-udaipur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-jodhpur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-amritsar.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
     "gift-delivery-india.html": {
       "priority": "0.9",
       "changefreq": "weekly"

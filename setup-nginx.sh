@@ -46,6 +46,39 @@ ssh root@$VPS_IP "ln -sf /etc/nginx/sites-available/giftora /etc/nginx/sites-ena
 echo "[4/4] Getting SSL certificate..."
 ssh root@$VPS_IP "certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos --email admin@$DOMAIN"
 
+echo "[5/5] Adding default server (raw IP -> app -> canonical redirect)..."
+ssh root@$VPS_IP "cat > /etc/nginx/sites-available/giftora-default << 'EOF'
+server {
+    listen 80 default_server;
+    listen 443 ssl default_server;
+    server_name _;
+
+    ssl_certificate /etc/letsencrypt/live/$DOMAIN/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/$DOMAIN/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    location ~* \.(png|jpg|jpeg|gif|webp|svg|ico|woff|woff2)$ {
+        proxy_pass http://127.0.0.1:8080;
+        expires 1d;
+        add_header Cache-Control 'public, immutable';
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+    }
+}
+EOF"
+ssh root@$VPS_IP "ln -sf /etc/nginx/sites-available/giftora-default /etc/nginx/sites-enabled/giftora-default && nginx -t && systemctl reload nginx"
+
 ssh root@$VPS_IP "ufw allow 22/tcp && ufw allow 80/tcp && ufw allow 443/tcp && ufw --force enable"
 
 echo ""
