@@ -474,7 +474,7 @@ function relatedCards(product, products) {
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
           ${badge ? `<span class="product-badge${badge === "Premium" ? " premium" : ""}">${badge}</span>` : ""}
           <button class="wish-heart" data-wish="${p.id}" aria-label="Add ${esc(p.name)} to wishlist">â™¡</button>
-          <a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "ðŸŽ"}</span></a>
+          <a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>
         </div>
         <div class="product-info">
           <span class="product-category">${(CATEGORY_META[p.category] || {}).name || p.category}</span>
@@ -518,7 +518,7 @@ function productBody(product, slug, catMeta, site, products, faqs) {
     : "";
   const media = product.image
     ? `<img class="product-detail-img" src="${product.image}"${dimAttr(product.image)} alt="${esc(product.name)}">`
-    : `<span class="product-detail-emoji">${product.emoji || "ðŸŽ"}</span>`;
+    : `<span class="product-detail-emoji">${product.emoji || "🎁"}</span>`;
 
   const stock = typeof product.stock === "number" && product.stock >= 0 ? product.stock : Infinity;
   const oos = stock <= 0;
@@ -567,8 +567,8 @@ function productBody(product, slug, catMeta, site, products, faqs) {
           ${addBtn}
         </div>
         <div class="product-perks">
-          <span>ðŸšš Same-day delivery</span>
-          <span>ðŸŽ Free gift wrapping</span>
+          <span>🚚 Same-day delivery</span>
+          <span>🎁 Free gift wrapping</span>
         </div>
       </div>
     </div>
@@ -607,10 +607,10 @@ function productBody(product, slug, catMeta, site, products, faqs) {
         <input type="text" id="rvName" placeholder="Your name" maxlength="40" required>
         <label for="rvRating" style="font-size:0.85rem;color:var(--text-muted);">Your rating</label>
         <select id="rvRating" required>
-          <option value="5">â˜…â˜…â˜…â˜…â˜… â€” Excellent</option>
-          <option value="4">â˜…â˜…â˜…â˜… â€” Good</option>
-          <option value="3">â˜…â˜…â˜… â€” Average</option>
-          <option value="2">â˜…â˜… â€” Poor</option>
+          <option value="5">★★★★★ â€” Excellent</option>
+          <option value="4">★★★★ â€” Good</option>
+          <option value="3">★★★ â€” Average</option>
+          <option value="2">★★ â€” Poor</option>
           <option value="1">â˜… â€” Terrible</option>
         </select>
         <textarea id="rvText" placeholder="Share your experience..." rows="4" maxlength="400" required></textarea>
