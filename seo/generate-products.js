@@ -1,5 +1,5 @@
-﻿/**
- * generate-products.js â€” Generates a dedicated, SEO-optimized HTML page for
+/**
+ * generate-products.js — Generates a dedicated, SEO-optimized HTML page for
  * every product in js/products.js into products/<slug>.html.
  *
  * Each page includes: unique title/description/keywords, canonical + Open
@@ -189,7 +189,7 @@ function esc(s) {
 }
 
 function fmtPrice(n) {
-  return "â‚¹" + Number(n).toLocaleString("en-IN");
+  return "₹" + Number(n).toLocaleString("en-IN");
 }
 
 function hasSizePrices(p) {
@@ -208,7 +208,7 @@ function basePriceOf(p, size) {
 }
 
 function fit(s, max) {
-  return s.length <= max ? s : s.slice(0, max - 1).trimEnd() + "â€¦";
+  return s.length <= max ? s : s.slice(0, max - 1).trimEnd() + "…";
 }
 
 function fixPaths(html) {
@@ -259,7 +259,7 @@ function extractChrome() {
 
 function buildMeta(product, slug, catMeta, site, description) {
   const url = `${site.url}/products/${slug}.html`;
-  const title = fit(`${product.name} â€” Buy Online at Giftora`, 60);
+  const title = fit(`${product.name} — Buy Online at Giftora`, 60);
   const custom = PRODUCT_KEYWORDS[product.id];
   const keywords = custom && custom.length
     ? custom
@@ -320,7 +320,7 @@ function faqEntries(product) {
     },
     flowers: {
       q: `Will the flowers in ${product.name} stay fresh?`,
-      a: `Yes â€” Giftora's ${product.name} is arranged with freshly sourced flowers shortly before delivery, and ships with easy care instructions.`,
+      a: `Yes — Giftora's ${product.name} is arranged with freshly sourced flowers shortly before delivery, and ships with easy care instructions.`,
     },
     plants: {
       q: `How should I care for ${product.name}?`,
@@ -328,18 +328,18 @@ function faqEntries(product) {
     },
     teddy: {
       q: `Is ${product.name} good as a gift?`,
-      a: `Definitely â€” ${product.name} makes a heartfelt gift for birthdays, anniversaries, Valentine's Day, and everyday surprises.`,
+      a: `Definitely — ${product.name} makes a heartfelt gift for birthdays, anniversaries, Valentine's Day, and everyday surprises.`,
     },
   }[product.category];
   if (catFaq) extra.push(catFaq);
   extra.push({
     q: `What occasions suit ${product.name}?`,
-    a: `${product.name} is a beautiful pick for birthdays, anniversaries, festivals, and corporate gifting â€” delivered across India with free gift wrapping and a personalised note.`,
+    a: `${product.name} is a beautiful pick for birthdays, anniversaries, festivals, and corporate gifting — delivered across India with free gift wrapping and a personalised note.`,
   });
   return [
     {
       q: `Is same-day delivery available for ${product.name}?`,
-      a: `Yes â€” Giftora offers same-day delivery across the city on all orders, including ${product.name}. Place your order before the daily cut-off and we deliver it the very same day.`,
+      a: `Yes — Giftora offers same-day delivery across the city on all orders, including ${product.name}. Place your order before the daily cut-off and we deliver it the very same day.`,
     },
     {
       q: `Can I get ${product.name} gift-wrapped?`,
@@ -364,7 +364,7 @@ function ratingFor(id) {
 function ratingRow(p, page) {
   const r = ratingFor(p.id);
   const stars = [1, 2, 3, 4, 5].map((i) =>
-    i <= Math.round(r.rating) ? '<span class="star">â˜…</span>' : '<span class="star star-off">â˜…</span>'
+    i <= Math.round(r.rating) ? '<span class="star">★</span>' : '<span class="star star-off">★</span>'
   ).join("");
   const href = page ? `href="#reviews"` : `href="${slugify(p.name)}.html#reviews"`;
   return `<div class="product-rating"><span class="stars">${stars}</span><span class="rating-num">${r.rating}</span><a class="rating-count" ${href}>(<span>${r.count}</span> reviews)</a></div>`;
@@ -473,7 +473,7 @@ function relatedCards(product, products) {
       <article class="product-card reveal">
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
           ${badge ? `<span class="product-badge${badge === "Premium" ? " premium" : ""}">${badge}</span>` : ""}
-          <button class="wish-heart" data-wish="${p.id}" aria-label="Add ${esc(p.name)} to wishlist">â™¡</button>
+          <button class="wish-heart" data-wish="${p.id}" aria-label="Add ${esc(p.name)} to wishlist">♡</button>
           <a class="product-card-link" href="${slug}.html" aria-label="View ${esc(p.name)}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>
         </div>
         <div class="product-info">
@@ -560,7 +560,7 @@ function productBody(product, slug, catMeta, site, products, faqs) {
         ${sizeSelector}
         <div class="product-detail-actions">
           <div class="qty-selector" data-id="${product.id}">
-            <button type="button" data-action="dec" aria-label="Decrease quantity">âˆ’</button>
+            <button type="button" data-action="dec" aria-label="Decrease quantity">−</button>
             <span>1</span>
             <button type="button" data-action="inc" aria-label="Increase quantity">+</button>
           </div>
@@ -607,11 +607,11 @@ function productBody(product, slug, catMeta, site, products, faqs) {
         <input type="text" id="rvName" placeholder="Your name" maxlength="40" required>
         <label for="rvRating" style="font-size:0.85rem;color:var(--text-muted);">Your rating</label>
         <select id="rvRating" required>
-          <option value="5">★★★★★ â€” Excellent</option>
-          <option value="4">★★★★ â€” Good</option>
-          <option value="3">★★★ â€” Average</option>
-          <option value="2">★★ â€” Poor</option>
-          <option value="1">â˜… â€” Terrible</option>
+          <option value="5">★★★★★ — Excellent</option>
+          <option value="4">★★★★ — Good</option>
+          <option value="3">★★★ — Average</option>
+          <option value="2">★★ — Poor</option>
+          <option value="1">★ — Terrible</option>
         </select>
         <textarea id="rvText" placeholder="Share your experience..." rows="4" maxlength="400" required></textarea>
         <button class="btn btn-primary" type="submit">Submit review</button>
@@ -673,7 +673,7 @@ function pageScript(product) {
           size = b.dataset.size;
           if (priceEl) {
             var sp = sizePrices[size] != null ? Number(sizePrices[size]) : basePrice;
-            priceEl.textContent = "â‚¹" + sp.toLocaleString("en-IN");
+            priceEl.textContent = "₹" + sp.toLocaleString("en-IN");
           }
           if (oldEl) {
             var onBase = !(sizePrices[size] != null);
