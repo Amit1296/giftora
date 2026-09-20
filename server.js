@@ -664,7 +664,7 @@ async function handleRequest(req, res) {
           available: true,
           city: match.city,
           slug: match.slug,
-          slaText: match.slaText || "within 24-48 hours",
+          slaText: match.slaText || "within 48 hours",
           message: match.slaText
             ? `We deliver to ${match.city} — your gift arrives ${match.slaText}.`
             : `Great news — we deliver to ${match.city}!`,

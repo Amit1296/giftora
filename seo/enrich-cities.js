@@ -70,7 +70,7 @@ function cityBlock(city, products) {
   const slaLine =
     city.zone === "ncr"
       ? `Same-day hand delivery is available across ${esc(city.name)} — orders placed today reach your loved one today, with a personalised note included.`
-      : `${esc(city.name)} falls under our express delivery network — most orders reach ${esc(city.name)} within ${esc(city.slaText || "24–48 hours")} of checkout, carefully packed and tracked end to end.`;
+      : `${esc(city.name)} falls under our express delivery network — most orders reach ${esc(city.name)} within ${esc(city.slaText || "48 hours")} of checkout, carefully packed and tracked end to end.`;
 
   const stateLabel = city.state && city.state !== city.name ? `, <span class="text-gradient">${esc(city.state)}</span>` : "";
 

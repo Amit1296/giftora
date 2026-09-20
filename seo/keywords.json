@@ -463,6 +463,66 @@
     }
   },
   "sitemapOnly": {
+    "gift-delivery-berhampur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-rourkela.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-asansol.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-durgapur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-jamnagar.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-belagavi.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-thanjavur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-erode.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-tiruppur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-tirunelveli.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-nellore.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-rajahmundry.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-guntur.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-thane.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-vadodara.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
     "gift-delivery-vellore.html": {
       "priority": "0.8",
       "changefreq": "weekly"

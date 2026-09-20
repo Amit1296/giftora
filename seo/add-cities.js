@@ -30,7 +30,7 @@ const TODAY = new Date().toISOString().slice(0, 10);
 const CITIES = [
   {
     slug: 'amritsar', name: 'Amritsar', state: 'Punjab', zone: 'north',
-    slaText: 'within 24–48 hours', emoji: '🛕', pincodes: ['143001', '143010'],
+    slaText: 'within 48 hours', emoji: '🛕', pincodes: ['143001', '143010'],
     intro: 'The spiritual capital of the Sikh faith revolves around the Golden Temple and its langar, ringed by the bazaars of Hall Bazaar and the colonial-era Ram Bagh gardens. From gratitude gifts to birthday cakes in Ranjit Avenue, our delivery partners cover the walled city and Amritsar\'s fast-growing suburbs.',
     areas: ['Golden Temple area', 'Hall Bazaar', 'Katra Jaimal Singh', 'Lawrence Road', 'Ranjit Avenue', 'Model Town', 'Majitha Road', 'Chheharta', 'Court Road', 'Jahazgarh', 'Sultanwind', 'Batala Road'],
     faqs: [
@@ -40,7 +40,7 @@ const CITIES = [
   },
   {
     slug: 'jodhpur', name: 'Jodhpur', state: 'Rajasthan', zone: 'north',
-    slaText: 'within 24–48 hours', emoji: '🏰', pincodes: ['342001', '342012'],
+    slaText: 'within 48 hours', emoji: '🏰', pincodes: ['342001', '342012'],
     intro: 'Beneath the ramparts of Mehrangarh, the Blue City\'s indigo lanes give way to the markets of Sardar and Clock Tower and the modern colonies of Ratanada and Shastri Nagar. Whether it\'s a wedding-season hamper or a cake for a Paota birthday, we deliver across Jodhpur\'s old and new quarters.',
     areas: ['Ratanada', 'Sardarpura', 'Shastri Nagar', 'Paota', 'Mandore', 'Basni', 'Bhagat Ki Kothi', 'Chopasni Housing Board', 'Rajeev Gandhi Nagar', 'Mahamandir', 'Banar', 'Pal Road'],
     faqs: [
@@ -50,12 +50,12 @@ const CITIES = [
   },
   {
     slug: 'udaipur', name: 'Udaipur', state: 'Rajasthan', zone: 'north',
-    slaText: 'within 24–48 hours', emoji: '🛶', pincodes: ['313001', '313012'],
+    slaText: 'within 48 hours', emoji: '🛶', pincodes: ['313001', '313012'],
     intro: 'The City of Lakes turns every celebration into a scene — Lake Pichola glittering below the City Palace, courtyards lit for destination weddings, and Hiran Magri\'s quiet residential blocks. Our riders cover Udaipur from the old ghats to the Sukher and Bhuwana outskirts.',
     areas: ['Fateh Sagar', 'Hiran Magri', 'Bhuwana', 'Ambamata', 'Sector 4', 'Sector 14', 'Sukher', 'Bedla Road', 'Saheliyon Ki Bari', 'Bhupalpura', 'Madhuban', 'Rajsamand Road'],
     faqs: [
       { q: 'Can you deliver to wedding venues and lakeside hotels in Udaipur?', a: 'Yes — destination-wedding deliveries are a speciality; share the property name and event slot and we coordinate with the front desk.' },
-      { q: 'How fast is delivery to Hiran Magri?', a: 'Hiran Magri and central Udaipur usually complete within 24–48 hours on our northern express line.' }
+      { q: 'How fast is delivery to Hiran Magri?', a: 'Hiran Magri and central Udaipur usually complete within 48 hours on our northern express line.' }
     ]
   },
   {
@@ -110,12 +110,12 @@ const CITIES = [
   },
   {
     slug: 'ajmer', name: 'Ajmer', state: 'Rajasthan', zone: 'north',
-    slaText: 'within 24–48 hours', emoji: '🕌', pincodes: ['305001', '305004'],
+    slaText: 'within 48 hours', emoji: '🕌', pincodes: ['305001', '305004'],
     intro: 'A pilgrim city that circles the dargah of Khwaja Moinuddin Chishti, Ajmer pairs centuries-old shrine lanes with the lakeside calm of Anasagar and leafy new colonies like Vaishali Nagar. From flower trays near the dargah to birthday cakes on the Beawar Road stretch, our delivery partners cover Ajmer\'s old and new quarters.',
     areas: ['Dargah Bazaar', 'Naya Bazaar', 'Madar Gate', 'Anasagar', 'Vaishali Nagar', 'Panchsheel', 'Shastri Nagar', 'Chand Vardai Marg', 'Kaiser Ganj', 'Civil Lines', 'Beawar Road', 'Kekri Road'],
     faqs: [
       { q: 'Can you deliver gifts for pilgrims near the dargah and guest houses?', a: 'Yes — we coordinate dargah-area deliveries with call-ahead timing so your flowers or hamper arrive at the guest house exactly when your loved one is there.' },
-      { q: 'Do you cover Vaishali Nagar and the new colonies of Ajmer?', a: 'Yes — Vaishali Nagar, Panchsheel and the newer residential belts follow the same 24–48 hour express schedule as central Ajmer.' }
+      { q: 'Do you cover Vaishali Nagar and the new colonies of Ajmer?', a: 'Yes — Vaishali Nagar, Panchsheel and the newer residential belts follow the same 48 hour express schedule as central Ajmer.' }
     ]
   },
   {
@@ -130,12 +130,12 @@ const CITIES = [
   },
   {
     slug: 'bikaner', name: 'Bikaner', state: 'Rajasthan', zone: 'north',
-    slaText: 'within 24–48 hours', emoji: '🐫', pincodes: ['334001', '334004'],
+    slaText: 'within 48 hours', emoji: '🐫', pincodes: ['334001', '334004'],
     intro: 'A desert city of ochre forts and palaces, Bikaner hums around the kachori lanes of Kote Gate and the sandstone courtyards of Junagarh Fort. From camel-fair family gatherings to birthdays on the hospital road strip, we deliver gifts across the walled city and its newer colonies.',
     areas: ['Kote Gate', 'Junagarh Fort area', 'Bada Bazaar', 'Rani Bazaar', 'Ganga Shahar', 'Pushkarna Bazaar', 'Shivbari', 'Lalgarh', 'Hospital Road', 'Jaipur Road', 'Nathusar Gate', 'Karni Nagar'],
     faqs: [
       { q: 'Can you deliver during the Bikaner Camel Fair?', a: 'Yes — order ahead during the fair and we slot deliveries around the parade grounds and the busy Ganga Shahar stretch.' },
-      { q: 'Do you cover the newer colonies like Karni Nagar and Hospital Road?', a: 'Yes — Karni Nagar, Hospital Road and the other new sectors follow the regular Bikaner route within 24–48 hours.' }
+      { q: 'Do you cover the newer colonies like Karni Nagar and Hospital Road?', a: 'Yes — Karni Nagar, Hospital Road and the other new sectors follow the regular Bikaner route within 48 hours.' }
     ]
   },
   {
@@ -150,7 +150,7 @@ const CITIES = [
   },
   {
     slug: 'jalandhar', name: 'Jalandhar', state: 'Punjab', zone: 'north',
-    slaText: 'within 24–48 hours', emoji: '🚂', pincodes: ['144001', '144004'],
+    slaText: 'within 48 hours', emoji: '🚂', pincodes: ['144001', '144004'],
     intro: 'A thriving Punjab city between the Sutlej and Beas, Jalandhar is known for its sports-goods industry, lively bazaars and the golden Gurudwara Chhevin Patshahi. Our riders cover everything from Model Town\'s shopping lanes to the leafy cantonment and the PAP lines beyond.',
     areas: ['Model Town', 'Adarsh Nagar', 'Gurdev Nagar', 'Lajpat Nagar', 'Basti Nau', 'Jalandhar Cantonment', 'Civil Lines', 'Raman Road', 'Ram Nagar', 'Sports Colony', 'Mithapur Road', 'PAP Lines'],
     faqs: [
@@ -180,12 +180,12 @@ const CITIES = [
   },
   {
     slug: 'panipat', name: 'Panipat', state: 'Haryana', zone: 'north',
-    slaText: 'within 24–48 hours', emoji: '🌾', pincodes: ['132103', '132113'],
+    slaText: 'within 48 hours', emoji: '🌾', pincodes: ['132103', '132113'],
     intro: 'A textile and grain city in Haryana\'s heartland, Panipat is where historic battlefields meet a bustling economy of looms and refineries. We deliver celebration gifts across the city — from the busy G.T. Road markets to the residential belts of Model Town and Swarn Jayanti Nagar.',
     areas: ['Model Town', 'Swarn Jayanti Nagar', 'Chanderpura', 'Sanoli Road', 'G.T. Road market', 'Bishan Swaroop Colony', 'New Anaj Mandi', 'Madina Colony', 'Sector 12', 'Sector 13-17', 'Jhansa Road', 'Kavi Nagar'],
     faqs: [
       { q: 'Can you deliver to hostels and coaching centres in Panipat?', a: 'Yes — the growing coaching and hostel belt near Jhansa Road and Swarn Jayanti is covered with receiver call-ahead.' },
-      { q: 'Do you cover both old Panipat and the new sectors?', a: 'Yes — old-market addresses and the new Sectors 12–17 follow one schedule within 24–48 hours.' }
+      { q: 'Do you cover both old Panipat and the new sectors?', a: 'Yes — old-market addresses and the new Sectors 12–17 follow one schedule within 48 hours.' }
     ]
   },
   {
@@ -206,6 +206,156 @@ const CITIES = [
     faqs: [
       { q: 'Can you deliver to patients and visitors near CMC Hospital?', a: 'Yes — deliveries in the CMC belt are coordinated by phone at reception or the ward entrance where permitted.' },
       { q: 'Do you cover Katpadi and the college areas of Vellore?', a: 'Yes — Katpadi, Sathuvachari and the college zones are on our regular route within 48–72 hours.' }
+    ]
+  },
+  {
+    slug: 'vadodara', name: 'Vadodara', state: 'Gujarat', zone: 'west',
+    slaText: 'within 48 hours', emoji: '🎭', pincodes: ['390001', '390023'],
+    intro: 'The city of the Gaekwads, Vadodara brings together the grandeur of Laxmi Vilas Palace, the peace of Sayaji Baug and some of the country\u2019s liveliest Navratri nights. Whether it\u2019s a custom cake for a birthday in Alkapuri or a festive hamper for a family in Fatehgunj, our delivery partners cover the city from the old market belts to the expanding New VIP Road side.',
+    areas: ['Alkapuri', 'Sayajigunj', 'Fatehgunj', 'Gotri', 'Karelibaug', 'Akota', 'Manjalpur', 'New VIP Road', 'Waghodia Road', 'Sama', 'Makarpura', 'Sardar Estate'],
+    faqs: [
+      { q: 'Can you deliver to garba venues and Navratri celebrations in Vadodara?', a: 'Yes — Navratri is Vadodara\u2019s biggest week; order ahead and we coordinate delivery to garba venues and residential surprise slots with call-ahead timing.' },
+      { q: 'Is the Makarpura industrial side covered for delivery?', a: 'Yes — Makarpura and the Waghodia Road belt follow the same schedule with working-hour gate handovers; mention the unit name at checkout.' }
+    ]
+  },
+  {
+    slug: 'thane', name: 'Thane', state: 'Maharashtra', zone: 'west',
+    slaText: 'within 48 hours', emoji: '🏙️', pincodes: ['400601', '400615'],
+    intro: 'Thane\u2019s lake city charm — Upvan Lake, the Talao ghats and the historic Kopineshwar temple — sits beside some of Mumbai\u2019s busiest commuter corridors. We deliver cakes, flowers and gift combos across Ghodbunder Road\u2019s new towers, the classic Naupada–Thane West localities and the Kasarvadavali phases beyond Manpada.',
+    areas: ['Ghodbunder Road', 'Naupada', 'Thane West', 'Kasarvadavali', 'Manpada', 'Majiwada', 'Vasant Vihar', 'Kopri', 'Thane East', 'Wagle Estate', 'Balkum', 'Charai'],
+    faqs: [
+      { q: 'Can you deliver to offices in Wagle Estate and the IT belt?', a: 'Yes — reception handovers across Wagle Estate and the Kasarvadavali office parks are routine during working hours.' },
+      { q: 'Do you manage society gate protocols in Thane?', a: 'Yes — share your society and tower name and our riders complete visitor registration before the final approach.' }
+    ]
+  },
+  {
+    slug: 'guntur', name: 'Guntur', state: 'Andhra Pradesh', zone: 'south',
+    slaText: 'within 48 hours', emoji: '🌶️', pincodes: ['522001', '522034'],
+    intro: 'Guntur, the chilli-and-tobacco heart of Andhra, is equally loved for its fiery cuisine and the temple towns that ring the Krishna. Celebrations here mean pulihora trays as much as cakes, and we deliver both styles of joy from Arundelpet\u2019s trade lanes to the residential belts of Nallapadu and Gorantla.',
+    areas: ['Arundelpet', 'Brodipet', 'Kothapet', 'Nallapadu', 'Gorantla', 'Old Guntur City', 'Chandramouli Nagar', 'Pattabhipuram', 'Vijay Nagar', 'Brindavan Gardens', 'Sangadigunta', 'Auto Nagar'],
+    faqs: [
+      { q: 'Do you deliver to college hostels near the university belt?', a: 'Yes — hostels and campuses across the Nallapadu and university-side areas receive coordinated gate handovers by phone.' },
+      { q: 'How is delivery during Sankranti in Guntur?', a: 'Sankranti is peak season here; order two days ahead and we slot deliveries around the kite-flying mornings and family functions.' }
+    ]
+  },
+  {
+    slug: 'rajahmundry', name: 'Rajahmundry', state: 'Andhra Pradesh', zone: 'south',
+    slaText: 'within 48 hours', emoji: '🚣', pincodes: ['533101', '533125'],
+    intro: 'Bisected by the mighty Godavari, Rajahmundry blends heritage ghats and riverside temples with a strong educational and cotton-industry energy. From grand family functions to birthday cakes beside the river, we deliver across the Fort–GSM side, Syamala Nagar and the islands across the bridge.',
+    areas: ['Fort Gate', 'Gandhi Nagar', 'Syamala Nagar', 'Suryaraopeta', 'Patamatalanka', 'Danavaipeta', 'Katheru', 'Kadiyam', 'Korukonda Road', 'Aryapuram', 'Devagiri Nagar', 'Rallabandi'],
+    faqs: [
+      { q: 'Can you deliver to the islands and the far bank across the Godavari?', a: 'Yes — island and across-bridge deliveries ride the same Rajahmundry route with a short bridge-transit buffer; confirm the address on WhatsApp.' },
+      { q: 'Do you cover the college belt on Korukonda Road?', a: 'Yes — hostels and campuses on Korukonda Road and the Katheru side receive standard coordinated handovers.' }
+    ]
+  },
+  {
+    slug: 'nellore', name: 'Nellore', state: 'Andhra Pradesh', zone: 'south',
+    slaText: 'within 48 hours', emoji: '🦐', pincodes: ['524001', '524004'],
+    intro: 'A temple town of southern Andhra Pradesh, Nellore is gently fed by the Pennar and famous for its freshwater prawns and the tall gopuram of Ranganatha Swamy. From busy A.K. Nagar and the railway-side bustle to the growing Magunta Layout and Sriharikota Road stretches, we deliver cakes, flowers and festive hampers across the city.',
+    areas: ['A.K. Nagar', 'Magunta Layout', 'Sriharikota Road', 'Venkatachalam Road', 'Santhapet', 'B.C. Kothur', 'Vedayapalem', 'Muthukur Road', 'Baby Bazar', 'Nethaji Nagar', 'Gandhi Nagar', 'Nellore City'],
+    faqs: [
+      { q: 'Can you deliver near the Sri Ranganathaswamy temple?', a: 'Yes — temple-area and ghat-side deliveries are arranged with call-ahead timing around darshan and event hours.' },
+      { q: 'Is the railway-side and Vedayapalem area covered?', a: 'Yes — Vedayapalem and the railway belt follow the standard Nellore route within our express window.' }
+    ]
+  },
+  {
+    slug: 'tirunelveli', name: 'Tirunelveli', state: 'Tamil Nadu', zone: 'south',
+    slaText: 'within 48 hours', emoji: '🍬', pincodes: ['627001', '627012'],
+    intro: 'On the banks of the Tamirabarani, Tirunelveli is best known for the towering Nellaiappar temple and the halwa that fills its shops and festivals. We deliver sweet hampers, flowers and celebration cakes from the junction and Junction Road bustle to the residential belts of Melapalayam, Pettai and Palayamkottai.',
+    areas: ['Junction Road', 'Nellaiappar Temple area', 'Melapalayam', 'Pettai', 'Palayamkottai', 'Thatchanallur', 'Kokirakulam', 'Vannarpettai', 'Punnainallur', 'Thiruvananthapuram Road', 'Tirunelveli Town', 'Sankaranpillai'],
+    faqs: [
+      { q: 'Can I send local Tirunelveli halwa along with my gift?', a: 'Many customers do — buy halwa from the old-town shops and we collect-and-deliver it alongside your Giftora hamper; arrange via WhatsApp.' },
+      { q: 'Do you cover college hostels on the Palayamkottai side?', a: 'Yes — hostel and campus handovers across Palayamkottai are coordinated with the receiver by phone.' }
+    ]
+  },
+  {
+    slug: 'tiruppur', name: 'Tiruppur', state: 'Tamil Nadu', zone: 'south',
+    slaText: 'within 48 hours', emoji: '👕', pincodes: ['641601', '641613'],
+    intro: 'The knitwear capital of India, Tiruppur stitches garments for the world and runs on round-the-clock mill schedules and export deadlines. Festive and family gifting here is equally fast — we deliver birthday cakes, flowers and Pongal-ready hampers across the Avinashi Road corridor, the mill-worker colonies and the expanding Palladam and Annur sides.',
+    areas: ['Avinashi Road', 'Kumaran Nagar', 'Veerapandi', 'Annur Road', 'Palladam Road', 'Mangalam Road', 'Nanjarayanpet', 'S.S. Layout', 'Ramanathapuram', 'Mudalipalayam', 'Orchards', 'Sozhamangalam'],
+    faqs: [
+      { q: 'Can you handle factory-gate and mill-timing deliveries?', a: 'Yes — mention the unit name and shift timing at checkout, and we deliver with working-hour gate handovers across the knitting belt.' },
+      { q: 'Is delivery available during Pongal week in Tiruppur?', a: 'Yes — Pongal is peak season here; order two days ahead to lock an evening slot across the city.' }
+    ]
+  },
+  {
+    slug: 'erode', name: 'Erode', state: 'Tamil Nadu', zone: 'south',
+    slaText: 'within 48 hours', emoji: '🌾', pincodes: ['638001', '638012'],
+    intro: 'Erode, the turmeric capital that also weaves fine handloom, sits where the Bhavani joins the Kaveri — a junction of rivers, forests and a famously disciplined market town. We deliver puja-friendly hampers, plants and celebration cakes from the old Brough Road belt to the residential stretches of Veerappanchatram and Perundurai Road.',
+    areas: ['Brough Road', 'Veerappanchatram', 'Perundurai Road', 'Villarasampatti', 'Erode Fort area', 'Sathy Road', 'Kolinjimavu', 'Chittode Road', 'Chennimalai Road', 'Muthaliyar Chattram', 'E.V.N. Road', 'Lakshminagar'],
+    faqs: [
+      { q: 'Can you deliver near the Bhavani and Perundurai side?', a: 'Yes — the Bhavani junction and Perundurai Road belts are standard stops on our Erode route.' },
+      { q: 'Do you offer bulk turmeric-industry gifting here?', a: 'Yes — festival hampers for staff and partners are common; message quantities on WhatsApp for a coordinated quote.' }
+    ]
+  },
+  {
+    slug: 'thanjavur', name: 'Thanjavur', state: 'Tamil Nadu', zone: 'south',
+    slaText: 'within 48 hours', emoji: '🏛️', pincodes: ['613001', '613007'],
+    intro: 'Thanjavur, crowned by the 11th-century Brihadeeswara temple, is Tamil Nadu\u2019s cultural capital of bronze, silk and Carnatic music — and it celebrates accordingly. From the temple town lanes to the quieter residential blocks of Nanjikottai and Medical College Road, we deliver sweets, flowers and pooja hampers with the right festive touch.',
+    areas: ['Temple complex area', 'Old Town', 'Medical College Road', 'Nanjikottai', 'Rajappa Nagar', 'Vallam', 'S.R.M. Nagar', 'Mariappa Nagar', 'Orathanadu Road', 'Kumbakonam Road', 'Vijaya Nagaram', 'Ponni Nagar'],
+    faqs: [
+      { q: 'Can you deliver near the Brihadeeswara temple?', a: 'Yes — temple-area streets are served on two-wheelers with a call before the final drop, timed around festival processions.' },
+      { q: 'Are festive and Margazhi-season deliveries available?', a: 'Yes — pre-orders get priority slots during temple festivals; book a few days ahead for smooth scheduling.' }
+    ]
+  },
+  {
+    slug: 'belagavi', name: 'Belagavi', state: 'Karnataka', zone: 'south',
+    slaText: 'within 48 hours', emoji: '🏯', pincodes: ['590001', '590010'],
+    intro: 'Belagavi, with its Indo-Saracenic fort, cantonment streets and twin Marathi–Kannada culture, is Karnataka\u2019s bustling northern gateway near the Goa and Maharashtra borders. We deliver celebration cakes, flowers and hampers from the Camp side and Fort Area to the residential quarters of Hindwadi, Shahapur and Tilakwadi.',
+    areas: ['Camp', 'Fort Area', 'Hindwadi', 'Shahapur', 'Tilakwadi', 'Kakati', 'Udayambagh', 'Khade Bazar', 'Wanless Road', 'Ganjekhol', 'Angol', 'Kolhapur Road'],
+    faqs: [
+      { q: 'Can you deliver to hotels and hostels in the Camp area?', a: 'Yes — Camp-side hotels, hostels and boarding houses receive coordinated reception handovers.' },
+      { q: 'Is Hindwadi and the new colonies covered?', a: 'Yes — Hindwadi, Tilakwadi and the newer layouts follow the same Belagavi schedule.' }
+    ]
+  },
+  {
+    slug: 'jamnagar', name: 'Jamnagar', state: 'Gujarat', zone: 'west',
+    slaText: 'within 48 hours', emoji: '🛢️', pincodes: ['361001', '361008'],
+    intro: 'A city of the Jadeja rulers, Jamnagar pairs majestic palaces and the Lakhota lake-fort with refineries and the salt pans near the Gulf of Kutch. Festive and bandhani-loving Jamnagar celebrates big — we deliver hampers, flowers and cakes from the Palace Road side to the residential sectors of Sector 4, Sector 6 and Gurudwara Road.',
+    areas: ['Palace Road', 'Bandar Road', 'Gurudwara Road', 'Sector 4', 'Sector 6', 'Lakhota', 'Krishna Nagar', 'Jalaram Nagar', 'Sanghvi Nagar', 'Gokul Nagar', 'Jambu Drive', 'Darbargadh'],
+    faqs: [
+      { q: 'Can you deliver to the refinery and industrial belt?', a: 'Yes — refinery-side and industrial-gate handovers follow working hours; mention the unit name at checkout.' },
+      { q: 'Are Navratri and Janmashtami deliveries popular here?', a: 'Yes — festivals like Navratri and Janmashtami are peak gifting weeks in Jamnagar; order a few days ahead.' }
+    ]
+  },
+  {
+    slug: 'durgapur', name: 'Durgapur', state: 'West Bengal', zone: 'east',
+    slaText: 'within 48 hours', emoji: '⚙️', pincodes: ['713201', '713216'],
+    intro: 'Durgapur, the steel city of Bengal, grew around the Durgapur Steel Plant and today stretches along NH-2 with IT parks, the City Centre mall and long residential spines. We deliver cakes, flowers and festive combos across the steel township, the Benachity–Bidhannagar blocks and the newer Mohanpur and Fuljhore corners.',
+    areas: ['City Centre', 'Benachity', 'Bidhannagar', 'Steel Township', 'Mehedibagan', 'Fuljhore', 'Mamra Bazar', 'Sector 1', 'Sector 2C', 'Mohanpur', 'BP Township', 'Amtala'],
+    faqs: [
+      { q: 'Can you deliver inside the steel township sectors?', a: 'Yes — the company township sectors are covered with gate and call-ahead handovers on the outer roads.' },
+      { q: 'Do you plan around Durga Puja week in Durgapur?', a: 'Yes — Puja pandals bring road chokepoints; order three-plus days ahead for reliable slots that week.' }
+    ]
+  },
+  {
+    slug: 'asansol', name: 'Asansol', state: 'West Bengal', zone: 'east',
+    slaText: 'within 48 hours', emoji: '🛤️', pincodes: ['713301', '713305'],
+    intro: 'A coal-and-steel city of West Bengal and one of eastern India\u2019s busiest rail junctions, Asansol runs on collieries, mills and the grand old G.T. Road. We deliver celebration cakes, flowers and rakhi combos across the G.T. Road stretch, the railway colony and the Burnpur and Neamatpur corridors.',
+    areas: ['G.T. Road', 'Railway Colony', 'College More', 'Burnpur', 'Jamuria Road', 'Neamatpur', 'S.B. Gorai Road', 'City Centre', 'Bhanowara', 'Kulti Road', 'Carbide Road', 'Station Bazar'],
+    faqs: [
+      { q: 'Can you deliver to the railway areas and Burnpur?', a: 'Yes — the railway colony and Burnpur follow the same Asansol route, with gate coordination at the security posts.' },
+      { q: 'Is the Ushagram and college belt covered?', a: 'Yes — College More and the Ushagram side are standard stops on our Asansol run.' }
+    ]
+  },
+  {
+    slug: 'rourkela', name: 'Rourkela', state: 'Odisha', zone: 'east',
+    slaText: 'within 48 hours', emoji: '🏟️', pincodes: ['769001', '769015'],
+    intro: 'Ringed by the Brahmani river and dense forests, Rourkela grew around its steel plant and the German-founded township of the 1950s, later adding NIT Rourkela and a lively city centre. We deliver cakes, flowers and festive combos across the numbered steel-city sectors, the Udit Nagar belts and the Bisra and Chhend sprawl.',
+    areas: ['Sector 1', 'Sector 2', 'Sector 6', 'Bisra', 'Chhend', 'Udit Nagar', 'Panposh', 'Brahmani Nagar', 'Koel Nagar', 'Jagda', 'Sundargarh Road', 'Ayodhya Nagar'],
+    faqs: [
+      { q: 'Can you deliver to NIT Rourkela hostels?', a: 'Yes — campus and hostel handovers at NIT and other institutes are coordinated with the receiver by phone.' },
+      { q: 'Are deliveries available during Nuakhai?', a: 'Yes — Nuakhai is Rourkela\u2019s biggest festival; order ahead and we schedule around the festive afternoons.' }
+    ]
+  },
+  {
+    slug: 'berhampur', name: 'Berhampur', state: 'Odisha', zone: 'east',
+    slaText: 'within 48 hours', emoji: '🏖️', pincodes: ['760001', '760010'],
+    intro: 'Berhampur, the silk city of Odisha, is famous for its handloom patta and sits a short drive from the beach town of Gopalpur. We deliver festive hampers, flowers and cakes across the busy Giri Road and Bharathi Nagar belts, the residential sprawl toward Aska Road and the scenic Gopalpur side.',
+    areas: ['Giri Road', 'Bharathi Nagar', 'Badabazar', 'Srikrishna Puram', 'Budharaja', 'Shanti Nagar', 'Aska Road', 'Bhabani Nagar', 'Ambapua', 'College Road', 'Gopalpur Road', 'New Bus Stand'],
+    faqs: [
+      { q: 'Can you deliver to Gopalpur beachside?', a: 'Yes — resort and guesthouse deliveries along the Gopalpur Road are arranged with reception coordination.' },
+      { q: 'Do you offer silk-and-festival gifting here?', a: 'Yes — Berhampur\u2019s handloom pattas are a beloved pairing; combine your own silk purchase with a Giftora hamper via WhatsApp.' }
     ]
   }
 ];

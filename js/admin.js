@@ -1822,7 +1822,7 @@
       slug: "",
       start: "",
       end: "",
-      slaText: "within 24-48 hours",
+      slaText: "within 48 hours",
     };
   }
 
@@ -1871,7 +1871,7 @@
               </div>
               <div class="form-group">
                 <label>Delivery time shown to customers</label>
-                <input type="text" data-field="slaText" value="${esc(pc.slaText || "")}" placeholder="within 24-48 hours">
+                <input type="text" data-field="slaText" value="${esc(pc.slaText || "")}" placeholder="within 48 hours">
               </div>
             </div>
           </div>`;
