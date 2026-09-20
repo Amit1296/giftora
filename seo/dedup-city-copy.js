@@ -3,7 +3,7 @@
 //
 // Problem: the second paragraph inside every <div class="city-copy"> block is the
 // same templated SLA line ("CITY falls under our express delivery network - most
-// orders reach CITY within within 48-72 hours of checkout..."), duplicated across
+// orders reach CITY within within 48 hours of checkout..."), duplicated across
 // all ~84 city pages. Google sees near-identical body copy and the templating also
 // ships grammar bugs ("within within").
 //

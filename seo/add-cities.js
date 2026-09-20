@@ -60,7 +60,7 @@ const CITIES = [
   },
   {
     slug: 'aurangabad', name: 'Aurangabad', state: 'Maharashtra', zone: 'west',
-    slaText: 'within 48–72 hours', emoji: '🏛️', pincodes: ['431001', '431012'],
+    slaText: 'within 48 hours', emoji: '🏛️', pincodes: ['431001', '431012'],
     intro: 'Gateway to the Ajanta and Ellora caves, Aurangabad pairs Mughal-era monuments like Bibi Ka Maqbara with the bustling CIDCO and Garkheda neighbourhoods. We deliver cakes, flowers and hampers across the city and out to the Waluj and Shendra industrial belts.',
     areas: ['CIDCO', 'Garkheda', 'Kranti Chowk', 'Ushiwadi', 'Paithan Road', 'Jalna Road', 'Beed Bypass', 'Waluj', 'Pundalik Nagar', 'Shivaji Nagar', 'Gajanan Township', 'Satara'],
     faqs: [
@@ -70,7 +70,7 @@ const CITIES = [
   },
   {
     slug: 'prayagraj', name: 'Prayagraj', state: 'Uttar Pradesh', zone: 'north',
-    slaText: 'within 48–72 hours', emoji: '🕉️', pincodes: ['211001', '211012'],
+    slaText: 'within 48 hours', emoji: '🕉️', pincodes: ['211001', '211012'],
     intro: 'At the confluence of the Ganga, Yamuna and the mythical Saraswati, Prayagraj is a pilgrim city and a lively university town at once. We deliver across Civil Lines, the colonial-era Chowk, the Bhardwaj Ashram belt and the newer colonies of Naini and Jhunsi.',
     areas: ['Civil Lines', 'Allahpur', 'Katra', 'George Town', 'Dhoomanganj', 'Naini', 'Jhunsi', 'Tagore Town', 'Ashok Nagar', 'Rajapur', 'Colonelganj', 'Teliarganj'],
     faqs: [
@@ -80,7 +80,7 @@ const CITIES = [
   },
   {
     slug: 'mangaluru', name: 'Mangaluru', state: 'Karnataka', zone: 'south',
-    slaText: 'within 48–72 hours', emoji: '🌴', pincodes: ['575001', '575012'],
+    slaText: 'within 48 hours', emoji: '🌴', pincodes: ['575001', '575012'],
     intro: 'Karnataka\'s coastal gem blends Konkani warmth, temple towns and the Arabian Sea. From Hampankatta\'s busy heart and Kadri\'s hills to Surathkal\'s beaches, we deliver celebration cakes, flowers and combos with care for the humid coast.',
     areas: ['Hampankatta', 'Balmatta', 'Kadri', 'Mangaladevi', 'Surathkal', 'Kankanady', 'Derebail', 'Bikarnakatte', 'Panambur', 'Kulshekar', 'Bejai', 'Kavoor'],
     faqs: [
@@ -90,7 +90,7 @@ const CITIES = [
   },
   {
     slug: 'puducherry', name: 'Puducherry', state: 'Puducherry', zone: 'south',
-    slaText: 'within 48–72 hours', emoji: '🏖️', pincodes: ['605001', '605013'],
+    slaText: 'within 48 hours', emoji: '🏖️', pincodes: ['605001', '605013'],
     intro: 'Puducherry\'s mustard-yellow French Quarter, breezy Promenade and the experimental township of Auroville give this coastal union territory a character all its own. We deliver across White Town\'s heritage lanes and the wider urban belt from Kalapet to Villianur.',
     areas: ['White Town', 'French Quarter', 'Goubert Market', 'Auroville', 'Kalapet', 'Villianur', 'Reddiarpalayam', 'Mudaliarpet', 'Lawspet', 'Thattanchavady', 'Muthialpet', 'Bahour'],
     faqs: [
@@ -100,7 +100,7 @@ const CITIES = [
   },
   {
     slug: 'kollam', name: 'Kollam', state: 'Kerala', zone: 'south',
-    slaText: 'within 48–72 hours', emoji: '⛵', pincodes: ['691001', '691013'],
+    slaText: 'within 48 hours', emoji: '⛵', pincodes: ['691001', '691013'],
     intro: 'Kollam, the cashew capital of the world, opens onto the palm-fringed Ashtamudi Lake and a maze of backwater canals. We deliver Onam hampers, cakes and flowers from the busy Chinnakada round to the lakeside wards of Thangassery and Sakthikulangara.',
     areas: ['Chinnakada', 'Chamakada', 'Kilikolloor', 'Ashramam', 'Mundakkal', 'Thangassery', 'Sakthikulangara', 'Kadappakada', 'Kottarakkara Road', 'Mevaram', 'Pallimukku', 'Kavanad'],
     faqs: [
@@ -120,7 +120,7 @@ const CITIES = [
   },
   {
     slug: 'bhilai', name: 'Bhilai', state: 'Chhattisgarh', zone: 'central',
-    slaText: 'within 48–72 hours', emoji: '🏭', pincodes: ['490006', '490023'],
+    slaText: 'within 48 hours', emoji: '🏭', pincodes: ['490006', '490023'],
     intro: 'The steel city of Chhattisgarh, Bhilai grew around the Bhilai Steel Plant and its company townships, mingling darbar halls, bazaars and modern malls. We deliver celebration cakes, flowers and rakhi gifts across Bhilai and Durg, from Civic Centre to the Smriti Nagar colonies.',
     areas: ['Civic Centre', 'Supela', 'Smriti Nagar', 'Kohka', 'Patel Nagar', 'Power House', 'Juna Bhilai', 'Agar Para', 'Vaishali Nagar', 'Camp 2', 'Durg', 'Borsi'],
     faqs: [
@@ -140,12 +140,12 @@ const CITIES = [
   },
   {
     slug: 'gorakhpur', name: 'Gorakhpur', state: 'Uttar Pradesh', zone: 'north',
-    slaText: 'within 48–72 hours', emoji: '🛕', pincodes: ['273001', '273013'],
+    slaText: 'within 48 hours', emoji: '🛕', pincodes: ['273001', '273013'],
     intro: 'A temple town and crossroads of eastern Uttar Pradesh, Gorakhpur pairs the famous Gorakhnath Temple with a busy railway-city energy. From the mohalla lanes of Golghar to the wide avenues of Aswa Marg, we deliver flowers, cakes and rakhi combos across the city.',
     areas: ['Golghar', 'Aswa Marg', 'Basharatpur', 'Mohaddipur', 'Civil Lines', 'Rustampur', 'Chargawan', 'Betiahata', 'Shahminar Road', 'Medical College area', 'Gorakhnath Temple area', 'Kushmi Bazaar'],
     faqs: [
       { q: 'Can you deliver near Gorakhnath Temple and its fairs?', a: 'Yes — temple-area and mela deliveries are arranged with call-ahead timings around crowd and darshan hours.' },
-      { q: 'Do you cover the far colonies of Gorakhpur?', a: 'Yes — Basharatpur, Mohaddipur and the Rustampur belt are all on the express Gorakhpur route within 48–72 hours.' }
+      { q: 'Do you cover the far colonies of Gorakhpur?', a: 'Yes — Basharatpur, Mohaddipur and the Rustampur belt are all on the express Gorakhpur route within 48 hours.' }
     ]
   },
   {
@@ -160,22 +160,22 @@ const CITIES = [
   },
   {
     slug: 'jhansi', name: 'Jhansi', state: 'Uttar Pradesh', zone: 'central',
-    slaText: 'within 48–72 hours', emoji: '🏹', pincodes: ['284001', '284003'],
+    slaText: 'within 48 hours', emoji: '🏹', pincodes: ['284001', '284003'],
     intro: 'The city of Rani Lakshmibai, Jhansi sits at the crossroads of Bundelkhand, guarding the fort that watched over the 1857 uprising. We deliver gift hampers, flowers and cakes from the historic Sadar Bazaar to the cantonment and the growing suburbs along Nagra Road.',
     areas: ['Sadar Bazaar', 'Civil Lines', 'Cantonment', 'Prem Nagar', 'Dharagaon Bazaar', 'Nagra Road', 'Bhojla', 'Gwalior Road', 'Jeevan Shah Lane', 'Elite Crossing', 'Sipri Bazaar', 'Maniya'],
     faqs: [
       { q: 'Can you deliver around Jhansi Fort and the heritage lanes?', a: 'Yes — the lanes below the fort and Chhatrasal Park are served on two-wheelers with a call before the final drop.' },
-      { q: 'Do you cover the cantonment and Nagra Road suburbs?', a: 'Yes — the cantonment and Nagra Road extensions follow the regular Jhansi route within 48–72 hours.' }
+      { q: 'Do you cover the cantonment and Nagra Road suburbs?', a: 'Yes — the cantonment and Nagra Road extensions follow the regular Jhansi route within 48 hours.' }
     ]
   },
   {
     slug: 'kota', name: 'Kota', state: 'Rajasthan', zone: 'central',
-    slaText: 'within 48–72 hours', emoji: '🏞️', pincodes: ['324001', '324007'],
+    slaText: 'within 48 hours', emoji: '🏞️', pincodes: ['324001', '324007'],
     intro: 'The coaching capital of India on the banks of the Chambal, Kota is also famed for its palaces and the grand Chambal Gardens. From students in bustling hostel lanes near Landmark City to family anniversaries in Talwandi, we deliver across Kota\'s fast-growing map.',
     areas: ['Talwandi', 'Central Spine', 'Rangbari', 'Nayapura', 'Mahaveer Nagar', 'Chambal Gardens', 'Kunhari', 'Aerodrome Road', 'Kota University area', 'Gumanpura', 'Jawahar Nagar', 'DCM Colony'],
     faqs: [
       { q: 'Can you deliver to student hostels and coaching centres in Kota?', a: 'Yes — hostels and coaching campuses across Mahaveer Nagar and the Central Spine are covered with receiver call-ahead.' },
-      { q: 'Do you deliver to the new colonies around Kunhari?', a: 'Yes — Kunhari, Rangbari and Talwandi all sit on our regular Kota route within 48–72 hours.' }
+      { q: 'Do you deliver to the new colonies around Kunhari?', a: 'Yes — Kunhari, Rangbari and Talwandi all sit on our regular Kota route within 48 hours.' }
     ]
   },
   {
@@ -190,22 +190,22 @@ const CITIES = [
   },
   {
     slug: 'solapur', name: 'Solapur', state: 'Maharashtra', zone: 'central',
-    slaText: 'within 48–72 hours', emoji: '🧵', pincodes: ['413001', '413007'],
+    slaText: 'within 48 hours', emoji: '🧵', pincodes: ['413001', '413007'],
     intro: 'A proud textile city at the meeting point of Maharashtra and Karnataka, Solapur is known for its handloom chadars and the Siddheshwar Temple on the Brama riverbank. Our network covers the old city, the MIDC belt and the new colonies rising along the Akkalkot Road.',
     areas: ['Vijapur Road', 'Sadar Bazaar', 'Civil Hospital area', 'Siddheshwar Peth', 'Raviwar Peth', 'Akkalkot Road', 'Khot Nagar', 'MIDC Hotgi', 'Vishnu Nagar', 'Jule Solapur', 'Takwe', 'Bhapuji Chowk'],
     faqs: [
       { q: 'Can you deliver to the MIDC Hotgi industrial area?', a: 'Yes — MIDC Hotgi and the surrounding industrial belt get working-hour gate handovers; mention the unit name at checkout.' },
-      { q: 'Do you cover Solapur\'s newer colonies?', a: 'Yes — Vishnu Nagar, Takwe and the Akkalkot Road extensions follow the standard 48–72 hour schedule.' }
+      { q: 'Do you cover Solapur\'s newer colonies?', a: 'Yes — Vishnu Nagar, Takwe and the Akkalkot Road extensions follow the standard 48 hour schedule.' }
     ]
   },
   {
     slug: 'vellore', name: 'Vellore', state: 'Tamil Nadu', zone: 'south',
-    slaText: 'within 48–72 hours', emoji: '🏰', pincodes: ['632001', '632014'],
+    slaText: 'within 48 hours', emoji: '🏰', pincodes: ['632001', '632014'],
     intro: 'A charming Tamil Nadu city anchored by the 16th-century Vellore Fort and ringed by temple towns and colleges, Vellore also draws visitors to its world-famous hospitals. We deliver flowers, cakes and anniversary gifts across the fort area, Sathuvachari and the hospital belt around Christian Medical College.',
     areas: ['Vellore Fort area', 'Sathuvachari', 'CMC Hospital area', 'Katpadi', 'Gandhi Nagar', 'Virudhachalam Road area', 'Arcot Road', 'Kattupalli', 'Kilikodungam', 'Thiruparkadal', 'MGR Nagar', 'Bharathi Nagar'],
     faqs: [
       { q: 'Can you deliver to patients and visitors near CMC Hospital?', a: 'Yes — deliveries in the CMC belt are coordinated by phone at reception or the ward entrance where permitted.' },
-      { q: 'Do you cover Katpadi and the college areas of Vellore?', a: 'Yes — Katpadi, Sathuvachari and the college zones are on our regular route within 48–72 hours.' }
+      { q: 'Do you cover Katpadi and the college areas of Vellore?', a: 'Yes — Katpadi, Sathuvachari and the college zones are on our regular route within 48 hours.' }
     ]
   },
   {
