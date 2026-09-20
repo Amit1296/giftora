@@ -643,6 +643,10 @@
       "priority": "0.8",
       "changefreq": "weekly"
     },
+    "gift-delivery-bareilly.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
     "gift-delivery-bengaluru.html": {
       "priority": "0.8",
       "changefreq": "weekly"
@@ -683,7 +687,15 @@
       "priority": "0.8",
       "changefreq": "weekly"
     },
+    "gift-delivery-faridabad.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
     "gift-delivery-gaya.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-ghaziabad.html": {
       "priority": "0.8",
       "changefreq": "weekly"
     },
@@ -820,6 +832,10 @@
       "changefreq": "weekly"
     },
     "gift-delivery-salem.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gift-delivery-shahjahanpur.html": {
       "priority": "0.8",
       "changefreq": "weekly"
     },
