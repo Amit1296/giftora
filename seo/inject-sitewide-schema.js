@@ -1,6 +1,6 @@
 /**
  * inject-sitewide-schema.js — Adds structured data to every static HTML page:
- *  1. WebSite (with sitelinks SearchAction) schema.
+ *  1. WebSite schema for the site.
  *  2. FAQPage schema generated from each page's own visible <details class="faq-item">
  *     blocks (question in <summary>, answer in <p>), so markup always matches content.
  *
@@ -40,11 +40,6 @@ function websiteBlock() {
         "@id": BASE + "/#website",
         name: site.name,
         url: BASE + "/",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: { "@type": "EntryPoint", urlTemplate: BASE + "/?q={search_term_string}" },
-          "query-input": "required name=search_term_string",
-        },
       },
       null,
       2

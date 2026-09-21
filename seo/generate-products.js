@@ -208,7 +208,11 @@ function basePriceOf(p, size) {
 }
 
 function fit(s, max) {
-  return s.length <= max ? s : s.slice(0, max - 1).trimEnd() + "…";
+  if (s.length <= max) return s;
+  let out = s.slice(0, max);
+  const sp = out.lastIndexOf(" ");
+  if (sp > Math.floor(max * 0.6)) out = out.slice(0, sp);
+  return out.trimEnd() + "\u2026";
 }
 
 function fixPaths(html) {
@@ -502,11 +506,9 @@ function faqHtml(faqs) {
 }
 
 function productDescription(product, site) {
-  if (product.description) return fit(product.description, 160);
-  return fit(
-    `${product.name} for just ${fmtPrice(product.price)} with same-day delivery at ${site.name}. Free gift wrapping and secure online payments. Order online now!`,
-    160
-  );
+  const d = (product.description || "").trim();
+  if (d) return d;
+  return `${product.name} for just ${fmtPrice(product.price)} with same-day delivery at ${site.name}. Free gift wrapping and secure online payments. Order online now!`;
 }
 
 function productBody(product, slug, catMeta, site, products, faqs) {
@@ -701,8 +703,9 @@ function pageScript(product) {
 
 function buildPage(product, slug, catMeta, site, chrome, products) {
   const description = productDescription(product, site);
+  const metaDescription = fit(description, 160);
   const faqs = faqEntries(product);
-  const meta = buildMeta(product, slug, catMeta, site, description);
+  const meta = buildMeta(product, slug, catMeta, site, metaDescription);
   const jsonLd = JSON.stringify(buildJsonLd(product, slug, catMeta, site, description, faqs), null, 2);
   const body = productBody(product, slug, catMeta, site, products, faqs);
 
@@ -713,7 +716,7 @@ function buildPage(product, slug, catMeta, site, chrome, products) {
 \t<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 \t<meta name="theme-color" content="#7c3aed">
 ${meta.block}
-\t<meta name="description" content="${esc(description)}">
+\t<meta name="description" content="${esc(metaDescription)}">
 \t<link rel="icon" href="../logo.svg">
 \t<title>${meta.title.replace(/&/g, "&amp;")}</title>
 \t${FONT_LINK}

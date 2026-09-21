@@ -79,7 +79,11 @@ function basePriceOf(p, size) {
 }
 
 function fit(s, max) {
-  return s.length <= max ? s : s.slice(0, max - 1).trimEnd() + "\u2026";
+  if (s.length <= max) return s;
+  let out = s.slice(0, max);
+  const sp = out.lastIndexOf(" ");
+  if (sp > Math.floor(max * 0.6)) out = out.slice(0, sp);
+  return out.trimEnd() + "\u2026";
 }
 
 function trimLastChar(s) {
@@ -275,11 +279,6 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
       "@id": site.url.replace(/\/$/, "") + "/#website",
       name: site.name,
       url: site.url.replace(/\/$/, "") + "/",
-      potentialAction: {
-        "@type": "SearchAction",
-        target: { "@type": "EntryPoint", urlTemplate: site.url.replace(/\/$/, "") + "/?q={search_term_string}" },
-        "query-input": "required name=search_term_string",
-      },
     },
     {
       "@context": "https://schema.org",
@@ -361,10 +360,9 @@ function productDescription(product, site) {
   if (product.description) {
     txt = String(product.description).replace(/\s+/g, " ").trim();
   }
-  const base = txt
+  return txt
     ? `Buy ${product.name} online with same-day delivery at ${site.name}. ${txt}`
     : `Buy ${product.name} online with same-day delivery at ${site.name} at just ${fmtPrice(product.price)}. Free gift wrapping and secure payments.`;
-  return fitEscaped(base, 156);
 }
 
 function relatedCards(product, products) {
@@ -607,8 +605,9 @@ function pageScript(product) {
 
 function buildPage(product, slug, catMeta, site, chrome, products) {
   const description = productDescription(product, site);
+  const metaDescription = fitEscaped(description, 156);
   const faqs = faqEntries(product);
-  const meta = buildMeta(product, slug, catMeta, site, description);
+  const meta = buildMeta(product, slug, catMeta, site, metaDescription);
   const jsonLd = JSON.stringify(buildJsonLd(product, slug, catMeta, site, description, faqs), null, 2);
   const body = productBody(product, slug, catMeta, site, products, faqs);
 
@@ -619,7 +618,7 @@ function buildPage(product, slug, catMeta, site, chrome, products) {
 \t<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 \t<meta name="theme-color" content="#7c3aed">
 ${meta.block}
-\t<meta name="description" content="${esc(description)}">
+\t<meta name="description" content="${esc(metaDescription)}">
 \t<link rel="icon" href="../logo.svg">
 \t<title>${meta.title.replace(/&/g, "&amp;")}</title>
 \t${FONT_LINK}

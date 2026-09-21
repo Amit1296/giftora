@@ -57,6 +57,8 @@ function buildMetaBlock(page, cfg, site) {
 
   if (cfg.type === "admin") {
     lines.push('<meta name="robots" content="noindex, nofollow">');
+  } else {
+    lines.push('<meta name="robots" content="index, follow, max-image-preview:large">');
   }
 
   if (site.googleVerification) {
@@ -315,7 +317,7 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
     for (const f of fs.readdirSync(dir)) {
       const full = path.join(dir, f);
       if (fs.statSync(full).isDirectory()) {
-        if (["node_modules", "backups", "banners", "data", "uploads", "seo", "previews", ".git"].includes(f)) continue;
+        if (["node_modules", "backups", "banners", "data", "uploads", "seo", "previews", ".git", "medicine-medical-equipments"].includes(f)) continue;
         walk(full);
       } else if (f.endsWith(".html")) {
         if (/^google[0-9a-f]{8,}\.html$/i.test(f) || /^ms[0-9a-f]{8,}\.txt$/i.test(f)) continue;
