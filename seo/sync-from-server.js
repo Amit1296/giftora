@@ -74,8 +74,8 @@ async function main() {
   console.log("\n[2/3] generate-products (pages + product-pages.js + sitemap)");
   execSync("node seo/generate-products.js", { cwd: ROOT, stdio: "inherit" });
 
-  console.log("\n[3/3] check-schema");
-  execSync("node seo/check-schema.js", { cwd: ROOT, stdio: "inherit" });
+  console.log("\n[3/3] pre-deploy-check (gate: sitemap integrity + catalog sync + schema)");
+  execSync("node seo/pre-deploy-check.js", { cwd: ROOT, stdio: "inherit" });
 
   const sitemap = fs.readFileSync(path.join(ROOT, "sitemap.xml"), "utf8");
   const locs = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]);

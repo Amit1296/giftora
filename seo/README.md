@@ -56,7 +56,7 @@ instead of duplicating them.
 `node seo/sync-from-server.js` fetches the authoritative product list from the
 production site (`/js/products.js`, regenerated from PostgreSQL at boot),
 updates `data/products.json`, regenerates all product pages, `js/product-pages.js`
-and the sitemap, and runs the schema audit. Always run apply-seo BEFORE
+and the sitemap, then runs the **pre-deploy gate**. Always run apply-seo BEFORE
 generate-products (generate-products owns product sitemap priorities; running
 apply-seo afterwards downgrades them to 0.5).
 
@@ -113,6 +113,22 @@ node seo/check-schema.js --fix   # auto-fills image from data/products.json (roo
 node seo/generate-products.js     # regenerate products/*.html (already has image)
 node seo/check-schema.js          # re-verify -> should be exit 0
 ```
+
+## Pre-deploy gate — runs on every push
+
+`node seo/pre-deploy-check.js` is wired as a **pre-push hook** (`hooks/pre-push`)
+and must pass before any push is accepted. It re-checks the four bug classes
+that have previously hit the live site:
+
+| # | Check | Catches |
+|---|-------|---------|
+| 1 | Every sitemap `<loc>` resolves to a real file in an **allowed dir** (repo root `*.html` or `products/*.html`), no duplicates | dead URLs like the `medicine-medical-equipments` 404s (stray folders outside the allow-list are rejected even if a matching file exists) |
+| 2 | `#products/*.html` count == `js/product-pages.js` == `data/products.json`, every slug has a page on disk | catalog drift between Postgres and the repo |
+| 3 | No forbidden files staged (`js/products.js`, `data/backups/`, `previews/`, `artifacts/`, `*.exe`/`*.ps1`, credential scripts) | committing derived/secret files |
+| 4 | Delegates to `seo/check-schema.js` | invalid/truncated structured data |
+
+Skip it once with `GIFTORA_SKIP_CHECK=1 git push`. Install into any clone with
+`git config core.hooksPath hooks`.
 
 ## Tips
 

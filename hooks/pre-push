@@ -1,0 +1,26 @@
+#!/bin/sh
+# Pre-push validation gate for Giftora.
+#
+# Runs seo/pre-deploy-check.js before every push. A failing check blocks the
+# push (exit 1), mirroring each bug class that has hit the live site:
+# dead sitemap URLs, catalog drift, staged derived/credential files, and
+# invalid structured data.
+#
+# Skip temporarily with:  GIFTORA_SKIP_CHECK=1 git push
+# Install into any clone with:  git config core.hooksPath hooks
+
+if [ -n "$GIFTORA_SKIP_CHECK" ]; then
+  echo "pre-push: GIFTORA_SKIP_CHECK set, skipping validation gate."
+  exit 0
+fi
+
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+cd "$ROOT" || exit 1
+
+echo "pre-push: running seo/pre-deploy-check.js ..."
+if ! node seo/pre-deploy-check.js; then
+  echo ""
+  echo "pre-push: BLOCKED — fix the issues above, commit, and push again."
+  exit 1
+fi
+exit 0
