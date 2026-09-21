@@ -321,18 +321,24 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
   }
 
   const excluded = ["admin.html", "product.html", "checkout-preview.html", "gift-card-template.html", "banner-template.html", "blog-template.html", "logos/logo-concepts.html"];
+  // Only root-level *.html and the products/ directory may appear in the
+  // sitemap. Any other folder (a separate project dropped into the repo,
+  // uploads, previews, ...) is rejected by construction so a foreign page can
+  // never be advertised as a public URL again.
+  const ALLOWED_SUBDIRS = new Set(["products"]);
   const walk = (dir) => {
     for (const f of fs.readdirSync(dir)) {
       const full = path.join(dir, f);
+      const rel = path.relative(ROOT, full).replace(/\\/g, "/");
       if (fs.statSync(full).isDirectory()) {
-        if (["node_modules", "backups", "banners", "data", "uploads", "seo", "previews", ".git", "medicine-medical-equipments"].includes(f)) continue;
-        walk(full);
-      } else if (f.endsWith(".html")) {
-        if (/^google[0-9a-f]{8,}\.html$/i.test(f) || /^ms[0-9a-f]{8,}\.txt$/i.test(f)) continue;
-        const rel = path.relative(ROOT, full).replace(/\\/g, "/");
-        if (!excluded.includes(rel) && !urlSet.has(pageUrl(rel))) {
-          addUrl(pageUrl(rel), "0.5", "weekly", rel);
-        }
+        if (dir === ROOT && ALLOWED_SUBDIRS.has(f)) walk(full);
+        else if (dir !== ROOT && f.endsWith(".html")) continue;
+        continue;
+      }
+      if (!f.endsWith(".html")) continue;
+      if (/^google[0-9a-f]{8,}\.html$/i.test(f) || /^ms[0-9a-f]{8,}\.txt$/i.test(f)) continue;
+      if (!excluded.includes(rel) && !urlSet.has(pageUrl(rel))) {
+        addUrl(pageUrl(rel), "0.5", "weekly", rel);
       }
     }
   };
@@ -340,6 +346,23 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
     walk(ROOT);
   } catch (e) {
     console.error("  sitemap filesystem scan error:", e.message);
+  }
+
+  // ---- Final integrity gate ------------------------------------------------
+  // Every URL about to be published must map to a real file on disk. If one
+  // does not, ABORT the write instead of shipping a sitemap with dead URLs
+  // (the "orphaned slug" / mixed-project mistake).
+  const missing = [];
+  for (const loc of urlSet.keys()) {
+    const rel = loc.replace(/^https?:\/\/[^/]+/, "");
+    const candidate = (rel === "/" || rel === "") ? "index.html" : rel.replace(/^\//, "");
+    if (!fs.existsSync(path.join(ROOT, candidate))) missing.push(loc);
+  }
+  if (missing.length > 0) {
+    throw new Error(
+      "REFUSING to write sitemap.xml: " + missing.length + " URL(s) have no file on disk:\n  " +
+      missing.slice(0, 10).join("\n  ") + "\nFix or remove them before regenerating the sitemap."
+    );
   }
 
   const sorted = [...urlSet.entries()].sort((a, b) => {

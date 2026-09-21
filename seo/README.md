@@ -51,6 +51,15 @@ instead of duplicating them.
 4. Commit the updated HTML files, `products/`, `js/product-pages.js`,
    `robots.txt` and `sitemap.xml`
 
+## Pull the live catalog into the repo
+
+`node seo/sync-from-server.js` fetches the authoritative product list from the
+production site (`/js/products.js`, regenerated from PostgreSQL at boot),
+updates `data/products.json`, regenerates all product pages, `js/product-pages.js`
+and the sitemap, and runs the schema audit. Always run apply-seo BEFORE
+generate-products (generate-products owns product sitemap priorities; running
+apply-seo afterwards downgrades them to 0.5).
+
 ## When products change
 
 - `js/products.js` is a **derived artifact**: the production server regenerates
