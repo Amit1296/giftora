@@ -53,14 +53,18 @@ instead of duplicating them.
 
 ## When products change
 
-- If you add/remove/rename products in `js/products.js`, re-run
-  `node seo/generate-products.js` to refresh the product pages and the sitemap.
-  `js/product-pages.js` is regenerated automatically so category/home cards
-  always link to the right pages (products added later in the admin panel have
-  no static page, so their cards simply don't link).
-- The live server also renders product pages dynamically from
-  `data/products.json` via `seo/render-product.js` — keep `data/products.json`
-  and `js/products.js` in sync so the static and dynamic pages match.
+- `js/products.js` is a **derived artifact**: the production server regenerates
+  it from PostgreSQL on every boot (`db.getProducts()` → `server.js`), and it is
+  git-ignored on purpose so a server restart can never conflict with a `git pull`.
+- `data/products.json` is the repo's canonical product snapshot (also the seed
+  for a fresh database). Keep it current whenever the catalog changes.
+- After updating `data/products.json` (or `js/products.js` locally), re-run
+  `node seo/generate-products.js` to refresh the product pages, 
+  `js/product-pages.js` and the sitemap. `loadProducts()` falls back to
+  `data/products.json` when `js/products.js` is absent (e.g. a fresh clone).
+- Products added via the admin panel exist only in Postgres until that data is
+  exported to `data/products.json` and pages are regenerated; until then their
+  cards render via the dynamic route and are not in the sitemap.
 
 ## Schema audit — run before every deploy
 
