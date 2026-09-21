@@ -139,24 +139,42 @@ function checkCatalog(sitemapProductLocs) {
 }
 
 // ---- [3] Staged-file rules ----
-function checkStagedFiles() {
-  if (NO_GIT) return;
-  const r = spawnSync("git", ["diff", "--cached", "--name-only"], { cwd: ROOT, encoding: "utf8" });
-  if (r.status !== 0) { warn("git diff --cached failed; staged-file rules skipped"); return; }
-  const staged = (r.stdout || "").split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
-  if (staged.length === 0) {
-    warn("nothing is staged yet — the gate check looks at staged files; `git add` first and re-run");
-  }
-  for (const name of staged) {
+function gitFileList(args) {
+  const r = spawnSync("git", args, { cwd: ROOT, encoding: "utf8" });
+  if (r.status !== 0) return null;
+  return (r.stdout || "").split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+}
+
+function checkForbiddenFiles(files, label) {
+  for (const name of files) {
     if (FORBIDDEN_STAGED.some((p) => name === p || name.startsWith(p + "/"))) {
-      fail(`forbidden file is staged (derived/scratch artifact): ${name}`);
+      fail(`forbidden file ${label} (derived/scratch artifact): ${name}`);
     }
     if (/\.(exe|ps1)$/i.test(name)) {
-      fail(`binary/credential file staged: ${name}`);
+      fail(`binary/credential file ${label}: ${name}`);
     }
     if (/(connect\.ps1|migrate|import_data|setup_db)/i.test(name)) {
-      fail(`credential-carrying script staged: ${name}`);
+      fail(`credential-carrying script ${label}: ${name}`);
     }
+  }
+}
+
+function checkStagedFiles() {
+  if (NO_GIT) return;
+  // Staged (index vs HEAD) — relevant when running the gate BEFORE a commit.
+  const staged = gitFileList(["diff", "--cached", "--name-only"]);
+  if (staged === null) {
+    warn("git diff --cached failed; staged-file rules skipped");
+  } else {
+    if (staged.length === 0) warn("nothing staged yet — `git add` first (pre-commit usage)");
+    checkForbiddenFiles(staged, "staged");
+  }
+  // Pushed range (remote-tracking base..HEAD) — relevant when running the gate
+  // FROM the pre-push hook, where nothing is staged anymore.
+  const base = gitFileList(["rev-parse", "--verify", "--quiet", "origin/master"]);
+  if (base !== null && base.length > 0) {
+    const pushed = gitFileList(["diff", "--name-only", "origin/master..HEAD"]);
+    if (pushed !== null) checkForbiddenFiles(pushed, "in pending push");
   }
 }
 
@@ -192,7 +210,7 @@ before = failures.length;
 checkCatalog(sitemapProductLocs);
 console.log("        " + sectionStatus(before, s1 ? "(blocked — sitemap invalid)" : "(re-run node seo/sync-from-server.js)"));
 
-console.log("  [3/4] staged files       ");
+console.log("  [3/4] staged/pushed files");
 before = failures.length;
 checkStagedFiles();
 console.log("        " + sectionStatus(before));

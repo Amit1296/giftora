@@ -124,7 +124,7 @@ that have previously hit the live site:
 |---|-------|---------|
 | 1 | Every sitemap `<loc>` resolves to a real file in an **allowed dir** (repo root `*.html` or `products/*.html`), no duplicates | dead URLs like the `medicine-medical-equipments` 404s (stray folders outside the allow-list are rejected even if a matching file exists) |
 | 2 | `#products/*.html` count == `js/product-pages.js` == `data/products.json`, every slug has a page on disk | catalog drift between Postgres and the repo |
-| 3 | No forbidden files staged (`js/products.js`, `data/backups/`, `previews/`, `artifacts/`, `*.exe`/`*.ps1`, credential scripts) | committing derived/secret files |
+| 3 | No forbidden files staged or in the pushed range (`js/products.js`, `data/backups/`, `previews/`, `artifacts/`, `*.exe`/`*.ps1`, credential scripts) | committing derived/secret files |
 | 4 | Delegates to `seo/check-schema.js` | invalid/truncated structured data |
 
 Skip it once with `GIFTORA_SKIP_CHECK=1 git push`. Install into any clone with
