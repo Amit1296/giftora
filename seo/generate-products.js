@@ -9,6 +9,13 @@
  * It also writes js/product-pages.js (used by script.js to link cards to
  * product pages) and regenerates sitemap.xml to include the new URLs.
  *
+ * REAL REVIEWS: ratings are driven by data/reviews.json, keyed by product
+ * slug, e.g. { "<slug>": [{ "name": "...", "rating": 5, "comment": "...", "date": "2026-09-20" }] }.
+ * Only products with entries get a visible rating row, an aggregateRating +
+ * review[] Product schema, and a populated reviews section. Empty state
+ * ("No reviews yet") is rendered otherwise. Add entries, then re-run this
+ * script and the pages regenerate. Never fabricate reviews here.
+ *
  * Usage:
  *   node seo/generate-products.js
  *   (run AFTER node seo/apply-seo.js)
@@ -357,26 +364,123 @@ function faqEntries(product) {
   ];
 }
 
-function ratingFor(id) {
-  const s = String(id);
-  let h = 0;
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
-  h = Math.abs(h);
-  return { rating: Math.round((3.8 + (h % 12) / 10) * 10) / 10, count: 6 + (h % 46) };
+let _reviews = null;
+function reviewsFor(slug) {
+  if (_reviews === null) {
+    try { _reviews = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "reviews.json"), "utf8")); }
+    catch (e) { _reviews = {}; }
+    if (!_reviews || typeof _reviews !== "object") _reviews = {};
+  }
+  return Array.isArray(_reviews[slug]) ? _reviews[slug] : [];
+}
+
+function reviewSummary(reviews) {
+  if (!reviews.length) return null;
+  const total = reviews.reduce((s, r) => s + Number(r.rating || 0), 0);
+  const avg = total / reviews.length;
+  return { rating: Math.max(0, Math.min(5, Math.round(avg * 10) / 10)), count: reviews.length };
+}
+
+function starsHtml(rating) {
+  return [1, 2, 3, 4, 5].map((i) =>
+    i <= Math.round(rating) ? '<span class="star">★</span>' : '<span class="star star-off">★</span>'
+  ).join("");
 }
 
 function ratingRow(p, page) {
-  const r = ratingFor(p.id);
-  const stars = [1, 2, 3, 4, 5].map((i) =>
-    i <= Math.round(r.rating) ? '<span class="star">★</span>' : '<span class="star star-off">★</span>'
-  ).join("");
+  const reviews = reviewsFor(slugify(p.name));
+  if (!reviews.length) return "";
+  const sum = reviewSummary(reviews);
   const href = page ? `href="#reviews"` : `href="${slugify(p.name)}.html#reviews"`;
-  return `<div class="product-rating"><span class="stars">${stars}</span><span class="rating-num">${r.rating}</span><a class="rating-count" ${href}>(<span>${r.count}</span> reviews)</a></div>`;
+  return `<div class="product-rating"><span class="stars">${starsHtml(sum.rating)}</span><span class="rating-num">${sum.rating}</span><a class="rating-count" ${href}>(<span>${sum.count}</span> reviews)</a></div>`;
+}
+
+function formatReviewDate(date) {
+  if (!date) return "Recently";
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return "Recently";
+  return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+}
+
+function reviewsSectionHtml(product, slug) {
+  const reviews = reviewsFor(slug);
+  const sum = reviewSummary(reviews);
+  const form = `
+      <form class="review-form" id="reviewForm" data-id="${product.id}">
+        <h3>Write a review</h3>
+        <p style="margin:0 0 0.75rem;font-size:0.85rem;color:var(--text-muted);">Your review is submitted via WhatsApp to our team and published once approved — only real buyer reviews are shown.</p>
+        <input type="text" id="rvName" placeholder="Your name" maxlength="40" required>
+        <label for="rvRating" style="font-size:0.85rem;color:var(--text-muted);">Your rating</label>
+        <select id="rvRating" required>
+          <option value="5">★★★★★ — Excellent</option>
+          <option value="4">★★★★ — Good</option>
+          <option value="3">★★★ — Average</option>
+          <option value="2">★★ — Poor</option>
+          <option value="1">★ — Terrible</option>
+        </select>
+        <textarea id="rvText" placeholder="Share your experience..." rows="4" maxlength="400" required></textarea>
+        <button class="btn btn-primary" type="submit">Submit review</button>
+      </form>`;
+  if (!reviews.length) {
+    return `
+      <div class="review-score" id="reviewSummary">
+        <span class="review-big" data-score>0.0</span>
+        ${starsHtml(0)}
+        <span class="review-count">No reviews yet — be the first to review this gift!</span>
+      </div>
+      <div class="review-list" id="reviewList" data-id="${product.id}">
+        <p class="review-empty">This product has no reviews yet. Share your experience and help other shoppers!</p>
+      </div>
+${form}
+    `;
+  }
+  const items = reviews.map((r) => `
+        <div class="review-item">
+          <div class="review-head">
+            <span class="review-avatar">${esc(String(r.name || "A").charAt(0).toUpperCase())}</span>
+            <div><strong>${esc(r.name || "Anonymous")}</strong>${starsHtml(Number(r.rating) || 0)}</div>
+            <span class="review-date">${esc(formatReviewDate(r.date))}</span>
+          </div>
+          <p>${esc(r.comment || "")}</p>
+        </div>`).join("");
+  return `
+      <div class="review-score" id="reviewSummary">
+        <span class="review-big" data-score>${sum.rating}</span>
+        ${starsHtml(sum.rating)}
+        <span class="review-count">Based on <span data-count>${sum.count}</span> verified reviews</span>
+      </div>
+      <div class="review-list" id="reviewList" data-id="${product.id}">
+        ${items}
+      </div>
+${form}
+  `;
 }
 
 function buildJsonLd(product, slug, catMeta, site, description, faqs) {
   const url = `${site.url}/products/${slug}.html`;
   const pageName = product.name;
+  const reviews = reviewsFor(slug);
+  const rSum = reviewSummary(reviews);
+  const aggregateRating = rSum
+    ? {
+        "@type": "AggregateRating",
+        ratingValue: String(rSum.rating),
+        reviewCount: String(rSum.count),
+        bestRating: "5",
+        worstRating: "1",
+      }
+    : null;
+  const reviewNodes = reviews.map((r) => ({
+    "@type": "Review",
+    author: { "@type": "Person", name: String(r.name || "Anonymous") },
+    datePublished: r.date || null,
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: String(Math.max(0, Math.min(5, Number(r.rating) || 0))),
+      bestRating: "5",
+    },
+    reviewBody: String(r.comment || ""),
+  }));
   return [
     {
       "@context": "https://schema.org",
@@ -427,6 +531,8 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
           url,
         };
       })(),
+      ...(aggregateRating ? { aggregateRating } : {}),
+      ...(reviewNodes.length ? { review: reviewNodes } : {}),
     },
     {
       "@context": "https://schema.org",
@@ -598,26 +704,7 @@ function productBody(product, slug, catMeta, site, products, faqs) {
       <p>Real ratings from verified buyers.</p>
     </div>
     <div class="reviews-wrap">
-      <div class="review-score" id="reviewSummary">
-        <span class="review-big" data-score>0.0</span>
-        <span class="stars" data-stars></span>
-        <span class="review-count">Based on <span data-count>0</span> verified reviews</span>
-      </div>
-      <div class="review-list" id="reviewList" data-id="${product.id}"></div>
-      <form class="review-form" id="reviewForm" data-id="${product.id}">
-        <h3>Write a review</h3>
-        <input type="text" id="rvName" placeholder="Your name" maxlength="40" required>
-        <label for="rvRating" style="font-size:0.85rem;color:var(--text-muted);">Your rating</label>
-        <select id="rvRating" required>
-          <option value="5">★★★★★ — Excellent</option>
-          <option value="4">★★★★ — Good</option>
-          <option value="3">★★★ — Average</option>
-          <option value="2">★★ — Poor</option>
-          <option value="1">★ — Terrible</option>
-        </select>
-        <textarea id="rvText" placeholder="Share your experience..." rows="4" maxlength="400" required></textarea>
-        <button class="btn btn-primary" type="submit">Submit review</button>
-      </form>
+      ${reviewsSectionHtml(product, slug)}
     </div>
   </div>
 </section>
@@ -743,7 +830,8 @@ ${chrome.upi}
 
 <script src="../js/products.js"></script>
 <script src="../js/product-pages.js"></script>
-<script src="../js/script.min.js?v=10"></script>
+<script src="../js/script.min.js?v=13"></script>
+<script src="../js/whatsapp.js" defer></script>
 ${pageScript(product)}
 
 ${chrome.chatbot}

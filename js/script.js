@@ -254,89 +254,17 @@
     return base;
   }
 
-  /* ---------- Reviews & ratings ---------- */
-  const REVIEW_NAMES = ["Aarav S.", "Priya M.", "Rohit K.", "Sneha T.", "Ananya G.", "Vikram R.", "Kavya N.", "Sameer J.", "Ishita B.", "Arjun P."];
-  const REVIEW_COMMENTS = [
-    "Bought this as a surprise and the delivery was quick. Packaging was lovely!",
-    "Good quality, exactly as described. My family loved it.",
-    "Same-day delivery really worked. The personalised note was a sweet touch.",
-    "Lovely product at a fair price. Would recommend to friends.",
-    "Great service from ordering to delivery. Very happy.",
-    "The recipient was thrilled! Wonderful experience overall.",
-    "Nice gift, good quality for the price. Delivery on time.",
-    "Beautifully wrapped and delivered on time. Highly recommended.",
-    "Simple ordering process and smooth delivery. Worth it.",
-    "Really nice present. Customer support was helpful too.",
-  ];
-  function hashNum(n) {
-    const s = String(n);
-    let h = 0;
-    for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
-    return Math.abs(h);
-  }
-  function seededRating(id) {
-    const h = hashNum(id);
-    return { rating: Math.round((3.8 + (h % 12) / 10) * 10) / 10, count: 6 + (h % 46) };
-  }
-  function seededReviews(id) {
-    const h = hashNum(id);
-    const n = 2 + (h % 3);
-    const out = [];
-    for (let i = 0; i < n; i++) {
-      out.push({
-        name: REVIEW_NAMES[(h + i * 13) % REVIEW_NAMES.length],
-        rating: 3 + ((h + i) % 3),
-        comment: REVIEW_COMMENTS[(h + i * 7) % REVIEW_COMMENTS.length],
-        daysAgo: 3 + ((h + i * 5) % 40),
-      });
-    }
-    return out;
-  }
-  function starHTML(rating) {
-    const full = Math.round(rating);
-    let s = "";
-    for (let i = 1; i <= 5; i++) {
-      s += i <= full ? '<span class="star">★</span>' : '<span class="star star-off">★</span>';
-    }
-    return `<span class="stars" aria-label="${rating} out of 5 stars">${s}</span>`;
-  }
-  function ratingLine(p) {
-    const r = seededRating(p.id);
-    return `${starHTML(r.rating)}<span class="rating-num">${r.rating}</span><span class="rating-count">(${r.count})</span>`;
-  }
-  function userReviews(id) {
-    try { return JSON.parse(localStorage.getItem("giftora_reviews") || "{}")[String(id)] || []; } catch { return []; }
-  }
-  function saveUserReview(id, r) {
-    try {
-      const all = JSON.parse(localStorage.getItem("giftora_reviews") || "{}");
-      const list = all[String(id)] || [];
-      list.unshift(r);
-      all[String(id)] = list;
-      localStorage.setItem("giftora_reviews", JSON.stringify(all));
-    } catch {}
+  /* ---------- Reviews & ratings ----------
+     Ratings and reviews are REAL: sourced per-product from data/reviews.json and
+     rendered statically by seo/generate-products.js (aggregateRating + review[]
+     schema included only when real reviews exist). The form below submits the
+     review to WhatsApp for manual publishing. No fabricated ratings are shown.
+  */
+  function ratingLine() {
+    return "";
   }
   function renderReviewSection() {
-    const list = $("#reviewList");
-    if (!list) return;
-    const id = list.dataset.id;
-    const seeded = seededReviews(id);
-    const users = userReviews(id);
-    const all = seeded.concat(users);
-    const sr = seededRating(id);
-    const sum = $("#reviewSummary");
-    if (sum) {
-      sum.innerHTML = `<div class="review-score"><span class="review-big">${sr.rating}</span>${starHTML(sr.rating)}<span class="review-count">${sr.count + users.length} verified ratings</span></div>`;
-    }
-    list.innerHTML = all.map((r) => `
-      <div class="review-item">
-        <div class="review-head">
-          <span class="review-avatar">${escAttr(String(r.name).charAt(0).toUpperCase())}</span>
-          <div><strong>${escAttr(r.name)}</strong>${starHTML(r.rating)}</div>
-          <span class="review-date">${r.daysAgo != null ? r.daysAgo + " days ago" : "Just now"}</span>
-        </div>
-        <p>${escAttr(r.comment)}</p>
-      </div>`).join("");
+    // no-op: reviews are server-rendered per product page from data/reviews.json
   }
   function wireReviewForm() {
     const form = $("#reviewForm");
@@ -344,15 +272,19 @@
     form.dataset.wired = "1";
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const id = form.dataset.id;
       const name = $("#rvName").value.trim() || "Anonymous";
       const rating = Number($("#rvRating").value) || 5;
       const comment = $("#rvText").value.trim();
       if (!comment) { toast("Please write a short review."); return; }
-      saveUserReview(id, { name, rating, comment });
+      const priceEl = $("#detailPrice");
+      const price = priceEl ? priceEl.textContent.trim() : "";
+      const productName = document.title.replace(/\s*[|\u2013\u2014-].*$/, "").trim() || "your order";
+      const url =
+        "https://wa.me/917088084046?text=" +
+        encodeURIComponent(`Hi Giftora! I'd like to submit a review for ${productName} (${price}): rating ${rating}/5.\n"${comment}"\n- ${name}`);
+      window.open(url, "_blank", "noopener");
       form.reset();
-      toast("Thanks for your review!");
-      renderReviewSection();
+      toast("Thanks! Your review opens in WhatsApp for publishing.");
     });
   }
 

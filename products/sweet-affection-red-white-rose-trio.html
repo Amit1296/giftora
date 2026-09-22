@@ -27,7 +27,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="../css/style.min.css?v=17">
+	<link rel="stylesheet" href="../css/style.min.css?v=15">
 <!-- SEO-JSONLD-START -->
 <script type="application/ld+json">
 [
@@ -218,7 +218,7 @@
       <div class="product-detail-info">
         <span class="product-category">Flowers</span>
         <h1>Sweet Affection Red &amp; White Rose Trio</h1>
-        <div class="product-rating"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star star-off">★</span></span><span class="rating-num">3.8</span><a class="rating-count" href="#reviews">(<span>48</span> reviews)</a></div>
+        
         <div class="product-price">
           <span class="price" id="detailPrice">₹1,099</span>
             <span class="old-price" id="detailOldPrice">₹1,199</span>
@@ -263,7 +263,7 @@
         <div class="product-info">
           <span class="product-category">Flowers</span>
           <a class="product-card-link" href="sweet-affection-pink-rose-glass-vase.html"><h3 class="product-name">Sweet Affection Pink Rose Glass Vase</h3></a>
-          <div class="product-rating"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star star-off">★</span></span><span class="rating-num">4.4</span><a class="rating-count" href="sweet-affection-pink-rose-glass-vase.html#reviews">(<span>36</span> reviews)</a></div>
+          
           <div class="product-price">
             <span class="price">₹799</span>
             
@@ -282,7 +282,7 @@
         <div class="product-info">
           <span class="product-category">Flowers</span>
           <a class="product-card-link" href="blushing-passion.html"><h3 class="product-name">Blushing Passion</h3></a>
-          <div class="product-rating"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span><span class="rating-num">4.9</span><a class="rating-count" href="blushing-passion.html#reviews">(<span>51</span> reviews)</a></div>
+          
           <div class="product-price">
             <span class="price">₹1,599</span>
             
@@ -301,7 +301,7 @@
         <div class="product-info">
           <span class="product-category">Flowers</span>
           <a class="product-card-link" href="radiant-red-rose-chocolate-hamper.html"><h3 class="product-name">Radiant Red Rose &amp; Chocolate Hamper</h3></a>
-          <div class="product-rating"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star star-off">★</span></span><span class="rating-num">4.2</span><a class="rating-count" href="radiant-red-rose-chocolate-hamper.html#reviews">(<span>44</span> reviews)</a></div>
+          
           <div class="product-price">
             <span class="price">₹999</span>
             
@@ -320,7 +320,7 @@
         <div class="product-info">
           <span class="product-category">Flowers</span>
           <a class="product-card-link" href="passionate-romance-dual-rose-bunch.html"><h3 class="product-name">Passionate Romance Dual-Rose Bunch</h3></a>
-          <div class="product-rating"><span class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star star-off">★</span></span><span class="rating-num">4</span><a class="rating-count" href="passionate-romance-dual-rose-bunch.html#reviews">(<span>18</span> reviews)</a></div>
+          
           <div class="product-price">
             <span class="price">₹1,299</span>
             <span class="old-price">₹1,349</span>
@@ -342,14 +342,19 @@
       <p>Real ratings from verified buyers.</p>
     </div>
     <div class="reviews-wrap">
+      
       <div class="review-score" id="reviewSummary">
         <span class="review-big" data-score>0.0</span>
-        <span class="stars" data-stars></span>
-        <span class="review-count">Based on <span data-count>0</span> verified reviews</span>
+        <span class="star star-off">★</span><span class="star star-off">★</span><span class="star star-off">★</span><span class="star star-off">★</span><span class="star star-off">★</span>
+        <span class="review-count">No reviews yet — be the first to review this gift!</span>
       </div>
-      <div class="review-list" id="reviewList" data-id="147"></div>
+      <div class="review-list" id="reviewList" data-id="147">
+        <p class="review-empty">This product has no reviews yet. Share your experience and help other shoppers!</p>
+      </div>
+
       <form class="review-form" id="reviewForm" data-id="147">
         <h3>Write a review</h3>
+        <p style="margin:0 0 0.75rem;font-size:0.85rem;color:var(--text-muted);">Your review is submitted via WhatsApp to our team and published once approved — only real buyer reviews are shown.</p>
         <input type="text" id="rvName" placeholder="Your name" maxlength="40" required>
         <label for="rvRating" style="font-size:0.85rem;color:var(--text-muted);">Your rating</label>
         <select id="rvRating" required>
@@ -362,6 +367,7 @@
         <textarea id="rvText" placeholder="Share your experience..." rows="4" maxlength="400" required></textarea>
         <button class="btn btn-primary" type="submit">Submit review</button>
       </form>
+    
     </div>
   </div>
 </section>
@@ -712,7 +718,8 @@
 
 <script src="../js/products.js"></script>
 <script src="../js/product-pages.js"></script>
-<script src="../js/script.min.js?v=10"></script>
+<script src="../js/script.min.js?v=13"></script>
+<script src="../js/whatsapp.js" defer></script>
 
 <script>
   (function () {
