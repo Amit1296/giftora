@@ -1028,6 +1028,18 @@
       "priority": "0.7",
       "changefreq": "weekly"
     },
+    "blog-dhanteras-gifts.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "blog-bhai-dooj-gifts.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
+    "blog-chhath-puja-gifts.html": {
+      "priority": "0.7",
+      "changefreq": "weekly"
+    },
     "blog.html": {
       "priority": "0.7",
       "changefreq": "weekly"
