@@ -484,6 +484,42 @@
     }
   },
   "sitemapOnly": {
+    "same-day-gift-delivery.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "personalized-flowers.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "dried-preserved-flowers.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "flower-teddy-cake-combos.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "luxury-flower-boxes.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "plant-gifts.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "teddy-bear-gifts.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "eco-friendly-gifts.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "everyday-occasion-gifts.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
     "gift-delivery-berhampur.html": {
       "priority": "0.8",
       "changefreq": "weekly"
