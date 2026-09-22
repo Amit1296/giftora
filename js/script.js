@@ -1977,18 +1977,20 @@
     const target = new Date(targetStr).getTime();
     if (isNaN(target)) { el.style.display = "none"; return; }
     const pad = (n) => String(n).padStart(2, "0");
-    const tick = () => {
+    el.style.display = "";
+    (function loop() {
       const diff = target - Date.now();
-      if (diff <= 0) { el.innerHTML = `<span class="cd-note">${escAttr(done)}</span>`; return; }
+      if (diff <= 0) {
+        el.innerHTML = `<span class="cd-note">${escAttr(done)}</span>`;
+        return;
+      }
       const d = Math.floor(diff / 86400000);
       const h = Math.floor((diff % 86400000) / 3600000);
       const m = Math.floor((diff % 3600000) / 60000);
       const s = Math.floor((diff % 60000) / 1000);
       el.innerHTML = `<span class="cd-label">${escAttr(label)}</span> <span class="cd-num">${d}</span>d <span class="cd-num">${pad(h)}</span>h <span class="cd-num">${pad(m)}</span>m <span class="cd-num">${pad(s)}</span>s`;
-    };
-    el.style.display = "";
-    tick();
-    setInterval(tick, 1000);
+      setTimeout(loop, diff > 86400000 ? 60000 : 1000);
+    })();
   }
 
   let _dcheckPopup = null;
