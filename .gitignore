@@ -23,3 +23,7 @@ perf-result.json
 *.log
 
 start_app.sh
+# dev previews + reports (never ship)
+previews/
+artifacts/
+*.exe
