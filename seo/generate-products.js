@@ -182,10 +182,37 @@ const PRODUCT_KEYWORDS = {
   ],
 };
 
-const FONT_LINK =
-  '<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
-  '\t<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
-  '\t<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Poppins:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">';
+const SELF_HOSTED_FONTS_CSS = (() => {
+  try {
+    return fs.readFileSync(path.join(ROOT, "css", "fonts.css"), "utf8");
+  } catch (e) {
+    return "";
+  }
+})();
+
+const STYLE_MIN_CSS = (() => {
+  try {
+    return fs.readFileSync(path.join(ROOT, "css", "style.min.css"), "utf8");
+  } catch (e) {
+    return "";
+  }
+})();
+
+function jsVersion(file) {
+  try {
+    return "?v=" + Math.floor(fs.statSync(path.join(ROOT, "js", file)).mtimeMs);
+  } catch (e) {
+    return "";
+  }
+}
+
+const FONT_PRELOADS =
+  '\t<link rel="preload" href="../fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>\n' +
+  '\t<link rel="preload" href="../fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>\n' +
+  '\t<link rel="preload" href="../fonts/poppins-latin-500.woff2" as="font" type="font/woff2" crossorigin>\n' +
+  '\t<link rel="preload" href="../fonts/poppins-latin-600.woff2" as="font" type="font/woff2" crossorigin>\n' +
+  '\t<link rel="preload" href="../fonts/poppins-latin-700.woff2" as="font" type="font/woff2" crossorigin>\n' +
+  '\t<link rel="preload" href="../fonts/dancing-script-latin.woff2" as="font" type="font/woff2" crossorigin>';
 
 function slugify(s) {
   return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
@@ -806,8 +833,9 @@ ${meta.block}
 \t<meta name="description" content="${esc(metaDescription)}">
 \t<link rel="icon" href="../logo.svg">
 \t<title>${meta.title.replace(/&/g, "&amp;")}</title>
-\t${FONT_LINK}
-\t<link rel="stylesheet" href="../css/style.min.css?v=15">
+${FONT_PRELOADS}
+\t<style data-inline-css="fontscss">${SELF_HOSTED_FONTS_CSS}</style>
+\t<style data-inline-css="stylemincss">${STYLE_MIN_CSS}</style>
 <!-- SEO-JSONLD-START -->
 <script type="application/ld+json">
 ${jsonLd}
@@ -828,10 +856,10 @@ ${chrome.chrome}
 
 ${chrome.upi}
 
-<script src="../js/products.js"></script>
-<script src="../js/product-pages.js"></script>
-<script src="../js/script.min.js?v=13"></script>
-<script src="../js/whatsapp.js" defer></script>
+<script src="../js/products.js${jsVersion("products.js")}"></script>
+<script src="../js/product-pages.js${jsVersion("product-pages.js")}"></script>
+<script src="../js/script.min.js${jsVersion("script.min.js")}"></script>
+<script src="../js/whatsapp.js${jsVersion("whatsapp.js")}" defer></script>
 ${pageScript(product)}
 
 ${chrome.chatbot}

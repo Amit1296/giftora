@@ -1,0 +1,8 @@
+open 103.178.160.159
+cd /tmp
+put C:\Users\38591\Desktop\giftora-backup\export_products_clean.json products.json
+put C:\Users\38591\Desktop\giftora-backup\export_banners.json banners.json
+put C:\Users\38591\Desktop\giftora-backup\export_festival.json festival.json
+put C:\Users\38591\Desktop\giftora-backup\import_data.sh import_data.sh
+put C:\Users\38591\Desktop\giftora-backup\setup_repo.sh setup_repo2.sh
+bye

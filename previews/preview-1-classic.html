@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giftora &#8212; Classic Premium Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; position: relative; z-index: 5; }
+  .logo { font-weight: 800; font-size: 1.5rem; color: #1f2937; text-decoration: none; }
+  .logo span { color: #7c3aed; }
+  .nav-links { display: flex; gap: 26px; list-style: none; font-size: .95rem; color: #374151; font-weight: 600; }
+  .nav-links li.cart { background: linear-gradient(120deg,#7c3aed,#d97706); color: #fff; padding: 8px 20px; border-radius: 999px; }
+  .hero { position: relative; overflow: hidden; background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 40%, #fff7ed 100%); padding: 70px 40px 56px; }
+  .orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: .5; }
+  .orb.o1 { width: 340px; height: 340px; background: #c4b5fd; top: -90px; left: -80px; }
+  .orb.o2 { width: 280px; height: 280px; background: #fcd34d; bottom: -70px; right: 8%; }
+  .orb.o3 { width: 180px; height: 180px; background: #f9a8d4; top: 30%; right: 38%; opacity: .35; }
+  .hero-inner { position: relative; z-index: 2; display: flex; align-items: center; gap: 48px; max-width: 1200px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+  .copy { flex: 1 1 460px; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid #ddd6fe; color: #7c3aed; font-weight: 600; font-size: .8rem; padding: 8px 16px; border-radius: 999px; box-shadow: 0 4px 12px rgba(124,58,237,.12); }
+  .badge em { font-style: normal; color: #d97706; }
+  h1 { font-size: clamp(2.2rem, 4.6vw, 3.6rem); line-height: 1.12; color: #1f2937; margin-top: 20px; font-weight: 800; }
+  h1 .grad { background: linear-gradient(120deg,#7c3aed,#d97706); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { color: #6b7280; font-size: 1.1rem; margin-top: 16px; max-width: 520px; line-height: 1.6; }
+  .cta { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+  .btn { text-decoration: none; font-weight: 700; padding: 14px 30px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary { background: linear-gradient(120deg,#7c3aed,#6d28d9); color: #fff; box-shadow: 0 10px 22px rgba(124,58,237,.35); }
+  .btn-outline { border: 2px solid #7c3aed; color: #7c3aed; }
+  .stats { display: flex; gap: 34px; margin-top: 34px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 1.7rem; color: #1f2937; }
+  .stat b i { color: #d97706; font-style: normal; }
+  .stat span { color: #6b7280; font-size: .85rem; }
+  .visual { flex: 0 1 420px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .card { background: #fff; border-radius: 20px; padding: 18px; text-align: center; box-shadow: 0 18px 40px rgba(124,58,237,.16); border: 1px solid #f0e6ff; transition: transform .25s; }
+  .card:hover { transform: translateY(-6px) rotate(-1deg); }
+  .card .em { font-size: 2.6rem; }
+  .card h4 { font-size: .95rem; color: #1f2937; margin-top: 10px; }
+  .card p { font-size: .78rem; color: #9ca3af; margin-top: 4px; }
+  .card .tag { display: inline-block; margin-top: 10px; font-size: .72rem; font-weight: 700; color: #fff; background: linear-gradient(120deg,#7c3aed,#d97706); padding: 5px 12px; border-radius: 999px; }
+  .card.c2 { transform: translateY(24px); }
+  .card.c3 { transform: translateY(-10px); }
+  .card.c4 { transform: translateY(34px); }
+  .trust { background: #fff; border-top: 1px solid #f3f4f6; }
+  .trust-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-around; gap: 20px; padding: 26px 40px; flex-wrap: wrap; }
+  .t-item { display: flex; align-items: center; gap: 12px; }
+  .t-item .ic { font-size: 1.6rem; }
+  .t-item b { display: block; font-size: .95rem; color: #1f2937; }
+  .t-item span { font-size: .8rem; color: #6b7280; }
+  .footnote { text-align: center; padding: 18px; color: #9ca3af; font-size: .78rem; background: #fafafc; }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="logo" href="#">Gift<span>ora</span></a>
+    <ul class="nav-links"><li>Home</li><li>Categories</li><li>Occasions</li><li>Shop</li><li class="cart">&#55357;&#57042; Cart</li></ul>
+  </nav>
+  <section class="hero">
+    <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+    <div class="hero-inner">
+      <div class="copy">
+        <span class="badge">&#55357;&#56986; Same-day delivery across Delhi-NCR <em>&#183; free gift wrap</em></span>
+        <h1>Make every moment <span class="grad">unforgettable</span></h1>
+        <p class="sub">Handpicked gifts &#8212; cakes, flowers, teddy bears, clothes and combos &#8212; wrapped with love and delivered the same day.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#">Shop Gifts &#55356;&#57217;</a>
+          <a class="btn btn-outline" href="#">Browse Occasions &#10024;</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>12,000<i>+</i></b><span>Gifts Delivered</span></div>
+          <div class="stat"><b>5,000<i>+</i></b><span>Happy Customers</span></div>
+          <div class="stat"><b>4.9<i>&#9733;</i></b><span>Average Rating</span></div>
+        </div>
+      </div>
+      <div class="visual">
+        <div class="card"><div class="em">&#55356;&#57218;</div><h4>Celebration Cakes</h4><p>Baked fresh daily</p><span class="tag">Same-day</span></div>
+        <div class="card c2"><div class="em">&#55357;&#56464;</div><h4>Flower Bouquets</h4><p>Fresh &amp; fragrant</p><span class="tag">From &#8377;499</span></div>
+        <div class="card c3"><div class="em">&#55358;&#56824;</div><h4>Teddy Bears</h4><p>Huggable &amp; soft</p><span class="tag">Best seller</span></div>
+        <div class="card c4"><div class="em">&#55356;&#57217;</div><h4>Combo Hampers</h4><p>Curated bundles</p><span class="tag">Save 20%</span></div>
+      </div>
+    </div>
+  </section>
+  <section class="trust">
+    <div class="trust-inner">
+      <div class="t-item"><span class="ic">&#55357;&#57057;&#65039;</span><div><b>Secure Payments</b><span>UPI &#183; Cards &#183; COD</span></div></div>
+      <div class="t-item"><span class="ic">&#55356;&#57216;</span><div><b>Free Gift Wrap</b><span>Personalised card</span></div></div>
+      <div class="t-item"><span class="ic">&#55356;&#57103;</span><div><b>Order from Abroad</b><span>USA &#183; UK &#183; Canada &#183; AU</span></div></div>
+      <div class="t-item"><span class="ic">&#55357;&#56542;</span><div><b>Gift Expert Help</b><span>+91 70880 84046</span></div></div>
+    </div>
+  </section>
+  <div class="footnote">Giftora &#8212; Landing Preview &#183; Style 1: Classic Premium</div>
+</body>
+</html>

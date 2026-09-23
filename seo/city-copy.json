@@ -1,0 +1,195 @@
+{
+  "description": "Unique per-city copy for gift-delivery pages. Draft state by default. A page is NEVER edited by seo/inject-city-copy.js until this city's 'approved' is true AND the human has checked 'vendorCheck'. Everything below is derived from facts already present on the page itself (area chips, delivery group wording, existing local lines) - no new claims about delivery windows, prices or coverage are introduced.",
+  "priorities": ["delhi", "mumbai", "bengaluru", "chennai", "hyderabad", "kolkata", "pune", "jaipur"],
+  "cities": {
+    "delhi": {
+      "name": "Delhi",
+      "state": "Delhi",
+      "deliveryGroup": "same-day / NCR",
+      "approved": false,
+      "addParagraphs": [
+        "Whether it is a midnight birthday cake in Saket or a Diwali hamper delivered from Connaught Place to Cyber City, our Delhi riders treat every parcel as a personal errand. Morning orders placed by mid-afternoon reach most pincodes the same evening, with cut-offs varying by locality.",
+        "Old Delhi needs patience and not speed - Chandni Chowk's galis and Karol Bagh's weekday traffic are handled by riders who know the route on foot and on a bicycle, while South Delhi apartment gates and NCR office receptions run on schedule with flexible drop-off windows."
+      ],
+      "addFaq": [
+        {
+          "q": "Can I send gifts from Connaught Place or Karol Bagh to South Delhi the same day?",
+          "a": "Yes - our NCR network covers Connaught Place, Karol Bagh, South Delhi and Gurugram offices; orders placed by mid-afternoon typically reach the same evening, subject to your pincode's last slot."
+        },
+        {
+          "q": "Do your riders handle apartment society deliveries and office receptions in Delhi?",
+          "a": "Yes - riders complete visitor registration at societies such as those in Vasant Kunj, Saket and Mayur Vihar, and hand parcels to office receptions across the NCR."
+        }
+      ],
+      "vendorCheck": [
+        "Confirm today's WhatsApp last-slot cut-offs per pincode are still as stated (mid-afternoon).",
+        "Confirm area coverage (Karol Bagh, Lajpat Nagar, Chandni Chowk, Dwarka, Rohini, Saket, Pitampura, Mayur Vihar, Janakpuri, Punjabi Bagh, Vasant Kunj, Connaught Place) is current."
+      ]
+    },
+    "mumbai": {
+      "name": "Mumbai",
+      "state": "Maharashtra",
+      "deliveryGroup": "express (48h)",
+      "approved": false,
+      "addParagraphs": [
+        "Mumbai's distances run along its train lines, and so do our routes - a parcel for Andheri West travels independently of one for Dadar or Powai, so each gift takes the fast path across the island city and western suburbs.",
+        "Ganeshotsav reroutes, visitor registration at locked society towers - our Mumbai riders handle the city's famous logistics quirks every day, and modak-style sweet hampers are a standing seasonal favourite from Colaba to Borivali."
+      ],
+      "addFaq": [
+        {
+          "q": "Can I schedule a birthday parcel to a Powai or Bandra West high-rise?",
+          "a": "Yes - share the society name and tower details and our riders complete visitor registration before handover, so the parcel reaches the door instead of the lobby."
+        },
+        {
+          "q": "How far do express deliveries cover across Mumbai?",
+          "a": "Our express network covers the island city and western suburbs from Colaba to Borivali, including Andheri West, Bandra West, Dadar, Powai and Chembur."
+        }
+      ],
+      "vendorCheck": [
+        "Confirm the 48h express timeline still matches current courier partner transit.",
+        "Confirm area coverage beyond Colaba-Borivali (Andheri West, Bandra West, Dadar, Powai, Borivali, Chembur and the remaining chips) is current."
+      ]
+    },
+    "bengaluru": {
+      "name": "Bengaluru",
+      "state": "Karnataka",
+      "deliveryGroup": "same-day (before 5 PM)",
+      "approved": false,
+      "addParagraphs": [
+        "From Koramangala's midnight cake cuttings to Whitefield tech-park hampers and roses along Indiranagar's 100 Feet Road, Bengaluru celebrates in its own rhythm - and our same-day riders keep up with it right up to your local cut-off.",
+        "Office hands today rarely act alone - the whole team signs the card. Our riders deliver to Electronic City and Whitefield campuses and hand parcels to reception desks, keeping the surprise intact for the evening handover."
+      ],
+      "addFaq": [
+        {
+          "q": "Do you deliver birthday and anniversary gifts to tech-park campuses in Whitefield or Electronic City?",
+          "a": "Yes - standard same-day slots apply; share the campus gate and reception point and the rider arranges handover so the parcel reaches the desk, not the security counter."
+        },
+        {
+          "q": "Are eggless and vegetarian gift options available for Bengaluru delivery?",
+          "a": "Yes - we carry a range of eggless cakes and vegetarian hampers and they are dispatched through the same same-day network before the 5 PM cut-off."
+        }
+      ],
+      "vendorCheck": [
+        "Confirm the same-day 5 PM cut-off still matches vendor fulfilment hours.",
+        "Confirm eggless/vegetarian product range exists in current catalogue before publishing this FAQ."
+      ]
+    },
+    "chennai": {
+      "name": "Chennai",
+      "state": "Tamil Nadu",
+      "deliveryGroup": "same-day (before 5 PM)",
+      "approved": false,
+      "addParagraphs": [
+        "Between Mylapore's temple streets and the OMR corridor from Perungudi to Sholinganallur, Chennai is a city of neighbourhoods - our same-day riders know which streets slow down after 5 PM and route around them.",
+        "From eggless cakes for a birthday in T Nagar to a thoughtful hamper for a house-warming in Mylapore, most Chennai orders placed before 5 PM are hand-delivered the same day."
+      ],
+      "addFaq": [
+        {
+          "q": "Do you deliver eggless cakes across Chennai?",
+          "a": "Yes - eggless birthday and celebration cakes are available and travel through the same same-day network with a before-5 PM order cut-off."
+        },
+        {
+          "q": "Can I send flowers and gifts to the OMR corridor after office hours?",
+          "a": "Yes - our same-day riders cover the OMR stretch from Perungudi to Sholinganallur, including evening drop-offs to flats and offices."
+        }
+      ],
+      "vendorCheck": [
+        "Confirm the same-day 5 PM cut-off and OMR corridor coverage (Perungudi-Sholinganallur) still match vendor fulfilment.",
+        "Confirm eggless cake range is current before publishing this FAQ."
+      ]
+    },
+    "hyderabad": {
+      "name": "Hyderabad",
+      "state": "Telangana",
+      "deliveryGroup": "express (48h)",
+      "approved": false,
+      "addParagraphs": [
+        "From the old city's Charminar and pearl bazaars to Banjara Hills and Gachibowli's western tech corridor, Hyderabad blends tradition and work meetings in equal measure - and our parcels cross both halves of the city.",
+        "Express orders to Hyderabad are packed, tracked and delivered across areas like Secunderabad, Banjara Hills and Gachibowli, so a Diwali hamper for family in the old city and a birthday cake for colleagues in a tech park ship together."
+      ],
+      "addFaq": [
+        {
+          "q": "Can I send gifts to the Gachibowli and western tech-corridor offices?",
+          "a": "Yes - our express network delivers to office and apartment addresses in Gachibowli and the western IT arc, with tracking end to end."
+        },
+        {
+          "q": "Do you deliver to the old city near Charminar and the pearl bazaars?",
+          "a": "Yes - express parcels are delivered across Hyderabad including the old city, with the same packing and tracking as the rest of the network."
+        }
+      ],
+      "vendorCheck": [
+        "Confirm the 48h express timeline and coverage of Secunderabad, Banjara Hills, Gachibowli and old-city areas still match current vendor reach."
+      ]
+    },
+    "kolkata": {
+      "name": "Kolkata",
+      "state": "West Bengal",
+      "deliveryGroup": "express (48h)",
+      "approved": false,
+      "addParagraphs": [
+        "Kolkata runs on festivals - Durga Pujo fills every para and pandal, so our express parcels to Salt Lake, Behala and Howrah are scheduled around the city's busiest weeks with extra lead time built in.",
+        "From Behala's southern stretch to Salt Lake's grid and across the Hooghly into Howrah, our riders account for bridge traffic and one-way lanes - the parcel gets there, even when the usual route does not."
+      ],
+      "addFaq": [
+        {
+          "q": "Do you deliver gifts during Durga Pujo?",
+          "a": "Yes - express slots are available but limited in Pujo week; ordering early that week secures a reliable slot across Salt Lake, Behala and Howrah."
+        },
+        {
+          "q": "Can I send parcels to Salt Lake or Howrah addresses?",
+          "a": "Yes - our express network covers Salt Lake, Behala, Howrah and the rest of greater Kolkata, with bridge-traffic buffers built into the route."
+        }
+      ],
+      "vendorCheck": [
+        "Confirm the 48h express timeline and Durga Pujo limited-slot wording still match current vendor capability.",
+        "Confirm feeder coverage of Salt Lake, Behala and Howrah is current."
+      ]
+    },
+    "pune": {
+      "name": "Pune",
+      "state": "Maharashtra",
+      "deliveryGroup": "express (48h)",
+      "approved": false,
+      "addParagraphs": [
+        "Pune's student hostels in Viman Nagar, the IT corridors of Hinjewadi and the slopes of Baner gift differently - care packages, exam-week hampers and launch-day flowers - and our express network serves them all.",
+        "Orders travel through the express network in about 48 hours, with dedicated planning for Hinjewadi's Phase 2-3 transit and the rush-hour climb up Baner's slopes."
+      ],
+      "addFaq": [
+        {
+          "q": "Do you deliver care packages to student hostels in Pune?",
+          "a": "Yes - express parcels are hand-delivered to hostels and PG accommodations across Viman Nagar, Baner and the rest of Pune."
+        },
+        {
+          "q": "Can I send a gift to an office in Hinjewadi's IT parks?",
+          "a": "Yes - Hinjewadi Phase 2 and Phase 3 are covered by our express network, with transit time planned around peak-hour traffic."
+        }
+      ],
+      "vendorCheck": [
+        "Confirm the 48h express timeline and Hinjewadi Phase 2-3 / hostel delivery claims still match vendor capability."
+      ]
+    },
+    "jaipur": {
+      "name": "Jaipur",
+      "state": "Rajasthan",
+      "deliveryGroup": "same-day (before 5 PM)",
+      "approved": false,
+      "addParagraphs": [
+        "Jaipur's destination weddings turn hotel lawns into block parties and its homes turn every festival into an occasion - from blue-pottery gifts to midnight cakes in Mansarovar, our same-day riders cover the walled city and the southern colonies alike.",
+        "Orders placed before 5 PM are hand-delivered across Jaipur the same day - whether it is a card to C-Scheme, a hamper to Vaishali Nagar or canopy crossings into the old city."
+      ],
+      "addFaq": [
+        {
+          "q": "Can I send a gift card or hamper to C-Scheme or Vaishali Nagar the same day?",
+          "a": "Yes - both are on our same-day network; place the order before 5 PM and it is hand-delivered the same day."
+        },
+        {
+          "q": "Do you deliver into the walled city and its narrow lanes?",
+          "a": "Yes - our riders are familiar with the walled city's lanes and complete same-day deliveries there within the standard cut-off."
+        }
+      ],
+      "vendorCheck": [
+        "Confirm the same-day 5 PM cut-off and coverage of C-Scheme, Vaishali Nagar, Mansarovar, Malviya Nagar, Jagatpura and the walled city still match vendor fulfilment."
+      ]
+    }
+  }
+}

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giftora &#8212; Noir Gold Luxury Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0c0b0e;
+    --bg-2: #121014;
+    --gold: #d4af37;
+    --gold-2: #bf953f;
+    --gold-3: #f5e7a3;
+    --cream: #f3ecdc;
+    --muted: #a89f8b;
+    --line: rgba(212,175,55,.22);
+    --serif: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+    --serif2: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Inter', 'Segoe UI', Arial, sans-serif;
+  }
+  body { background: var(--bg); color: var(--cream); font-family: var(--sans); overflow-x: hidden; }
+
+  .gold-text { background: linear-gradient(115deg, #bf953f 10%, #fcf6ba 28%, #b38728 45%, #fbf5b7 68%, #aa771c 88%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* ambient glow */
+  .glow { position: fixed; width: 640px; height: 640px; border-radius: 50%; filter: blur(140px); opacity: .16; z-index: 0; pointer-events: none; }
+  .g1 { background: #b38728; top: -240px; left: -160px; }
+  .g2 { background: #7c3aed; bottom: -260px; right: -180px; opacity: .1; }
+  .wrap { position: relative; z-index: 1; }
+
+  .grain { position: fixed; inset: 0; opacity: .035; z-index: 2; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ===== Navbar ===== */
+  nav { position: sticky; top: 0; z-index: 20; background: rgba(12,11,14,.82); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .nav-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; }
+  .logo { font-family: var(--serif); font-size: 1.7rem; font-weight: 700; letter-spacing: .5px; color: var(--cream); text-decoration: none; }
+  .nav-links { display: flex; gap: 34px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--muted); font-size: .85rem; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500; transition: color .25s; }
+  .nav-links a:hover { color: var(--gold-3); }
+  .nav-cart { font-size: .85rem; letter-spacing: 1px; color: var(--gold-3); text-decoration: none; border: 1px solid var(--line); padding: 10px 22px; border-radius: 2px; transition: .25s; }
+  .nav-cart:hover { background: var(--gold); color: #0c0b0e; border-color: var(--gold); }
+
+  /* ===== Hero ===== */
+  .hero { max-width: 1240px; margin: 0 auto; padding: 110px 24px 90px; display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; }
+  .eyebrow { display: flex; align-items: center; gap: 14px; color: var(--gold-2); font-size: .75rem; letter-spacing: 4px; text-transform: uppercase; }
+  .eyebrow::before { content: ""; width: 44px; height: 1px; background: var(--gold-2); }
+  .hero h1 { font-family: var(--serif); font-size: clamp(2.6rem, 5vw, 4.3rem); line-height: 1.12; font-weight: 600; letter-spacing: -.5px; margin-top: 26px; }
+  .hero h1 .thin { font-style: italic; font-weight: 500; color: var(--muted); }
+  .hero p { margin-top: 24px; max-width: 520px; color: var(--muted); font-size: 1.05rem; line-height: 1.8; font-weight: 400; }
+  .hero p b { color: var(--gold-3); font-weight: 600; }
+  .hero-cta { display: flex; gap: 16px; margin-top: 38px; flex-wrap: wrap; align-items: center; }
+  .btn-gold { text-decoration: none; background: linear-gradient(120deg,#bf953f,#f5e7a3 50%,#bf953f); background-size: 200% 100%; color: #14110a; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: .82rem; padding: 17px 36px; transition: .3s; }
+  .btn-gold:hover { background-position: 100% 0; transform: translateY(-2px); box-shadow: 0 14px 34px rgba(212,175,55,.28); }
+  .btn-ghost { text-decoration: none; color: var(--gold-3); font-size: .82rem; letter-spacing: 1px; text-transform: uppercase; padding: 15px 30px; border: 1px solid var(--line); transition: .3s; font-weight: 500; }
+  .btn-ghost:hover { border-color: var(--gold-3); background: rgba(212,175,55,.06); }
+  .signature { margin-top: 34px; color: var(--muted); font-size: .8rem; display: flex; align-items: center; gap: 12px; }
+  .signature i { font-style: normal; color: var(--gold); letter-spacing: 2px; }
+
+  .hero-visual { position: relative; }
+  .hero-box { position: relative; border: 1px solid var(--line); background: linear-gradient(160deg, rgba(212,175,55,.05), rgba(12,11,14,.4)); padding: 44px 38px; }
+  .hero-box .corner { position: absolute; width: 26px; height: 26px; }
+  .hero-box .c1 { top: -1px; left: -1px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+  .hero-box .c2 { top: -1px; right: -1px; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+  .hero-box .c3 { bottom: -1px; left: -1px; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+  .hero-box .c4 { bottom: -1px; right: -1px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+  .hero-box .gift-em { font-size: 4.2rem; display: block; text-align: center; filter: drop-shadow(0 12px 26px rgba(0,0,0,.5)); }
+  .hero-box h3 { font-family: var(--serif); text-align: center; margin-top: 16px; font-size: 1.35rem; font-weight: 600; color: var(--cream); }
+  .hero-box p { text-align: center; margin-top: 8px; color: var(--muted); font-size: .85rem; line-height: 1.7; }
+  .hero-box .ribbon { position: absolute; top: 22px; right: -14px; background: linear-gradient(120deg,#bf953f,#f5e7a3); color: #14110a; font-size: .62rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 7px 16px; }
+  .hero-mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 22px; }
+  .mini { border: 1px solid var(--line); background: rgba(255,255,255,.02); padding: 16px 10px; text-align: center; transition: .25s; }
+  .mini:hover { border-color: var(--gold-2); transform: translateY(-3px); }
+  .mini .em { font-size: 1.7rem; }
+  .mini b { display: block; margin-top: 8px; font-family: var(--serif); font-weight: 600; font-size: .92rem; color: var(--cream); }
+  .mini span { font-size: .68rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  .hero-stats { margin-top: 60px; display: flex; gap: 0; border: 1px solid var(--line); }
+  .hero-stats > div { flex: 1; text-align: center; padding: 26px 12px; border-right: 1px solid var(--line); }
+  .hero-stats > div:last-child { border-right: none; }
+  .hero-stats b { font-family: var(--serif); font-size: 1.9rem; color: var(--gold-3); font-weight: 600; }
+  .hero-stats span { display: block; margin-top: 4px; font-size: .7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+  /* ===== Divider ===== */
+  .divider { max-width: 1240px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 18px; }
+  .divider::before, .divider::after { content: ""; height: 1px; flex: 1; background: linear-gradient(90deg, transparent, var(--line)); }
+  .divider::after { background: linear-gradient(90deg, var(--line), transparent); }
+  .divider span { color: var(--gold-2); font-size: 1.1rem; }
+
+  /* ===== Occasions ===== */
+  .section { max-width: 1240px; margin: 0 auto; padding: 80px 24px 0; }
+  .sec-head { text-align: center; }
+  .sec-head .kicker { color: var(--gold-2); font-size: .72rem; letter-spacing: 4px; text-transform: uppercase; }
+  .sec-head h2 { font-family: var(--serif); font-size: clamp(1.9rem, 3.4vw, 2.7rem); font-weight: 600; margin-top: 14px; }
+  .sec-head p { color: var(--muted); margin-top: 12px; font-size: .96rem; max-width: 620px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+  .occasion-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .occ { position: relative; border: 1px solid var(--line); background: var(--bg-2); padding: 34px 22px; text-align: center; transition: .3s; overflow: hidden; }
+  .occ::before { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(212,175,55,.1); pointer-events: none; }
+  .occ:hover { border-color: var(--gold-2); transform: translateY(-5px); box-shadow: 0 18px 44px rgba(0,0,0,.5), 0 0 34px rgba(212,175,55,.08); }
+  .occ .em { font-size: 2.4rem; }
+  .occ h4 { font-family: var(--serif); margin-top: 14px; font-size: 1.15rem; font-weight: 600; color: var(--cream); }
+  .occ span { display: block; margin-top: 8px; font-size: .74rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold-2); }
+  .occ .line { width: 34px; height: 1px; background: var(--gold-2); margin: 14px auto 0; }
+
+  /* ===== Featured products ===== */
+  .product-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .prod { border: 1px solid var(--line); background: var(--bg-2); display: flex; flex-direction: column; transition: .3s; }
+  .prod:hover { border-color: var(--gold-2); transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,.55); }
+  .prod .top { padding: 40px 20px; text-align: center; border-bottom: 1px solid var(--line); font-size: 4rem; background: radial-gradient(circle at 50% 40%, rgba(212,175,55,.08), transparent 70%); }
+  .prod .body { padding: 26px 24px; flex: 1; display: flex; flex-direction: column; }
+  .prod h4 { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; }
+  .prod p { margin-top: 8px; color: var(--muted); font-size: .83rem; line-height: 1.6; flex: 1; }
+  .prod .row { display: flex; align-items: center; justify-content: space-between; margin-top: 20px; }
+  .prod .price { font-family: var(--serif); font-size: 1.3rem; color: var(--gold-3); }
+  .prod .price s { color: var(--muted); font-size: .85rem; margin-left: 8px; font-family: var(--sans); }
+  .prod .add { border: 1px solid var(--gold-2); color: var(--gold-3); font-size: .72rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 11px 18px; text-decoration: none; transition: .25s; font-weight: 500; }
+  .prod .add:hover { background: var(--gold); color: #0c0b0e; }
+
+  /* ===== Services band ===== */
+  .band { margin-top: 80px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--bg-2); }
+  .band-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .band-item { padding: 34px 24px; text-align: center; border-right: 1px solid var(--line); }
+  .band-item:last-child { border-right: none; }
+  .band-item .em { font-size: 1.8rem; }
+  .band-item b { display: block; margin-top: 12px; font-family: var(--serif); font-weight: 600; font-size: 1rem; color: var(--cream); }
+  .band-item span { display: block; margin-top: 6px; font-size: .76rem; color: var(--muted); }
+
+  /* ===== Testimonials ===== */
+  .quote-grid { margin-top: 44px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .quote { border: 1px solid var(--line); padding: 30px 28px; background: var(--bg-2); position: relative; }
+  .quote .mark { font-family: var(--serif); font-size: 3.2rem; color: var(--gold-2); line-height: 0; position: relative; top: 12px; }
+  .quote .stars { color: var(--gold-3); letter-spacing: 3px; font-size: .78rem; margin-top: 12px; }
+  .quote blockquote { margin-top: 14px; color: var(--cream); font-family: var(--serif2); font-size: 1.05rem; line-height: 1.7; font-style: italic; }
+  .quote .who { margin-top: 20px; display: flex; align-items: center; gap: 12px; }
+  .quote .avatar { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--gold-2); display: grid; place-items: center; font-family: var(--serif); color: var(--gold-3); font-size: 1rem; }
+  .quote .who b { font-size: .85rem; letter-spacing: .5px; display: block; color: var(--cream); }
+  .quote .who span { font-size: .72rem; color: var(--muted); }
+
+  /* ===== CTA ===== */
+  .cta-band { max-width: 1240px; margin: 90px auto 0; padding: 0 24px; }
+  .cta-box { position: relative; border: 1px solid var(--line); background: radial-gradient(900px 400px at 50% 0%, rgba(212,175,55,.16), transparent 60%), var(--bg-2); padding: 70px 40px; text-align: center; }
+  .cta-box .corner { position: absolute; width: 30px; height: 30px; }
+  .cta-box .c1 { top: -1px; left: -1px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+  .cta-box .c2 { top: -1px; right: -1px; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+  .cta-box .c3 { bottom: -1px; left: -1px; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+  .cta-box .c4 { bottom: -1px; right: -1px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+  .cta-box h2 { font-family: var(--serif); font-size: clamp(1.9rem, 3.4vw, 2.6rem); font-weight: 600; }
+  .cta-box p { color: var(--muted); margin-top: 14px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+  .cta-box a { display: inline-block; margin-top: 30px; }
+
+  footer { margin-top: 80px; border-top: 1px solid var(--line); padding: 60px 24px 30px; text-align: center; }
+  footer .f-logo { font-family: var(--serif); font-size: 1.5rem; color: var(--cream); }
+  footer p { color: var(--muted); font-size: .8rem; margin-top: 22px; line-height: 1.8; }
+  footer .tale { color: rgba(168,159,139,.6); font-size: .72rem; margin-top: 8px; }
+
+  @media (max-width: 960px) {
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding-top: 70px; }
+    .occasion-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-grid, .quote-grid { grid-template-columns: 1fr; }
+    .band-inner { grid-template-columns: repeat(2, 1fr); }
+    .band-item:nth-child(2) { border-right: none; }
+    .band-item { border-bottom: 1px solid var(--line); }
+    .hero-stats { flex-direction: column; }
+    .hero-stats > div { border-right: none; border-bottom: 1px solid var(--line); }
+    .hero-stats > div:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="grain"></div>
+
+  <div class="wrap">
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="#">Gift<i class="gold-text">ora</i></a>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Occasions</a></li>
+          <li><a href="#">Diwali</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+        <a class="nav-cart" href="#">Cart &#183; 0</a>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div>
+        <span class="eyebrow">Same-day delivery &#183; Delhi-NCR &amp; India</span>
+        <h1>Gifts so thoughtful,<br><span class="thin">they become</span> <span class="gold-text">cherished memories.</span></h1>
+        <p>From handcrafted cakes and fresh roses to keepsakes and curated hampers &#8212; <b>every Giftora gift is wrapped with silk, tied with a note,</b> and delivered on the day that matters.</p>
+        <div class="hero-cta">
+          <a class="btn-gold" href="#">Discover the Collection</a>
+          <a class="btn-ghost" href="#">Gift by Occasion</a>
+        </div>
+        <div class="signature"><i>&#10022;</i> Trusted by 5,000+ families across India <i>&#10022;</i></div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-box">
+          <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+          <span class="ribbon">Signature Gift</span>
+          <span class="gift-em">&#55356;&#57217;</span>
+          <h3>The Giftora Surprise Box</h3>
+          <p>Hand-picked treasures, silk ribbon, personalised card &#8212; presented in our signature keepsake box.</p>
+        </div>
+        <div class="hero-mini">
+          <div class="mini"><span class="em">&#55356;&#57218;</span><b>Cakes</b><span>Baked daily</span></div>
+          <div class="mini"><span class="em">&#55357;&#56464;</span><b>Flowers</b><span>Fresh stems</span></div>
+          <div class="mini"><span class="em">&#55358;&#56824;</span><b>Teddies</b><span>Keepsakes</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="hero-stats" style="max-width:1240px;margin:0 auto;">
+      <div><b>12,000+</b><span>Gifts delivered</span></div>
+      <div><b>5,000+</b><span>Happy families</span></div>
+      <div><b>4.9 &#9733;</b><span>Average rating</span></div>
+      <div><b>24&#215;7</b><span>Gift expert care</span></div>
+    </div>
+
+    <div class="divider"><span>&#10022;</span></div>
+
+    <section class="section">
+      <div class="sec-head">
+        <span class="kicker">Curated for every celebration</span>
+        <h2>Gifts for every <span class="gold-text">occasion</span></h2>
+        <p>Eleven dedicated collections, each thoughtfully curated by our gift stylists.</p>
+      </div>
+      <div class="occasion-grid">
+        <div class="occ"><span class="em">&#55356;&#57218;</span><h4>Birthday</h4><span class="line"></span><span>Cakes &#183; Balloons &#183; Teddies</span></div>
+        <div class="occ"><span class="em">&#55357;&#56469;</span><h4>Anniversary</h4><span class="line"></span><span>Roses &#183; Keepsakes &#183; Combos</span></div>
+        <div class="occ"><span class="em">&#55357;&#56461;</span><h4>Wedding</h4><span class="line"></span><span>Combos &#183; Flowers &#183; Plants</span></div>
+        <div class="occ"><span class="em">&#55358;&#56980;</span><h4>Diwali</h4><span class="line"></span><span>Thalis &#183; Sweets &#183; D&#233;cor</span></div>
+        <div class="occ"><span class="em">&#55356;&#57113;</span><h4>Karwa Chauth</h4><span class="line"></span><span>Couple's Combos &#183; Roses</span></div>
+        <div class="occ"><span class="em">&#55356;&#57313;</span><h4>Housewarming</h4><span class="line"></span><span>Plants &#183; Combos &#183; Flowers</span></div>
+        <div class="occ"><span class="em">&#55356;&#57212;</span><h4>Baby Shower</h4><span class="line"></span><span>Teddies &#183; Toys &#183; Combos</span></div>
+        <div class="occ"><span class="em">&#55357;&#56508;</span><h4>Corporate</h4><span class="line"></span><span>Bulk Gifting &#183; Hampers</span></div>
+        <div class="occ"><span class="em">&#55356;&#57235;</span><h4>Graduation</h4><span class="line"></span><span>Congrats Cakes &#183; Combos</span></div>
+        <div class="occ"><span class="em">&#55357;&#56478;</span><h4>Engagement</h4><span class="line"></span><span>Roses &#183; Cakes &#183; Surprises</span></div>
+        <div class="occ"><span class="em">&#55357;&#56911;</span><h4>Thank You</h4><span class="line"></span><span>Flowers &#183; Treats &#183; Notes</span></div>
+        <div class="occ"><span class="em">&#55356;&#57225;</span><h4>Congratulations</h4><span class="line"></span><span>Cakes &#183; Flowers &#183; Hampers</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sec-head">
+        <span class="kicker">The beloved few</span>
+        <h2>Signature <span class="gold-text">selections</span></h2>
+        <p>Our most-requested gifts, wrapped and ready for same-day delivery.</p>
+      </div>
+      <div class="product-grid">
+        <div class="prod">
+          <div class="top">&#55356;&#57218;</div>
+          <div class="body">
+            <h4>Classic Oreo Celebration Cake</h4>
+            <p>Moist, eggless, baked fresh today and finished with an elegant gold-script topper.</p>
+            <div class="row"><span class="price">&#8377;849 <s>&#8377;999</s></span><a class="add" href="#">Add</a></div>
+          </div>
+        </div>
+        <div class="prod">
+          <div class="top">&#55357;&#56464;</div>
+          <div class="body">
+            <h4>Red Roses Hand Bunch</h4>
+            <p>Fifty velvety red roses, wrapped in fine paper with a heartfelt note card.</p>
+            <div class="row"><span class="price">&#8377;549 <s>&#8377;649</s></span><a class="add" href="#">Add</a></div>
+          </div>
+        </div>
+        <div class="prod">
+          <div class="top">&#55358;&#56824;</div>
+          <div class="body">
+            <h4>Sweetheart Jumbo Teddy</h4>
+            <p>An heirloom-soft 3ft teddy in a signature Giftora keepsake box.</p>
+            <div class="row"><span class="price">&#8377;1,299 <s>&#8377;1,599</s></span><a class="add" href="#">Add</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="band-inner">
+        <div class="band-item"><span class="em">&#55357;&#56650;&#65039;</span><b>Free Gift Wrapping</b><span>Silk ribbon &amp; note card</span></div>
+        <div class="band-item"><span class="em">&#55357;&#56986;</span><b>Same-Day Delivery</b><span>Delhi-NCR &amp; major metros</span></div>
+        <div class="band-item"><span class="em">&#55356;&#57103;</span><b>Order from Abroad</b><span>USA &#183; UK &#183; CA &#183; AU</span></div>
+        <div class="band-item"><span class="em">&#55357;&#56594;</span><b>Secure &amp; Discreet</b><span>UPI &#183; Cards &#183; COD</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sec-head">
+        <span class="kicker">Words from the heart</span>
+        <h2>Loved by <span class="gold-text">thousands</span></h2>
+      </div>
+      <div class="quote-grid">
+        <div class="quote">
+          <span class="mark">&#8220;</span>
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>The photo cake and roses arrived in three hours, wrapped like a keepsake. My mother cried. Thank you, Giftora.</blockquote>
+          <div class="who"><span class="avatar">P</span><div><b>Priya Sharma</b><span>Delhi</span></div></div>
+        </div>
+        <div class="quote">
+          <span class="mark">&#8220;</span>
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>Sent a Diwali hamper from Manchester to my parents' home. The note card and gold packaging made it unforgettable.</blockquote>
+          <div class="who"><span class="avatar">R</span><div><b>Rahul Verma</b><span>Manchester, UK</span></div></div>
+        </div>
+        <div class="quote">
+          <span class="mark">&#8220;</span>
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>Midnight anniversary delivery, perfectly timed. It felt like a concierge service, not just a gift shop.</blockquote>
+          <div class="who"><span class="avatar">A</span><div><b>Ananya Gupta</b><span>Gurugram</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="cta-box">
+        <span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span>
+        <h2>Begin something <span class="gold-text">beautiful</span> today</h2>
+        <p>Tell us who you're surprising, and our gift experts will curate the perfect present &#8212; delivered same-day.</p>
+        <a class="btn-gold" href="#">Start Gifting &#10022;</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="f-logo">Gift<i class="gold-text">ora</i></div>
+      <p>&#169; 2026 Giftora &#183; Thoughtful gifts, delivered with love.<br>Dilshad Colony, Delhi &#183; +91 70880 84046 &#183; amitwebdev163@gmail.com</p>
+      <div class="tale">Giftora &#8212; Landing Preview &#183; Style 6: Noir &amp; Gold Luxury</div>
+    </footer>
+  </div>
+</body>
+</html>

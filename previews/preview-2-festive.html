@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giftora &#8212; Festive India Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #2a0a1a; }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; background: #2a0a1a; }
+  .logo { font-weight: 800; font-size: 1.5rem; color: #fff; text-decoration: none; }
+  .logo span { color: #fbbf24; }
+  .nav-links { display: flex; gap: 26px; list-style: none; font-size: .95rem; color: #fde8d0; font-weight: 600; }
+  .nav-links li.cart { background: linear-gradient(120deg,#f59e0b,#f97316); color: #3d0a1d; padding: 8px 20px; border-radius: 999px; font-weight: 800; }
+  .hero { position: relative; overflow: hidden; background: radial-gradient(1200px 600px at 70% -10%, #7f1d1d 0%, transparent 60%), linear-gradient(160deg, #3d0a1d 0%, #5b1228 55%, #7a1426 100%); color: #fff; padding: 72px 40px 60px; }
+  .rangoli { position: absolute; width: 340px; height: 340px; border-radius: 50%; border: 3px dashed rgba(251,191,36,.35); right: -60px; top: -70px; }
+  .rangoli::before { content: ""; position: absolute; inset: 26px; border-radius: 50%; border: 3px dashed rgba(251,191,36,.28); }
+  .rangoli::after { content: ""; position: absolute; inset: 58px; border-radius: 50%; border: 3px solid rgba(251,191,36,.25); }
+  .glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(251,191,36,.28), transparent 65%); bottom: -180px; left: -120px; filter: blur(20px); }
+  .diyas { position: absolute; font-size: 2.4rem; opacity: .5; }
+  .d1 { top: 22px; left: 8%; }
+  .d2 { top: 40px; right: 26%; }
+  .d3 { bottom: 30px; left: 42%; }
+  .d4 { top: 30%; right: 12%; }
+  .hero-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; text-align: center; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(251,191,36,.15); border: 1px solid rgba(251,191,36,.45); color: #fcd34d; font-weight: 700; font-size: .82rem; padding: 8px 16px; border-radius: 999px; }
+  h1 { font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.1; margin-top: 20px; font-weight: 800; }
+  h1 .grad { background: linear-gradient(120deg,#fbbf24,#fb923c,#f472b6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { color: #fde8d0; font-size: 1.1rem; margin-top: 16px; max-width: 640px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  .countdown { display: inline-flex; gap: 14px; margin-top: 26px; background: rgba(0,0,0,.28); padding: 12px 22px; border-radius: 16px; border: 1px solid rgba(251,191,36,.3); }
+  .countdown .unit { text-align: center; }
+  .countdown .unit b { display: block; font-size: 1.5rem; color: #fcd34d; }
+  .countdown .unit span { font-size: .68rem; color: #fde8d0; text-transform: uppercase; letter-spacing: 1px; }
+  .cta { display: flex; gap: 14px; margin-top: 30px; justify-content: center; flex-wrap: wrap; }
+  .btn { text-decoration: none; font-weight: 800; padding: 15px 32px; border-radius: 999px; }
+  .btn-primary { background: linear-gradient(120deg,#f59e0b,#f97316); color: #3d0a1d; box-shadow: 0 10px 24px rgba(251,146,60,.4); }
+  .btn-outline { border: 2px solid rgba(251,191,36,.8); color: #fcd34d; }
+  .offer-strip { background: #fff; padding: 18px 0; }
+  .offer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-around; gap: 16px; padding: 0 24px; flex-wrap: wrap; }
+  .offer { text-align: center; }
+  .offer b { display: block; color: #7c2d12; font-size: 1rem; }
+  .offer span { font-size: .78rem; color: #6b7280; }
+  .footnote { text-align: center; padding: 18px; color: #9ca3af; font-size: .78rem; background: #2a0a1a; }
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="logo" href="#">Gift<span>ora</span></a>
+    <ul class="nav-links"><li>Home</li><li>Categories</li><li>Occasions</li><li>Shop</li><li class="cart">&#55357;&#57042; Cart</li></ul>
+  </nav>
+  <section class="hero">
+    <div class="rangoli"></div><div class="glow"></div>
+    <div class="diyas d1">&#55358;&#56980;</div><div class="diyas d2">&#55356;&#57326;</div><div class="diyas d3">&#55358;&#56980;</div><div class="diyas d4">&#10024;</div>
+    <div class="hero-inner">
+      <span class="badge">&#55358;&#56980; Festive season is here &#183; Diwali &amp; Karwa Chauth</span>
+      <h1>Send the light of <span class="grad">love &amp; blessings</span> this Diwali</h1>
+      <p class="sub">DIYAs, marigold d&#233;cor, puja thalis, sweet hampers, rakhi and thoughtful gifts &#8212; delivered same-day across Delhi-NCR, with a hand-written note.</p>
+      <div class="countdown">
+        <div class="unit"><b data-w>08</b><span>Days</span></div>
+        <div class="unit"><b>14</b><span>Hours</span></div>
+        <div class="unit"><b>26</b><span>Mins</span></div>
+        <div class="unit"><b>10</b><span>Secs</span></div>
+      </div>
+      <div class="cta">
+        <a class="btn btn-primary" href="#">&#55358;&#56980; Shop Diwali Hampers</a>
+        <a class="btn btn-outline" href="#">&#55356;&#57113; Karwa Chauth Gifts</a>
+      </div>
+    </div>
+  </section>
+  <section class="offer-strip">
+    <div class="offer-inner">
+      <div class="offer"><b>KARWA15 &#55356;&#57217; 15% OFF</b><span>Karwa Chauth &#183; ends 29 Oct</span></div>
+      <div class="offer"><b>DIWALI15 &#55358;&#56980; 15% OFF</b><span>Deepawali &#183; ends 9 Nov</span></div>
+      <div class="offer"><b>BDAY15 &#55356;&#57218; 15% OFF</b><span>Birthday special</span></div>
+    </div>
+  </section>
+  <div class="footnote">Giftora &#8212; Landing Preview &#183; Style 2: Festive India</div>
+</body>
+</html>

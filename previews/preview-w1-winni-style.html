@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giftora &#8212; Winni-Style Preview (Pink)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Poppins', 'Segoe UI', Arial, sans-serif; background: #fff; color: #222; }
+
+  /* ===== Top utility bar ===== */
+  .util-bar { background: #fff; border-bottom: 1px solid #f0f0f0; font-size: 13px; color: #555; }
+  .util-inner { max-width: 1400px; margin: 0 auto; padding: 8px 24px; display: flex; gap: 22px; justify-content: flex-end; align-items: center; flex-wrap: wrap; }
+  .util-inner a { color: #555; text-decoration: none; }
+  .util-inner a:hover { color: #ed217c; }
+
+  /* ===== Main header ===== */
+  .main-head { max-width: 1400px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; gap: 28px; }
+  .logo { font-size: 26px; font-weight: 800; color: #221; letter-spacing: .5px; white-space: nowrap; }
+  .logo span { color: #ed217c; }
+  .search { flex: 1; position: relative; max-width: 620px; }
+  .search input { width: 100%; height: 42px; border-radius: 8px; border: 1px solid transparent; background: #f2f1f1; padding: 0 44px 0 16px; font-size: 14px; font-family: inherit; color: #8f9196; font-weight: 500; }
+  .search input:focus { outline: none; border-color: #ed217c; background: #fff; }
+  .search .ic { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; color: #ed217c; }
+  .head-actions { display: flex; align-items: center; gap: 20px; }
+  .head-actions .act { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 11px; color: #555; text-decoration: none; font-weight: 500; }
+  .head-actions .act .em { font-size: 20px; }
+  .head-actions .act:hover { color: #ed217c; }
+
+  /* ===== Delivery strip ===== */
+  .delivery-strip { background: linear-gradient(115deg, #ffe3ed 0%, #d9f0ff 100%); }
+  .delivery-inner { max-width: 1400px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; color: #333; cursor: pointer; }
+  .delivery-inner .pin { font-size: 16px; }
+  .delivery-inner .loc { border-bottom: 1.5px dashed #999; padding-bottom: 1px; }
+
+  /* ===== Category strip ===== */
+  .cat-strip { border-bottom: 1px solid #f0f0f0; }
+  .cat-inner { max-width: 1400px; margin: 0 auto; padding: 12px 24px; display: flex; gap: 26px; overflow-x: auto; white-space: nowrap; font-size: 14px; font-weight: 600; color: #444; }
+  .cat-inner a { text-decoration: none; color: #3a3a3a; }
+  .cat-inner a:hover { color: #ed217c; }
+
+  /* ===== Hero splash &#8212; "What would you like to gift today?" ===== */
+  .splash { max-width: 1400px; margin: 30px auto 0; padding: 0 24px; }
+  .splash h1 { font-size: 26px; font-weight: 700; text-align: center; color: #222; }
+  .splash h1 span { color: #ed217c; }
+  .splash-grid { margin-top: 22px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
+  .s-tile { border-radius: 12px; text-align: center; padding: 26px 10px; cursor: pointer; transition: transform .18s, box-shadow .18s; }
+  .s-tile:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(0,0,0,.10); }
+  .s-tile .em { font-size: 44px; }
+  .s-tile b { display: block; margin-top: 12px; font-size: 15px; color: #222; }
+  .s-tile span { font-size: 12px; color: #777; }
+  .c-cake { background: linear-gradient(160deg,#ffe3ed,#fff5f8); }
+  .c-flowers { background: linear-gradient(160deg,#e3f4ff,#f3fafe); }
+  .c-gifts { background: linear-gradient(160deg,#fff3d6,#fffaf0); }
+  .c-combo { background: linear-gradient(160deg,#e9e4ff,#f7f5ff); }
+  .c-choc { background: linear-gradient(160deg,#fde8d7,#fef7f2); }
+
+  /* ===== Section ===== */
+  .section { max-width: 1400px; margin: 44px auto 0; padding: 0 24px; }
+  .sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .sec-head h2 { font-size: 20px; font-weight: 700; }
+  .sec-head .view { color: #ed217c; font-size: 13px; font-weight: 600; text-decoration: none; }
+
+  /* Occasion row */
+  .occ-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+  .occ-tile { border-radius: 12px; background: #fff; border: 1px solid #f0f0f0; text-align: center; padding: 18px 8px; transition: .18s; text-decoration: none; }
+  .occ-tile:hover { border-color: #ed217c; box-shadow: 0 8px 20px rgba(237,33,124,.08); transform: translateY(-3px); }
+  .occ-tile .em { font-size: 30px; }
+  .occ-tile b { display: block; margin-top: 8px; color: #222; font-size: 13px; }
+
+  /* Product cards */
+  .prod-scroll { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .prod { position: relative; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; background: #fff; transition: .18s; cursor: pointer; }
+  .prod:hover { box-shadow: 0 12px 26px rgba(0,0,0,.10); transform: translateY(-3px); }
+  .prod .img { height: 170px; display: flex; align-items: center; justify-content: center; font-size: 56px; position: relative; }
+  .prod .off { position: absolute; top: 10px; left: 10px; background: #ed217c; color: #fff; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 5px; }
+  .prod .wish { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: #fff; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0,0,0,.12); color: #bbb; font-size: 14px; }
+  .prod .body { padding: 12px 14px 14px; }
+  .prod .name { font-size: 13.5px; font-weight: 500; color: #333; min-height: 40px; }
+  .prod .price { margin-top: 8px; }
+  .prod .price .now { font-size: 16px; font-weight: 700; color: #222; }
+  .prod .price .was { font-size: 12px; color: #a0a0a0; text-decoration: line-through; margin-left: 6px; }
+  .prod .price .save { font-size: 12px; color: #0a8a3c; margin-left: 8px; font-weight: 600; }
+  .prod .add { margin-top: 10px; width: 100%; height: 36px; border-radius: 7px; border: 1px solid #ed217c; background: #fff; color: #ed217c; font-size: 13px; font-weight: 700; cursor: pointer; transition: .18s; }
+  .prod .add:hover { background: #ed217c; color: #fff; }
+  .bg-cake { background: linear-gradient(160deg,#ffe3ed,#fff); }
+  .bg-flowers { background: linear-gradient(160deg,#e3f4ff,#fff); }
+  .bg-teddy { background: linear-gradient(160deg,#f3e8ff,#fff); }
+  .bg-gift { background: linear-gradient(160deg,#fff3d6,#fff); }
+
+  /* Trust */
+  .trust { max-width: 1400px; margin: 50px auto 0; padding: 26px 24px; border-top: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+  .t-item { display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .t-item .em { font-size: 22px; }
+  .t-item b { display: block; font-size: 13px; color: #222; }
+  .t-item span { font-size: 11px; color: #888; }
+
+  footer { text-align: center; padding: 30px 20px; font-size: 13px; color: #999; }
+
+  @media (max-width: 1000px) {
+    .splash-grid { grid-template-columns: repeat(2,1fr); }
+    .occ-row { grid-template-columns: repeat(3,1fr); }
+    .prod-scroll { grid-template-columns: repeat(2,1fr); }
+    .trust { grid-template-columns: repeat(2,1fr); }
+    .head-actions .act { display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Utility bar -->
+  <div class="util-bar">
+    <div class="util-inner">
+      <a href="#">Help</a>
+      <a href="#">Currency &#8212; &#8377; INR</a>
+      <a href="#">Corporate Gifts</a>
+      <a href="#">Partner With Us</a>
+      <a href="#">Track Order</a>
+    </div>
+  </div>
+
+  <!-- Main header -->
+  <header>
+    <div class="main-head">
+      <a class="logo" href="#">Gift<span>ora</span></a>
+      <div class="search">
+        <input type="text" placeholder="Search cakes, flowers, teddy bears &amp; 4000+ gifts...">
+        <span class="ic">&#55357;&#56589;</span>
+      </div>
+      <div class="head-actions">
+        <a class="act" href="#"><span class="em">&#55357;&#56420;</span>Login</a>
+        <a class="act" href="#"><span class="em">&#10084;&#65039;</span>Wishlist</a>
+        <a class="act" href="#"><span class="em">&#55357;&#57042;</span>Cart</a>
+      </div>
+    </div>
+
+    <!-- Delivery strip -->
+    <div class="delivery-strip">
+      <div class="delivery-inner">
+        <span class="pin">&#55357;&#56525;</span> Deliver to <span class="loc">Delhi &#8211; 110001</span>
+        <span style="margin-left:auto;font-weight:500;color:#666;">Same-day &#183; Midnight &#183; Fixed-time delivery</span>
+      </div>
+    </div>
+
+    <!-- Category strip -->
+    <div class="cat-strip">
+      <div class="cat-inner">
+        <a href="#">Home</a>
+        <a href="#">Cakes</a>
+        <a href="#">Flowers</a>
+        <a href="#">Gifts</a>
+        <a href="#">Combos</a>
+        <a href="#">Chocolates</a>
+        <a href="#">Teddy Bears</a>
+        <a href="#">Plants</a>
+        <a href="#">Clothes</a>
+        <a href="#">Occasions</a>
+        <a href="#">Birthday Gifts</a>
+        <a href="#">Diwali</a>
+        <a href="#">Karwa Chauth</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Category splash -->
+  <section class="splash">
+    <h1>What would you like to <span>gift today?</span></h1>
+    <div class="splash-grid">
+      <div class="s-tile c-cake"><div class="em">&#55356;&#57218;</div><b>Cheesecakes &amp; Cakes</b><span>Freshly baked</span></div>
+      <div class="s-tile c-flowers"><div class="em">&#55357;&#56464;</div><b>Flowers</b><span>Fresh bouquets</span></div>
+      <div class="s-tile c-gifts"><div class="em">&#55356;&#57217;</div><b>Gifts</b><span>Handpicked</span></div>
+      <div class="s-tile c-combo"><div class="em">&#55357;&#56477;</div><b>Combos</b><span>Best value</span></div>
+      <div class="s-tile c-choc"><div class="em">&#55356;&#57195;</div><b>Chocolates</b><span>Crunchy bites</span></div>
+    </div>
+  </section>
+
+  <!-- Occasions -->
+  <section class="section">
+    <div class="sec-head"><h2>Gifting for <span style="color:#ed217c;">every occasion</span></h2><a class="view" href="#">View all &#8594;</a></div>
+    <div class="occ-row">
+      <a class="occ-tile" href="#"><span class="em">&#55356;&#57218;</span><b>Birthday</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55357;&#56469;</span><b>Anniversary</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55358;&#56980;</span><b>Diwali</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55356;&#57113;</span><b>Karwa Chauth</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55357;&#56461;</span><b>Wedding</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55356;&#57313;</span><b>Housewarming</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55356;&#57212;</span><b>Baby Shower</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55357;&#56508;</span><b>Corporate</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55356;&#57235;</span><b>Graduation</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55357;&#56478;</span><b>Engagement</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55357;&#56911;</span><b>Thank You</b></a>
+      <a class="occ-tile" href="#"><span class="em">&#55356;&#57225;</span><b>Congratulations</b></a>
+    </div>
+  </section>
+
+  <!-- Best sellers -->
+  <section class="section">
+    <div class="sec-head"><h2>Gift <span style="color:#ed217c;">bestsellers</span> &#55357;&#56960;</h2><a class="view" href="#">View all &#8594;</a></div>
+    <div class="prod-scroll">
+      <div class="prod">
+        <div class="img bg-cake"><span class="off">15% OFF</span><span class="wish">&#55358;&#56589;</span><span>&#55356;&#57218;</span></div>
+        <div class="body"><div class="name">Classic Oreo Crunch Celebration Cake</div><div class="price"><span class="now">&#8377;849</span><span class="was">&#8377;999</span><span class="save">Save &#8377;150</span></div><button class="add">Add to Cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="img bg-flowers"><span class="off">18% OFF</span><span class="wish">&#55358;&#56589;</span><span>&#55357;&#56464;</span></div>
+        <div class="body"><div class="name">Red Roses Hand Bunch &#8211; 50 Stems</div><div class="price"><span class="now">&#8377;549</span><span class="was">&#8377;670</span><span class="save">Save &#8377;121</span></div><button class="add">Add to Cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="img bg-teddy"><span class="off">20% OFF</span><span class="wish">&#55358;&#56589;</span><span>&#55358;&#56824;</span></div>
+        <div class="body"><div class="name">Sweetheart Jumbo Teddy Bear (3ft)</div><div class="price"><span class="now">&#8377;1,299</span><span class="was">&#8377;1,624</span><span class="save">Save &#8377;325</span></div><button class="add">Add to Cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="img bg-gift"><span class="off">20% OFF</span><span class="wish">&#55358;&#56589;</span><span>&#55356;&#57217;</span></div>
+        <div class="body"><div class="name">Designer Cake + Luxury Perfume Combo</div><div class="price"><span class="now">&#8377;1,799</span><span class="was">&#8377;2,249</span><span class="save">Save &#8377;450</span></div><button class="add">Add to Cart</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Diwali banner strip -->
+  <section class="section">
+    <div style="border-radius:14px;background:linear-gradient(115deg,#fff3d6,#ffe3ed);padding:26px 30px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;">
+      <div><b style="font-size:18px;">&#55358;&#56980; Diwali Gift Sets are here!</b><p style="font-size:13px;color:#666;margin-top:4px;">Thalis, sweets, d&#233;cor &amp; hampers &#8212; Use code <b style="color:#ed217c;">DIWALI15</b> for 15% off.</p></div>
+      <a href="#" style="background:#ed217c;color:#fff;text-decoration:none;padding:11px 22px;border-radius:8px;font-size:13px;font-weight:700;">Shop Diwali &#8594;</a>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <div class="trust">
+    <div class="t-item"><span class="em">&#55356;&#57216;</span><div><b>Free Gift Wrapping</b><span>Silk ribbon &amp; note card</span></div></div>
+    <div class="t-item"><span class="em">&#55357;&#56986;</span><div><b>Same-Day Delivery</b><span>Delhi-NCR &amp; 4000+ cities</span></div></div>
+    <div class="t-item"><span class="em">&#55356;&#57103;</span><div><b>Order from Abroad</b><span>USA &#183; UK &#183; CA &#183; AU</span></div></div>
+    <div class="t-item"><span class="em">&#55357;&#56594;</span><div><b>100% Secure</b><span>UPI &#183; Cards &#183; COD</span></div></div>
+  </div>
+
+  <footer>&#169; 2026 Giftora &#8212; Winni-Style Preview &#183; Style W1: Clean White + Pink</footer>
+</body>
+</html>

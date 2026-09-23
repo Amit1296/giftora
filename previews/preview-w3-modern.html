@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giftora &#8212; Modern Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif; background: #f7f7fb; color: #0f172a; }
+
+  :root {
+    --brand: #6d28d9;
+    --brand2: #d946ef;
+    --grad: linear-gradient(90deg,#6d28d9,#a855f7 55%,#d946ef);
+    --ink: #0f172a;
+    --muted: #64748b;
+    --card: #ffffff;
+    --border: #eef0f6;
+  }
+
+  .wrap { max-width: 1320px; margin: 0 auto; padding: 0 26px; }
+
+  /* ===== Sticky glass header ===== */
+  header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(226,230,240,.7); }
+  .nav { display: flex; align-items: center; gap: 26px; height: 68px; }
+  .logo { font-size: 23px; font-weight: 800; letter-spacing: .4px; color: var(--ink); text-decoration: none; white-space: nowrap; }
+  .logo b { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .nav-links { display: flex; gap: 20px; align-items: center; }
+  .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--brand); }
+  .search { flex: 1; max-width: 480px; position: relative; margin-left: auto; }
+  .search input { width: 100%; height: 42px; border-radius: 14px; border: 1px solid var(--border); background: #f1f2f8; padding: 0 42px 0 16px; font-size: 14px; font-family: inherit; transition: .2s; }
+  .search input:focus { outline: none; border-color: var(--brand); background: #fff; box-shadow: 0 0 0 4px rgba(109,40,217,.1); }
+  .search .ic { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--brand); }
+  .nav-cta { display: flex; align-items: center; gap: 14px; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: #f1f2f8; font-size: 17px; text-decoration: none; border: none; cursor: pointer; transition: .18s; }
+  .icon-btn:hover { background: #e9e5fb; transform: translateY(-2px); }
+  .btn-sm { background: var(--grad); color: #fff; padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 13.5px; text-decoration: none; border: none; cursor: pointer; transition: .18s; box-shadow: 0 6px 16px rgba(109,40,217,.28); }
+  .btn-sm:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(109,40,217,.36); }
+
+  /* ===== Hero ===== */
+  .hero { position: relative; background: radial-gradient(900px 460px at 88% -10%, rgba(236,214,255,.55), transparent 60%), radial-gradient(700px 420px at -5% 108%, rgba(255,214,232,.5), transparent 60%), linear-gradient(150deg,#f2eeff 0%, #fff 45%, #fff1f6 100%); overflow: hidden; }
+  .hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding: 64px 0 72px; }
+  .hero .badge { display: inline-block; background: #fff; border: 1px solid var(--border); border-radius: 100px; padding: 7px 16px; font-size: 12.5px; font-weight: 600; color: var(--brand); box-shadow: 0 4px 14px rgba(15,23,42,.06); }
+  .hero h1 { font-size: clamp(34px, 4.4vw, 54px); line-height: 1.12; font-weight: 800; margin-top: 18px; letter-spacing: -1px; }
+  .hero h1 em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p { color: var(--muted); font-size: 15.5px; margin-top: 16px; max-width: 480px; line-height: 1.6; }
+  .hero-btns { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--grad); color: #fff; padding: 14px 28px; border-radius: 14px; font-weight: 700; font-size: 14.5px; text-decoration: none; box-shadow: 0 10px 24px rgba(109,40,217,.35); transition: .2s; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(109,40,217,.42); }
+  .btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--border); color: var(--ink); padding: 14px 24px; border-radius: 14px; font-weight: 600; font-size: 14px; text-decoration: none; transition: .2s; }
+  .btn-ghost:hover { border-color: var(--brand); color: var(--brand); transform: translateY(-2px); }
+  .hero-stats { display: flex; gap: 34px; margin-top: 34px; flex-wrap: wrap; }
+  .stat b { font-size: 20px; display: block; font-weight: 800; }
+  .stat span { font-size: 12.5px; color: var(--muted); }
+  .hero-visual { position: relative; }
+  .h-card { position: relative; border-radius: 26px; background: linear-gradient(155deg,#fff,#f6f2ff); border: 1px solid rgba(255,255,255,.9); box-shadow: 0 30px 70px rgba(15,23,42,.14); padding: 30px; backdrop-filter: blur(6px); }
+  .h-card .row { display: flex; align-items: center; gap: 14px; }
+  .h-card .dot { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; font-size: 24px; }
+  .h-card b { font-size: 14px; }
+  .h-card p { font-size: 12px; color: var(--muted); }
+  .float-chip { position: absolute; background: #fff; border-radius: 16px; box-shadow: 0 16px 36px rgba(15,23,42,.16); padding: 12px 16px; display: flex; gap: 10px; align-items: center; font-size: 13px; font-weight: 600; }
+  .chip-1 { top: -18px; right: -8px; animation: bob 4s ease-in-out infinite; }
+  .chip-2 { bottom: -14px; left: -18px; animation: bob 5s ease-in-out infinite .8s; }
+  .chip-2 span { color: #12804a; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  /* ===== Marquees / category splash ===== */
+  .section { margin-top: 56px; }
+  .sec-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 20px; }
+  .sec-head h2 { font-size: 22px; font-weight: 800; letter-spacing: -.4px; }
+  .sec-head h2 span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sec-head .view { color: var(--brand); font-size: 13.5px; font-weight: 600; text-decoration: none; display: flex; gap: 4px; align-items: center; }
+  .grid-5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; }
+  .cat-card { position: relative; border-radius: 20px; padding: 24px 16px; text-align: center; overflow: hidden; border: 1px solid var(--border); background: #fff; transition: .22s; cursor: pointer; text-decoration: none; }
+  .cat-card .emo { width: 58px; height: 58px; margin: 0 auto; border-radius: 18px; background: #f1f2f8; display: grid; place-items: center; font-size: 28px; transition: .22s; }
+  .cat-card b { display: block; margin-top: 14px; color: var(--ink); font-size: 14px; font-weight: 700; }
+  .cat-card span { font-size: 12px; color: var(--muted); }
+  .cat-card:hover { transform: translateY(-6px); box-shadow: 0 18px 38px rgba(15,23,42,.12); border-color: #d8c6ff; }
+  .cat-card:hover .emo { background: var(--grad); }
+  .cat-card:hover .emo { filter: invert(0) brightness(0) saturate(0) invert(1); }
+  .g1 .emo { background: #f3e8ff; } .g1:hover .emo { background: linear-gradient(120deg,#8b5cf6,#a855f7); }
+  .g2 .emo { background: #ffe4ec; } .g2:hover .emo { background: linear-gradient(120deg,#f43f5e,#ff7a8a); }
+  .g3 .emo { background: #dff3ec; } .g3:hover .emo { background: linear-gradient(120deg,#10b981,#34d399); }
+  .g4 .emo { background: #fdf3d7; } .g4:hover .emo { background: linear-gradient(120deg,#f59e0b,#fbbf24); }
+  .g5 .emo { background: #e2efff; } .g5:hover .emo { background: linear-gradient(120deg,#3b82f6,#60a5fa); }
+  .cat-card:hover .emo span { color:#fff; }
+
+  /* ===== Occasions ===== */
+  .marquee { overflow: hidden; position: relative; padding: 8px 0; }
+  .marquee-track { display: flex; gap: 16px; width: max-content; animation: scroll 28s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+  .pill { display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--border); border-radius: 100px; padding: 11px 22px; font-size: 13.5px; font-weight: 600; color: var(--ink); box-shadow: 0 6px 16px rgba(15,23,42,.05); white-space: nowrap; cursor: pointer; text-decoration: none; transition: .18s; }
+  .pill:hover { border-color: var(--brand); color: var(--brand); transform: translateY(-3px); box-shadow: 0 10px 22px rgba(109,40,217,.14); }
+
+  /* ===== Products ===== */
+  .prod-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+  .prod { background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: .22s; position: relative; }
+  .prod:hover { transform: translateY(-6px); box-shadow: 0 22px 44px rgba(15,23,42,.13); }
+  .prod .img { height: 168px; display: grid; place-items: center; font-size: 54px; position: relative; }
+  .prod .off { position: absolute; top: 12px; left: 12px; background: var(--grad); color: #fff; font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 100px; }
+  .prod .wish { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 12px; background: rgba(255,255,255,.9); display: grid; place-items: center; box-shadow: 0 2px 10px rgba(15,23,42,.12); color: #b6bccb; border: none; cursor: pointer; }
+  .prod .body { padding: 14px 16px 16px; }
+  .prod .name { font-size: 13.5px; font-weight: 600; color: var(--ink); min-height: 42px; line-height: 1.45; }
+  .prod .tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .prod .tags i { font-style: normal; font-size: 10.5px; background: #f3f0fc; color: var(--brand); padding: 3px 8px; border-radius: 100px; font-weight: 600; }
+  .prod .price { margin-top: 10px; display: flex; align-items: baseline; gap: 8px; }
+  .prod .price .now { font-weight: 800; font-size: 16px; }
+  .prod .price .was { font-size: 12px; color: #a0a7b5; text-decoration: line-through; }
+  .prod .price .save { font-size: 12px; color: #12804a; font-weight: 600; }
+  .btn-add { margin-top: 12px; width: 100%; height: 38px; border-radius: 12px; border: none; background: #f1f2f8; color: var(--ink); font-weight: 700; font-size: 13px; cursor: pointer; transition: .18s; }
+  .btn-add:hover { background: var(--grad); color: #fff; box-shadow: 0 8px 20px rgba(109,40,217,.3); }
+  .bg1 { background: linear-gradient(160deg,#f5efff,#fff); }
+  .bg2 { background: linear-gradient(160deg,#ffeaf1,#fff); }
+  .bg3 { background: linear-gradient(160deg,#eaf6f0,#fff); }
+  .bg4 { background: linear-gradient(160deg,#fbf2dc,#fff); }
+  .bg5 { background: linear-gradient(160deg,#e7f1ff,#fff); }
+  .bg6 { background: linear-gradient(160deg,#e2f2ed,#fff); }
+  .bg7 { background: linear-gradient(160deg,#fdeede,#fff); }
+  .bg8 { background: linear-gradient(160deg,#eef0ff,#fff); }
+
+  /* ===== Banner ===== */
+  .banner { border-radius: 26px; background: var(--grad); position: relative; overflow: hidden; color: #fff; padding: 40px 42px; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; box-shadow: 0 24px 50px rgba(109,40,217,.35); }
+  .banner::after { content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%; background: rgba(255,255,255,.14); top: -120px; right: -60px; }
+  .banner::before { content: ''; position: absolute; width: 220px; height: 220px; border-radius: 50%; background: rgba(255,255,255,.1); bottom: -110px; left: 24%; }
+  .banner b { font-size: 24px; position: relative; z-index: 1; }
+  .banner p { margin-top: 6px; font-size: 14px; opacity: .92; position: relative; z-index: 1; }
+  .banner .btn { background: #fff; color: var(--brand); z-index: 1; padding: 13px 26px; border-radius: 14px; font-weight: 700; text-decoration: none; font-size: 14px; transition: .18s; }
+  .banner .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(0,0,0,.22); }
+
+  /* ===== Newsletter ===== */
+  .news { background: #fff; border: 1px solid var(--border); border-radius: 26px; padding: 40px 42px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; box-shadow: 0 18px 40px rgba(15,23,42,.06); }
+  .news b { font-size: 20px; }
+  .news p { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
+  .news form { display: flex; gap: 10px; flex: 1; max-width: 460px; }
+  .news input { flex: 1; height: 48px; border-radius: 14px; border: 1px solid var(--border); padding: 0 16px; font-size: 14px; font-family: inherit; }
+  .news input:focus { outline: none; border-color: var(--brand); }
+  .news button { height: 48px; padding: 0 26px; border-radius: 14px; border: none; background: var(--grad); color: #fff; font-weight: 700; font-size: 13.5px; cursor: pointer; }
+
+  /* ===== Footer ===== */
+  footer { margin-top: 60px; background: #0d1120; color: #97a0b3; }
+  .foot { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 34px; padding: 52px 0 40px; }
+  .foot .logo { color: #fff; font-size: 22px; }
+  .foot .logo b { background: linear-gradient(90deg,#b794ff,#ff9ad5); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .foot p { font-size: 13px; line-height: 1.7; margin-top: 12px; max-width: 300px; }
+  .foot h4 { color: #fff; font-size: 14px; margin-bottom: 16px; }
+  .foot a { display: block; color: #97a0b3; font-size: 13px; text-decoration: none; margin-bottom: 10px; }
+  .foot a:hover { color: #fff; }
+  .foot-copy { border-top: 1px solid #1c2536; padding: 18px 0; text-align: center; font-size: 12.5px; }
+
+  /* reveal animation */
+  @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+  .reveal { animation: rise .7s ease both; }
+
+  @media (max-width: 1000px) {
+    .hero-inner { grid-template-columns: 1fr; padding: 44px 0 56px; }
+    .hero-visual { max-width: 420px; }
+    .grid-5 { grid-template-columns: repeat(2,1fr); }
+    .prod-grid { grid-template-columns: repeat(2,1fr); }
+    .foot { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .search { max-width: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="nav wrap">
+      <a class="logo" href="#">Gift<b>ora</b></a>
+      <nav class="nav-links">
+        <a href="#">Shop</a>
+        <a href="#">Occasions</a>
+        <a href="#">Cakes</a>
+        <a href="#">Combos</a>
+        <a href="#">Malabar</a>
+      </nav>
+      <div class="search"><span class="ic">&#55357;&#56589;</span><input type="text" placeholder="Search gifts, cakes, flowers..."></div>
+      <div class="nav-cta">
+        <button class="icon-btn">&#10084;&#65039;</button>
+        <button class="icon-btn">&#55357;&#57042;</button>
+        <a class="btn-sm" href="#">Sign in</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner wrap">
+      <div class="reveal">
+        <span class="badge">&#10024; Trusted by 25,000+ gifters across India</span>
+        <h1>Send joy in a <em>gift box</em> anyone will love</h1>
+        <p>Cakes, flowers, teddies &amp; curated combos &#8212; handpicked, beautifully packed and delivered the same day across 4,000+ cities.</p>
+        <div class="hero-btns">
+          <a class="btn-primary" href="#">Shop Bestsellers &#8594;</a>
+          <a class="btn-ghost" href="#">Explore Occasions</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b>4.8&#9733;</b><span>12k+ reviews</span></div>
+          <div class="stat"><b>Same Day</b><span>delivery</span></div>
+          <div class="stat"><b>12k+</b><span>gifts crafted</span></div>
+        </div>
+      </div>
+      <div class="hero-visual reveal" style="animation-delay:.15s">
+        <div class="h-card">
+          <div class="row">
+            <div class="dot" style="background:linear-gradient(120deg,#f3e8ff,#e6d5ff);">&#55356;&#57218;</div>
+            <div><b>Classic Oreo Crunch</b><p>Cake &#183; Freshly baked today</p></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:18px;">
+            <div class="dot" style="background:linear-gradient(120deg,#ffe4ec,#ffd3df);">&#55358;&#56824;</div>
+            <div class="dot" style="background:linear-gradient(120deg,#dff3ec,#ccf0e2);">&#55356;&#57195;</div>
+            <div class="dot" style="background:linear-gradient(120deg,#fdf3d7,#ffe6ab);">&#55357;&#56464;</div>
+            <div class="dot" style="background:linear-gradient(120deg,#e2efff,#c6e0ff);">&#55358;&#56980;</div>
+          </div>
+          <div style="margin-top:18px;background:#f6f2ff;border-radius:14px;padding:12px 14px;font-size:13px;font-weight:600;color:var(--brand);">
+            &#55356;&#57216; Included: silk wrap &#183; message card &#183; same-day dispatch
+          </div>
+        </div>
+        <div class="float-chip chip-1">&#55357;&#56986; <div>Delivering to<br> <b>Delhi</b></div></div>
+        <div class="float-chip chip-2">&#9989; <div><span>Order confirmed</span><br>Delivery 6:30 PM today</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section wrap">
+    <div class="sec-head">
+      <h2>Shop by <span>category</span></h2>
+      <a class="view" href="#">All products &#8594;</a>
+    </div>
+    <div class="grid-5 reveal">
+      <a class="cat-card g1"><div class="emo"><span>&#55356;&#57218;</span></div><b>Cakes</b><span>120+ flavours</span></a>
+      <a class="cat-card g2"><div class="emo"><span>&#55357;&#56464;</span></div><b>Flowers</b><span>Fresh bouquets</span></a>
+      <a class="cat-card g3"><div class="emo"><span>&#55357;&#56477;</span></div><b>Combos</b><span>Best of both</span></a>
+      <a class="cat-card g4"><div class="emo"><span>&#55356;&#57217;</span></div><b>Gifts</b><span>Curated picks</span></a>
+      <a class="cat-card g5"><div class="emo"><span>&#55358;&#56824;</span></div><b>Teddies</b><span>Huggable</span></a>
+    </div>
+  </section>
+
+  <!-- Occasions marquee -->
+  <section class="section wrap">
+    <div class="sec-head">
+      <h2>Shop by <span>occasion</span></h2>
+      <a class="view" href="#">Occasion store &#8594;</a>
+    </div>
+    <div class="marquee reveal">
+      <div class="marquee-track">
+        <a class="pill">&#55356;&#57218; Birthday</a><a class="pill">&#55357;&#56469; Anniversary</a><a class="pill">&#55358;&#56980; Diwali</a><a class="pill">&#55356;&#57113; Karwa Chauth</a><a class="pill">&#55357;&#56461; Wedding</a>
+        <a class="pill">&#55356;&#57313; Housewarming</a><a class="pill">&#55356;&#57212; Baby Shower</a><a class="pill">&#55357;&#56508; Corporate</a><a class="pill">&#55356;&#57235; Graduation</a><a class="pill">&#55357;&#56478; Engagement</a><a class="pill">&#55357;&#56911; Thank You</a><a class="pill">&#55356;&#57225; Congratulations</a>
+        <a class="pill">&#55356;&#57218; Birthday</a><a class="pill">&#55357;&#56469; Anniversary</a><a class="pill">&#55358;&#56980; Diwali</a><a class="pill">&#55356;&#57113; Karwa Chauth</a><a class="pill">&#55357;&#56461; Wedding</a>
+        <a class="pill">&#55356;&#57313; Housewarming</a><a class="pill">&#55356;&#57212; Baby Shower</a><a class="pill">&#55357;&#56508; Corporate</a><a class="pill">&#55356;&#57235; Graduation</a><a class="pill">&#55357;&#56478; Engagement</a><a class="pill">&#55357;&#56911; Thank You</a><a class="pill">&#55356;&#57225; Congratulations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="section wrap">
+    <div class="sec-head">
+      <h2>Today's <span>bestsellers</span></h2>
+      <a class="view" href="#">View all &#8594;</a>
+    </div>
+    <div class="prod-grid reveal">
+      <div class="prod">
+        <div class="img bg1"><span class="off">15% OFF</span><button class="wish">&#55358;&#56589;</button><span>&#55356;&#57218;</span></div>
+        <div class="body"><div class="name">Classic Oreo Crunch Celebration Cake</div><div class="tags"><i>Best Seller</i><i>Eggless</i></div><div class="price"><span class="now">&#8377;849</span><span class="was">&#8377;999</span><span class="save">Save &#8377;150</span></div><button class="btn-add">Add to Cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="img bg2"><span class="off">18% OFF</span><button class="wish">&#55358;&#56589;</button><span>&#55357;&#56464;</span></div>
+        <div class="body"><div class="name">Red Roses Hand Bunch &#8212; 50 Stems</div><div class="tags"><i>Fresh</i></div><div class="price"><span class="now">&#8377;549</span><span class="was">&#8377;670</span><span class="save">Save &#8377;121</span></div><button class="btn-add">Add to Cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="img bg3"><span class="off">20% OFF</span><button class="wish">&#55358;&#56589;</button><span>&#55358;&#56824;</span></div>
+        <div class="body"><div class="name">Sweetheart Jumbo Teddy Bear (3 ft)</div><div class="tags"><i>Hug-worthy</i></div><div class="price"><span class="now">&#8377;1,299</span><span class="was">&#8377;1,624</span><span class="save">Save &#8377;325</span></div><button class="btn-add">Add to Cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="img bg4"><span class="off">20% OFF</span><button class="wish">&#55358;&#56589;</button><span>&#55356;&#57217;</span></div>
+        <div class="body"><div class="name">Perfume + Cake Luxury Combo</div><div class="tags"><i>Combo</i></div><div class="price"><span class="now">&#8377;1,799</span><span class="was">&#8377;2,249</span><span class="save">Save &#8377;450</span></div><button class="btn-add">Add to Cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="img bg5"><span class="off">10% OFF</span><button class="wish">&#55358;&#56589;</button><span>&#55358;&#56980;</span></div>
+        <div class="body"><div class="name">Diwali Decorative Lamps &amp; Thali Set</div><div class="tags"><i>New</i><i>Diwali</i></div><div class="price"><span class="now">&#8377;1,199</span><span class="was">&#8377;1,332</span><span class="save">Save &#8377;133</span></div><button class="btn-add">Add to Cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="img bg6"><span class="off">12% OFF</span><button class="wish">&#55358;&#56589;</button><span>&#55356;&#57113;</span></div>
+        <div class="body"><div class="name">Karwa Chauth Gift Hamper</div><div class="tags"><i>Karwa Chauth</i></div><div class="price"><span class="now">&#8377;1,499</span><span class="was">&#8377;1,704</span><span class="save">Save &#8377;205</span></div><button class="btn-add">Add to Cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="img bg7"><span class="off">15% OFF</span><button class="wish">&#55358;&#56589;</button><span>&#55356;&#57195;</span></div>
+        <div class="body"><div class="name">Premium Chocolates Luxury Box</div><div class="tags"><i>Gourmet</i></div><div class="price"><span class="now">&#8377;699</span><span class="was">&#8377;822</span><span class="save">Save &#8377;123</span></div><button class="btn-add">Add to Cart</button></div>
+      </div>
+      <div class="prod">
+        <div class="img bg8"><span class="off">25% OFF</span><button class="wish">&#55358;&#56589;</button><span>&#55358;&#57012;</span></div>
+        <div class="body"><div class="name">Lucky Bamboo &amp; Money Plant Gifting</div><div class="tags"><i>Plants</i></div><div class="price"><span class="now">&#8377;549</span><span class="was">&#8377;732</span><span class="save">Save &#8377;183</span></div><button class="btn-add">Add to Cart</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner -->
+  <section class="section wrap">
+    <div class="banner reveal">
+      <div><b>&#55358;&#56980; Diwali Festive Specials</b><p>Thali sets, d&#233;cor &amp; hampers. Get <b>15% off</b> with code DIWALI15.</p></div>
+      <a class="btn" href="#">Shop Diwali &#8594;</a>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section wrap">
+    <div class="news reveal">
+      <div><b>Get 10% off your first order &#55356;&#57225;</b><p>Offers, new arrivals &amp; gifting tips &#8212; no spam.</p></div>
+      <form><input type="email" placeholder="Enter your email"><button>Subscribe</button></form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="foot wrap">
+      <div>
+        <div class="logo">Gift<b>ora</b></div>
+        <p>Handpicked gifts, cakes &amp; flowers delivered fresh across 4,000+ cities in India and abroad.</p>
+      </div>
+      <div><h4>Shop</h4><a href="#">Cakes</a><a href="#">Flowers</a><a href="#">Combos</a><a href="#">Teddies</a><a href="#">Plants</a></div>
+      <div><h4>Occasions</h4><a href="#">Birthday</a><a href="#">Anniversary</a><a href="#">Diwali</a><a href="#">Karwa Chauth</a><a href="#">Corporate</a></div>
+      <div><h4>Support</h4><a href="#">Track Order</a><a href="#">Delivery Areas</a><a href="#">Help Center</a><a href="#">Terms</a><a href="#">Privacy</a></div>
+    </div>
+    <div class="foot-copy">&#169; 2026 Giftora &#183; Modern Preview W3</div>
+  </footer>
+</body>
+</html>

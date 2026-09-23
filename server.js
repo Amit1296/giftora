@@ -290,8 +290,8 @@ function requireAuth(req, res) {
 
 const CACHE_EXTENSIONS = {
   ".html": "no-cache",
-  ".js": "public, max-age=0, must-revalidate",
-  ".css": "public, max-age=0, must-revalidate",
+  ".js": "public, max-age=2592000, must-revalidate",
+  ".css": "public, max-age=2592000, must-revalidate",
   ".json": "no-cache, must-revalidate",
   ".txt": "no-cache, must-revalidate",
   ".xml": "no-cache, must-revalidate",
@@ -312,6 +312,92 @@ function cacheControlFor(filePath, cacheControl, hasVersion) {
     return "public, max-age=31536000, immutable";
   }
   return cacheControl;
+}
+
+/* ------------------------------------------------------------------
+ * Render-blocking / cache-lifetime fixes for static HTML responses:
+ *  - inline the shared stylesheets (no render-blocking CSS fetch),
+ *  - drop redundant <link rel="preload" href="...css" as="style">,
+ *  - auto-version every external <script> and script preload with the
+ *    file's mtime so the server can serve it immutable while still
+ *    cache-busting automatically when the file changes on disk.
+ * ------------------------------------------------------------------ */
+const INLINE_STYLESHEETS = (() => {
+  const map = {};
+  for (const name of ["style.min.css", "fonts.css"]) {
+    try {
+      map["css/" + name] = fs.readFileSync(path.join(ROOT, "css", name), "utf8");
+    } catch (e) {
+      console.error("Could not read css/" + name + ":", e.message);
+    }
+  }
+  return map;
+})();
+
+const FONT_PRELOADS =
+  '\t<link rel="preload" href="../fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>\n' +
+  '\t<link rel="preload" href="../fonts/poppins-latin-400.woff2" as="font" type="font/woff2" crossorigin>\n' +
+  '\t<link rel="preload" href="../fonts/poppins-latin-500.woff2" as="font" type="font/woff2" crossorigin>\n' +
+  '\t<link rel="preload" href="../fonts/poppins-latin-600.woff2" as="font" type="font/woff2" crossorigin>\n' +
+  '\t<link rel="preload" href="../fonts/poppins-latin-700.woff2" as="font" type="font/woff2" crossorigin>\n' +
+  '\t<link rel="preload" href="../fonts/dancing-script-latin.woff2" as="font" type="font/woff2" crossorigin>';
+
+function statMtimeMs(file) {
+  try {
+    return String(Math.floor(fs.statSync(file).mtimeMs));
+  } catch (e) {
+    return null;
+  }
+}
+
+function extractAttr(attrs, name) {
+  const m = attrs.match(new RegExp("\\b" + name + "\\s*=\\s*([\"'])([^\"']+)\\1", "i"));
+  return m ? m[2] : "";
+}
+
+function optimizeStaticHtml(html, fileDir) {
+  html = html.replace(/<link\b[^>]*\brel=["']preload["'][^>]*\bas=["']style["'][^>]*>/gi, "");
+  html = html.replace(/<link\b[^>]*\brel=["']preconnect["'][^>]*\bhref=["'][^"']*fonts\.(googleapis|gstatic)\.com["'][^>]*>/gi, "");
+
+  html = html.replace(/<link\b([^>]*\brel=["']stylesheet["'][^>]*)>/gi, (match, attrs) => {
+    const href = extractAttr(attrs, "href");
+    if (!href) return match;
+    if (href.toLowerCase().includes("fonts.googleapis.com")) {
+      const fontsCss = INLINE_STYLESHEETS["css/fonts.css"];
+      if (fontsCss == null) return match;
+      return FONT_PRELOADS + '\t<style data-inline-css="fontscss">' + fontsCss + "</style>";
+    }
+    const resolved = path.resolve(fileDir, href.split("?")[0]);
+    if (!resolved.toLowerCase().startsWith(ROOT.toLowerCase())) return match;
+    const css = INLINE_STYLESHEETS[path.relative(ROOT, resolved).replace(/\\/g, "/")];
+    if (css == null) return match;
+    return '<style data-inline-css="' + path.basename(resolved).replace(/[^a-z0-9]+/gi, "") + '">' + css + "</style>";
+  });
+
+  const versionScript = (match, presrc, quote, src, closers) => {
+    const clean = src.split("?")[0];
+    if (!clean.toLowerCase().endsWith(".js")) return match;
+    const resolved = path.resolve(fileDir, clean);
+    if (!resolved.toLowerCase().startsWith(ROOT.toLowerCase())) return match;
+    const v = statMtimeMs(resolved);
+    if (v == null) return match;
+    return "<script" + presrc + quote + clean + "?v=" + v + quote + closers + ">";
+  };
+  html = html.replace(/<script\b([^>]*\bsrc\s*=\s*)(["'])([^"']+)(\2)([^>]*)>/gi, versionScript);
+
+  html = html.replace(/<link\b([^>]*\brel=["']preload["'][^>]*\bas=["']script["'][^>]*)>/gi, (match, attrs) => {
+    const href = extractAttr(attrs, "href");
+    if (href && href.split("?")[0].toLowerCase().endsWith(".js")) {
+      const resolved = path.resolve(fileDir, href.split("?")[0]);
+      if (resolved.toLowerCase().startsWith(ROOT.toLowerCase())) {
+        const v = statMtimeMs(resolved);
+        if (v != null) return "<link " + attrs.replace(href, href.split("?")[0] + "?v=" + v) + ">";
+      }
+    }
+    return match;
+  });
+
+  return html;
 }
 
 const server = http.createServer(async (req, res) => {
@@ -1090,7 +1176,7 @@ async function handleRequest(req, res) {
           const buf = await db.getUpload(key);
           if (buf) {
             const type = MIME[path.extname(key).toLowerCase()] || "application/octet-stream";
-            res.writeHead(200, { "Content-Type": type, "Cache-Control": "public, max-age=604800" });
+            res.writeHead(200, { "Content-Type": type, "Cache-Control": "public, max-age=31536000, immutable" });
             return res.end(buf);
           }
         } catch (e) {
@@ -1115,10 +1201,39 @@ async function handleRequest(req, res) {
   const cacheControl = cacheControlFor(filePath, CACHE_EXTENSIONS[ext] || "no-cache", url.searchParams.has("v"));
 
   const acceptEncoding = req.headers["accept-encoding"] || "";
-  const compressible = [".html", ".css", ".js", ".json", ".svg", ".woff2"].includes(ext);
-  const useGzip = compressible && acceptEncoding.includes("gzip");
+  const useGzip = acceptEncoding.includes("gzip");
 
-  if (useGzip) {
+  if (ext === ".html" && !/admin\.html$/i.test(path.basename(filePath))) {
+    let html;
+    try {
+      html = fs.readFileSync(filePath, "utf8");
+    } catch (e) {
+      res.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
+      return res.end("Server error");
+    }
+    html = optimizeStaticHtml(html, path.dirname(filePath));
+    const buf = Buffer.from(html, "utf8");
+    if (useGzip && buf.length > 512) {
+      res.writeHead(200, {
+        "Content-Type": type,
+        "Cache-Control": cacheControl,
+        "Content-Encoding": "gzip",
+        "Vary": "Accept-Encoding",
+      });
+      return zlib.gzip(buf, (err, compressed) => {
+        if (err) {
+          res.writeHead(200, { "Content-Type": type, "Cache-Control": cacheControl });
+          return res.end(buf);
+        }
+        res.end(compressed);
+      });
+    }
+    res.writeHead(200, { "Content-Type": type, "Cache-Control": cacheControl });
+    return res.end(buf);
+  }
+
+  const compressible = [".css", ".js", ".json", ".svg", ".woff2"].includes(ext);
+  if (useGzip && compressible) {
     res.writeHead(200, {
       "Content-Type": type,
       "Cache-Control": cacheControl,
