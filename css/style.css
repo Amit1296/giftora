@@ -129,7 +129,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   top: 0;
   left: 0; right: 0;
   z-index: 100;
-  background: linear-gradient(180deg, rgba(255,250,246,0.94), rgba(255,247,242,0.78));
+  background: linear-gradient(180deg, #fffaf6, #fff7f2);
   border-bottom: 1px solid transparent;
   transition: box-shadow 0.3s, border-color 0.3s;
 }
@@ -156,6 +156,7 @@ body.announce-visible .navbar:not(.scrolled) {
   font-family: var(--font-head); font-size: 1.85rem; font-weight: 800; color: var(--text);
   text-shadow: 0 2px 12px rgba(124,58,237,0.15);
   transition: transform 0.25s;
+  position: relative; z-index: 10; white-space: nowrap;
 }
 .logo-mark { width: 84px; height: 71px; flex: none; }
 .logo:hover { transform: scale(1.05) rotate(-2deg); }
