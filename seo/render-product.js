@@ -674,6 +674,7 @@ ${chrome.upi}
 <script src="../js/products.js${jsVersion("products.js")}"></script>
 <script src="../js/product-pages.js${jsVersion("product-pages.js")}"></script>
 <script src="../js/script.min.js${jsVersion("script.min.js")}"></script>
+<script src="../js/whatsapp.js${jsVersion("whatsapp.js")}"></script>
 ${pageScript(product)}
 
 ${chrome.chatbot}
