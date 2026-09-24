@@ -165,7 +165,7 @@ body.announce-visible .navbar:not(.scrolled) {
 .nav-links { display: flex; justify-content: center; gap: 22px; perspective: 800px; align-items: center; }
 .nav-links a {
   display: inline-block;
-  font-size: 0.98rem; font-weight: 600; color: #4b3a5c;
+  font-size: 1.1rem; font-weight: 600; color: #4b3a5c;
   position: relative;
   text-shadow: 0 1px 0 rgba(255,255,255,0.7);
   transition: color 0.25s, transform 0.25s, text-shadow 0.25s;
