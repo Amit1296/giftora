@@ -186,7 +186,7 @@ body.announce-visible .navbar:not(.scrolled) {
 }
 .nav-links a:hover::after { width: 100%; }
 .nav-links a.nav-highlight {
-  background: linear-gradient(120deg, var(--primary), var(--accent-dark));
+  background: var(--primary);
   color: #fff;
   padding: 10px 20px;
   border-radius: 999px;
