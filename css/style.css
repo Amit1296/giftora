@@ -141,7 +141,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   height: 96px;
   transition: height 0.3s ease;
 }
