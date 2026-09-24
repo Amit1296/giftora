@@ -187,19 +187,18 @@ body.announce-visible .navbar:not(.scrolled) {
 }
 .nav-links a:hover::after { width: 100%; }
 .nav-links a.nav-highlight {
-  background: var(--primary);
-  color: #fff;
+  background: #fff;
+  color: var(--primary);
   padding: 10px 20px;
   border-radius: 999px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.25);
-  box-shadow: 0 4px 14px rgba(124,58,237,0.35);
+  box-shadow: 0 0 0 1.5px rgba(124,58,237,0.35), 0 4px 14px rgba(124,58,237,0.18);
   vertical-align: middle;
 }
 .nav-links a.nav-highlight::after { display: none; }
 .nav-links a.nav-highlight:hover {
-  color: #fff;
+  color: var(--primary);
   transform: perspective(800px) translateY(-3px) scale(1.08) rotateX(14deg);
-  box-shadow: 0 10px 26px rgba(124,58,237,0.55);
+  box-shadow: 0 0 0 2px rgba(124,58,237,0.55), 0 10px 26px rgba(124,58,237,0.35);
 }
 .nav-dropdown { position: relative; }
 .nav-dropdown > a::after {
