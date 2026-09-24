@@ -785,15 +785,8 @@ body.announce-visible .navbar:not(.scrolled) {
 }
 .festival-countdown .cd-note { font-size: 0.95rem; }
 
-.wa-btn {
-  position: fixed; right: 22px; bottom: 94px; z-index: 9000;
-  width: 60px; height: 60px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  background: #25d366; color: #fff;
-  box-shadow: 0 8px 24px rgba(37,211,102,0.45);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.wa-btn:hover { transform: scale(1.1); box-shadow: 0 12px 30px rgba(37,211,102,0.6); }
+
+
 
 .rakhi-banner { padding: 0 0 10px; }
 .rakhi-banner-inner {
@@ -1803,7 +1796,7 @@ body.announce-visible .navbar:not(.scrolled) {
 .chatbot-input button:hover { background: #6d28d9; }
 @media (max-width: 640px) {
   .chatbot-fab { right: 16px; bottom: 16px; width: 54px; height: 54px; }
-  .wa-btn { right: 16px; bottom: 80px; width: 54px; height: 54px; }
+  
   .chatbot-widget { right: 12px; bottom: 80px; width: calc(100vw - 24px); height: min(480px, 70vh); }
 }
 
@@ -1973,7 +1966,7 @@ body.announce-visible .navbar:not(.scrolled) {
 
 /* Kill tap-highlight flash and double-tap-zoom lag on touch */
 a, button, .menu-toggle, .cart-btn, .qty-selector button, .size-btn,
-.slider-arrow, .slider-dot, .cookie-btn, .mnav-item, .chatbot-fab, .wa-btn {
+.slider-arrow, .slider-dot, .cookie-btn, .mnav-item, .chatbot-fab {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
@@ -2038,7 +2031,7 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
   /* Keep fixed widgets above the bottom nav */
   .chatbot-fab { right: 16px; bottom: calc(var(--mnav-h) + 12px + env(safe-area-inset-bottom)); width: 54px; height: 54px; }
   .chatbot-widget { right: 12px; bottom: calc(var(--mnav-h) + 12px + env(safe-area-inset-bottom)); width: calc(100vw - 24px); height: min(480px, calc(70vh - var(--mnav-h))); }
-  .wa-btn { display: none; }
+  
   .cookie-banner { bottom: calc(var(--mnav-h) + 12px + env(safe-area-inset-bottom)); }
   .toast { bottom: calc(var(--mnav-h) + 20px + env(safe-area-inset-bottom)); }
 
