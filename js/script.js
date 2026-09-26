@@ -134,7 +134,7 @@
      optional data-gender value (e.g. <div class="products-grid"
      data-products-grid data-gender="men">). Lets one page show a "for him" and
      a "for her" section off the same catalogue without duplicating card code. */
-  const splitGrids = $$("[data-products-grid]").filter((el) => el !== productsGrid);
+  const splitGrids = Array.from($$("[data-products-grid]")).filter((el) => el !== productsGrid);
   const allGrids = [productsGrid, ...splitGrids].filter(Boolean);
   const emptyState = $("#emptyState");
   const searchInput = $("#searchInput");
