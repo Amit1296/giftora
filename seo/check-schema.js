@@ -162,11 +162,21 @@ const imageMapSize = Object.keys(imageMap).length;
 // The live server renders product pages dynamically from data/products.json via
 // seo/render-product.js. If a product there lacks an image, its rendered Product
 // schema will be invalid even though the static products/*.html look fine.
+//
+// Exception: a product that carries an `emoji` placeholder is intentionally
+// image-less until its photography is uploaded. cardHTML()/render-product.js
+// both fall back to that emoji, so the page still renders. These are reported
+// as warnings so an emoji placeholder can never be mistaken for a real photo,
+// and they stop being warnings automatically once `image` is filled in.
 {
   const raw = loadProductsData();
   for (const p of raw) {
     if (p && p.name && !p.image) {
-      errors.push(`data/products.json -> "${p.name}" (id ${p.id}): missing "image"; absolutely required for Product rich results.`);
+      if (p.emoji) {
+        warnings.push(`data/products.json -> "${p.name}" (id ${p.id}): no "image"; using emoji placeholder "${p.emoji}". Add a real photo to clear this.`);
+      } else {
+        errors.push(`data/products.json -> "${p.name}" (id ${p.id}): missing "image"; absolutely required for Product rich results.`);
+      }
     }
   }
 }
