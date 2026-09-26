@@ -592,56 +592,18 @@ function productBody(product, slug, catMeta, site, products, faqs) {
 }
 
 function pageScript(product) {
+  // Per-product values go in a JSON data block (not executed, so CSP allows it);
+  // the behaviour itself lives in js/product-detail-qty.js. The site CSP forbids
+  // inline scripts, so an inline <script> here would be blocked in the browser.
+  const cfg = JSON.stringify({
+    id: product.id,
+    price: Number(product.price) || 0,
+    sizePrices: product.sizePrices || {},
+  }).replace(/</g, "\\u003c");
+
   return `
-<script>
-  (function () {
-    var qty = 1;
-    var sel = document.querySelector(".qty-selector");
-    var qtyEl = sel && sel.querySelector("span");
-    if (sel) sel.addEventListener("click", function (e) {
-      var btn = e.target.closest("button[data-action]");
-      if (!btn) return;
-      qty = Math.max(1, Math.min(50, qty + (btn.dataset.action === "inc" ? 1 : -1)));
-      qtyEl.textContent = qty;
-    });
-    var sizeSel = document.querySelector(".size-selector");
-    var size = "";
-    var sizePrices = ${JSON.stringify(product.sizePrices || {})};
-    var basePrice = ${Number(product.price) || 0};
-    var priceEl = document.getElementById("detailPrice");
-    var oldEl = document.getElementById("detailOldPrice");
-    if (sizeSel) {
-      var sizeBtns = sizeSel.querySelectorAll(".size-btn");
-      sizeBtns.forEach(function (b) {
-        b.addEventListener("click", function () {
-          sizeBtns.forEach(function (x) { x.classList.remove("selected"); });
-          b.classList.add("selected");
-          size = b.dataset.size;
-          if (priceEl) {
-            var sp = sizePrices[size] != null ? Number(sizePrices[size]) : basePrice;
-            priceEl.textContent = "\u20B9" + sp.toLocaleString("en-IN");
-          }
-          if (oldEl) {
-            var onBase = !(sizePrices[size] != null);
-            oldEl.style.display = onBase ? "" : "none";
-          }
-        });
-      });
-      size = sizeBtns.length ? sizeBtns[0].dataset.size : "";
-    }
-    var addBtn = document.getElementById("addToCartBtn");
-    if (addBtn && !addBtn.disabled) addBtn.addEventListener("click", function () {
-      window.Giftora.addToCartQty(${product.id}, qty, size);
-    });
-    document.addEventListener("click", function (e) {
-      var btn = e.target.closest(".add-to-cart[data-id]");
-      if (btn && btn.id !== "addToCartBtn" && !btn.disabled) {
-        var s = document.querySelector('.product-size[data-size="' + btn.dataset.id + '"]');
-        window.Giftora.addToCart(btn.dataset.id, s ? s.value : "");
-      }
-    });
-  })();
-</script>
+<script type="application/json" id="ppd-config">${cfg}</script>
+<script src="../js/product-detail-qty.js"></script>
 `;
 }
 
