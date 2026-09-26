@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const ROOT = process.argv[2] || path.resolve(__dirname, "..");
-const SKIP = new Set(["admin.html","banner-template.html","checkout-preview.html","gift-card-template.html","google7700e6aeefbc94c5.html"]);
+const SKIP = new Set(["admin.html","banner-template.html","checkout-preview.html","google7700e6aeefbc94c5.html"]);
 const reScript = /<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/g;
 let webErr = [], faqErr = [];
 let totalWeb = 0, totalFaq = 0, parsedFail = 0, unparsed = 0;

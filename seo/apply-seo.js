@@ -266,13 +266,36 @@ function writeRobots(site) {
     "",
     "Disallow: /admin.html",
     "Disallow: /checkout-preview.html",
-    "Disallow: /gift-card-template.html",
     "Disallow: /banner-template.html",
     "Disallow: /blog-template.html",
     "Disallow: /data/",
     "Disallow: /seo/",
     "",
     `Sitemap: ${site.url}/sitemap.xml`,
+    "",
+    "User-agent: GPTBot",
+    "Allow: /",
+    "",
+    "User-agent: ChatGPT-User",
+    "Allow: /",
+    "",
+    "User-agent: OAI-SearchBot",
+    "Allow: /",
+    "",
+    "User-agent: PerplexityBot",
+    "Allow: /",
+    "",
+    "User-agent: CCBot",
+    "Allow: /",
+    "",
+    "User-agent: ClaudeBot",
+    "Allow: /",
+    "",
+    "User-agent: Google-Extended",
+    "Allow: /",
+    "",
+    "User-agent: Applebot-Extended",
+    "Allow: /",
     "",
   ].join("\n");
   fs.writeFileSync(path.join(ROOT, "robots.txt"), content, "utf8");
@@ -320,7 +343,7 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
     addUrl(site.url + "/" + file, c.priority, c.changefreq, file);
   }
 
-  const excluded = ["admin.html", "product.html", "checkout-preview.html", "gift-card-template.html", "banner-template.html", "blog-template.html", "logos/logo-concepts.html"];
+  const excluded = ["admin.html", "product.html", "checkout-preview.html", "banner-template.html", "blog-template.html", "logos/logo-concepts.html"];
   // Only root-level *.html and the products/ directory may appear in the
   // sitemap. Any other folder (a separate project dropped into the repo,
   // uploads, previews, ...) is rejected by construction so a foreign page can

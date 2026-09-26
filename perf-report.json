@@ -1017,7 +1017,7 @@
             "entity": "gift-ora.online"
           },
           {
-            "url": "https://gift-ora.online/uploads/teacher-books.webp",
+            "url": "https://gift-ora.online/uploads/teacher-books.jpg",
             "sessionTargetType": "page",
             "protocol": "http/1.1",
             "cache": "none",
@@ -2289,7 +2289,7 @@
             "totalBytes": 33560
           },
           {
-            "url": "https://gift-ora.online/uploads/teacher-books.webp",
+            "url": "https://gift-ora.online/uploads/teacher-books.jpg",
             "totalBytes": 28080
           },
           {
@@ -2513,7 +2513,7 @@
             "wastedBytes": 13424
           },
           {
-            "url": "https://gift-ora.online/uploads/teacher-books.webp",
+            "url": "https://gift-ora.online/uploads/teacher-books.jpg",
             "cacheLifetimeMs": 86400000,
             "totalBytes": 28080,
             "wastedBytes": 11232
@@ -3110,7 +3110,7 @@
               "snippet": "<img src=\"uploads/teacher-books.webp\" alt=\"Teacher's Day gifts\" loading=\"lazy\">",
               "nodeLabel": "Teacher's Day gifts"
             },
-            "url": "https://gift-ora.online/uploads/teacher-books.webp",
+            "url": "https://gift-ora.online/uploads/teacher-books.jpg",
             "totalBytes": 27106,
             "wastedBytes": 25359,
             "subItems": {
@@ -3377,7 +3377,7 @@
             "protocol": "http/1.1"
           },
           {
-            "url": "https://gift-ora.online/uploads/teacher-books.webp",
+            "url": "https://gift-ora.online/uploads/teacher-books.jpg",
             "protocol": "http/1.1"
           },
           {

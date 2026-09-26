@@ -141,5 +141,15 @@ window.GIFT_PRODUCT_PAGES = [
   "red-tape-rt-nimbus-urban",
   "asian-men-streetwear-logo-print-casual-shoes",
   "streetwear-classic-white-high-top-sneakers",
-  "the-ultimate-gentleman-s-bundle"
+  "the-ultimate-gentleman-s-bundle",
+  "executive-sterling-silver-chain-bracelet-for-men",
+  "midnight-cz-pendant-chain-for-men",
+  "braided-steel-genuine-leather-men-s-bracelet",
+  "oxidised-silver-signet-ring-for-men",
+  "men-s-cuban-link-steel-chain",
+  "classic-heart-pendant-necklace-for-her",
+  "rose-gold-floral-jhumka-earrings",
+  "kundan-bridal-choker-necklace",
+  "custom-name-necklace-for-women",
+  "bridal-jewellery-set-for-women"
 ];

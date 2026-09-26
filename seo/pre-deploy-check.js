@@ -138,7 +138,75 @@ function checkCatalog(sitemapProductLocs) {
   }
 }
 
-// ---- [3] Staged-file rules ----
+function sitemapHtmlPath(url) {
+  if (url !== SITE_URL && !url.startsWith(SITE_URL + "/")) return null;
+  const rel = url.slice(SITE_URL.length).replace(/^\/+/, "") || "index.html";
+  try { return path.join(ROOT, decodeURIComponent(rel)); }
+  catch { return null; }
+}
+
+function checkInternalLinks(locs) {
+  if (!locs) return { pagesChecked: 0, linksChecked: 0, orphanCount: 0 };
+  const reported = new Set();
+  const sitemapPaths = new Set(locs.map(sitemapHtmlPath).filter(Boolean));
+  const inbound = new Map([...sitemapPaths].map((file) => [file, 0]));
+  let pagesChecked = 0;
+  let linksChecked = 0;
+
+  for (const url of locs) {
+    const sourcePath = sitemapHtmlPath(url);
+    if (!sourcePath || !fs.existsSync(sourcePath)) continue;
+    pagesChecked++;
+    const sourceRel = path.relative(ROOT, sourcePath).replace(/\\/g, "/");
+    const html = fs.readFileSync(sourcePath, "utf8");
+    const hrefs = new Set();
+    for (const match of html.matchAll(/<a\b[^>]*?\bhref\s*=\s*(["'])(.*?)\1[^>]*>/gi)) {
+      hrefs.add(match[2].trim());
+    }
+
+    for (const href of hrefs) {
+      if (!href || href.startsWith("#") || /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(href) || href.includes("%%")) continue;
+      let targetPath;
+      try {
+        const clean = decodeURIComponent(href.split("#", 1)[0].split("?", 1)[0]);
+        if (!clean) continue;
+        targetPath = clean.startsWith("/")
+          ? path.resolve(ROOT, "." + clean)
+          : path.resolve(path.dirname(sourcePath), clean);
+      } catch {
+        const issue = `invalid local link in ${sourceRel}: ${href}`;
+        if (!reported.has(issue)) { fail(issue); reported.add(issue); }
+        continue;
+      }
+
+      linksChecked++;
+      const targetRel = path.relative(ROOT, targetPath);
+      if (targetRel.startsWith("..") || path.isAbsolute(targetRel)) {
+        const issue = `local link escapes site root in ${sourceRel}: ${href}`;
+        if (!reported.has(issue)) { fail(issue); reported.add(issue); }
+        continue;
+      }
+      if (fs.existsSync(targetPath) && fs.statSync(targetPath).isDirectory()) {
+        targetPath = path.join(targetPath, "index.html");
+      }
+      if (!fs.existsSync(targetPath)) {
+        const issue = `dead internal link in ${sourceRel}: ${href} -> ${targetRel.replace(/\\/g, "/")}`;
+        if (!reported.has(issue)) { fail(issue); reported.add(issue); }
+        continue;
+      }
+      if (targetPath !== sourcePath && inbound.has(targetPath)) inbound.set(targetPath, inbound.get(targetPath) + 1);
+    }
+  }
+
+  const orphans = [...inbound.entries()]
+    .filter(([file, count]) => file !== path.join(ROOT, "index.html") && count === 0)
+    .map(([file]) => path.relative(ROOT, file).replace(/\\/g, "/"));
+  for (const orphan of orphans) fail(`sitemap page has no internal inbound links: ${orphan}`);
+
+  return { pagesChecked, linksChecked, orphanCount: orphans.length };
+}
+
+// ---- [4] Staged-file rules ----
 function gitFileList(args) {
   const r = spawnSync("git", args, { cwd: ROOT, encoding: "utf8" });
   if (r.status !== 0) return null;
@@ -178,7 +246,7 @@ function checkStagedFiles() {
   }
 }
 
-// ---- [4] Structured data ----
+// ---- [5] Structured data ----
 function checkSchema() {
   if (NO_SCHEMA) return;
   if (!fs.existsSync(path.join(ROOT, "seo", "check-schema.js"))) {
@@ -198,24 +266,29 @@ function sectionStatus(beforeCount, note) {
   return failures.length > beforeCount ? "FAILED" + (note ? " " + note : "") : "ok";
 }
 
-console.log("  [1/4] sitemap integrity  ");
+console.log("  [1/5] sitemap integrity  ");
 let before = failures.length;
 const sitemapLocs = parseSiteMap();
 const sitemapProductLocs = checkSitemap(sitemapLocs);
 const s1 = failures.length > before;
 console.log("        " + sectionStatus(before) + (sitemapLocs ? `  (${sitemapLocs.length} URLs, ${sitemapProductLocs} products)` : ""));
 
-console.log("  [2/4] catalog sync       ");
+console.log("  [2/5] catalog sync       ");
 before = failures.length;
 checkCatalog(sitemapProductLocs);
 console.log("        " + sectionStatus(before, s1 ? "(blocked — sitemap invalid)" : "(re-run node seo/sync-from-server.js)"));
 
-console.log("  [3/4] staged/pushed files");
+console.log("  [3/5] internal links    ");
+before = failures.length;
+const linkStats = checkInternalLinks(sitemapLocs);
+console.log("        " + sectionStatus(before) + `  (${linkStats.linksChecked} links across ${linkStats.pagesChecked} pages, ${linkStats.orphanCount} orphans)`);
+
+console.log("  [4/5] staged/pushed files");
 before = failures.length;
 checkStagedFiles();
 console.log("        " + sectionStatus(before));
 
-console.log("  [4/4] structured data    ");
+console.log("  [5/5] structured data    ");
 before = failures.length;
 checkSchema();
 console.log("        " + sectionStatus(before));

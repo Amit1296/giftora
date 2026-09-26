@@ -568,30 +568,6 @@ async function handleRequest(req, res) {
       }
     }
 
-    /* ---------- Gift cards (admin) ---------- */
-    if (url.pathname === "/api/admin/giftcards") {
-      const auth = requireAuth(req, res);
-      if (!auth) return;
-      try {
-        const body = JSON.parse(await readBody(req));
-        const created = await createGiftCards(body);
-        return sendJson(res, 200, { success: true, cards: created });
-      } catch (e) {
-        console.error("Gift card create error:", e.message);
-        return badRequest(res, e, e.message || "Could not create gift cards.");
-      }
-    }
-
-    /* ---------- Gift card validation (public) ---------- */
-    if (url.pathname === "/api/giftcard/validate" && method === "POST") {
-      try {
-        const body = JSON.parse(await readBody(req));
-        return sendJson(res, 200, await validateGiftCard(body.code));
-      } catch (e) {
-        return sendJson(res, 400, { valid: false, message: "Invalid request." });
-      }
-    }
-
     /* ---------- Public tracking (visitor analytics) ---------- */
     if (url.pathname === "/api/track") {
       try {
@@ -794,26 +770,6 @@ async function handleRequest(req, res) {
 
     if (url.pathname === "/api/admin/products" && method === "GET") {
       return sendJson(res, 200, { success: true, products: await db.getProducts() });
-    }
-
-    if (url.pathname === "/api/admin/giftcards" && method === "GET") {
-      const cards = await db.getGiftCards();
-      return sendJson(res, 200, { success: true, cards });
-    }
-
-    if (url.pathname === "/api/admin/giftcards" && method === "PUT") {
-      try {
-        const body = JSON.parse(await readBody(req));
-        const code = String(body.code || "").trim().toUpperCase();
-        const cards = await db.getGiftCards();
-        const card = cards.find((x) => x.code === code);
-        if (!card) return sendJson(res, 404, { success: false, message: "Gift card not found." });
-        if (typeof body.active === "boolean") card.active = body.active;
-        await db.saveGiftCards(cards);
-        return sendJson(res, 200, { success: true });
-      } catch (e) {
-        return badRequest(res, e, "Could not update gift card.");
-      }
     }
 
     if (url.pathname === "/api/admin/products" && method === "PUT") {
@@ -1150,8 +1106,13 @@ async function handleRequest(req, res) {
     }
   }
 
-  const blocked = ["/data/", "/.opencode/", "/admin-config.json", "/mail-config.json", "/razorpay-config.json", "/upi-config.json", "/node_modules/", "/.env"];
   const lowerPath = pathname.toLowerCase();
+  if (lowerPath === "/medicine-medical-equipments" || lowerPath.startsWith("/medicine-medical-equipments/")) {
+    res.writeHead(410, { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=86400" });
+    return res.end("Gone");
+  }
+
+  const blocked = ["/data/", "/.opencode/", "/admin-config.json", "/mail-config.json", "/razorpay-config.json", "/upi-config.json", "/node_modules/", "/.env"];
   if (blocked.some((b) => lowerPath.startsWith(b))) {
     res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Forbidden");
@@ -1542,81 +1503,6 @@ async function createCoupons(body) {
   return created;
 }
 
-/* ---------- Gift cards ---------- */
-const GC_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no 0/O/1/I to avoid confusion
-
-function makeGiftCardCode(existingCodes) {
-  const block = () => {
-    const bytes = crypto.randomBytes(4);
-    let s = "";
-    for (let i = 0; i < 4; i++) s += GC_ALPHABET[bytes[i] % GC_ALPHABET.length];
-    return s;
-  };
-  let code = "";
-  do {
-    code = "GFT-" + block() + "-" + block() + "-" + block();
-  } while (existingCodes.has(code));
-  return code;
-}
-
-async function createGiftCards(body) {
-  const amount = Math.round(Number(body && body.amount) || 0);
-  if (!(amount >= 100 && amount <= 100000)) throw new Error("Amount must be between ₹100 and ₹1,00,000.");
-  const count = Math.max(1, Math.min(200, parseInt(body && body.count, 10) || 1));
-  const months = Math.max(1, Math.min(60, parseInt(body && body.validMonths, 10) || 12));
-  const note = String((body && body.note) || "").trim().slice(0, 120);
-  const existing = await db.getGiftCards();
-  const codes = new Set(existing.map((x) => x.code));
-  const created = [];
-  for (let i = 0; i < count; i++) {
-    const code = makeGiftCardCode(codes);
-    codes.add(code);
-    created.push({
-      code,
-      amount,
-      balance: amount,
-      note,
-      active: true,
-      created: new Date().toISOString(),
-      expires: new Date(Date.now() + months * 30 * 24 * 60 * 60 * 1000).toISOString(),
-      redeems: [],
-    });
-  }
-  await db.saveGiftCards([...created, ...existing]);
-  return created;
-}
-
-async function validateGiftCard(code) {
-  const clean = String(code || "").trim().toUpperCase();
-  if (!clean) return { valid: false, message: "Enter a gift card code." };
-  const cards = await db.getGiftCards();
-  const card = cards.find((x) => x.code === clean);
-  if (!card) return { valid: false, message: "Gift card not found. Check the code and try again." };
-  if (!card.active) return { valid: false, message: "This gift card has been deactivated." };
-  if (new Date(card.expires).getTime() < Date.now()) return { valid: false, message: "This gift card has expired." };
-  return {
-    valid: true,
-    balance: Number(card.balance) || 0,
-    amount: Number(card.amount) || 0,
-    expires: card.expires,
-    message: `Valid gift card — balance ₹${Number(card.balance || 0).toLocaleString("en-IN")}.`,
-  };
-}
-
-async function redeemGiftCard(code, amount, orderId) {
-  const cards = await db.getGiftCards();
-  const card = cards.find((x) => x.code === code);
-  if (!card || !card.active) return false;
-  if (new Date(card.expires).getTime() < Date.now()) return false;
-  const amt = Math.max(0, Math.min(Math.round(Number(amount) || 0), Math.round(card.balance)));
-  if (amt <= 0) return false;
-  card.balance = Math.round(card.balance) - amt;
-  card.redeems = Array.isArray(card.redeems) ? card.redeems : [];
-  card.redeems.push({ orderId: String(orderId || ""), amount: amt, date: new Date().toISOString() });
-  await db.saveGiftCards(cards);
-  return true;
-}
-
 async function evaluateCoupon(code, subtotal) {
   const coupons = await db.getCoupons();
   const c = coupons.find((x) => x.code === code);
@@ -1685,18 +1571,6 @@ async function computeCart(data, prefix) {
     coupon = result.coupon;
     couponDiscount = result.discount;
   }
-  let giftCard = null;
-  let giftCardDiscount = 0;
-  const gcCode = String(data.giftCardCode || "").trim().toUpperCase();
-  if (gcCode) {
-    const check = await validateGiftCard(gcCode);
-    if (!check.valid) E("Gift card could not be applied: " + check.message);
-    const cards = await db.getGiftCards();
-    const card = cards.find((x) => x.code === gcCode);
-    const base = Math.max(0, subtotal + midnightFee - couponDiscount);
-    giftCardDiscount = Math.min(Math.round(card.balance), Math.round(base));
-    if (giftCardDiscount > 0) giftCard = { code: card.code };
-  }
   return {
     products,
     festivalDiscount,
@@ -1706,9 +1580,7 @@ async function computeCart(data, prefix) {
     midnightFee,
     coupon,
     couponDiscount,
-    giftCard,
-    giftCardDiscount,
-    total: Math.max(0, subtotal + midnightFee - couponDiscount - giftCardDiscount),
+    total: Math.max(0, subtotal + midnightFee - couponDiscount),
   };
 }
 
@@ -1765,8 +1637,6 @@ async function createRazorpayOrder(data) {
       key: RAZORPAY_KEY_ID,
       couponCode: cart.coupon ? cart.coupon.code : "",
       couponDiscount: cart.couponDiscount || 0,
-      giftCardCode: cart.giftCard ? cart.giftCard.code : "",
-      giftCardDiscount: cart.giftCardDiscount || 0,
     };
   }
   const amountPaise = Math.round(cart.total * 100);
@@ -1796,11 +1666,6 @@ async function createRazorpayOrder(data) {
     couponCode: cart.couponCode || "",
     couponDiscount: cart.couponDiscount || 0,
     couponLabel: cart.couponLabel || "",
-    giftCardCode: cart.giftCard ? cart.giftCard.code : "",
-    giftCardDiscount: cart.giftCardDiscount || 0,
-    giftCardBalanceAfter: cart.giftCard
-      ? Math.max(0, Math.round((await db.getGiftCards()).find((x) => x.code === cart.giftCard.code).balance) - Math.round(cart.giftCardDiscount))
-      : 0,
   };
 }
 
@@ -1813,7 +1678,7 @@ async function placeOrder(data) {
   }
   const customerMessage = String(data.message || "").trim().slice(0, 500);
   const address = String(data.address || "").trim().slice(0, 600);
-  const payment = ["UPI", "Card", "UPI QR", "Gift Card"].includes(data.payment) ? data.payment : "UPI";
+  const payment = ["UPI", "Card", "UPI QR"].includes(data.payment) ? data.payment : "UPI";
   if (!name || !phone || !/^[0-9+\-()\s]{7,20}$/.test(phone) || !address) {
     throw new Error("ORDER:Please provide a valid name, phone and address.");
   }
@@ -1823,10 +1688,6 @@ async function placeOrder(data) {
 
   const cart = await computeCart(data, "ORDER:");
   const { items, total, midnightDelivery, midnightFee } = cart;
-
-  if (payment === "Gift Card" && total > 0) {
-    throw new Error("ORDER:Gift card balance does not cover the full order. Please choose another payment method for the remaining amount.");
-  }
 
   const isOnline = payment === "UPI" || payment === "Card";
   let rzpPaymentId = "";
@@ -1856,12 +1717,6 @@ async function placeOrder(data) {
   if (cart.coupon) await markCouponUsed(cart.coupon.code);
 
   const orderId = "order_" + timestamp();
-  if (cart.giftCard) {
-    const redeemed = await redeemGiftCard(cart.giftCard.code, cart.giftCardDiscount, orderId);
-    if (!redeemed) {
-      throw new Error("ORDER:Your gift card could not be redeemed (insufficient balance or deactivated). Please remove it and try again.");
-    }
-  }
   await db.addOrder({
     name,
     phone,
@@ -1876,20 +1731,18 @@ async function placeOrder(data) {
     midnightFee,
     coupon: cart.coupon ? cart.coupon.code : "",
     couponDiscount: cart.couponDiscount || 0,
-    giftCard: cart.giftCard ? cart.giftCard.code : "",
-    giftCardDiscount: cart.giftCardDiscount || 0,
     vid: String(data.vid || "").slice(0, 64),
     razorpayPaymentId: rzpPaymentId,
     _file: orderId,
     status: "New",
-    paid: isOnline || payment === "Gift Card",
-    paymentStatus: isOnline || payment === "Gift Card" ? "Paid" : "Pending",
+    paid: isOnline,
+    paymentStatus: isOnline ? "Paid" : "Pending",
     date: new Date().toISOString(),
     senderName,
     senderPhone,
     senderCity,
   });
-  const orderData = { name, phone, email, message: customerMessage, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, midnightFee, paid: isOnline || payment === "Gift Card", coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0, giftCard: cart.giftCard ? cart.giftCard.code : "", giftCardDiscount: cart.giftCardDiscount || 0, senderName, senderPhone, senderCity };
+  const orderData = { name, phone, email, message: customerMessage, address, payment, items, total, deliveryDate: String(data.deliveryDate || "").trim().slice(0, 20), midnightDelivery, midnightFee, paid: isOnline, coupon: cart.coupon ? cart.coupon.code : "", couponDiscount: cart.couponDiscount || 0, senderName, senderPhone, senderCity };
   sendOrderEmail(orderData, orderId);
   if (email) sendCustomerReceipt(orderData, orderId);
   return { success: true, orderId, total };

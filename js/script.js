@@ -3,17 +3,17 @@
   "logo.svg": [260, 220],
   "/uploads/occasion-anniversary.webp": [960, 640],
   "/uploads/occasion-baby-shower.webp": [960, 640],
-  "/uploads/teacher-books.webp": [520, 520],
+  "/uploads/teacher-books.jpg": [520, 520],
   "/uploads/occasion-birthday.webp": [960, 640],
   "/uploads/occasion-gifts.webp": [960, 640],
   "/uploads/occasion-corporate.webp": [960, 640],
-  "/uploads/img_2026_08_04_00_11_0445861a.webp": [800, 765],
+  "/uploads/img_2026_08_04_00_11_0445861a.jpg": [800, 765],
   "/uploads/occasion-housewarming.webp": [960, 540],
   "/uploads/occasion-wedding.webp": [960, 640],
-  "/uploads/img_2026_08_07_05_51_19a7e00f.webp": [558, 548],
-  "/uploads/img_2026_08_04_00_29_04359c64.webp": [800, 666],
-  "/uploads/img_2026_08_04_00_25_12ae37b0.webp": [800, 765],
-  "/uploads/img_2026_08_07_06_37_25125bd6.webp": [508, 510],
+  "/uploads/img_2026_08_07_05_51_19a7e00f.jpg": [558, 548],
+  "/uploads/img_2026_08_04_00_29_04359c64.jpg": [800, 666],
+  "/uploads/img_2026_08_04_00_25_12ae37b0.jpg": [800, 765],
+  "/uploads/img_2026_08_07_06_37_25125bd6.jpg": [508, 510],
   "/uploads/img_2026_08_14_17_39_25caca01.webp": [269, 462],
   "/uploads/img_2026_08_08_17_30_584dfcce.webp": [548, 542],
   "/uploads/img_2026_08_11_16_47_000cbcde.webp": [477, 493],
@@ -130,6 +130,12 @@
   const cartTotalEl = $("#cartTotal");
   const checkoutBtn = $("#checkoutBtn");
   const productsGrid = $("#productsGrid");
+  /* Additional grids that opt in with data-products-grid, each narrowed by an
+     optional data-gender value (e.g. <div class="products-grid"
+     data-products-grid data-gender="men">). Lets one page show a "for him" and
+     a "for her" section off the same catalogue without duplicating card code. */
+  const splitGrids = $$("[data-products-grid]").filter((el) => el !== productsGrid);
+  const allGrids = [productsGrid, ...splitGrids].filter(Boolean);
   const emptyState = $("#emptyState");
   const searchInput = $("#searchInput");
   const filterBtns = $("#filterBtns");
@@ -195,7 +201,6 @@
     }
   })();
   let appliedCoupon = null;
-  let appliedGiftCard = null;
 
   function loadCart() {
     try { return JSON.parse(localStorage.getItem(PRODUCTS_KEY)) || {}; }
@@ -641,14 +646,8 @@
     return appliedCoupon ? Math.max(0, Number(appliedCoupon.discount) || 0) : 0;
   }
 
-  function giftCardDiscount() {
-    if (!appliedGiftCard) return 0;
-    const base = Math.max(0, grandTotal() - couponDiscount());
-    return Math.min(Math.round(appliedGiftCard.balance) || 0, Math.round(base));
-  }
-
   function payableTotal() {
-    return Math.max(0, grandTotal() - couponDiscount() - giftCardDiscount());
+    return Math.max(0, grandTotal() - couponDiscount());
   }
 
   function setCouponMsg(text, ok) {
@@ -703,58 +702,6 @@
     appliedCoupon = null;
     if (couponInput) couponInput.value = "";
     setCouponMsg("", false);
-    renderOrderSummary();
-  }
-
-  let gcMsg = null;
-  function setGcMsg(text, ok) {
-    if (!gcMsg) return;
-    gcMsg.textContent = text;
-    gcMsg.className = "coupon-msg" + (ok ? " ok" : " err");
-  }
-
-  async function applyGiftCard(code, silent) {
-    const trimmed = String(code || "").trim().toUpperCase();
-    if (!trimmed) {
-      setGcMsg("Please enter a gift card code.", false);
-      return false;
-    }
-    if (!gcApplyBtn) return false;
-    gcApplyBtn.disabled = true;
-    if (!silent) setGcMsg("Checking...", true);
-    try {
-      const res = await fetch("/api/giftcard/validate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: trimmed }),
-      }).then((r) => r.json());
-      if (!res.valid) {
-        appliedGiftCard = null;
-        if (!silent) setGcMsg(res.message || "Invalid gift card code.", false);
-        renderOrderSummary();
-        return false;
-      }
-      appliedGiftCard = { code: res.code || trimmed, balance: Number(res.balance) || 0 };
-      if (!silent) {
-        setGcMsg(`Gift card applied — balance ₹${Number(res.balance).toLocaleString("en-IN")}.`, true);
-        toast("Gift card applied ✓");
-      }
-      renderOrderSummary();
-      return true;
-    } catch {
-      appliedGiftCard = null;
-      if (!silent) setGcMsg("Could not reach the server. Try again.", false);
-      renderOrderSummary();
-      return false;
-    } finally {
-      gcApplyBtn.disabled = false;
-    }
-  }
-
-  function clearGiftCard() {
-    appliedGiftCard = null;
-    if (gcInput) gcInput.value = "";
-    setGcMsg("", false);
     renderOrderSummary();
   }
 
@@ -835,16 +782,11 @@
     if (appliedCoupon && disc > 0) {
       orderSummary.innerHTML += `<div class="os-row os-coupon-row"><span class="os-name">🎟️ Coupon ${appliedCoupon.code}</span><span class="os-muted">−${formatPrice(disc)}</span></div>`;
     }
-    const gdisc = giftCardDiscount();
-    if (appliedGiftCard && gdisc > 0) {
-      orderSummary.innerHTML += `<div class="os-row os-coupon-row"><span class="os-name">🎁 Gift card ${appliedGiftCard.code}</span><span class="os-muted">−${formatPrice(gdisc)}</span></div>`;
-    }
     const saving = festivalSaving();
     checkoutTotal.textContent = formatPrice(payableTotal());
     const labels = [];
     if (saving > 0) labels.push(`${festivalDiscount}% off`);
     if (appliedCoupon && disc > 0) labels.push("coupon");
-    if (appliedGiftCard && gdisc > 0) labels.push("gift card");
     checkoutTotal.previousElementSibling.textContent = labels.length ? `Total to pay (${labels.join(" + ")})` : "Total to pay";
   }
 
@@ -893,7 +835,6 @@
       midnightDelivery,
       midnightFee: fee,
       coupon: appliedCoupon ? appliedCoupon.code : "",
-      giftCardCode: appliedGiftCard ? appliedGiftCard.code : "",
       total: payableTotal(),
       vid,
       senderName,
@@ -956,7 +897,6 @@
       updateBadge();
       renderCart();
       clearCoupon();
-      clearGiftCard();
     } catch (e) {
       toast(e.message || "Could not reach the server. Please try again.");
     } finally {
@@ -989,7 +929,7 @@
       const res = await fetch("/api/payment/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items, coupon: appliedCoupon ? appliedCoupon.code : "", giftCardCode: appliedGiftCard ? appliedGiftCard.code : "" }),
+        body: JSON.stringify({ items, coupon: appliedCoupon ? appliedCoupon.code : "" }),
       }).then((r) => r.json());
       if (!res.success) throw new Error(res.message || "Could not start payment.");
 
@@ -1074,37 +1014,6 @@
   checkoutOverlay.addEventListener("click", closeCheckout);
   if (couponApplyBtn) {
     couponApplyBtn.addEventListener("click", () => applyCoupon(couponInput ? couponInput.value : ""));
-
-  /* ---------- Gift card checkout UI (injected next to coupon box) ---------- */
-  let gcInput = null;
-  let gcApplyBtn = null;
-    (function injectGiftCardUI() {
-    const couponBox = couponMsg ? couponMsg.closest(".coupon-box") : null;
-    if (!couponBox || !couponBox.parentElement) return;
-    const box = document.createElement("div");
-    box.className = "coupon-box";
-    box.innerHTML = `
-      <label class="form-section-title" for="gcInput">Gift Card</label>
-      <div class="coupon-row">
-        <input type="text" id="gcInput" placeholder="Have a gift card? Enter the code" autocomplete="off" spellcheck="false">
-        <button type="button" class="btn" id="gcApplyBtn">Apply</button>
-      </div>
-      <p class="coupon-msg" id="gcMsg"></p>
-    `;
-    couponBox.parentElement.insertBefore(box, couponBox.nextSibling);
-    gcInput = $("#gcInput");
-    gcApplyBtn = $("#gcApplyBtn");
-    gcMsg = $("#gcMsg");
-    if (gcApplyBtn) gcApplyBtn.addEventListener("click", () => applyGiftCard(gcInput ? gcInput.value : ""));
-    if (gcInput) {
-      gcInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          applyGiftCard(gcInput.value);
-        }
-      });
-    }
-  })();
   }
   if (couponInput) {
     couponInput.addEventListener("keydown", (e) => {
@@ -1381,9 +1290,9 @@
      stops a stale render that a filter/search re-render superseded. */
   let renderToken = 0;
   function renderProducts() {
-    if (!productsGrid) return;
+    if (!allGrids.length) return;
     const query = searchQuery.trim().toLowerCase();
-    const list = PRODUCTS.filter((p) => {
+    const base = PRODUCTS.filter((p) => {
       const matchPage = PAGE_FESTIVAL
         ? festivalProductIds.size === 0 || festivalProductIds.has(p.id)
         : PAGE_RAKHI || PAGE_NRI
@@ -1401,29 +1310,37 @@
     });
 
     const token = ++renderToken;
-    productsGrid.innerHTML = "";
-    emptyState.hidden = list.length > 0;
+    let matched = 0;
 
-    const batch = 5;
-    let idx = 0;
+    allGrids.forEach((grid) => {
+      const want = grid.getAttribute("data-gender") || "";
+      const list = want ? base.filter((p) => (p.gender || "") === want) : base;
+      matched += list.length;
+      grid.innerHTML = "";
 
-    function step() {
-      if (token !== renderToken) return;
-      const end = Math.min(idx + batch, list.length);
-      let html = "";
-      for (; idx < end; idx++) html += cardHTML(list[idx]);
-      productsGrid.insertAdjacentHTML("beforeend", html);
-      if (idx < list.length) {
-        if (typeof requestIdleCallback === "function") {
-          requestIdleCallback(step, { timeout: 30 });
+      const batch = 5;
+      let idx = 0;
+
+      function step() {
+        if (token !== renderToken) return;
+        const end = Math.min(idx + batch, list.length);
+        let html = "";
+        for (; idx < end; idx++) html += cardHTML(list[idx]);
+        grid.insertAdjacentHTML("beforeend", html);
+        if (idx < list.length) {
+          if (typeof requestIdleCallback === "function") {
+            requestIdleCallback(step, { timeout: 30 });
+          } else {
+            setTimeout(step, 0);
+          }
         } else {
-          setTimeout(step, 0);
+          requestAnimationFrame(() => observeReveals());
         }
-      } else {
-        requestAnimationFrame(() => observeReveals());
       }
-    }
-    step();
+      step();
+    });
+
+    if (emptyState) emptyState.hidden = matched > 0;
   }
 
   function observeReveals() {
@@ -1594,16 +1511,16 @@
     toast(active ? "Added to wishlist ♥" : "Removed from wishlist");
   });
 
-  if (productsGrid) {
-    productsGrid.addEventListener("click", (e) => {
+  allGrids.forEach((grid) => {
+    grid.addEventListener("click", (e) => {
       const btn = e.target.closest(".add-to-cart");
       if (!btn || btn.disabled) return;
       const id = Number(btn.dataset.id);
-      const sel = productsGrid.querySelector(`.product-size[data-size="${id}"]`);
+      const sel = grid.querySelector(`.product-size[data-size="${id}"]`);
       addToCart(id, sel ? sel.value : "");
     });
 
-    productsGrid.addEventListener("change", (e) => {
+    grid.addEventListener("change", (e) => {
       const sel = e.target.closest(".product-size");
       if (!sel) return;
       const card = sel.closest(".product-card");
@@ -1617,7 +1534,7 @@
         oldEl.style.display = onBase ? "" : "none";
       }
     });
-  }
+  });
 
   cartItemsEl.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-action]");
@@ -1841,7 +1758,7 @@
       if (!f) return;
       festivalDiscount = f.active ? (f.discount || 0) : 0;
       festivalProductIds = f.active && Array.isArray(f.productIds) ? new Set(f.productIds.map(Number)) : new Set();
-      if (productsGrid) renderProducts();
+      if (allGrids.length) renderProducts();
       if (!banner && !heroTitle) return;
       if (!f.active) {
         if (banner) banner.remove();
@@ -2235,7 +2152,7 @@ Delhi 110095`;
   safeInit(initAnnounceBar);
 
   safeInit(() => { updateBadge(); observeReveals(); });
-  if (productsGrid) safeInit(() => idle(() => { renderProducts(); refreshProducts(); }, 800));
+  if (allGrids.length) safeInit(() => idle(() => { renderProducts(); refreshProducts(); }, 800));
   safeInit(() => idle(loadFestival, 1400));
   initWishButton();
   initWishDrawer();

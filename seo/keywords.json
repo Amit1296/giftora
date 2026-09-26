@@ -8,7 +8,7 @@
     "phone": "+91 70880 84046",
     "phoneHref": "+917088084046",
     "address": "Dilshad Colony, Delhi - 110095",
-    "ogImage": "https://gift-ora.online/uploads/og-image.webp",
+    "ogImage": "https://gift-ora.online/uploads/og-image.jpg",
     "googleVerification": "ZswpaM65gvYE2ojyUcyWDhmb5MWd0n-XYvnLdthC9sU",
     "bingVerification": "3e17f5817712417594605f5f18d7cb37"
   },
@@ -162,6 +162,28 @@
         "men accessories gift online",
         "best belt for men under 1000",
         "belt gift box with wrapping"
+      ],
+      "sitemap": {
+        "priority": "0.8",
+        "changefreq": "weekly"
+      }
+    },
+    "jewellery.html": {
+      "type": "category",
+      "category": "Jewellery",
+      "title": "Jewellery Online — Gifts for Him & Her | Giftora",
+      "description": "Shop jewellery online for men and women — sterling silver chains, signet rings, heart pendants, jhumkas and bridal sets with same-day delivery.",
+      "keywords": [
+        "jewellery online India",
+        "jewellery gifts for men online",
+        "jewellery gifts for women online",
+        "sterling silver chain for men price",
+        "signet ring for men gift",
+        "heart pendant necklace for her",
+        "rose gold jhumka earrings online",
+        "personalised name necklace India",
+        "bridal jewellery set online",
+        "jewellery gift delivery same day Delhi"
       ],
       "sitemap": {
         "priority": "0.8",

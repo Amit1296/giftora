@@ -36,7 +36,7 @@
       "Confirm the exact UK or EU size rather than guessing - shoe sizing varies sharply between brands.",
       "Neutral colours like white, black and tan get worn far more often than statement shades.",
       "Slip-on and lace-up sneakers suit almost any age and occasion.",
-      "If the size is uncertain, a gift card toward shoes avoids a poor fit entirely."
+      "If the size is uncertain, choose an adjustable style or leave room for a comfortable fit."
     ],
     "faqs": [
       { "q": "What is the safest shoe style to gift?", "a": "Classic white or black sneakers are the most universally liked. For office gifting, a leather belt-and-shoe pairing works especially well." },
@@ -142,6 +142,37 @@
       { "href": "products/executive-craft-classic-genuine-leather-belt.html", "text": "executive genuine leather belt" },
       { "href": "shoes.html", "text": "formal shoes" },
       { "href": "clothes.html", "text": "office clothing" }
+    ]
+  },
+  "jewellery.html": {
+    "tag": "Buying guide",
+    "h2": "Jewellery as a gift: getting the metal, the size and the style right",
+    "paragraphs": [
+      "Jewellery is the rare gift that does not end up in a drawer. A chain, a pendant or a set of bridal pieces is worn rather than stored, which is why it carries more emotional weight than almost anything else in the same price bracket.",
+      "The two mistakes people make are guessing the size and guessing the taste. Both are avoidable. For men's jewellery, chain and bracelet styles with an extender chain or adjustable slider cover most wrist sizes. For rings, a photo of a ring the person already wears is worth more than any size chart.",
+      "Metal matters more than price. Sterling silver and stainless steel are what you want for daily wear - they tarnish slowly, take a polish, and cost a fraction of gold. Gold-plated pieces are fine for occasional festive wear, but the plating wears through faster on items that see a lot of skin contact and water."
+    ],
+    "tipsTitle": "Choosing jewellery that gets worn",
+    "tips": [
+      "Match the metal to what she already wears - mixing rose gold with yellow gold is the one clash worth avoiding.",
+      "For a man who never wears jewellery, start with a chain or bracelet; for rings, check a size he already owns.",
+      "Cubic zirconia and Kundan-style stones give the look of fine jewellery at a fraction of the cost, and suit gifting.",
+      "Add a note about metal allergies - nickel-free sterling silver is the safe choice for sensitive skin.",
+      "Order a day early for weddings and festivals so the gift arrives before the event, not on the morning of it."
+    ],
+    "faqs": [
+      { "q": "Is jewellery a good gift for a man?", "a": "Yes, as long as you pick something understated. Sterling silver chains, steel bracelets and signet rings are the styles men tend to wear daily, and they suit both formal and casual outfits." },
+      { "q": "What is the safest jewellery gift if I do not know her taste?", "a": "A heart pendant or a classic pair of studs. They are the two most-worn styles in the collection and the least dependent on trend, which makes them hard to get wrong." },
+      { "q": "How should I care for sterling silver and plated jewellery?", "a": "Keep it away from perfume, spray and water, wipe it with a dry cloth after wear, and store it in the pouch provided. Sterling silver can be brought back with a polishing cloth; gold plating cannot be restored once it wears through." },
+      { "q": "Do you deliver jewellery to other cities?", "a": "Yes. Jewellery orders ship across India with scheduled delivery, and same-day delivery is available across Delhi NCR. Every order is gift-wrapped with a personalised card at no extra cost." }
+    ],
+    "links": [
+      { "href": "products/executive-sterling-silver-chain-bracelet-for-men.html", "text": "sterling silver chain bracelet for men" },
+      { "href": "products/oxidised-silver-signet-ring-for-men.html", "text": "signet ring for men" },
+      { "href": "products/classic-heart-pendant-necklace-for-her.html", "text": "heart pendant necklace" },
+      { "href": "products/custom-name-necklace-for-women.html", "text": "personalised name necklace" },
+      { "href": "sunglasses.html", "text": "sunglasses" },
+      { "href": "belts.html", "text": "belts" }
     ]
   },
   "flowers.html": {

@@ -55,6 +55,7 @@ const CATEGORY_META = {
   sunglasses: { name: "Sunglasses", file: "sunglasses.html" },
   caps: { name: "Caps & Hats", file: "caps.html" },
   belts: { name: "Belts", file: "belts.html" },
+  jewellery: { name: "Jewellery", file: "jewellery.html" },
 };
 
 // Product-specific long-tail keywords, keyed by product id (js/products.js).

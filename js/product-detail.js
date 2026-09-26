@@ -9,6 +9,7 @@
     sunglasses: "Sunglasses",
     caps: "Caps & Hats",
     belts: "Belts",
+    jewellery: "Jewellery",
     flowers: "Flowers",
     plants: "Plants",
     cakes: "Cakes",
@@ -36,7 +37,7 @@
   }
 
   function catFile(cat) {
-    const map = { clothes: "clothes", shoes: "shoes", teddy: "teddy", sunglasses: "sunglasses", caps: "caps", belts: "belts", flowers: "flowers", plants: "plants", cakes: "cakes", toys: "toys", combo: "combo" };
+    const map = { clothes: "clothes", shoes: "shoes", teddy: "teddy", sunglasses: "sunglasses", caps: "caps", belts: "belts", jewellery: "jewellery", flowers: "flowers", plants: "plants", cakes: "cakes", toys: "toys", combo: "combo" };
     return map[cat] || null;
   }
 

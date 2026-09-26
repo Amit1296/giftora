@@ -30,6 +30,7 @@ const CATEGORY_META = {
   sunglasses: { name: "Sunglasses", file: "sunglasses.html" },
   caps: { name: "Caps & Hats", file: "caps.html" },
   belts: { name: "Belts", file: "belts.html" },
+  jewellery: { name: "Jewellery", file: "jewellery.html" },
 };
 
 const PRODUCT_KEYWORDS = {
@@ -270,21 +271,35 @@ function faqEntries(product) {
   ];
 }
 
-function ratingFor(id) {
-  const s = String(id);
-  let h = 0;
-  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0;
-  h = Math.abs(h);
-  return { rating: Math.round((3.8 + (h % 12) / 10) * 10) / 10, count: 6 + (h % 46) };
+let _reviews = null;
+function reviewsFor(slug) {
+  if (_reviews === null) {
+    try { _reviews = JSON.parse(fs.readFileSync(path.join(ROOT, "data", "reviews.json"), "utf8")); }
+    catch (e) { _reviews = {}; }
+    if (!_reviews || typeof _reviews !== "object") _reviews = {};
+  }
+  return Array.isArray(_reviews[slug]) ? _reviews[slug] : [];
+}
+
+function reviewSummary(reviews) {
+  if (!reviews.length) return null;
+  const total = reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0);
+  const average = total / reviews.length;
+  return { rating: Math.max(0, Math.min(5, Math.round(average * 10) / 10)), count: reviews.length };
+}
+
+function starsHtml(rating) {
+  return [1, 2, 3, 4, 5].map((i) =>
+    i <= Math.round(rating) ? '<span class="star">\u2605</span>' : '<span class="star star-off">\u2605</span>'
+  ).join("");
 }
 
 function ratingRow(p, page) {
-  const r = ratingFor(p.id);
-  const stars = [1, 2, 3, 4, 5].map((i) =>
-    i <= Math.round(r.rating) ? '<span class="star">\u2605</span>' : '<span class="star star-off">\u2605</span>'
-  ).join("");
-  const href = page ? `href="#reviews"` : `href="${slugify(p.name)}.html#reviews"`;
-  return `<div class="product-rating"><span class="stars">${stars}</span><span class="rating-num">${r.rating}</span><a class="rating-count" ${href}>(<span>${r.count}</span> reviews)</a></div>`;
+  const reviews = reviewsFor(slugify(p.name));
+  if (!reviews.length) return "";
+  const summary = reviewSummary(reviews);
+  const href = page ? 'href="#reviews"' : `href="${slugify(p.name)}.html#reviews"`;
+  return `<div class="product-rating"><span class="stars">${starsHtml(summary.rating)}</span><span class="rating-num">${summary.rating}</span><a class="rating-count" ${href}>(<span>${summary.count}</span> reviews)</a></div>`;
 }
 
 function sizeSelectHtml(p) {

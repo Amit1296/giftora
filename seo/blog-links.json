@@ -21,6 +21,12 @@
     { "href": "blog-gifts-under-1000.html", "text": "gifts under Rs 1000" },
     { "href": "blog-best-online-gift-shop-india.html", "text": "same-day gift delivery guide" }
   ],
+  "jewellery.html": [
+    { "href": "blog-gifts-under-1000.html", "text": "gifts under Rs 1000" },
+    { "href": "blog-best-online-gift-shop-india.html", "text": "same-day gift delivery guide" },
+    { "href": "wedding-gifts.html", "text": "wedding gifts" },
+    { "href": "karwa-chauth-gifts.html", "text": "Karwa Chauth gifts" }
+  ],
   "flowers.html": [
     { "href": "blog-birthday-gifts-delhi.html", "text": "birthday flower and cake ideas" },
     { "href": "blog-cake-delivery-faridabad.html", "text": "same-day cake delivery in Faridabad" }

@@ -1,5 +1,5 @@
-// One-time helper: inject static product links into category page grids.
-// Additive only - never removes/alters existing markup. Idempotent (marker-guarded).
+// Refresh static product links inside category page grids.
+// Only the marker-guarded list is replaced; surrounding markup is preserved.
 const fs = require("fs");
 const path = require("path");
 
@@ -14,6 +14,18 @@ function esc(s) {
     .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
+function productSlugMap(products) {
+  const used = new Set();
+  const slugs = new Map();
+  for (const product of products) {
+    let slug = slugify(product.name) || `product-${product.id}`;
+    if (used.has(slug)) slug = `${slug}-${product.id}`;
+    used.add(slug);
+    slugs.set(String(product.id), slug);
+  }
+  return slugs;
+}
+
 const CATEGORY_PAGES = [
   ["belts.html", "belts"],
   ["cakes.html", "cakes"],
@@ -21,6 +33,9 @@ const CATEGORY_PAGES = [
   ["clothes.html", "clothes"],
   ["combo.html", "combo"],
   ["flowers.html", "flowers"],
+  // Jewellery renders two grids (for him / for her), so it uses one
+  // gender-suffixed marker per grid instead of the single default marker.
+  ["jewellery.html", "jewellery", { genderSplit: true }],
   ["plants.html", "plants"],
   ["special-offers.html", "special"],
   ["shoes.html", "shoes"],
@@ -30,51 +45,71 @@ const CATEGORY_PAGES = [
 ];
 
 const MARKER = "static:product-links";
+const slugs = productSlugMap(products);
 let totalPages = 0, totalLinks = 0;
 
-for (const [file, cat] of CATEGORY_PAGES) {
+for (const [file, cat, opts] of CATEGORY_PAGES) {
   const filePath = path.join(ROOT, file);
   let html;
   try { html = fs.readFileSync(filePath, "utf8"); }
   catch (e) { console.log("SKIP (missing): " + file); continue; }
 
-  if (html.includes(`<!-- ${MARKER} -->`)) { console.log("SKIP (already injected): " + file); continue; }
+  const original = html;
+  const targets = opts && opts.genderSplit
+    ? ["men", "women"].map((g) => ({ marker: MARKER + "-" + g, gender: g }))
+    : [{ marker: MARKER }];
+  let pageLinks = 0;
 
-  const list = products.filter((p) =>
-    cat === "special" ? p.oldPrice > 0 : String(p.category) === cat
-  );
+  for (const target of targets) {
+    const list = products.filter((p) => {
+      const inCategory = cat === "special" ? p.oldPrice > 0 : String(p.category) === cat;
+      return inCategory && (!target.gender || p.gender === target.gender);
+    });
 
-  // Only link products whose static page actually exists on disk.
-  const clean = [];
-  for (const p of list) {
-    const slug = slugify(p.name);
-    const href = "products/" + slug + ".html";
-    if (fs.existsSync(path.join(ROOT, href))) {
-      clean.push({ name: p.name, href });
-    } else {
-      console.log("  WARN skip (no file): " + href);
+    const clean = [];
+    for (const p of list) {
+      const slug = slugs.get(String(p.id));
+      const href = "products/" + slug + ".html";
+      if (fs.existsSync(path.join(ROOT, href))) {
+        clean.push({ name: p.name, href });
+      } else {
+        console.log("  WARN skip (no file): " + href);
+      }
     }
+    if (clean.length === 0) {
+      console.log("SKIP (" + target.marker + ": 0 links) in " + file);
+      continue;
+    }
+
+    const links = clean.map((p) =>
+      '\t\t\t\t<li><a href="' + p.href + '">' + esc(p.name) + "</a></li>"
+    ).join("\n");
+
+    const block =
+      '\t\t\t<!-- ' + target.marker + ' -->\n' +
+      '\t\t\t<ul class="static-product-links">\n' +
+      links + "\n" +
+      "\t\t\t</ul>\n\t\t\t<!-- /" + target.marker + " -->";
+
+    const blockRe = new RegExp("[\\t ]*<!-- " + target.marker + " -->[\\s\\S]*?<!-- /" + target.marker + " -->");
+    if (blockRe.test(html)) {
+      html = html.replace(blockRe, block);
+    } else {
+      const gridRe = /<div class="products-grid" id="productsGrid"><\/div>/;
+      if (!gridRe.test(html)) { console.log("SKIP (" + target.marker + ": grid not found) in " + file); continue; }
+      html = html.replace(gridRe, (m) => m.replace("</div>", block + "\n\t\t\t</div>"));
+    }
+    pageLinks += clean.length;
   }
-  if (clean.length === 0) { console.log("SKIP (0 links): " + file); continue; }
 
-  const gridRe = /<div class="products-grid" id="productsGrid"><\/div>/;
-  if (!gridRe.test(html)) { console.log("SKIP (grid not found): " + file); continue; }
-
-  const links = clean.map((p) =>
-    '\t\t\t\t<li><a href="' + p.href + '">' + esc(p.name) + "</a></li>"
-  ).join("\n");
-
-  const block =
-    '\t\t\t<!-- ' + MARKER + ' -->\n' +
-    '\t\t\t<ul class="static-product-links">\n' +
-    links + "\n" +
-    "\t\t\t</ul>\n\t\t\t<!-- /" + MARKER + " -->";
-
-  html = html.replace(gridRe, (m) => m.replace("</div>", block + "\n\t\t\t</div>"));
-  fs.writeFileSync(filePath, html, "utf8");
+  if (html !== original) {
+    fs.writeFileSync(filePath, html, "utf8");
+    console.log("UPDATED " + file + " (" + pageLinks + " links)");
+  } else {
+    console.log("UNCHANGED " + file + " (" + pageLinks + " links)");
+  }
   totalPages++;
-  totalLinks += clean.length;
-  console.log("INJECTED " + file + " (" + clean.length + " links)");
+  totalLinks += pageLinks;
 }
 
 console.log("Done: " + totalPages + " pages, " + totalLinks + " links.");

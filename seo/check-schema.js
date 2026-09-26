@@ -39,7 +39,6 @@ const SKIP = new Set([
   "admin.html",
   "banner-template.html",
   "checkout-preview.html",
-  "gift-card-template.html",
   "google7700e6aeefbc94c5.html",
 ]);
 
