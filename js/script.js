@@ -90,7 +90,7 @@
 
   let PRODUCTS = (window.GIFT_PRODUCTS || []).slice();
   const PRODUCTS_KEY = "giftora_cart";
-  const CURRENCY = "â‚¹";
+  const CURRENCY = "₹";
   const MIDNIGHT_FEE = 300;
 
   function fp32(str) {
@@ -295,9 +295,9 @@
 
   /* ---------- Announcement bar ---------- */
   const ANNOUNCE_MSGS = [
-    { icon: "ðŸŽ", text: "Free gift wrapping on every order" },
-    { icon: "ðŸšš", text: "Same-day delivery across the city" },
-    { icon: "âš¡", text: "Express delivery at just â‚¹99" },
+    { icon: "🎁", text: "Free gift wrapping on every order" },
+    { icon: "🚚", text: "Same-day delivery across the city" },
+    { icon: "⚡", text: "Express delivery at just ₹99" },
   ];
   function initAnnounceBar() {
     let bar = document.getElementById("announceBar");
@@ -402,7 +402,7 @@
   }
   function wishHeartBtn(id, big) {
     const on = inWishlist(id);
-    return `<button type="button" class="wish-heart${big ? " wish-heart-lg" : ""}${on ? " active" : ""}" data-wish="${id}" aria-label="Toggle wishlist">${on ? "â™¥" : "â™¡"}</button>`;
+    return `<button type="button" class="wish-heart${big ? " wish-heart-lg" : ""}${on ? " active" : ""}" data-wish="${id}" aria-label="Toggle wishlist">${on ? "♥" : "♡"}</button>`;
   }
   function initWishButton() {
     const actions = document.querySelector(".nav-actions");
@@ -427,7 +427,7 @@
     aside.id = "wishDrawer";
     aside.setAttribute("aria-label", "Wishlist");
     aside.innerHTML =
-      '<div class="cart-header"><h3>â¤ï¸ My Wishlist</h3><button class="cart-close" id="wishClose" aria-label="Close wishlist">&times;</button></div>' +
+      '<div class="cart-header"><h3>❤️ My Wishlist</h3><button class="cart-close" id="wishClose" aria-label="Close wishlist">&times;</button></div>' +
       '<div class="cart-items" id="wishItems"></div>' +
       '<div class="cart-footer"><a class="btn btn-primary btn-block" href="index.html#shop">Browse Gifts</a></div>';
     document.body.appendChild(overlay);
@@ -468,7 +468,7 @@
     if (!el) return;
     const list = loadWishlist();
     if (!list.length) {
-      el.innerHTML = '<div class="cart-empty"><span class="cart-empty-icon">ðŸ’</span>Your wishlist is empty.<br>Tap the â™¥ on any gift to save it.</div>';
+      el.innerHTML = '<div class="cart-empty"><span class="cart-empty-icon">💝</span>Your wishlist is empty.<br>Tap the ♥ on any gift to save it.</div>';
       return;
     }
     el.innerHTML = list.map((id) => {
@@ -488,7 +488,7 @@
           <p class="cart-item-price">${formatPrice(effPrice(p, wishSize))}</p>
           <div class="cart-item-row">${size}<button class="add-to-cart wish-add" data-id="${p.id}">Add to Cart</button></div>
         </div>
-        <button class="cart-item-remove" data-wish-remove="${p.id}" aria-label="Remove from wishlist">âœ•</button>
+        <button class="cart-item-remove" data-wish-remove="${p.id}" aria-label="Remove from wishlist">✕</button>
       </div>`;
     }).join("");
   }
@@ -518,7 +518,7 @@
       const u = productPageUrl(p);
       return `<article class="product-card reveal">
         <div class="product-media" style="background:${p.gradient || "#f1f5f9"}">
-          ${u ? `<a class="product-card-link" href="${u}" aria-label="View ${escAttr(p.name)}"><span class="product-emoji">${p.emoji || "ðŸŽ"}</span></a>` : `<span class="product-emoji">${p.emoji || "ðŸŽ"}</span>`}
+          ${u ? `<a class="product-card-link" href="${u}" aria-label="View ${escAttr(p.name)}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>` : `<span class="product-emoji">${p.emoji || "🎁"}</span>`}
         </div>
         <div class="product-info">
           <span class="product-category">${escAttr(p.category)}</span>
@@ -544,9 +544,9 @@
   function orderStatus(o) {
     const age = Date.now() - new Date(o.date).getTime();
     if (age < 30 * 60 * 1000) return { label: "Order Placed", note: "We've received your order and a team member will confirm shortly.", step: 1 };
-    if (age < 4 * 60 * 60 * 1000) return { label: "Order Confirmed", note: "Your gift is being prepared with gift wrapping ðŸŽ", step: 2 };
-    if (age < 24 * 60 * 60 * 1000) return { label: "Out for Delivery", note: "Your gift is on the way ðŸšš", step: 3 };
-    return { label: "Delivered", note: "Delivered! We hope they loved it â¤ï¸", step: 4 };
+    if (age < 4 * 60 * 60 * 1000) return { label: "Order Confirmed", note: "Your gift is being prepared with gift wrapping 🎁", step: 2 };
+    if (age < 24 * 60 * 60 * 1000) return { label: "Out for Delivery", note: "Your gift is on the way 🚚", step: 3 };
+    return { label: "Delivered", note: "Delivered! We hope they loved it ❤️", step: 4 };
   }
   function initTrackPage() {
     const btn = $("#trackBtn");
@@ -563,13 +563,13 @@
       }
       const st = orderStatus(o);
       const steps = [
-        { l: "Placed", i: "ðŸ“" }, { l: "Confirmed", i: "ðŸŽ" }, { l: "Out for delivery", i: "ðŸšš" }, { l: "Delivered", i: "âœ…" },
+        { l: "Placed", i: "📝" }, { l: "Confirmed", i: "🎁" }, { l: "Out for delivery", i: "🚚" }, { l: "Delivered", i: "✅" },
       ];
       out.hidden = false;
       out.innerHTML = `
         <div class="track-card">
           <div class="track-head">
-            <div><h3>Order #${escAttr(o.orderId)}</h3><p class="track-meta">${escAttr(o.name || "Guest")} Â· ${new Date(o.date).toLocaleString("en-IN")} Â· ${formatPrice(o.total)}</p></div>
+            <div><h3>Order #${escAttr(o.orderId)}</h3><p class="track-meta">${escAttr(o.name || "Guest")} · ${new Date(o.date).toLocaleString("en-IN")} · ${formatPrice(o.total)}</p></div>
             <span class="track-status">${st.label}</span>
           </div>
           <div class="track-steps">
@@ -682,8 +682,8 @@
       }
       appliedCoupon = { code: res.code, discount: res.discount, label: res.label || "Coupon applied" };
       if (!silent) {
-        setCouponMsg(`Coupon ${res.code} applied â€” ${res.label}.`, true);
-        toast(`Coupon applied â€” ${res.label} âœ“`);
+        setCouponMsg(`Coupon ${res.code} applied — ${res.label}.`, true);
+        toast(`Coupon applied — ${res.label} ✓`);
       }
       if (couponInput) couponInput.value = res.code;
       renderOrderSummary();
@@ -765,7 +765,7 @@
       const size = n.size ? ` <span class="os-muted">(${escAttr(n.size)})</span>` : "";
       const thumbHtml = p.image
         ? `<img class="os-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}" loading="lazy" decoding="async">`
-        : `<span class="os-emoji">${p.emoji || "ðŸŽ"}</span>`;
+        : `<span class="os-emoji">${p.emoji || "🎁"}</span>`;
       return `
         <div class="os-row">
           ${thumbHtml}
@@ -776,11 +776,11 @@
     }).join("");
     const fee = deliveryFee();
     if (fee > 0) {
-      orderSummary.innerHTML += `<div class="os-row"><span class="os-name">ðŸŒ™ Midnight Delivery</span><span class="os-muted">${formatPrice(fee)}</span></div>`;
+      orderSummary.innerHTML += `<div class="os-row"><span class="os-name">🌙 Midnight Delivery</span><span class="os-muted">${formatPrice(fee)}</span></div>`;
     }
     const disc = couponDiscount();
     if (appliedCoupon && disc > 0) {
-      orderSummary.innerHTML += `<div class="os-row os-coupon-row"><span class="os-name">ðŸŽŸï¸ Coupon ${appliedCoupon.code}</span><span class="os-muted">âˆ’${formatPrice(disc)}</span></div>`;
+      orderSummary.innerHTML += `<div class="os-row os-coupon-row"><span class="os-name">🎟️ Coupon ${appliedCoupon.code}</span><span class="os-muted">−${formatPrice(disc)}</span></div>`;
     }
     const saving = festivalSaving();
     checkoutTotal.textContent = formatPrice(payableTotal());
@@ -1030,7 +1030,7 @@
   successDone.addEventListener("click", () => {
     closeCheckout();
     closeCart();
-    toast("Thank you for your order! ðŸŽ‰");
+    toast("Thank you for your order! 🎉");
   });
   checkoutForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -1216,7 +1216,7 @@
     if (!paymentEnabled && !upiConfig && !paymentMethods.querySelector(".payment-note")) {
       const note = document.createElement("p");
       note.className = "payment-note";
-      note.textContent = "Online payments are currently unavailable â€” please try again later.";
+      note.textContent = "Online payments are currently unavailable — please try again later.";
       paymentMethods.appendChild(note);
     }
   }
@@ -1263,7 +1263,7 @@
           ${wishHeartBtn(p.id)}
           ${p.image
             ? `${productPageUrl(p) ? `<a class="product-card-link" href="${productPageUrl(p)}" aria-label="View ${p.name}"><img class="product-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}" loading="lazy" decoding="async"></a>` : `<img class="product-img" src="${p.image}"${dimAttr(p.image)} alt="${p.name}" loading="lazy" decoding="async">`}`
-            : `${productPageUrl(p) ? `<a class="product-card-link" href="${productPageUrl(p)}" aria-label="View ${p.name}"><span class="product-emoji">${p.emoji || "ðŸŽ"}</span></a>` : `<span class="product-emoji">${p.emoji || "ðŸŽ"}</span>`}`}
+            : `${productPageUrl(p) ? `<a class="product-card-link" href="${productPageUrl(p)}" aria-label="View ${p.name}"><span class="product-emoji">${p.emoji || "🎁"}</span></a>` : `<span class="product-emoji">${p.emoji || "🎁"}</span>`}`}
         </div>
         <div class="product-info">
           <span class="product-category">${p.category}</span>
@@ -1393,7 +1393,7 @@
           toast(`Only ${cap} of ${p.name} in stock`);
           return;
         }
-        toast(`Only ${cap} of ${p.name} in stock â€” added ${add}`);
+        toast(`Only ${cap} of ${p.name} in stock — added ${add}`);
       }
       cart[Number(id)] = { qty: n.qty + add, size: sizeOf(p, size, n.size) };
       saveCart();
@@ -1441,7 +1441,7 @@
   function renderCart() {
     const ids = Object.keys(cart);
     if (ids.length === 0) {
-      cartItemsEl.innerHTML = `<div class="cart-empty"><span class="cart-empty-icon">ðŸŽ</span>Your cart is empty.<br>Add a gift to get started.</div>`;
+      cartItemsEl.innerHTML = `<div class="cart-empty"><span class="cart-empty-icon">🎁</span>Your cart is empty.<br>Add a gift to get started.</div>`;
       cartTotalEl.textContent = `${CURRENCY}0`;
       checkoutBtn.style.display = "none";
       return;
@@ -1466,12 +1466,12 @@
             <p class="cart-item-name">${p.name}</p>
             <p class="cart-item-price">${formatPrice(effPrice(p, n.size))}</p>
             <div class="cart-item-row">${size}<div class="cart-item-qty">
-              <button class="qty-btn" data-action="dec" data-id="${p.id}">âˆ’</button>
+              <button class="qty-btn" data-action="dec" data-id="${p.id}">−</button>
               <span>${n.qty}</span>
               <button class="qty-btn" data-action="inc" data-id="${p.id}">+</button>
             </div></div>
           </div>
-          <button class="cart-item-remove" data-action="remove" data-id="${p.id}" aria-label="Remove">âœ•</button>
+          <button class="cart-item-remove" data-action="remove" data-id="${p.id}" aria-label="Remove">✕</button>
         </div>
       `;
     }).join("");
@@ -1480,7 +1480,7 @@
     const discountEl = $("#cartDiscount");
     if (discountEl) {
       if (saving > 0) {
-        discountEl.textContent = `Festival discount ${festivalDiscount}% applied â€” you save ${formatPrice(saving)}`;
+        discountEl.textContent = `Festival discount ${festivalDiscount}% applied — you save ${formatPrice(saving)}`;
         discountEl.style.display = "";
       } else {
         discountEl.style.display = "none";
@@ -1506,9 +1506,9 @@
     const active = toggleWishlist(w.dataset.wish);
     $$(`[data-wish="${w.dataset.wish}"]`).forEach((h) => {
       h.classList.toggle("active", active);
-      h.innerHTML = active ? "â™¥" : "â™¡";
+      h.innerHTML = active ? "♥" : "♡";
     });
-    toast(active ? "Added to wishlist â™¥" : "Removed from wishlist");
+    toast(active ? "Added to wishlist ♥" : "Removed from wishlist");
   });
 
   allGrids.forEach((grid) => {
@@ -1771,7 +1771,7 @@
         const discount = $("#festivalBannerDiscount");
         const code = $("#festivalBannerCode");
         if (f.image) media.innerHTML = `<img src="${f.image}"${dimAttr(f.image)} alt="${escAttr(f.title)}" loading="lazy" decoding="async">`;
-        else media.innerHTML = `<span class="festival-banner-emoji">${f.emoji || "ðŸŽ"}</span>`;
+        else media.innerHTML = `<span class="festival-banner-emoji">${f.emoji || "🎁"}</span>`;
         title.textContent = f.title || "Festival Offer";
         subtitle.textContent = f.subtitle || "";
         discount.textContent = f.discount || 0;
@@ -1789,7 +1789,7 @@
         if (code) code.textContent = f.code || "";
         if (note) note.innerHTML = `Use code <strong>${escAttr(f.code || "")}</strong> at checkout`;
         if (f.image) heroMedia.innerHTML = `<img src="${f.image}"${dimAttr(f.image)} alt="${escAttr(f.title)}" loading="lazy" decoding="async">`;
-        else heroMedia.innerHTML = `<span class="festival-hero-emoji">${f.emoji || "ðŸŽ"}</span>`;
+        else heroMedia.innerHTML = `<span class="festival-hero-emoji">${f.emoji || "🎁"}</span>`;
       }
     } catch {}
   }
@@ -1822,7 +1822,7 @@
     const targetStr = el.getAttribute("data-countdown-target");
     if (!targetStr) { el.style.display = "none"; return; }
     const label = el.getAttribute("data-countdown-label") || "Time left";
-    const done = el.getAttribute("data-countdown-done") || "It's here! ðŸŽ‰";
+    const done = el.getAttribute("data-countdown-done") || "It's here! 🎉";
     const target = new Date(targetStr).getTime();
     if (isNaN(target)) { el.style.display = "none"; return; }
     const pad = (n) => String(n).padStart(2, "0");
@@ -1906,7 +1906,7 @@
         '<div class="container delivery-check-box">' +
         '<div class="delivery-check-info">' +
         '<span class="delivery-check-icon"><img src="/logo.svg" width="260" height="220" alt="Giftora"></span>' +
-        '<div><h3>Check delivery to your area</h3><p>Enter your pincode to see if we deliver there â€” and how fast.</p></div>' +
+        '<div><h3>Check delivery to your area</h3><p>Enter your pincode to see if we deliver there — and how fast.</p></div>' +
         "</div>" +
         '<form class="delivery-check-form" id="deliveryCheckForm" action="#" onsubmit="return false;">' +
         '<input type="text" id="pinCheckInput" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode" autocomplete="postal-code">' +
@@ -1939,7 +1939,7 @@
       if (btn) btn.disabled = true;
       result.hidden = false;
       result.className = "delivery-check-result dcheck-info";
-      result.textContent = "Checkingâ€¦";
+      result.textContent = "Checking…";
       try {
         const resp = await fetch("/api/pincode-check?pincode=" + encodeURIComponent(pc));
         const data = await resp.json();
@@ -2021,12 +2021,12 @@
       const cd = b.countdown || {};
       const media = b.image
         ? `<span class="pb-media"><img src="${escAttr(b.image)}"${dimAttr(b.image)} alt="${escAttr(b.imageAlt || b.title || "")}" loading="lazy" decoding="async"></span>`
-        : `<span class="pb-media"><span class="pb-emoji">${escAttr(b.emoji || "ðŸŽ")}</span></span>`;
+        : `<span class="pb-media"><span class="pb-emoji">${escAttr(b.emoji || "🎁")}</span></span>`;
       const codeHTML = b.code
         ? `<span class="pb-code">${escAttr(b.codeLabel || "Use code")} <strong>${escAttr(b.code)}</strong>${b.discount ? ` <em class="pb-off"><strong>${escAttr(b.discount)}</strong>% OFF</em>` : ""}</span>`
         : "";
       const cdHTML = cd.enabled
-        ? `<span class="festival-countdown" data-countdown-enabled="true" data-countdown-target="${escAttr(cd.target || "")}" data-countdown-label="${escAttr(cd.label || "Time left")}" data-countdown-done="${escAttr(cd.done || "It's here! ðŸŽ‰")}"></span>`
+        ? `<span class="festival-countdown" data-countdown-enabled="true" data-countdown-target="${escAttr(cd.target || "")}" data-countdown-label="${escAttr(cd.label || "Time left")}" data-countdown-done="${escAttr(cd.done || "It's here! 🎉")}"></span>`
         : "";
       const linkAttr = b.link ? ` href="${escAttr(b.link)}"` : "";
       const slideClass = b.slideClass ? escAttr(b.slideClass) : "";
@@ -2095,17 +2095,17 @@
   }
 
   /* ---------- WhatsApp order widget ---------- */
-  const WA_MSG = `Hello! ðŸ‘‹
+  const WA_MSG = `Hello! 👋
 
 My colleague from the Sales Dept. will contact you soon.
 
-ðŸ“ž +917088084046
-ðŸ“ž +916397570746
+📞 +917088084046
+📞 +916397570746
 
-ðŸ“§ amitwebdev163@gmail.com
-ðŸ“§ chandni63975@gmail.com
+📧 amitwebdev163@gmail.com
+📧 chandni63975@gmail.com
 
-ðŸŒ https://gift-ora.online/
+🌐 https://gift-ora.online/
 
 Marketing by-
 Gift-Ora Online Service
@@ -2137,7 +2137,7 @@ Delhi 110095`;
     });
   }
 
-  /* Critical, always-visible widgets â€” run first and independently guarded
+  /* Critical, always-visible widgets — run first and independently guarded
      so a failure in any other init can never hide them. */
   function safeInit(fn) {
     try { fn(); } catch (e) { console.error("init error:", e); }
