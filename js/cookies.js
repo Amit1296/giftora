@@ -16,12 +16,14 @@
     if (!banner) return;
     banner.classList.remove("show");
     banner.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("cookie-pending");
   }
 
   function show() {
     if (!banner) return;
     banner.classList.add("show");
     banner.setAttribute("aria-hidden", "false");
+    document.body.classList.add("cookie-pending");
   }
 
   function acceptAll() {

@@ -54,25 +54,6 @@
 		</div>
 	</div>
 
-	<script>
-		document.getElementById("showBtn").addEventListener("click", function () {
-			var id = document.getElementById("pvOrderId").value.trim() || "order_test";
-			var total = Number(document.getElementById("pvTotal").value) || 0;
-			var box = document.getElementById("previewOverlay");
-			box.querySelector(".success-order-line strong").textContent = "#" + id;
-			var summary = box.querySelector(".checkout-success h4");
-			summary.textContent = "Order Placed Successfully!";
-			var note = document.getElementById("successEmailNote");
-			note.hidden = !document.getElementById("pvEmailSent").checked;
-			box.classList.add("open");
-			box.dataset.total = String(total);
-		});
-		document.getElementById("successDone").addEventListener("click", function () {
-			document.getElementById("previewOverlay").classList.remove("open");
-		});
-		document.getElementById("previewOverlay").addEventListener("click", function (e) {
-			if (e.target === this) this.classList.remove("open");
-		});
-	</script>
+	<script src="js/checkout-preview.js" defer></script>
 </body>
 </html>

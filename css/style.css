@@ -1253,11 +1253,18 @@ body.announce-visible .navbar:not(.scrolled) {
     justify-content: flex-start; align-items: stretch;
     perspective: none;
     background: var(--surface);
-    padding: 32px;
+    padding: 20px 20px 76px;
     box-shadow: -20px 0 60px rgba(43,31,34,0.15);
     overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     transform: translateX(105%);    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
+  /* `.nav-container > .nav-links` (the desktop centering rule) is more specific
+     than the `.nav-links` rule above, so it wins unless overridden here.
+     Without this the long menu is vertically centred, its top overflows above
+     the drawer, and Home + every category link becomes unscrollable. */
+  .nav-container > .nav-links { justify-content: flex-start; }
   .nav-links.open { transform: translateX(0); }
   .nav-links a { font-size: 1.2rem; padding: 10px 0; line-height: 1.3; }
   .nav-dropdown { position: static; }
@@ -1490,6 +1497,12 @@ body.announce-visible .navbar:not(.scrolled) {
   transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
+}
+/* While consent is pending the banner covers the bottom-right corner, which
+   swallowed taps on the chatbot button. Hide the FAB until it is answered. */
+body.cookie-pending .chatbot-fab {
+  opacity: 0;
+  pointer-events: none;
 }
 .cookie-banner-inner {
   display: flex;
@@ -2015,7 +2028,13 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
   .logo { font-size: 1.5rem; }
   .logo-mark { width: 56px; height: 47px; }
   .cart-btn { width: 42px; height: 42px; }
-  .nav-links { top: calc(68px + env(safe-area-inset-top)); padding-bottom: calc(var(--mnav-h) + env(safe-area-inset-bottom) + 16px); }
+  /* End the drawer above the bottom nav so the nav can never sit on top of a
+     menu link, while the nav itself stays tappable while the menu is open. */
+  .nav-links {
+    top: calc(68px + env(safe-area-inset-top));
+    bottom: calc(var(--mnav-h) + env(safe-area-inset-bottom));
+    padding-bottom: 20px;
+  }
   .menu-toggle span { width: 26px; height: 3px; }
   .hero { padding-top: 48px; }
 
