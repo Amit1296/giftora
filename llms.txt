@@ -78,7 +78,7 @@
 
 - [About Giftora](https://gift-ora.online/about.html): Who we are and how our delivery network works — "A trusted online gift shop delivering thoughtful gifts."
 - [Track Order](https://gift-ora.online/track-order.html): Check the status of an order — "Enter your order ID to see current status — placed, confirmed, out for delivery or delivered."
-- [Contact](https://gift-ora.online/contact.html): "Phone +91 70880 84046, email amitwebdev163@gmail.com. Our gift experts reply within a few hours."
+- [Contact](https://gift-ora.online/contact.html): "Phone +91 70880 84046, email support@gift-ora.online. Our gift experts reply within a few hours."
 - [Become a Vendor](https://gift-ora.online/vendors.html): Sell your products on Giftora — "Join our vendor and partner network to reach thousands of customers, get fast payments and easy onboarding."
 
 ## FAQ — Direct Answers

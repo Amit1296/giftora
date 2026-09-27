@@ -10,7 +10,7 @@ Working tracker for the 50-site backlink plan. Tick boxes as you submit. Keep NA
 | Address | Dilshad Colony, Delhi – 110095 |
 | Phone | +91 70880 84046 |
 | Website | https://gift-ora.online |
-| Email | amitwebdev163@gmail.com |
+| Email | support@gift-ora.online |
 | Contact page | https://gift-ora.online/contact.html |
 | About | https://gift-ora.online/about.html |
 

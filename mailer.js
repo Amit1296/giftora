@@ -45,7 +45,7 @@ function init() {
   const config = loadConfig();
   if (BREVO_API_KEY) {
     useBrevoApi = true;
-    console.log("Mailer: email notifications enabled via Brevo API -> " + ((config && config.to) || "amitwebdev163@gmail.com"));
+    console.log("Mailer: email notifications enabled via Brevo API -> " + ((config && config.to) || "support@gift-ora.online"));
     return;
   }
   if (!config || !config.enabled || !config.appPassword || config.appPassword.startsWith("PASTE_YOUR")) {
@@ -105,7 +105,7 @@ function sendBrevoApi({ subject, text, to, from }) {
 
 function send({ subject, text, to }) {
   const config = loadConfig();
-  const toAddress = to || (config && config.to) || "amitwebdev163@gmail.com";
+  const toAddress = to || (config && config.to) || "support@gift-ora.online";
   const from = (config && config.user) || toAddress;
   if (useBrevoApi) return sendBrevoApi({ subject, text, to: toAddress, from });
   if (!transporter) return Promise.resolve({ skipped: true });

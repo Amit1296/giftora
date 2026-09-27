@@ -33,7 +33,7 @@ Listings found online that use a DIFFERENT address (GTB Nagar / Hudson Lane, New
 | Service area | All 62 cities — Delhi NCR + all India delivery |
 | Phone | +91 70880 84046 |
 | Website | https://gift-ora.online |
-| Email | amitwebdev163@gmail.com |
+| Email | support@gift-ora.online |
 
 ## 4. Business Description (choose one)
 
