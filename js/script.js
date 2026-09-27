@@ -1318,10 +1318,22 @@
 
     const token = ++renderToken;
     let matched = 0;
+    const hasGenderGrids = allGrids.some((g) => g.getAttribute("data-gender"));
 
     allGrids.forEach((grid) => {
       const want = grid.getAttribute("data-gender") || "";
-      const list = want ? base.filter((p) => (p.gender || "") === want) : base;
+      /* A gender-scoped grid takes only products explicitly tagged with that
+         gender. A page that has such grids splits the catalogue between them, so
+         its ungendered grid lists only the untagged remainder -- that way every
+         product is rendered exactly once. A page with no gender-scoped grid (all
+         other category pages) keeps listing everything. This matters because the
+         admin has no gender field, so untagged products are the norm and used to
+         be dropped from jewellery.html entirely. */
+      const list = want
+        ? base.filter((p) => (p.gender || "") === want && p.gender)
+        : hasGenderGrids
+          ? base.filter((p) => !p.gender)
+          : base;
       matched += list.length;
       grid.innerHTML = "";
 
@@ -1341,6 +1353,14 @@
             setTimeout(step, 0);
           }
         } else {
+          if (!list.length && want && matched > 0) {
+            const note = document.createElement("p");
+            note.className = "empty-state";
+            note.textContent = want === "men"
+              ? "Pieces for him are being hand-picked right now \u2014 please check back shortly."
+              : "Pieces for her are being hand-picked right now \u2014 please check back shortly.";
+            grid.appendChild(note);
+          }
           requestAnimationFrame(() => observeReveals());
         }
       }
