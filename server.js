@@ -338,7 +338,11 @@ const INLINE_STYLESHEETS = (() => {
   const map = {};
   for (const name of ["style.min.css", "fonts.css"]) {
     try {
-      map["css/" + name] = fs.readFileSync(path.join(ROOT, "css", name), "utf8");
+      /* Strip a leading BOM. Inlined verbatim, a BOM becomes part of the first
+         selector ("\uFEFF:root"), so that rule matches nothing and every custom
+         property the stylesheet defines silently falls back to its initial
+         value -- which is how the whole :root block was being dropped. */
+      map["css/" + name] = fs.readFileSync(path.join(ROOT, "css", name), "utf8").replace(/^\uFEFF/, "");
     } catch (e) {
       console.error("Could not read css/" + name + ":", e.message);
     }
