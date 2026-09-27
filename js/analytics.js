@@ -32,9 +32,9 @@
     return p ? { name: p.name, price: p.price || 0 } : { name: "Item #" + id, price: 0 };
   }
 
-  function hookGiftora() {
+  function hookGiftora(attempt) {
     if (!window.Giftora) {
-      setTimeout(hookGiftora, 300);
+      if (attempt < 20) setTimeout(() => hookGiftora(attempt + 1), 300);
       return;
     }
     const map = {
@@ -81,8 +81,8 @@
   if (window.GiftoraCookies) {
     window.GiftoraCookies.onAccept(() => {
       loadGtag();
-      hookGiftora();
+      hookGiftora(0);
     });
   }
-  hookGiftora();
+  hookGiftora(0);
 })();

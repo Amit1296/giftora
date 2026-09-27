@@ -27,15 +27,38 @@
     toast._t = setTimeout(() => toastEl.classList.remove("show"), 2600);
   }
 
-  async function api(path, options = {}) {
-    const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
-    if (token) headers["Authorization"] = "Bearer " + token;
-    const res = await fetch(path, { ...options, headers });
-    if (res.status === 401) {
-      logout();
-      throw new Error("Session expired. Please log in again.");
+  const LOGIN_TIMEOUT_MS = 15000;
+  const API_TIMEOUT_MS = 30000;
+
+  async function parseJson(res) {
+    const text = await res.text();
+    if (!text) return {};
+    try {
+      return JSON.parse(text);
+    } catch {
+      throw new Error(res.ok ? "Unexpected server response." : "Server error (HTTP " + res.status + ").");
     }
-    return res.json();
+  }
+
+  async function api(path, options = {}) {
+    const usedToken = token;
+    const headers = { "Content-Type": "application/json", ...(options.headers || {}) };
+    if (usedToken) headers["Authorization"] = "Bearer " + usedToken;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+    try {
+      const res = await fetch(path, { ...options, headers, signal: controller.signal });
+      if (res.status === 401) {
+        if (usedToken && usedToken === token) logout();
+        throw new Error("Session expired. Please log in again.");
+      }
+      return await parseJson(res);
+    } catch (e) {
+      if (e.name === "AbortError") throw new Error("Server did not respond in time.");
+      throw e;
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
   function logout() {
@@ -56,23 +79,30 @@
     loginBtn.disabled = true;
     loginBtn.textContent = "Signing in...";
     loginMsg.textContent = "";
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), LOGIN_TIMEOUT_MS);
     try {
       const res = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
+        signal: controller.signal,
       });
-      const data = await res.json();
+      const data = await parseJson(res);
       if (!data.success) {
-        loginMsg.textContent = data.message || "Login failed.";
+        loginMsg.textContent = data.message || "Login failed (HTTP " + res.status + ").";
         return;
       }
       token = data.token;
       localStorage.setItem(TOKEN_KEY, token);
       showDashboard();
-    } catch {
-      loginMsg.textContent = "Could not reach the server.";
+    } catch (e) {
+      loginMsg.textContent =
+        e.name === "AbortError"
+          ? "Server did not respond. Check that the site is running, then try again."
+          : e.message || "Could not reach the server.";
     } finally {
+      clearTimeout(timer);
       loginBtn.disabled = false;
       loginBtn.textContent = "Sign In";
     }
@@ -81,7 +111,7 @@
   function showDashboard() {
     loginView.style.display = "none";
     dashboardView.hidden = false;
-    loadAll();
+    loadAll().catch((e) => toast(e.message));
   }
 
   /* ---------- Tabs ---------- */
@@ -2028,14 +2058,14 @@
   loginBtn.addEventListener("click", doLogin);
   loginPass.addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
   logoutBtn.addEventListener("click", () => {
-    if (token) fetch("/api/admin/logout", { headers: { Authorization: "Bearer " + token } }).catch(() => {});
+    if (token) fetch("/api/admin/logout", { method: "POST", headers: { Authorization: "Bearer " + token } }).catch(() => {});
     logout();
   });
 
   if (token) {
     loginView.style.display = "none";
     dashboardView.hidden = false;
-    loadAll();
+    loadAll().catch((e) => toast(e.message));
   } else {
     loginView.style.display = "flex";
   }

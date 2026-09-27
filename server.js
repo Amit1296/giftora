@@ -95,6 +95,7 @@ function readUpiConfig() {
 }
 
 const MAX_BODY = 6 * 1024 * 1024;
+const BODY_TIMEOUT_MS = 30 * 1000;
 const SESSION_TTL_MS = 24 * 60 * 60 * 1000;
 const LOGIN_MAX_FAILS = 10;
 const LOGIN_WINDOW_MS = 15 * 60 * 1000;
@@ -211,16 +212,23 @@ function readBody(req) {
   return new Promise((resolve, reject) => {
     let raw = "";
     let over = false;
+    const timer = setTimeout(() => {
+      if (over) return;
+      over = true;
+      req.destroy();
+      reject(new Error("Body timeout"));
+    }, BODY_TIMEOUT_MS);
     req.on("data", (c) => {
       raw += c;
       if (raw.length > MAX_BODY) {
         over = true;
+        clearTimeout(timer);
         reject(new Error("Body too large"));
         req.destroy();
       }
     });
-    req.on("end", () => { if (!over) resolve(raw); });
-    req.on("error", reject);
+    req.on("end", () => { if (!over) { clearTimeout(timer); resolve(raw); } });
+    req.on("error", (e) => { clearTimeout(timer); reject(e); });
   });
 }
 
@@ -249,6 +257,10 @@ function badRequest(res, e, fallbackMsg) {
     return sendJson(res, 413, { success: false, message: "Request too large." });
   }
   return sendJson(res, 400, { success: false, message: fallbackMsg || "Invalid request." });
+}
+
+function adminConfigSource() {
+  return process.env.ADMIN_USER && process.env.ADMIN_PASS ? "ADMIN_USER/ADMIN_PASS environment variables" : "admin-config.json";
 }
 
 function readAdminConfig() {
@@ -589,8 +601,12 @@ async function handleRequest(req, res) {
     /* ---------- Admin auth ---------- */
     if (url.pathname === "/api/admin/login") {
       const ip = clientIp(req);
-      const fail = loginFails.get(ip);
-      if (fail && fail.count >= LOGIN_MAX_FAILS && Date.now() - fail.first < LOGIN_WINDOW_MS) {
+      let fail = loginFails.get(ip);
+      if (fail && Date.now() - fail.first >= LOGIN_WINDOW_MS) {
+        loginFails.delete(ip);
+        fail = null;
+      }
+      if (fail && fail.count >= LOGIN_MAX_FAILS) {
         return sendJson(res, 429, { success: false, message: "Too many failed attempts. Try again in 15 minutes." });
       }
       try {
@@ -605,13 +621,21 @@ async function handleRequest(req, res) {
           sessions.set(token, Date.now());
           return sendJson(res, 200, { success: true, token });
         }
-        if (fail && Date.now() - fail.first < LOGIN_WINDOW_MS) {
+        console.warn("[ADMIN] Failed login attempt from " + ip);
+        if (fail) {
           fail.count += 1;
         } else {
           loginFails.set(ip, { count: 1, first: Date.now() });
         }
         return sendJson(res, 401, { success: false, message: "Invalid username or password." });
       } catch (e) {
+        console.error("[ADMIN] Login error:", e && e.message);
+        if (e && e.message === "Body too large") {
+          return sendJson(res, 413, { success: false, message: "Request too large." });
+        }
+        if (e && e.message === "Body timeout") {
+          return sendJson(res, 408, { success: false, message: "Request timed out. Please try again." });
+        }
         return sendJson(res, 400, { success: false, message: "Invalid request." });
       }
     }
@@ -1222,6 +1246,8 @@ process.on("uncaughtException", (err) => {
 server.listen(PORT, () => {
   console.log("Giftora static site running at http://localhost:" + PORT);
   console.log("Admin dashboard:  http://localhost:" + PORT + "/admin.html");
+  const cfg = readAdminConfig();
+  console.log("[ADMIN] Login username: " + (cfg ? cfg.username : "(unavailable)") + "  (from " + adminConfigSource() + ")");
   console.log("Data saved to: " + DATA_DIR);
   console.log("Uploads saved to: " + UPLOADS_DIR);
   if (RAZORPAY_KEY_ID && RAZORPAY_KEY_SECRET) {
