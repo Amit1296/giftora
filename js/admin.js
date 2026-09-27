@@ -314,9 +314,14 @@
   }
 
   function categoryOptions(selected) {
-    const cats = [...new Set(products.map((p) => p.category))].filter(Boolean);
-    if (!cats.includes(selected) && selected) cats.push(selected);
-    return cats.map((c) => `<option value="${esc(c)}"${c === selected ? " selected" : ""}>${esc(c)}</option>`).join("");
+    const cats = Object.keys(PAGE_NAMES);
+    for (const p of products) {
+      if (p.category && !cats.includes(p.category)) cats.push(p.category);
+    }
+    if (selected && !cats.includes(selected)) cats.push(selected);
+    return cats
+      .map((c) => `<option value="${esc(c)}"${c === selected ? " selected" : ""}>${esc(pageName(c))}</option>`)
+      .join("");
   }
 
   function badgeOptions(selected) {
