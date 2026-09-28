@@ -1140,8 +1140,21 @@ async function handleRequest(req, res) {
     return res.end("Gone");
   }
 
-  const blocked = ["/data/", "/.opencode/", "/admin-config.json", "/mail-config.json", "/razorpay-config.json", "/upi-config.json", "/node_modules/", "/.env"];
-  if (blocked.some((b) => lowerPath.startsWith(b))) {
+  const blockedPrefixes = ["/data/", "/.opencode/", "/node_modules/", "/backups/", "/seo/", "/.git/", "/logos/", "/.env"];
+  const blockedExts = [".md", ".sh", ".log", ".zip", ".err.txt", ".out.txt"];
+  const blockedNames = new Set([
+    "admin-config.json", "mail-config.json", "mail-config.example.json", "razorpay-config.json", "upi-config.json",
+    "server.js", "db.js", "mailer.js", "growth-audit.js", "fix-name-179.js", "node_ok.js", "rewrite-webp.js", "verify-webp-refs.js", "toggle-banner.js",
+    "export_products.json", "export_products_clean.json", "export_banners.json", "export_festival.json",
+    "lh2.json", "lh-baseline.json", "perf-report.json", "perf-result.json", "pagespeed-result.json",
+    "package.json", "package-lock.json",     "sitemap.xml.bak", "dockerfile", "upload.txt", "whatsapp-message.txt", "psftp_batch_test.txt",
+    ".gitignore", ".dockerignore",
+  ]);
+  if (
+    blockedPrefixes.some((b) => lowerPath.startsWith(b)) ||
+    blockedExts.some((e) => lowerPath.endsWith(e)) ||
+    blockedNames.has(path.basename(lowerPath))
+  ) {
     res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Forbidden");
   }
