@@ -78,8 +78,33 @@ const TARGETS = (() => {
     "toys.html",
   ];
   const extras = fs.readdirSync(ROOT).filter((f) => /^gift-delivery-[a-z0-9-]+\.html$/.test(f));
-  return [...new Set([...base, ...extras])];
+
+  /* Discover any page that renders a FAQ list we can actually address.
+     Discovered rather than hardcoded so newly added pages are covered
+     without edits; selectorsFor() picks the matching selector per page. */
+  const withFaq = fs.readdirSync(ROOT).filter((f) => {
+    if (!f.endsWith(".html")) return false;
+    const h = fs.readFileSync(path.join(ROOT, f), "utf8");
+    return /class="[^"]*faq-list/.test(h);
+  });
+
+  return [...new Set([...base, ...extras, ...withFaq])];
 })();
+
+/**
+ * Choose the speakable selector that actually resolves on this page.
+ * Most FAQ blocks sit in <div class="faq" id="faq"> so "#faq .faq-list"
+ * works, but a few use a bare <div class="faq-list"> with no id, which
+ * needs the plain class selector. Pages already covered keep their existing
+ * selector because the upgrade path never rebuilds the speakable block.
+ */
+function selectorsFor(page, html) {
+  if (page === "index.html") return CSS_HOME;
+  if (CATEGORY_PAGES.has(page) || /^gift-delivery-[a-z0-9-]+\.html$/.test(page)) return CSS_CATEGORY;
+  if (html && /id="faq"/.test(html) && /class="[^"]*faq-list/.test(html)) return CSS_BLOG;
+  if (html && /class="[^"]*faq-list/.test(html)) return CSS_CATEGORY;
+  return CSS_BLOG;
+}
 
 const CSS_HOME = ['"#why-giftora .seo-copy"', '"#why-giftora .faq-list"'];
 const CSS_BLOG = ['"#faq .faq-list"'];
@@ -105,10 +130,8 @@ const CATEGORY_PAGES = new Set([
   "toys.html",
 ]);
 
-function buildBlock(page, url, title, date) {
-  const selectors = CATEGORY_PAGES.has(page) || /^gift-delivery-[a-z0-9-]+\.html$/.test(page)
-    ? CSS_CATEGORY
-    : page === "index.html" ? CSS_HOME : CSS_BLOG;
+function buildBlock(page, url, title, date, html) {
+  const selectors = selectorsFor(page, html);
   const base = url.replace(/[^/]*$/, "");
   return [
     MARKER,
@@ -207,7 +230,7 @@ for (const page of TARGETS) {
 
   const url = "https://gift-ora.online/" + (page === "index.html" ? "" : page);
   const title = extractTitle(html);
-  const block = buildBlock(page, url, title, DATES.get(page));
+  const block = buildBlock(page, url, title, DATES.get(page), html);
   if (anchor === TARGET) {
     html = html.replace(TARGET, block + "\n\n" + TARGET);
   } else {
