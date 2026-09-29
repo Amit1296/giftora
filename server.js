@@ -1008,6 +1008,11 @@ async function handleRequest(req, res) {
   }
   pathname = pathname.replace(/\\/g, "/");
 
+  /* Collapse "." / ".." segments before any allow/deny decision, so
+     /./server.js and /uploads/../server.js cannot slip past the checks below. */
+  pathname = path.posix.normalize(pathname);
+  if (!pathname.startsWith("/")) pathname = "/" + pathname;
+
   /* ---------- Dynamic product pages ---------- */
   const productMatch = pathname.match(/^\/products\/([a-z0-9\-]+)\.html$/);
   if (productMatch && method === "GET") {
@@ -1140,20 +1145,37 @@ async function handleRequest(req, res) {
     return res.end("Gone");
   }
 
-  const blockedPrefixes = ["/data/", "/.opencode/", "/node_modules/", "/backups/", "/seo/", "/.git/", "/logos/", "/.env"];
-  const blockedExts = [".md", ".sh", ".log", ".zip", ".err.txt", ".out.txt"];
-  const blockedNames = new Set([
-    "admin-config.json", "mail-config.json", "mail-config.example.json", "razorpay-config.json", "upi-config.json",
-    "server.js", "db.js", "mailer.js", "growth-audit.js", "fix-name-179.js", "node_ok.js", "rewrite-webp.js", "verify-webp-refs.js", "toggle-banner.js",
-    "export_products.json", "export_products_clean.json", "export_banners.json", "export_festival.json",
-    "lh2.json", "lh-baseline.json", "perf-report.json", "perf-result.json", "pagespeed-result.json",
-    "package.json", "package-lock.json",     "sitemap.xml.bak", "dockerfile", "upload.txt", "whatsapp-message.txt", "psftp_batch_test.txt",
-    ".gitignore", ".dockerignore",
+  /* Static files are served by extension allowlist, not a blocklist: any new
+     source/config/artifact file is denied the moment it lands in the repo,
+     with no server.js edit required. */
+  const PUBLIC_EXTS = new Set([
+    ".html", ".css", ".js", ".json", ".txt", ".xml", ".svg",
+    ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico", ".woff", ".woff2",
   ]);
+  /* Root-level non-asset files that must stay reachable regardless of extension. */
+  const PUBLIC_ROOT_NAMES = new Set([
+    "robots.txt", "llms.txt", "sitemap.xml", "bingSiteAuth.xml".toLowerCase(),
+    "google7700e6aeefbc94c5.html", "logo.svg",
+  ]);
+  const PUBLIC_ROOT_EXTS = new Set([".html", ".svg", ".xml"]);
+
+  const requestExt = path.extname(lowerPath);
+  const isRootFile = !lowerPath.slice(1).includes("/");
+  const extAllowed = requestExt
+    ? PUBLIC_EXTS.has(requestExt)
+    : PUBLIC_ROOT_NAMES.has(path.basename(lowerPath));
+  const rootAllowed = !isRootFile || PUBLIC_ROOT_NAMES.has(path.basename(lowerPath)) || PUBLIC_ROOT_EXTS.has(requestExt);
+  const hiddenSegment = lowerPath.split("/").some((seg) => seg.startsWith(".") && seg.length > 1);
+
+  /* Directories whose contents pass the extension allowlist but must never ship
+     (.json secrets, .js dependencies). */
+  const privatePrefixes = ["/data/", "/node_modules/", "/banners/", "/hooks/", "/backups/", "/seo/", "/logos/"];
+
   if (
-    blockedPrefixes.some((b) => lowerPath.startsWith(b)) ||
-    blockedExts.some((e) => lowerPath.endsWith(e)) ||
-    blockedNames.has(path.basename(lowerPath))
+    !extAllowed ||
+    !rootAllowed ||
+    hiddenSegment ||
+    privatePrefixes.some((b) => lowerPath.startsWith(b))
   ) {
     res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Forbidden");
