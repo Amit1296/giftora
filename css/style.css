@@ -18,6 +18,11 @@ Text Domain: giftora
   --primary-light: #d8b4fe;
   --accent: #f5b301;
   --accent-dark: #d97706;
+  /* Text-safe variants: --accent (5.65:1 fail on light) and --accent-dark
+     (2.7-3.2:1) only reach AA on dark/purple surfaces. These darker/lighter
+     siblings are the ones to use for gold TEXT on white/cream backgrounds. */
+  --accent-ink: #8a5f00;   /* 5.65:1 on #fff, 4.82:1 on #f3e9ff */
+  --accent-ink-light: #fef3c7; /* 4.83:1 on the #9333ea announce gradient */
   --cream: #fdf6f8;
   --surface: #ffffff;
   --text: #241a30;
@@ -112,7 +117,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
   color: #fff; text-decoration: underline; text-underline-offset: 3px;
   font-weight: 700;
 }
-.announce-bar a:hover { color: var(--accent); }
+.announce-bar a:hover { color: var(--accent-ink-light); }
 @media (max-width: 780px) {
   .announce-bar .abar-sep { display: none; }
 }
@@ -169,7 +174,7 @@ body.announce-visible .navbar:not(.scrolled) {
 .nav-container > .logo .logo-mark { width: 100px; height: 85px; }
 .logo:hover { transform: scale(1.05) rotate(-2deg); }
 .logo span {
-  color: var(--accent); font-family: var(--font-script); font-size: 1.35em; font-weight: 700;
+  color: var(--accent-ink); font-family: var(--font-script); font-size: 1.35em; font-weight: 700;
   text-shadow: 0 2px 14px rgba(245,179,1,0.45);
 }
 .nav-links { display: flex; justify-content: center; gap: 18px; perspective: 800px; align-items: center; }
@@ -436,7 +441,7 @@ body.announce-visible .navbar:not(.scrolled) {
 
 .hero-stats { display: flex; gap: 48px; flex-wrap: wrap; }
 .stat { display: flex; flex-direction: column; }
-.stat-number { font-family: var(--font-head); font-size: 2rem; font-weight: 700; color: var(--accent-dark); }
+.stat-number { font-family: var(--font-head); font-size: 2rem; font-weight: 700; color: var(--accent-ink); }
 .stat-label { font-size: 0.88rem; color: var(--text-muted); }
 
 /* ---------- Categories ---------- */
@@ -582,7 +587,7 @@ body.announce-visible .navbar:not(.scrolled) {
   padding: 32px;
   box-shadow: var(--shadow-sm);
 }
-.stars { color: var(--accent-dark); letter-spacing: 2px; margin-bottom: 14px; }
+.stars { color: var(--accent-ink); letter-spacing: 2px; margin-bottom: 14px; }
 .testimonial-card blockquote { font-size: 0.98rem; color: var(--text-muted); font-style: italic; margin-bottom: 20px; }
 .author { display: flex; flex-direction: column; }
 .author strong { font-size: 0.98rem; }
@@ -845,7 +850,7 @@ body.announce-visible .navbar:not(.scrolled) {
 .rakhi-banner-copy p { color: var(--text-muted); max-width: 480px; }
 .rakhi-banner-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
 .rakhi-banner-code { font-size: 0.95rem; font-weight: 600; color: var(--primary); }
-.rakhi-banner-code strong { color: var(--accent-dark); }
+.rakhi-banner-code strong { color: var(--accent-ink); }
 @media (max-width: 760px) {
   .rakhi-banner-inner { grid-template-columns: 1fr; }
   .rakhi-banner-media { min-height: 180px; }
@@ -1874,7 +1879,7 @@ body.cookie-pending .chatbot-fab {
 
 /* ---------- Ratings & reviews ---------- */
 .product-rating { display: flex; align-items: center; gap: 6px; margin: 6px 0 8px; font-size: 0.85rem; }
-.stars { display: inline-flex; gap: 1px; color: var(--accent); }
+.stars { display: inline-flex; gap: 1px; color: var(--accent-ink); }
 .star { font-size: 0.95rem; }
 .star-off { color: #d9cfe3; }
 .rating-num { font-weight: 700; color: var(--text); }
