@@ -1,0 +1,1659 @@
+{
+  "generatedFrom": "working tree",
+  "totalPages": 176,
+  "indexablePages": 171,
+  "speakableAddedIn": "e4384a09",
+  "speakableAdded": [
+    "anniversary-gifts.html",
+    "baby-shower-gifts.html",
+    "birthday-gifts.html",
+    "congratulations-gifts.html",
+    "corporate-gifts.html",
+    "deepawali-gifts.html",
+    "dried-preserved-flowers.html",
+    "eco-friendly-gifts.html",
+    "engagement-gifts.html",
+    "everyday-occasion-gifts.html",
+    "flower-teddy-cake-combos.html",
+    "gifts-to-india-from-africa.html",
+    "gifts-to-india-from-australia.html",
+    "gifts-to-india-from-canada.html",
+    "gifts-to-india-from-uk.html",
+    "gifts-to-india-from-usa.html",
+    "graduation-gifts.html",
+    "housewarming-gifts.html",
+    "karwa-chauth-gifts.html",
+    "luxury-flower-boxes.html",
+    "occasion-gifts.html",
+    "personalized-flowers.html",
+    "plant-gifts.html",
+    "same-day-gift-delivery.html",
+    "teddy-bear-gifts.html",
+    "thank-you-gifts.html",
+    "wedding-gifts.html"
+  ],
+  "speakablePages": 161,
+  "faqSchemaPages": 161,
+  "howToPages": 4,
+  "clusterPages": [
+    "anniversary-gifts.html",
+    "baby-shower-gifts.html",
+    "birthday-gifts.html",
+    "congratulations-gifts.html",
+    "corporate-gifts.html",
+    "deepawali-gifts.html",
+    "dried-preserved-flowers.html",
+    "eco-friendly-gifts.html",
+    "engagement-gifts.html",
+    "everyday-occasion-gifts.html",
+    "flower-teddy-cake-combos.html",
+    "gifts-to-india-from-africa.html",
+    "gifts-to-india-from-australia.html",
+    "gifts-to-india-from-canada.html",
+    "gifts-to-india-from-uk.html",
+    "gifts-to-india-from-usa.html",
+    "graduation-gifts.html",
+    "housewarming-gifts.html",
+    "karwa-chauth-gifts.html",
+    "luxury-flower-boxes.html",
+    "occasion-gifts.html",
+    "personalized-flowers.html",
+    "plant-gifts.html",
+    "same-day-gift-delivery.html",
+    "teddy-bear-gifts.html",
+    "thank-you-gifts.html",
+    "wedding-gifts.html"
+  ],
+  "copyIntegrity": {
+    "duplicateTitles": 0,
+    "duplicateDescriptions": 0,
+    "titlesOutsideRange": 1,
+    "descriptionsOutsideRange": 0
+  },
+  "pages": [
+    {
+      "file": "about.html",
+      "titleLen": 47,
+      "descLen": 149,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "admin.html",
+      "titleLen": 23,
+      "descLen": 0,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "anniversary-gifts.html",
+      "titleLen": 62,
+      "descLen": 134,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "baby-shower-gifts.html",
+      "titleLen": 56,
+      "descLen": 136,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "banner-template.html",
+      "titleLen": 0,
+      "descLen": 0,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "belts.html",
+      "titleLen": 60,
+      "descLen": 124,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "birthday-gifts.html",
+      "titleLen": 61,
+      "descLen": 136,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "blog-best-online-gift-shop-india.html",
+      "titleLen": 56,
+      "descLen": 138,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": true,
+      "dateModified": "2026-08-20"
+    },
+    {
+      "file": "blog-bhai-dooj-gifts.html",
+      "titleLen": 52,
+      "descLen": 139,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-22"
+    },
+    {
+      "file": "blog-birthday-gifts-delhi.html",
+      "titleLen": 61,
+      "descLen": 142,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": true,
+      "dateModified": "2026-08-20"
+    },
+    {
+      "file": "blog-cake-delivery-faridabad.html",
+      "titleLen": 59,
+      "descLen": 123,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": true,
+      "dateModified": "2026-08-20"
+    },
+    {
+      "file": "blog-chhath-puja-gifts.html",
+      "titleLen": 66,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-22"
+    },
+    {
+      "file": "blog-corporate-diwali-gifting-2026.html",
+      "titleLen": 65,
+      "descLen": 148,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-19"
+    },
+    {
+      "file": "blog-dhanteras-gifts.html",
+      "titleLen": 67,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-22"
+    },
+    {
+      "file": "blog-diwali-gifts-nri-2026.html",
+      "titleLen": 73,
+      "descLen": 149,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-19"
+    },
+    {
+      "file": "blog-diwali-gifts.html",
+      "titleLen": 65,
+      "descLen": 130,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-07"
+    },
+    {
+      "file": "blog-festival-gifts-nri.html",
+      "titleLen": 45,
+      "descLen": 130,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-08-05"
+    },
+    {
+      "file": "blog-gifts-under-1000.html",
+      "titleLen": 59,
+      "descLen": 144,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-08-19"
+    },
+    {
+      "file": "blog-karwa-chauth-gifts.html",
+      "titleLen": 54,
+      "descLen": 135,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-07"
+    },
+    {
+      "file": "blog-nri-gift-guide.html",
+      "titleLen": 58,
+      "descLen": 147,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": true,
+      "dateModified": "2026-08-05"
+    },
+    {
+      "file": "blog-rakhi-gifts-nri.html",
+      "titleLen": 53,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-08-05"
+    },
+    {
+      "file": "blog-teachers-day-gifts.html",
+      "titleLen": 57,
+      "descLen": 119,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-08-24"
+    },
+    {
+      "file": "blog-template.html",
+      "titleLen": 1551,
+      "descLen": 8,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "blog.html",
+      "titleLen": 46,
+      "descLen": 152,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "cakes.html",
+      "titleLen": 56,
+      "descLen": 138,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "caps.html",
+      "titleLen": 49,
+      "descLen": 137,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "checkout-preview.html",
+      "titleLen": 43,
+      "descLen": 0,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "clothes.html",
+      "titleLen": 53,
+      "descLen": 130,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "combo.html",
+      "titleLen": 56,
+      "descLen": 134,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "congratulations-gifts.html",
+      "titleLen": 56,
+      "descLen": 159,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "contact.html",
+      "titleLen": 49,
+      "descLen": 129,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "corporate-gifts.html",
+      "titleLen": 57,
+      "descLen": 148,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "deepawali-gifts.html",
+      "titleLen": 60,
+      "descLen": 157,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "dried-preserved-flowers.html",
+      "titleLen": 61,
+      "descLen": 141,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "eco-friendly-gifts.html",
+      "titleLen": 58,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "engagement-gifts.html",
+      "titleLen": 59,
+      "descLen": 144,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "everyday-occasion-gifts.html",
+      "titleLen": 51,
+      "descLen": 136,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "festival.html",
+      "titleLen": 57,
+      "descLen": 141,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "flower-teddy-cake-combos.html",
+      "titleLen": 56,
+      "descLen": 132,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "flowers.html",
+      "titleLen": 58,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-agra.html",
+      "titleLen": 52,
+      "descLen": 148,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-ahmedabad.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-ajmer.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-ambala.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-amravati.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-amritsar.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-asansol.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-aurangabad.html",
+      "titleLen": 58,
+      "descLen": 160,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-bareilly.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-belagavi.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-bengaluru.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-berhampur.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-bhilai.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-bhopal.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-bhubaneswar.html",
+      "titleLen": 59,
+      "descLen": 130,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-bikaner.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-chandigarh.html",
+      "titleLen": 58,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-chennai.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-coimbatore.html",
+      "titleLen": 58,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-cuttack.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-dehradun.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-delhi.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-dhanbad.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-durgapur.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-erode.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-faridabad.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-gaya.html",
+      "titleLen": 52,
+      "descLen": 148,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-ghaziabad.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-gorakhpur.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-guntur.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-gurugram.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-guwahati.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-gwalior.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-haridwar.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-hubballi.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-hyderabad.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-india.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-indore.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-jabalpur.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-jaipur.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-jalandhar.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-jammu.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-jamnagar.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-jamshedpur.html",
+      "titleLen": 58,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-jhansi.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-jodhpur.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-kanpur.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-kochi.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-kolhapur.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-kolkata.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-kollam.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-kota.html",
+      "titleLen": 52,
+      "descLen": 148,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-kozhikode.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-lucknow.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-ludhiana.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-madurai.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-mangaluru.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-mathura.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-meerut.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-mumbai.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-mysuru.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-nagpur.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-nashik.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-nellore.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-noida.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-panaji.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-panipat.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-patiala.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-patna.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-prayagraj.html",
+      "titleLen": 57,
+      "descLen": 141,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-puducherry.html",
+      "titleLen": 58,
+      "descLen": 160,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-pune.html",
+      "titleLen": 52,
+      "descLen": 148,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-raipur.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-rajahmundry.html",
+      "titleLen": 59,
+      "descLen": 162,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-rajkot.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-ranchi.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-rourkela.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-salem.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-shahjahanpur.html",
+      "titleLen": 60,
+      "descLen": 164,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-shillong.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-siliguri.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-solapur.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-srinagar.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-surat.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-thane.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-thanjavur.html",
+      "titleLen": 57,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-thiruvananthapuram.html",
+      "titleLen": 57,
+      "descLen": 122,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-thrissur.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-tiruchirappalli.html",
+      "titleLen": 54,
+      "descLen": 134,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-tirunelveli.html",
+      "titleLen": 59,
+      "descLen": 162,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-tirupati.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-tiruppur.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-udaipur.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-ujjain.html",
+      "titleLen": 54,
+      "descLen": 152,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-vadodara.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-varanasi.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-vellore.html",
+      "titleLen": 55,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-vijayawada.html",
+      "titleLen": 58,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-visakhapatnam.html",
+      "titleLen": 52,
+      "descLen": 132,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gift-delivery-warangal.html",
+      "titleLen": 56,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gifts-to-india-from-africa.html",
+      "titleLen": 58,
+      "descLen": 121,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gifts-to-india-from-australia.html",
+      "titleLen": 61,
+      "descLen": 124,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gifts-to-india-from-canada.html",
+      "titleLen": 58,
+      "descLen": 121,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gifts-to-india-from-uk.html",
+      "titleLen": 54,
+      "descLen": 158,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "gifts-to-india-from-usa.html",
+      "titleLen": 58,
+      "descLen": 130,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "google7700e6aeefbc94c5.html",
+      "titleLen": 0,
+      "descLen": 0,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "graduation-gifts.html",
+      "titleLen": 55,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "housewarming-gifts.html",
+      "titleLen": 58,
+      "descLen": 134,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "index.html",
+      "titleLen": 51,
+      "descLen": 155,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "jewellery.html",
+      "titleLen": 52,
+      "descLen": 143,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "karwa-chauth-gifts.html",
+      "titleLen": 53,
+      "descLen": 142,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "luxury-flower-boxes.html",
+      "titleLen": 53,
+      "descLen": 150,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "occasion-gifts.html",
+      "titleLen": 46,
+      "descLen": 154,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "personalized-flowers.html",
+      "titleLen": 65,
+      "descLen": 145,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "plant-gifts.html",
+      "titleLen": 57,
+      "descLen": 157,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "plants.html",
+      "titleLen": 55,
+      "descLen": 141,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "privacy-policy.html",
+      "titleLen": 24,
+      "descLen": 120,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "product.html",
+      "titleLen": 25,
+      "descLen": 89,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "rakhi-gifts.html",
+      "titleLen": 46,
+      "descLen": 150,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "refund-policy.html",
+      "titleLen": 51,
+      "descLen": 160,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "same-day-gift-delivery.html",
+      "titleLen": 60,
+      "descLen": 151,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "send-gifts-to-india.html",
+      "titleLen": 41,
+      "descLen": 128,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "shipping-policy.html",
+      "titleLen": 40,
+      "descLen": 147,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "shoes.html",
+      "titleLen": 56,
+      "descLen": 142,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "special-offers.html",
+      "titleLen": 55,
+      "descLen": 141,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "sunglasses.html",
+      "titleLen": 52,
+      "descLen": 139,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "surprise-entertainment.html",
+      "titleLen": 66,
+      "descLen": 159,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "teachers-day-gifts.html",
+      "titleLen": 59,
+      "descLen": 120,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "teddy-bear-gifts.html",
+      "titleLen": 57,
+      "descLen": 156,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "teddy.html",
+      "titleLen": 59,
+      "descLen": 140,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "terms.html",
+      "titleLen": 32,
+      "descLen": 145,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "thank-you-gifts.html",
+      "titleLen": 63,
+      "descLen": 161,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "toys.html",
+      "titleLen": 45,
+      "descLen": 146,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    },
+    {
+      "file": "track-order.html",
+      "titleLen": 21,
+      "descLen": 136,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "vendors.html",
+      "titleLen": 53,
+      "descLen": 138,
+      "speakable": false,
+      "faqSchema": false,
+      "howTo": false,
+      "dateModified": ""
+    },
+    {
+      "file": "wedding-gifts.html",
+      "titleLen": 49,
+      "descLen": 146,
+      "speakable": true,
+      "faqSchema": true,
+      "howTo": false,
+      "dateModified": "2026-09-29"
+    }
+  ]
+}

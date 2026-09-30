@@ -130,6 +130,32 @@ that have previously hit the live site:
 Skip it once with `GIFTORA_SKIP_CHECK=1 git push`. Install into any clone with
 `git config core.hooksPath hooks`.
 
+## AEO baseline + Search Console tracking
+
+`node seo/aio-baseline.js` prints a per-page manifest of the deployed markup —
+Speakable / FAQPage / HowTo presence, title and description lengths,
+`dateModified` — plus the copy-integrity checks a ranking scare would come from
+(duplicate titles/descriptions, lengths outside range, unresolved Speakable
+selectors).
+
+```
+node seo/aio-baseline.js          # or: npm run seo:baseline  (regenerates the JSON)
+```
+
+The manifest is written to `seo/aio-baseline.json` and committed, so a future
+diff shows exactly what changed. Integrity checks are scoped to **indexable**
+pages — `admin`, the Google verification file, `checkout-preview` and the
+template scaffolding are not in the sitemap and are not judged as if they
+competed for a query. The 27 pages that gained Speakable in `e4384a09` are read
+from git, not hardcoded, so the list cannot drift from what shipped.
+
+`node seo/track.js` (or `npm run seo:track`) compares two consecutive Search
+Console windows and can break the 27 new pages out individually
+(`--pages`, `--days 90`, `--site "sc-domain:gift-ora.online"`). It needs a
+service account saved as `seo/gsc-service-account.json` (gitignored) or
+`GSC_CLIENT_EMAIL` + `GSC_PRIVATE_KEY`; with none present it prints the setup
+steps and exits 0. See `seo/google-search-console-guide.md`.
+
 ## Tips
 
 - Keep titles under ~60 characters and descriptions under ~160 characters.
