@@ -490,7 +490,7 @@ async function main() {
      only the shortest form of each base query is kept. */
   {
     const base = (s) => normTerm(s)
-      .replace(/\b(under|best|online)\b/g, '')
+      .replace(/\b(under|best|online|in)\b/g, '')
       .replace(/\s+/g, ' ').replace(/\s+s$/, '').trim();
     let collapsed = 0;
     const allGroups = []

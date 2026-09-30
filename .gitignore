@@ -27,3 +27,6 @@ start_app.sh
 previews/
 artifacts/
 *.exe
+
+# keyword apply backups (restore point for <meta keywords> rewrites)
+seo/.kw-backup/
