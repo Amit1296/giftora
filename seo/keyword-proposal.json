@@ -6065,36 +6065,6 @@
           "seed": "cake delivery in Salem"
         },
         {
-          "keyword": "cake delivery salem oregon",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "cake delivery in Salem"
-        },
-        {
-          "keyword": "cake delivery winston salem",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "cake delivery in Salem"
-        },
-        {
-          "keyword": "cake delivery winston salem nc",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "cake delivery in Salem"
-        },
-        {
           "keyword": "cake home delivery in salem",
           "score": 5,
           "reasons": [
@@ -6125,16 +6095,6 @@
           "seed": "flower delivery in Salem"
         },
         {
-          "keyword": "flower delivery in salem indiana",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "flower delivery in Salem"
-        },
-        {
           "keyword": "flower delivery in salem ma",
           "score": 5,
           "reasons": [
@@ -6156,16 +6116,6 @@
         },
         {
           "keyword": "flower delivery in salem ohio",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "flower delivery in Salem"
-        },
-        {
-          "keyword": "flower delivery in salem oregon",
           "score": 5,
           "reasons": [
             "right length",
@@ -9148,16 +9098,6 @@
       ],
       "keywords": [
         {
-          "keyword": "cake delivery in kota kinabalu",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "cake delivery in Kota"
-        },
-        {
           "keyword": "cake delivery in kota rajasthan",
           "score": 5,
           "reasons": [
@@ -9168,37 +9108,7 @@
           "seed": "cake delivery in Kota"
         },
         {
-          "keyword": "cake delivery kota bharu",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "cake delivery in Kota"
-        },
-        {
-          "keyword": "cake delivery kota damansara",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "cake delivery in Kota"
-        },
-        {
           "keyword": "cake delivery kota kemuning",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "cake delivery in Kota"
-        },
-        {
-          "keyword": "cake delivery kota kinabalu sabah",
           "score": 5,
           "reasons": [
             "right length",
@@ -9219,36 +9129,6 @@
         },
         {
           "keyword": "flower delivery in kota",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "flower delivery in Kota"
-        },
-        {
-          "keyword": "flower delivery in kota bharu",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "flower delivery in Kota"
-        },
-        {
-          "keyword": "flower delivery in kota kinabalu",
-          "score": 5,
-          "reasons": [
-            "right length",
-            "commercial intent",
-            "on-topic"
-          ],
-          "seed": "flower delivery in Kota"
-        },
-        {
-          "keyword": "flower delivery in kota kinabalu sabah",
           "score": 5,
           "reasons": [
             "right length",

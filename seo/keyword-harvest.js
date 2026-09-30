@@ -203,6 +203,16 @@ const SYMBOL = /[₹$€£¥%]/;
 const OFF_MARKET_COUNTRY = /\b(uk|u k|usa|u s a|canada|australia|new zealand|germany|france|ireland|pakistan|bangladesh|nepal|sri lanka|malaysia|singapore|indonesia|philippines|uae|dubai|abu dhabi|qatar|saudi arabia|kuwait|oman|bahrain|japan|china|hong kong|korea|thailand|vietnam|philippines|russia|ukraine|italy|spain|portugal|netherlands|sweden|norway|denmark|finland|poland|brazil|mexico|argentina|chile|peru|colombia|kenya|ghana|nigeria|south africa|egypt|israel|uae)\b/;
 const OFF_MARKET_CITY = /\b(london|manchester|edinburgh|dublin|sydney|melbourne|brisbane|perth|adelaide|canberra|auckland|wellington|toronto|vancouver|montreal|dubai|sharjah|abu dhabi|doha|manama|muscat|colombo|kathmandu|karachi|lahore|dhaka|chittagong|kual lumpur|jakarta|manila|bangkok|berlin|munich|paris|amsterdam|rome|madrid)\b/;
 
+/* Name-collision traps. Several Indian cities share a name with a city
+   abroad, so autosuggest happily returns the foreign one for an Indian seed:
+   "cake delivery kota kinabalu" (Sabah, Malaysia), "flower delivery in kota
+   bharu" / "kota damansara" (Malaysia), "cake delivery salem oregon" /
+   "salem indiana" (US), "cake delivery winston salem nc" (North Carolina).
+   None of these are serviceable, and all of them were shipped live once
+   before this list existed. Place and state names, not countries, because the
+   country filter above cannot see them. */
+const OFF_MARKET_PLACE = /\b(kinabalu|bharu|damansara|sabah|oregon|indiana|winston|ohio|california|texas|arizona|florida|colorado|georgia|virginia|massachusetts|maryland|minnesota|wisconsin|michigan|tennessee|alabama|louisiana|oklahoma|kansas|nebraska|utah|idaho|montana|wyoming|alaska|hawaii|ontario|quebec|alberta|manitoba|saskatchewan|nova scotia|british columbia|auckland|queensland|brisbane|perth|sydney|adelaide|darwin|canberra|wellington|aotearoa)\b/;
+
 /* Two-letter airport-style abbreviations. "plant gift delivery kl" is Kuala
    Lumpur. Kept as a separate list because these are exactly the cases the
    spelled-out city list misses, and standalone two-letter tokens in gift
@@ -211,7 +221,7 @@ const OFF_MARKET_ABBR = /\b(kl|nyc|lax|sin|dxb|cmb)\b/;
 
 /* A year in the query means the suggestion was captured from a stale index.
    "best toy gifts 2025" is already out of date and will decay further. */
-const STALE_YEAR = /\b(20(1[0-9]|2[0-4]))\b/;
+const STALE_YEAR = /\b(20(1[0-9]|2[0-5]))\b/;
 const OFF_MARKET_TOPIC = /\b(reddit|quora|wiki|wikipedia)\b/;
 const FOOD_ORDERING = /\b(burger|pizza|chinese food|chinese combo|thali|biryani|samosa|chicken ?wings|food order|food delivery)\b/;
 
@@ -295,7 +305,7 @@ function judge(suggestion, seed, group) {
   if (IMPOSSIBLE.test(s)) {
     return { score: -99, reasons: ['speed promise we cannot meet'], reject: true };
   }
-  if (OFF_MARKET_COUNTRY.test(s) || OFF_MARKET_CITY.test(s) || OFF_MARKET_ABBR.test(s) || OFF_MARKET_TOPIC.test(s) || FOOD_ORDERING.test(s)) {
+  if (OFF_MARKET_COUNTRY.test(s) || OFF_MARKET_CITY.test(s) || OFF_MARKET_ABBR.test(s) || OFF_MARKET_PLACE.test(s) || OFF_MARKET_TOPIC.test(s) || FOOD_ORDERING.test(s)) {
     return { score: -99, reasons: ['outside the Indian delivery market'], reject: true };
   }
   if (STALE_YEAR.test(s)) {
