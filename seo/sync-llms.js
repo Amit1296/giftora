@@ -10,6 +10,10 @@
  * It enforces only what can be verified mechanically:
  *   1. Every link resolves to a file that exists in the repo.
  *   2. The file keeps its llms.txt shape (title, summary block, valid UTF-8).
+ *   3. Every path is present in sitemap.xml, using the same "/" == "index.html"
+ *      equivalence the live site serves. A link can resolve on disk and still
+ *      be absent from the sitemap, which is how llms.txt and the crawlable URL
+ *      set quietly disagree.
  *
  * It deliberately does NOT rewrite numbers. A "N+ cities" claim is scoped to a
  * service: the gift-delivery network has 99 city landing pages, but
@@ -66,6 +70,32 @@ for (const [, raw] of links) {
   }
 }
 console.log("    " + links.length + " links checked, " + broken + " broken");
+
+/* 2b. cross-check against the deployed sitemap */
+const SITEMAP = path.join(ROOT, "sitemap.xml");
+console.log("\n  sitemap cross-check:");
+if (!fs.existsSync(SITEMAP)) {
+  console.log("    sitemap.xml not found — skipped");
+} else {
+  const locs = new Set(
+    [...fs.readFileSync(SITEMAP, "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => {
+      const rel = m[1].replace(/^https?:\/\/[^/]+\//, "").replace(/\/$/, "");
+      return rel === "" ? "index.html" : rel;
+    })
+  );
+  const seen = new Set();
+  const missing = [];
+  for (const [, raw] of links) {
+    const rel = raw.replace("https://gift-ora.online/", "");
+    const key = rel === "" ? "index.html" : rel;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    if (!locs.has(key)) missing.push(key);
+  }
+  missing.forEach((m) => console.log("    NOT IN SITEMAP: " + m));
+  console.log("    " + seen.size + " unique paths, " + missing.length +
+    " missing from " + locs.size + " sitemap URLs");
+}
 
 /* 3. format sanity */
 console.log("\n  format:");
