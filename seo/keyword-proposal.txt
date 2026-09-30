@@ -1,0 +1,260 @@
+=== Giftora keyword proposal (NOT APPLIED) ===
+
+  source        : Google autosuggest (suggestqueries.google.com, gl=in)
+  generated     : 2026-09-30T17:43:13.582Z
+  already live  : 2647 sitewide (all excluded from proposals)
+  NEW proposed  : 963
+
+  city pages    : 99 pages, 900 keywords
+  product pages : 146 pages, 7 keywords
+  clusters      : 10, 56 keywords
+
+  Every term is a real Google autosuggest response for India, filtered to one
+  owning page. Nothing has been written to any HTML page.
+
+
+########## CITY PAGES (top 10 by volume of new terms) ##########
+
+--- gift-delivery-kanpur.html  [Kanpur, Uttar Pradesh]  +13
+      best cake delivery in kanpur
+      bouquet delivery in kanpur
+      cake and flower delivery in kanpur
+      cake delivery in kanpur today
+      cake home delivery in kanpur
+      cake order in kanpur
+      delhi to kanpur same day delivery
+      flower bouquet delivery in kanpur
+      flower delivery in kanpur
+      lucknow to kanpur same day delivery
+      midnight cake delivery in kanpur
+      one day delivery in kanpur
+      cake delivery kanpur   [from cluster:cakes]
+
+--- gift-delivery-noida.html  [Noida, Uttar Pradesh]  +13
+      cake delivery in noida sector 18
+      cake delivery in noida sector 62
+      cake delivery in noida sector 63
+      flower delivery in noida sector 62
+      bouquet delivery in noida
+      cake delivery in greater noida
+      cake delivery in noida extension
+      cake order in noida
+      flower delivery in noida
+      flower delivery in noida extension
+      flower delivery in noida today
+      gift delivery in greater noida
+      cake delivery noida   [from cluster:cakes]
+
+--- gift-delivery-delhi.html  [Delhi, Delhi]  +12
+      cake delivery in delhi at 12 midnight
+      online cake delivery in delhi under 300
+      best cake delivery in delhi
+      bouquet delivery in delhi
+      cake delivery in delhi dwarka
+      cake delivery in delhi ncr
+      cake delivery in delhi today
+      cake order in delhi
+      diwali gift delivery in delhi
+      flower delivery in delhi
+      flower delivery in delhi dwarka
+      flower delivery in delhi ncr
+
+--- gift-delivery-ghaziabad.html  [Ghaziabad, Uttar Pradesh]  +12
+      best cake delivery in ghaziabad
+      bouquet delivery in ghaziabad
+      cake and flower delivery in ghaziabad
+      cake delivery in crossing republik ghaziabad
+      cake delivery in ghaziabad today
+      cake delivery in vasundhara ghaziabad
+      cake order in ghaziabad
+      cheap flower delivery in ghaziabad
+      flower bouquet delivery in ghaziabad
+      flower delivery in ghaziabad
+      flower delivery in indirapuram ghaziabad
+      flower delivery in vaishali ghaziabad
+
+--- gift-delivery-hyderabad.html  [Hyderabad, Telangana]  +12
+      bouquet delivery in hyderabad
+      cake delivery in hyderabad kukatpally
+      cake delivery in hyderabad midnight
+      cake delivery in hyderabad today
+      cake order in hyderabad
+      flower delivery in hyderabad
+      flowers delivery in hyderabad gachibowli
+      flowers delivery in hyderabad kukatpally
+      gift delivery services in hyderabad
+      gift hamper delivery in hyderabad
+      instant gift delivery in hyderabad
+      one day delivery hyderabad
+
+--- gift-delivery-kolkata.html  [Kolkata, West Bengal]  +12
+      best cake delivery in kolkata
+      bouquet delivery in kolkata
+      cake delivery app in kolkata
+      cake delivery in kolkata today
+      cake order in kolkata
+      cheap flower delivery in kolkata
+      customized cake delivery in kolkata
+      diwali gift delivery in kolkata
+      flower bouquet delivery in kolkata
+      flower delivery in kolkata
+      flower delivery in kolkata salt lake
+      flower delivery in kolkata today
+
+--- gift-delivery-kozhikode.html  [Kozhikode, Kerala]  +12
+      bouquet delivery in kozhikode
+      flower bouquet delivery in kozhikode
+      flower delivery in kozhikode
+      online cake delivery in kozhikode
+      online gift delivery in kozhikode
+      same day delivery kozhikode
+      same day flower delivery kozhikode
+      same day gift delivery kozhikode
+      surprise cake delivery in kozhikode
+      surprise gift delivery in kozhikode
+      gift shops near kozhikode kerala
+      gift shops near kozhikode railway station
+
+--- gift-delivery-lucknow.html  [Lucknow, Uttar Pradesh]  +12
+      best cake delivery in lucknow
+      flower delivery in lucknow
+      bouquet delivery in lucknow
+      cake delivery in lucknow today
+      cake home delivery in lucknow
+      cake order in lucknow
+      flower bouquet delivery in lucknow
+      flower delivery app in lucknow
+      flower delivery in lucknow today
+      fresh flower delivery in lucknow
+      midnight cake delivery in lucknow
+      cake delivery lucknow   [from cluster:cakes]
+
+--- gift-delivery-mumbai.html  [Mumbai, Maharashtra]  +12
+      cake delivery in mumbai andheri east
+      cake delivery in mumbai andheri west
+      cake delivery in mumbai colaba
+      cake delivery in mumbai thane
+      cake delivery in mumbai today
+      cake order in mumbai
+      diwali gift delivery in mumbai
+      flower delivery in mumbai
+      flower delivery in mumbai andheri east
+      flower delivery in mumbai andheri west
+      flower delivery in mumbai bandra
+      flower delivery in mumbai same day
+
+--- gift-delivery-patna.html  [Patna, Bihar]  +12
+      same day delivery in patna 24 hours
+      bouquet delivery in patna
+      cake and flower delivery in patna
+      cake delivery in patna bihar
+      cake order in patna
+      flower bouquet delivery in patna
+      flower delivery in patna
+      flower delivery patna same day
+      instant gift delivery in patna
+      one day delivery patna
+      online cake delivery in patna
+      online cake delivery in patna monginis
+
+  ... plus 89 more city pages (full list in keyword-proposal.json)
+
+
+########## CLUSTERS ##########
+
+--- teddy  -> owner teddy-bear-gifts.html  +12
+      teddy bear under 1500
+      best teddy bear
+      best teddy bear brands
+      best teddy bear for baby
+      best teddy bear for girls
+      best teddy bear names
+      best teddy gift
+      best teddy gift for girlfriend
+      best teddy gift for wife
+      buy online teddy bear
+      chocolate and teddy bear gift delivery
+      order big teddy bear online
+
+--- sunglasses  -> owner sunglasses.html  +0
+
+--- belts  -> owner belts.html  +7
+      belt delivery near me
+      belt delivery now
+      belt delivery today
+      belt delivery tomorrow
+      best belt gift for men
+      order belt buckles online
+      order leather belt online
+
+--- clothes  -> owner clothes.html  +0
+
+--- toys  -> owner toys.html  +3
+      best toy gifts 2025
+      best toy gifts for 4 year old
+      best toy gifts for 8 year old
+
+--- plants  -> owner plant-gifts.html  +7
+      best plant gifts for christmas
+      best plant gifts for friends
+      best plant gifts for men
+      best plant gifts for mom
+      best plant gifts for women
+      best plant gifts near me
+      plant gifts delivery
+
+--- flowers  -> owner flowers.html  +4
+      best flower gifts by post
+      best flower gifts for girlfriend
+      best flower gifts for her
+      best flower gifts for men
+
+--- shoes  -> owner shoes.html  +4
+      best shoe gift card
+      best shoe gifts
+      best shoe gifts for men
+      best shoe gifts for women
+
+--- cakes  -> owner cakes.html  +7
+      best cake baking gifts
+      best cake decorating gifts
+      best cake gifts
+      best cake gifts by post
+      best coffee cake gifts
+      cake delivery near me
+      can i get a cake delivered
+
+--- combo  -> owner combo.html  +12
+      best combo gift for boyfriend
+      best combo gift for girlfriend
+      best combo gift for husband
+      best combo gift for sister
+      best combo gift for wife
+      best combo gifts
+      best combo gifts for girls
+      best combo gifts for men
+      best combo gifts for women
+      buy combo online
+      combo order online
+      gift combo instant delivery
+
+
+########## PRODUCT PAGES (all, with counts) ##########
+
+  pages gaining 3+ new terms: 0
+  pages gaining 1-2 terms  : 6
+  pages with none          : 140
+
+--- products/asian-men-streetwear-logo-print-casual-shoes.html  [shoes, Rs 899]  +2
+      asian shoes men under 500
+      asian shoes men price
+--- products/sweet-love-teddy-blossom-delight.html  [teddy, Rs 2499]  +1
+      love teddy bear price
+--- products/fortune-prosperity-money-plant-in-pot.html  [plants, Rs 499]  +1
+      fortune plants for sale
+--- products/red-roses-hand-bunch.html  [flowers, Rs 499]  +1
+      flowers red roses delivery
+--- products/ferrero-rocher-hazelnut-drizzle-cake.html  [cakes, Rs 1999]  +1
+      cake ferrero rocher price
+--- products/red-velvet-caramel-craze-cake.html  [cakes, Rs 999]  +1
+      cake red velvet price
