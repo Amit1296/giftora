@@ -564,7 +564,8 @@ async function handleRequest(req, res) {
     /* ---------- Coupon validation (checkout) ---------- */
     if (url.pathname === "/api/coupon/validate") {
       try {
-        const data = JSON.parse(await readBody(req));
+        const raw = await readBody(req);
+        const data = raw && raw.trim() ? JSON.parse(raw) : {};
         const code = String(data.code || "").trim().toUpperCase();
         if (!code) throw new Error("Please enter a coupon code.");
         data.coupon = code;
