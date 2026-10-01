@@ -397,35 +397,6 @@ async function addSubscriber(subscriber) {
     if (USE_PG) await pgSet("subscribers", list);
     else await writeJson(SUBSCRIBERS_FILE, list);
   }
-  return { exists: exists };
-}
-
-/* ---------- Subscribers / Newsletter ---------- */
-async function getSubscribers() {
-  if (USE_PG) return pgGet("subscribers", []);
-  return readJson(SUBSCRIBERS_FILE, []);
-}
-
-async function addSubscriber(subscriber) {
-  const email = String(subscriber.email || "").trim().toLowerCase();
-  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-    const err = new Error("Invalid email address");
-    err.code = "INVALID_EMAIL";
-    throw err;
-  }
-  const list = await getSubscribers();
-  const exists = list.some((s) => s.email === email);
-  if (!exists) {
-    list.unshift({
-      email,
-      name: String(subscriber.name || "").trim().slice(0, 100),
-      source: String(subscriber.source || "footer").trim().slice(0, 50),
-      date: new Date().toISOString(),
-      _file: "subscriber_" + Date.now(),
-    });
-    if (USE_PG) await pgSet("subscribers", list);
-    else await writeJson(SUBSCRIBERS_FILE, list);
-  }
   return { exists };
 }
 
