@@ -8,6 +8,7 @@ data/orders.json
 data/enquiries.json
 data/vendors.json
 data/visitors.json
+data/subscribers.json
 data/orders/
 data/enquiries/
 data/backups/

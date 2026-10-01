@@ -1,4 +1,7 @@
 (() => {
+  if (window.__gtFooterInit) return;
+  window.__gtFooterInit = true;
+
   const form = document.getElementById("gtForm");
   const ok = document.getElementById("gtOk");
   const email = document.getElementById("gtEmail");
