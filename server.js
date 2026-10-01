@@ -565,7 +565,14 @@ async function handleRequest(req, res) {
     if (url.pathname === "/api/coupon/validate") {
       try {
         const raw = await readBody(req);
-        const data = raw && raw.trim() ? JSON.parse(raw) : {};
+        let data = {};
+        if (raw && raw.trim()) {
+          try {
+            data = JSON.parse(raw);
+          } catch {
+            throw new Error("Invalid request body.");
+          }
+        }
         const code = String(data.code || "").trim().toUpperCase();
         if (!code) throw new Error("Please enter a coupon code.");
         data.coupon = code;
