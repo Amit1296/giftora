@@ -8,6 +8,7 @@ const PRODUCTS_FILE = path.join(DATA_DIR, "products.json");
 const FESTIVAL_FILE = path.join(DATA_DIR, "festival.json");
 const ORDERS_FILE = path.join(DATA_DIR, "orders.json");
 const ENQUIRIES_FILE = path.join(DATA_DIR, "enquiries.json");
+const SUBSCRIBERS_FILE = path.join(DATA_DIR, "subscribers.json");
 const VENDORS_FILE = path.join(DATA_DIR, "vendors.json");
 const COUPONS_FILE = path.join(DATA_DIR, "coupons.json");
 const BANNERS_FILE = path.join(DATA_DIR, "banners.json");const VISITORS_FILE = path.join(DATA_DIR, "visitors.json");
@@ -370,6 +371,64 @@ async function addEnquiry(enquiry) {
   return writeJson(ENQUIRIES_FILE, list);
 }
 
+/* ---------- Subscribers / Newsletter ---------- */
+async function getSubscribers() {
+  if (USE_PG) return pgGet("subscribers", []);
+  return readJson(SUBSCRIBERS_FILE, []);
+}
+
+async function addSubscriber(subscriber) {
+  const email = String(subscriber.email || "").trim().toLowerCase();
+  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+    const err = new Error("Invalid email address");
+    err.code = "INVALID_EMAIL";
+    throw err;
+  }
+  const list = await getSubscribers();
+  const exists = list.some((s) => s.email === email);
+  if (!exists) {
+    list.unshift({
+      email,
+      name: String(subscriber.name || "").trim().slice(0, 100),
+      source: String(subscriber.source || "footer").trim().slice(0, 50),
+      date: new Date().toISOString(),
+      _file: "subscriber_" + Date.now(),
+    });
+    if (USE_PG) await pgSet("subscribers", list);
+    else await writeJson(SUBSCRIBERS_FILE, list);
+  }
+  return { exists: exists };
+}
+
+/* ---------- Subscribers / Newsletter ---------- */
+async function getSubscribers() {
+  if (USE_PG) return pgGet("subscribers", []);
+  return readJson(SUBSCRIBERS_FILE, []);
+}
+
+async function addSubscriber(subscriber) {
+  const email = String(subscriber.email || "").trim().toLowerCase();
+  if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+    const err = new Error("Invalid email address");
+    err.code = "INVALID_EMAIL";
+    throw err;
+  }
+  const list = await getSubscribers();
+  const exists = list.some((s) => s.email === email);
+  if (!exists) {
+    list.unshift({
+      email,
+      name: String(subscriber.name || "").trim().slice(0, 100),
+      source: String(subscriber.source || "footer").trim().slice(0, 50),
+      date: new Date().toISOString(),
+      _file: "subscriber_" + Date.now(),
+    });
+    if (USE_PG) await pgSet("subscribers", list);
+    else await writeJson(SUBSCRIBERS_FILE, list);
+  }
+  return { exists };
+}
+
 /* ---------- Vendors ---------- */
 async function getVendors() {
   if (USE_PG) return pgGet("vendors", []);
@@ -520,6 +579,8 @@ module.exports = {
   updateOrder,
   getEnquiries,
   addEnquiry,
+  getSubscribers,
+  addSubscriber,
   getVendors,
   addVendor,
   getCoupons,

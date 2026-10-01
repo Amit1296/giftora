@@ -141,9 +141,8 @@ function extractChrome() {
   const i2 = src.indexOf(navEnd, i1);
   const navbar = src.slice(i1, i2 + navEnd.length);
 
-  const footStart = '<footer class="footer">';
   const footEnd = "</footer>";
-  const j1 = src.indexOf(footStart);
+  const j1 = src.indexOf("<footer");
   const j2 = src.indexOf(footEnd, j1);
   const footer = src.slice(j1, j2 + footEnd.length);
 
@@ -652,6 +651,7 @@ ${chrome.upi}
 <script src="../js/product-pages.js${jsVersion("product-pages.js")}"></script>
 <script src="../js/script.min.js${jsVersion("script.min.js")}"></script>
 <script src="../js/whatsapp.js${jsVersion("whatsapp.js")}"></script>
+<script src="../js/footer.js?v=1" defer></script>
 ${pageScript(product)}
 
 ${chrome.chatbot}

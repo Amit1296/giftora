@@ -557,7 +557,9 @@ function rebuildFooterList(cities) {
     }
   }
 
-  const re = /(<div class="footer-col footer-cities">[\s\S]*?<h3>Cities<\/h3>\s*<ul>)([\s\S]*?)(<\/ul>)/;
+  // Matches the city <ul> in the current footer (`.gt-citygrid`), with a
+  // fallback to the legacy `.footer-cities` block for pre-migration pages.
+  const re = /(<ul class="gt-citygrid"[^>]*>)([\s\S]*?)(<\/ul>)|(<div class="footer-col footer-cities">[\s\S]*?<h3>Cities<\/h3>\s*<ul>)([\s\S]*?)(<\/ul>)/;
   let updated = 0, skipped = [];
   for (const rel of files) {
     const file = path.join(ROOT, rel);
@@ -565,12 +567,18 @@ function rebuildFooterList(cities) {
     const m = html.match(re);
     if (!m) { skipped.push(rel); continue; }
     const eol = eolOf(html);
-    const liMatch = m[2].match(/([ \t]*)<li>/);
+    // Group 1 matched the `.gt-citygrid` variant, group 4 the legacy block.
+    const open = m[1] !== undefined ? m[1] : m[4];
+    const inner = m[2] !== undefined ? m[2] : m[5];
+    const liMatch = inner.match(/([ \t]*)<li/);
     const indent = liMatch ? liMatch[1] : '\t\t\t\t\t';
-    const prefixMatch = m[2].match(/<li><a href="((?:\.\.\/)?)gift-delivery-/);
+    const prefixMatch = inner.match(/<li[^>]*>\s*<a href="((?:\.\.\/)?)gift-delivery-/);
     const prefix = prefixMatch ? prefixMatch[1] : '';
-    const list = cities.map((c) => `${indent}<li><a href="${prefix}gift-delivery-${c.slug}.html">${esc(c.name)}</a></li>`).join(eol);
-    const next = html.replace(re, `$1${eol}${list}${eol}${indent.slice(0, -1)}</ul>`);
+    const hub = /<li class="hub">/.test(inner) ? `<li class="hub"><a href="${prefix}gift-delivery-india.html">All India</a></li>` : '';
+    const list = [hub].concat(
+      cities.map((c) => `${indent}<li><a href="${prefix}gift-delivery-${c.slug}.html">${esc(c.name)}</a></li>`)
+    ).filter(Boolean).join(eol);
+    const next = html.replace(re, `${open}${eol}${list}${eol}${indent.slice(0, -1)}</ul>`);
     if (next !== html) {
       if (!DRY) fs.writeFileSync(file, next, 'utf8');
       updated++;

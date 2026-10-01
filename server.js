@@ -524,6 +524,24 @@ async function handleRequest(req, res) {
       }
     }
 
+    if (url.pathname === "/api/newsletter" && req.method === "POST") {
+      try {
+        const data = JSON.parse(await readBody(req));
+        const result = await db.addSubscriber({
+          email: data.email,
+          name: data.name,
+          source: data.source,
+        });
+        return sendJson(res, 200, { success: true, exists: result.exists });
+      } catch (e) {
+        if (e.code === "INVALID_EMAIL") {
+          return sendJson(res, 400, { success: false, message: "Please provide a valid email address." });
+        }
+        console.error("Newsletter error:", e.message);
+        return badRequest(res, e, "Could not subscribe you right now.");
+      }
+    }
+
     if (url.pathname === "/api/vendor") {
       try {
         const data = JSON.parse(await readBody(req));
