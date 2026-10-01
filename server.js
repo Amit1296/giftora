@@ -252,6 +252,13 @@ function sendJson(res, status, payload) {
   res.end(raw);
 }
 
+/* Client-input rejection: expected 4xx, not a server fault. */
+function expectedError(message) {
+  const err = new Error(message);
+  err.expected = true;
+  return err;
+}
+
 function badRequest(res, e, fallbackMsg) {
   if (e && e.message === "Body too large") {
     return sendJson(res, 413, { success: false, message: "Request too large." });
@@ -570,14 +577,14 @@ async function handleRequest(req, res) {
           try {
             data = JSON.parse(raw);
           } catch {
-            throw new Error("Invalid request body.");
+            throw expectedError("Invalid request body.");
           }
         }
         const code = String(data.code || "").trim().toUpperCase();
-        if (!code) throw new Error("Please enter a coupon code.");
+        if (!code) throw expectedError("Please enter a coupon code.");
         data.coupon = code;
         const cart = await computeCart(data, "");
-        if (!cart.coupon) throw new Error("Invalid coupon code.");
+        if (!cart.coupon) throw expectedError("Invalid coupon code.");
         const label =
           cart.coupon.type === "fixed"
             ? "Rs." + cart.couponDiscount.toLocaleString("en-IN") + " off"
@@ -591,8 +598,10 @@ async function handleRequest(req, res) {
           label,
         });
       } catch (e) {
-        console.error("Coupon validate error:", e.message);
-        return badRequest(res, e, e.message || "Invalid coupon code.");
+        const msg = (e && e.message) || "Invalid coupon code.";
+        if (e && e.expected) console.log("Coupon validate rejected:", msg);
+        else console.error("Coupon validate error:", msg);
+        return badRequest(res, e, msg);
       }
     }
 
@@ -1622,7 +1631,9 @@ async function evaluateCoupon(code, subtotal) {
 
 async function computeCart(data, prefix) {
   const E = (msg) => {
-    throw new Error((prefix || "") + msg);
+    const err = new Error((prefix || "") + msg);
+    err.expected = true;
+    throw err;
   };
   const rawItems = Array.isArray(data.items) ? data.items.slice(0, 50) : [];
   if (!rawItems.length) E("Your cart is empty.");
