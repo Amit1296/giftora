@@ -95,6 +95,23 @@ function buildImageMap(products) {
   return map;
 }
 
+// An absolute URL is not enough: the file behind it has to exist, or every
+// product page ships a broken <img> and the Merchant feed / rich results point
+// at a 404. Resolves a product image reference to a path on disk, or null when
+// the reference is not a local /uploads/ asset (in which case we can't verify it).
+function localImagePath(ref) {
+  if (!ref) return null;
+  let p = String(ref).trim();
+  if (p.startsWith(SITE_URL)) p = p.slice(SITE_URL.length);
+  if (!p.startsWith("/uploads/")) return null;
+  return path.join(ROOT, p.replace(/^\/+/, ""));
+}
+
+function imageMissing(ref) {
+  const full = localImagePath(ref);
+  return full ? !fs.existsSync(full) : false;
+}
+
 const errors = [];
 const warnings = [];
 let filesChecked = 0;
@@ -120,6 +137,10 @@ function validateFile(file, imageMap, scanProducts) {
     // image must be an absolute http(s) URL for Google
     if (p.image && !/^https?:\/\//.test(String(p.image))) {
       errors.push(`${label}: image must be an absolute URL, got "${p.image}"`);
+    }
+    // ...and the file it points at must actually be on disk
+    if (p.image && imageMissing(p.image)) {
+      errors.push(`${label}: image file does not exist on disk -> "${p.image}"`);
     }
     // offers checks
     if (!p.offers) {
@@ -177,6 +198,8 @@ const imageMapSize = Object.keys(imageMap).length;
       } else {
         errors.push(`data/products.json -> "${p.name}" (id ${p.id}): missing "image"; absolutely required for Product rich results.`);
       }
+    } else if (p && p.image && imageMissing(p.image)) {
+      errors.push(`data/products.json -> "${p.name}" (id ${p.id}): image file does not exist on disk -> "${p.image}". Re-upload the photo or correct the path.`);
     }
   }
 }

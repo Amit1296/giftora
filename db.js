@@ -465,7 +465,9 @@ function newSession(vid, meta, nowIso) {
     referrer: (meta && meta.referrer) || "",
     ipHash: (meta && meta.ipHash) || "",
     pages: [],
-    productViews: {},
+    // Keyed by client-supplied product names, so this must not inherit from
+    // Object.prototype — a name of "__proto__" would otherwise pollute it.
+    productViews: Object.create(null),
     cartAdds: [],
     cartOpened: 0,
     checkoutStarted: 0,
@@ -490,6 +492,12 @@ async function addVisitorBatch(vid, meta, events, nowIso) {
   if (!session) {
     session = newSession(vid, meta, nowIso);
     store.sessions.unshift(session);
+  }
+  // Sessions persisted before this was hardened still carry a normal-prototype
+  // productViews, so re-home it on a null-prototype object before it is keyed
+  // by client-supplied names.
+  if (session.productViews && Object.getPrototypeOf(session.productViews) !== null) {
+    session.productViews = Object.assign(Object.create(null), session.productViews);
   }
   session.lastSeen = nowIso;
   if (meta) {

@@ -47,6 +47,20 @@ function guideBlock(page, blogs) {
     .map((l, i) => `${i ? ", " : ""}<a href="${esc(l.href)}">${esc(l.text)}</a>`)
     .join("");
 
+  const sections = (page.sections || [])
+    .map(
+      (s) => `\t\t\t<div class="city-areas">
+\t\t\t\t<h3>${esc(s.h3)}</h3>
+\t\t\t\t<p>${esc(s.body)}</p>
+\t\t\t\t<ul class="city-picks">
+\t\t\t\t\t<li>See options: ${(s.links || [])
+        .map((l, i) => `${i ? ", " : ""}<a href="${esc(l.href)}">${esc(l.text)}</a>`)
+        .join("")}</li>
+\t\t\t\t</ul>
+\t\t\t</div>`
+    )
+    .join("\n");
+
   return `<!-- GUIDE-BLOCK-START -->
 	<section class="features" id="gift-guide">
 		<div class="container">
@@ -61,11 +75,11 @@ ${paragraphs}
 				<h3>${esc(page.tipsTitle)}</h3>
 				<ul class="city-picks">
 ${tips}
-				</ul>
-			</div>
-			<div class="city-copy">
-				<p>Related: ${links}</p>
-			</div>
+\t\t\t\t</ul>
+\t\t\t</div>
+${sections ? sections + "\n" : ""}\t\t\t<div class="city-copy">
+\t\t\t\t<p>Related: ${links}</p>
+\t\t\t</div>
 ${reading}		</div>
 	</section>
 	<!-- GUIDE-BLOCK-END -->`;

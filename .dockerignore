@@ -2,10 +2,50 @@ node_modules
 npm-debug.log
 .git
 .gitignore
+
+# ---- Secrets: never bake these into an image layer ----------------------
+# The Dockerfile does `COPY . .`, so anything not listed here ends up in the
+# image and in any registry it is pushed to. Keep this list in sync with
+# .gitignore's secret entries.
+.env
+.env.*
+*.env
+admin-config.json
+mail-config.json
+razorpay-config.json
+start_app.sh
+deploy.sh
+setup_*.sh
+retry_certbot.sh
+run_runtime_import.sh
+
+# ---- Runtime state / customer data -------------------------------------
 data/orders
 data/enquiries
 data/orders.json
 data/enquiries.json
-admin-config.json
-mail-config.json
+data/vendors.json
+data/visitors.json
+data/subscribers.json
+backups
+
+# ---- Logs, reports and local scratch -----------------------------------
+*.log
+*.log.*
+lh*.json
+pagespeed-result.json
+perf-result.json
+perf-report.json
+previews
+artifacts
+*.zip
+upload.txt
+server*.txt
+whatsapp-message.txt
+psftp_batch_test.txt
+731cc680-6697-4b3f-8fe9-05bc751efea4.txt
+node_ok.js
+fix-name-179.js
+data/*-presync-products.*
+
 *.md

@@ -42,6 +42,15 @@
       addToCartQty: { name: "add_to_cart", cart: true },
       openCart: { name: "view_cart", cart: false },
     };
+    /* addToCart(id, size) takes a SIZE as its 2nd arg, addToCartQty(id, qty,
+       size) takes a quantity. Reading arguments[1] as a quantity for both meant
+       addToCart(123, "Large") sent value: NaN and quantity: "Large" to GA4,
+       which permanently poisons revenue reporting. */
+    const qtyOf = (fn, args) => {
+      if (fn !== "addToCartQty") return 1;
+      const q = parseInt(args[1], 10);
+      return Number.isFinite(q) && q > 0 ? q : 1;
+    };
     for (const [fn, cfg] of Object.entries(map)) {
       const orig = window.Giftora[fn];
       if (!orig || orig.__giftoraGa) continue;
@@ -49,11 +58,12 @@
         const result = orig.apply(this, arguments);
         if (cfg.cart) {
           const info = productInfo(arguments[0]);
-          const qty = arguments[1] || 1;
+          const qty = qtyOf(fn, arguments);
+          const price = Number(info.price) || 0;
           pushEvent(cfg.name, {
             currency: "INR",
-            value: Number(info.price) * qty,
-            items: [{ item_id: String(arguments[0]), item_name: info.name, price: info.price, quantity: qty }],
+            value: price * qty,
+            items: [{ item_id: String(arguments[0]), item_name: info.name, price: price, quantity: qty }],
           });
         } else {
           pushEvent(cfg.name, {});

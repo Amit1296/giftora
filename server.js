@@ -194,18 +194,75 @@ const ALLOWED_IMAGE_EXT = [".png", ".jpg", ".jpeg", ".gif", ".webp"];
 const sessions = new Map();
 const loginFails = new Map();
 
+/* "Today" for a India-based store. toISOString() is UTC, which between 00:00
+   and 05:30 IST is still yesterday — that made coupons expire 5.5h early,
+   open 5.5h late, and zeroed out "active today" for the first 5.5 hours of
+   every IST day. Sessions store local time, so compare against IST. */
+function istDate(d) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Kolkata",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(d || new Date());
+}
+
+/* Order/enquiry ids embed local server time at 1-second resolution, so two
+   orders in the same second produced the same id AND the same _file — and
+   db.updateOrder resolves by _file, so marking one order "Shipped" patched the
+   other. Format in IST (matching how the store reads its own dates) and append
+   a short random suffix so ids stay unique within a second. */
+let orderSeq = 0;
 function timestamp() {
-  const d = new Date();
-  const pad = (n) => String(n).padStart(2, "0");
+  const p = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Kolkata",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false,
+  }).formatToParts(new Date()).reduce((a, x) => (a[x.type] = x.value, a), {});
+  const rand = Math.random().toString(36).slice(2, 6);
+  orderSeq = (orderSeq + 1) % 1296;
   return (
-    d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) +
-    "_" + pad(d.getHours()) + "-" + pad(d.getMinutes()) + "-" + pad(d.getSeconds())
+    p.year + "-" + p.month + "-" + p.day +
+    "_" + p.hour + "-" + p.minute + "-" + p.second +
+    "-" + rand + orderSeq.toString(36)
   );
 }
 
+/* Resolve the real client IP for rate limiting and login lockout.
+   X-Forwarded-For is attacker-controlled unless the request actually arrived
+   through a proxy we trust, and nginx here uses $proxy_add_x_forwarded_for
+   (which appends), so the left-most entry is whatever the caller sent. Reading
+   element [0] unconditionally let anyone rotate a header per request and
+   bypass every limiter, including the admin brute-force lockout.
+
+   So: only honour the header when the immediate peer is a trusted proxy, then
+   walk the chain right-to-left and return the first address that is not
+   itself a trusted proxy. */
+function isTrustedProxy(addr) {
+  if (!addr) return false;
+  let a = String(addr).trim().toLowerCase();
+  // Node reports IPv4 peers as ::ffff:127.0.0.1
+  if (a.startsWith("::ffff:")) a = a.slice(7);
+  if (a === "::1" || a === "127.0.0.1" || a.startsWith("127.")) return true;
+  // RFC1918
+  if (/^10\./.test(a) || /^192\.168\./.test(a) || /^172\.(1[6-9]|2\d|3[01])\./.test(a)) return true;
+  // IPv6 unique-local (fc00::/7)
+  if (/^f[cd][0-9a-f]{2}:/.test(a)) return true;
+  return false;
+}
+
 function clientIp(req) {
-  const fwd = (req.headers["x-forwarded-for"] || "").split(",")[0].trim();
-  return fwd || req.socket.remoteAddress || "unknown";
+  const peer = req.socket.remoteAddress || "";
+  if (isTrustedProxy(peer)) {
+    const chain = String(req.headers["x-forwarded-for"] || "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    for (let i = chain.length - 1; i >= 0; i--) {
+      if (!isTrustedProxy(chain[i])) return chain[i];
+    }
+  }
+  return peer || "unknown";
 }
 
 function readBody(req) {
@@ -623,8 +680,7 @@ async function handleRequest(req, res) {
     if (url.pathname === "/api/track") {
       try {
         const body = JSON.parse(await readBody(req));
-        const forwarded = (req.headers["x-forwarded-for"] || "").split(",")[0].trim();
-        const rawIp = forwarded || req.socket.remoteAddress || "0.0.0.0";
+        const rawIp = clientIp(req) || "0.0.0.0";
         const ipHash = crypto.createHash("sha256").update(rawIp + "|giftora_track").digest("hex").slice(0, 16);
         const country =
           req.headers["cf-ipcountry"] || req.headers["x-country"] || req.headers["x-geo-country"] || "";
@@ -1372,7 +1428,7 @@ function buildTrafficSeries(sessions) {
   const startLast = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), 0, 0, 0).getTime();
   const startFirst = startLast - 23 * HOUR_MS;
   const counts = new Array(24).fill(0);
-  const pageNow = {};
+  const pageNow = Object.create(null);
   for (const s of sessions || []) {
     for (const p of s.pages || []) {
       const t = Date.parse(p.time);
@@ -1400,7 +1456,7 @@ function buildTrafficSeries(sessions) {
 
 function buildVisitorsReport(store, orders) {
   const sessions = store.sessions || [];
-  const orderByVid = {};
+  const orderByVid = Object.create(null);
   for (const o of orders || []) {
     if (!o.vid) continue;
     orderByVid[o.vid] = orderByVid[o.vid] || { count: 0, ids: [] };
@@ -1433,9 +1489,12 @@ function buildVisitorsReport(store, orders) {
     };
   });
 
-  const today = new Date().toISOString().slice(0, 10);
-  const pageCounts = {};
-  const productCounts = {};
+  const today = istDate(new Date());
+  // Keyed by visitor-supplied strings (page paths, product names), so these
+  // must not inherit from Object.prototype — a page path or product name of
+  // "__proto__" / "constructor" would otherwise corrupt the prototype chain.
+  const pageCounts = Object.create(null);
+  const productCounts = Object.create(null);
   const interestBuckets = { converted: 0, checkout: 0, hot: 0, warm: 0, cold: 0 };
   let views = 0;
   let cartAdds = 0;
@@ -1608,7 +1667,7 @@ async function evaluateCoupon(code, subtotal) {
   const c = coupons.find((x) => x.code === code);
   if (!c) throw new Error("Invalid coupon code.");
   if (!c.active) throw new Error("This coupon code is not active right now.");
-  const today = new Date().toISOString().slice(0, 10);
+  const today = istDate(new Date());
   if (c.validFrom && today < c.validFrom.slice(0, 10)) throw new Error("This coupon is not valid yet.");
   if (c.validUntil && today > c.validUntil.slice(0, 10)) throw new Error("This coupon has expired.");
   const limit = Number(c.usageLimit) || 0;
@@ -1640,7 +1699,11 @@ async function computeCart(data, prefix) {
   const products = await db.getProducts();
   const festival = await db.getFestival();
   const festivalDiscount = festival && festival.active ? (Number(festival.discount) || 0) : 0;
+  // Clamp to a sane range: an unclamped value (>100, or negative) produced
+  // negative unit prices and made the whole order free.
+  const festivalPct = Math.max(0, Math.min(90, festivalDiscount));
   const items = [];
+  const stockUsed = new Map();
   let subtotal = 0;
   for (const it of rawItems) {
     const id = Number(it.id);
@@ -1648,7 +1711,14 @@ async function computeCart(data, prefix) {
     const p = products.find((x) => x.id === id);
     if (!p) E("A product in your cart is no longer available.");
     const cap = typeof p.stock === "number" && p.stock >= 0 ? p.stock : Infinity;
-    if (qty > cap) E("Only " + cap + " of " + p.name + " in stock.");
+    // Enforce the cap across every line for this product, not per line, or the
+    // same product split over two lines (or two sizes) would oversell.
+    const alreadyUsed = stockUsed.get(id) || 0;
+    if (alreadyUsed + qty > cap) {
+      const left = cap === Infinity ? 0 : cap - alreadyUsed;
+      E(cap === Infinity ? "Invalid quantity." : "Only " + left + " of " + p.name + " left in stock.");
+    }
+    stockUsed.set(id, alreadyUsed + qty);
     let size = "";
     if (p.sizes && p.sizes.length) {
       size = String(it.size || "");
@@ -1659,7 +1729,7 @@ async function computeCart(data, prefix) {
     }
     let base = p.price;
     if (size && p.sizePrices && p.sizePrices[size] != null) base = Number(p.sizePrices[size]) || p.price;
-    const price = festivalDiscount > 0 ? Math.round((base * (100 - festivalDiscount)) / 100) : base;
+    const price = festivalPct > 0 ? Math.max(0, Math.round((base * (100 - festivalPct)) / 100)) : base;
     subtotal += price * qty;
     items.push({ id, name: p.name, qty, size, price });
   }

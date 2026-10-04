@@ -68,6 +68,9 @@
       setTimeout(hookGiftora, 300);
       return;
     }
+    /* addToCart(id, size) passes a SIZE as its 2nd arg, so reading arguments[1]
+       as a quantity shipped qty: "Large" and price: NaN into internal
+       analytics. Only addToCartQty takes a quantity. */
     ["addToCart", "addToCartQty", "openCart"].forEach((name) => {
       const orig = window.Giftora[name];
       if (!orig || orig.__giftoraTrack) return;
@@ -76,7 +79,12 @@
         const result = orig.apply(this, arguments);
         if (isCart) {
           const info = productInfo(arguments[0]);
-          push("cart_add", { product: info.product, price: info.price, qty: arguments[1] || 1 });
+          let qty = 1;
+          if (name === "addToCartQty") {
+            const q = parseInt(arguments[1], 10);
+            if (Number.isFinite(q) && q > 0) qty = q;
+          }
+          push("cart_add", { product: info.product, price: Number(info.price) || 0, qty: qty });
         } else {
           push("cart_open", {});
         }

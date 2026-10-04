@@ -306,9 +306,46 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
   const lastmod = todayIso();
   const urlSet = new Map();
 
-  const fileDate = (file) => {
+  // lastmod must reflect a real content change. Filesystem mtime is useless
+  // here: a fresh clone, a checkout or a plain `touch` stamps every file with
+  // the current time, which would mark the entire site as modified on every
+  // regeneration. Resolve the date from git instead, and only fall back to
+  // "today" when the file genuinely differs from the last commit.
+  let gitUsable = null;
+  const git = (args) => {
+    if (gitUsable === false) return null;
     try {
-      const d = fs.statSync(path.join(ROOT, file)).mtime;
+      const out = require("child_process").execSync("git " + args, {
+        cwd: ROOT,
+        encoding: "utf8",
+        stdio: ["ignore", "pipe", "ignore"],
+        maxBuffer: 8 * 1024 * 1024,
+      });
+      gitUsable = true;
+      return out;
+    } catch (e) {
+      gitUsable = false;
+      return null;
+    }
+  };
+  const gitArgs = (f) => "-- " + JSON.stringify(f.split(path.sep).join("/"));
+
+  const fileDate = (file) => {
+    const abs = path.join(ROOT, file);
+    if (!fs.existsSync(abs)) return lastmod;
+
+    const rel = file.split(path.sep).join("/");
+    const status = git("status --porcelain" + gitArgs(rel));
+    if (status !== null) {
+      // Uncommitted or untracked => content changed now.
+      if (status.trim() !== "") return lastmod;
+      const committed = git("log -1 --format=%cs" + gitArgs(rel));
+      if (committed && committed.trim()) return committed.trim();
+      return lastmod;
+    }
+
+    try {
+      const d = fs.statSync(abs).mtime;
       return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
     } catch (e) {
       return lastmod;
@@ -480,6 +517,7 @@ function apply() {
       continue;
     }
     let html = fs.readFileSync(filePath, "utf8");
+    const before = html;
 
     html = injectTitleDescription(html, pageCfg);
 
@@ -497,8 +535,10 @@ function apply() {
     html = injectCookieSettingsLink(html);
     html = injectCookieConsent(html, file);
 
-    fs.writeFileSync(filePath, html, "utf8");
-    console.log("  updated: " + file);
+    if (html !== before) {
+      fs.writeFileSync(filePath, html, "utf8");
+      console.log("  updated: " + file);
+    }
   }
 
   writeRobots(site);

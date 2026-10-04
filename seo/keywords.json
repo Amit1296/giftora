@@ -270,7 +270,22 @@
         "fresh cake delivery with flowers",
         "vanilla birthday cake under 1000",
         "online cake shop Delhi same day",
-        "send cake to Delhi from abroad"
+        "send cake to Delhi from abroad",
+        "best cake baking gifts",
+        "best cake decorating gifts",
+        "best cake gifts",
+        "best cake gifts by post",
+        "best coffee cake gifts",
+        "cake delivery near me",
+        "can i get a cake delivered",
+        "100 percent eggless cake",
+        "eggless floral cake",
+        "floral cake delivery",
+        "eggless cake same day delivery",
+        "eggless cake for birthday",
+        "photo cake with flowers birthday",
+        "flower cake for birthday",
+        "eggless flower cake delivery delhi"
       ],
       "sitemap": {
         "priority": "0.8",
@@ -358,7 +373,9 @@
         "rakhi gift hampers under 2000",
         "festive gift discounts same day",
         "diwali gift delivery Delhi NCR",
-        "rakhi gifts for sister online"
+        "rakhi gifts for sister online",
+        "dussehra gift 2026",
+        "vijayadashami gift delivery"
       ],
       "sitemap": {
         "priority": "0.9",
@@ -539,6 +556,10 @@
       "changefreq": "weekly"
     },
     "everyday-occasion-gifts.html": {
+      "priority": "0.9",
+      "changefreq": "weekly"
+    },
+    "chocolate-bouquets.html": {
       "priority": "0.9",
       "changefreq": "weekly"
     },

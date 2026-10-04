@@ -235,12 +235,25 @@
     ],
     "faqs": [
       { "q": "How much cake should I order per person?", "a": "As a rule, allow half a kilogram for every four to five guests when cake is the main dessert." },
-      { "q": "Are eggless cakes available?", "a": "Yes. Eggless options are clearly marked and available across most of our cake range." }
+      { "q": "Are eggless cakes available?", "a": "Yes. Eggless options are clearly marked and available across most of our cake range." },
+      { "q": "Do you deliver 100% eggless cakes the same day?", "a": "Yes. A 100 percent eggless cake is baked in our own eggless kitchen, so it qualifies for eggless cake same day delivery in Delhi NCR on the same slots as our regular cakes — there is no egg-free production line that only runs in the morning. It works for an eggless cake for birthday, anniversary or office occasions." },
+      { "q": "What is a floral cake and can it be eggless?", "a": "A floral cake is finished with piped buttercream flowers and detailing instead of fondant or bakery photography. Our floral cake delivery can be made eggless — so you can order an eggless floral cake that arrives decorated, with no separate cake from a separate bakery." }
     ],
     "links": [
       { "href": "products/red-velvet-caramel-craze-cake.html", "text": "red velvet caramel cake" },
       { "href": "products/classic-oreo-crunch-celebration-cake.html", "text": "Oreo celebration cake" },
       { "href": "flowers.html", "text": "flowers to match" }
+    ],
+    "sections": [
+      {
+        "h3": "100% eggless and floral cakes",
+        "body": "Two requests come up together more than any other. Families who keep a pure-veg kitchen want a 100 percent eggless cake — no egg, no egg-white meringue, nothing hidden in the icing — and want it for the same evening as everyone else, not next week. That is why eggless cake same day delivery is not an add-on here; it is the same kitchen and the same delivery slot as any other cake. Floral cake delivery sits on top of that: an eggless floral cake arrives finished with buttercream flowers and piped detail, so it needs no decorating skills on your side and no separate cake order from a bakery.",
+        "links": [
+          { "href": "products/classic-red-rose-indulgent-rocher-cake-set.html", "text": "Rose and Rocher cake set" },
+          { "href": "products/heavenly-touch-rose-carnation-cake-trio.html", "text": "Rose carnation cake trio" },
+          { "href": "products/tri-delight-rose-cake-express.html", "text": "Rose cake express" }
+        ]
+      }
     ]
   },
   "toys.html": {
@@ -654,6 +667,17 @@
       { "href": "deepawali-gifts.html", "text": "Diwali gifts" },
       { "href": "karwa-chauth-gifts.html", "text": "Karwa Chauth gifts" },
       { "href": "occasion-gifts.html", "text": "all occasion gifts" }
+    ],
+    "sections": [
+      {
+        "h3": "The 2026 October-November gifting calendar",
+        "body": "Three 2026 dates drive the autumn gifting calendar: Dussehra on Tuesday 20 October, Karwa Chauth on Thursday 29 October and Diwali on Sunday 8 November. Diwali 2026 falls on a weekend, which pushes most pre-Diwali shopping into the second half of October — exactly when Dussehra and Karwa Chauth are also competing for the same delivery slots. The practical move is to place the Diwali and Karwa Chauth orders in the first week of October and treat Dussehra as the low-pressure slot in between, where a same-day hamper or flower bunch is enough.",
+        "links": [
+          { "href": "deepawali-gifts.html", "text": "Diwali gifts" },
+          { "href": "karwa-chauth-gifts.html", "text": "Karwa Chauth gifts" },
+          { "href": "occasion-gifts.html", "text": "all occasion gifts" }
+        ]
+      }
     ]
   }
 }

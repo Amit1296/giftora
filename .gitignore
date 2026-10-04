@@ -16,7 +16,10 @@ backups/
 
 /razorpay-config.json
 .env
-js/products.js
+# NOTE: js/products.js used to be ignored here. It is generated from
+# data/products.json but is loaded by 317 HTML pages, so a clone-based deploy
+# shipped without it and every product grid came up empty. Track it.
+
 
 pagespeed-result.json
 perf-result.json
@@ -31,3 +34,6 @@ artifacts/
 
 # keyword apply backups (restore point for <meta keywords> rewrites)
 seo/.kw-backup/
+
+# temporary deploy staging folder (seo/url-inspection-list etc are tracked)
+deploy/
