@@ -62,9 +62,16 @@ apply-seo afterwards downgrades them to 0.5).
 
 ## When products change
 
-- `js/products.js` is a **derived artifact**: the production server regenerates
-  it from PostgreSQL on every boot (`db.getProducts()` → `server.js`), and it is
-  git-ignored on purpose so a server restart can never conflict with a `git pull`.
+- `js/products.js` is **tracked in git**. 318 pages load it with a plain
+  `<script src="js/products.js">`, so a clone-based deploy that omits it renders
+  an empty product catalog. The production server also regenerates it from
+  PostgreSQL on every boot (`db.getProducts()` → `server.js`), *before* it starts
+  accepting requests, so the file self-heals when the DB is reachable. Committing
+  it is the safety net for the cases the boot repair cannot cover: Postgres
+  unreachable, or a read-only container filesystem.
+- Because `jsVersion()` derives the `?v=` cache-buster from this file's mtime,
+  after editing it run `node seo/generate-products.js` so the product pages pick
+  up a fresh version string instead of serving a 30-day-cached stale catalog.
 - `data/products.json` is the repo's canonical product snapshot (also the seed
   for a fresh database). Keep it current whenever the catalog changes.
 - After updating `data/products.json` (or `js/products.js` locally), re-run
@@ -124,7 +131,7 @@ that have previously hit the live site:
 |---|-------|---------|
 | 1 | Every sitemap `<loc>` resolves to a real file in an **allowed dir** (repo root `*.html` or `products/*.html`), no duplicates | dead URLs like the `medicine-medical-equipments` 404s (stray folders outside the allow-list are rejected even if a matching file exists) |
 | 2 | `#products/*.html` count == `js/product-pages.js` == `data/products.json`, every slug has a page on disk | catalog drift between Postgres and the repo |
-| 3 | No forbidden files staged or in the pushed range (`js/products.js`, `data/backups/`, `previews/`, `artifacts/`, `*.exe`/`*.ps1`, credential scripts) | committing derived/secret files |
+| 3 | No forbidden files staged or in the pushed range (`data/backups/`, `previews/`, `artifacts/`, `*.exe`/`*.ps1`, credential scripts). `js/products.js` is allowed — it is intentionally tracked | committing secret/scratch files |
 | 4 | Delegates to `seo/check-schema.js` | invalid/truncated structured data |
 
 Skip it once with `GIFTORA_SKIP_CHECK=1 git push`. Install into any clone with

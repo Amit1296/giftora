@@ -789,7 +789,6 @@ async function handleRequest(req, res) {
   }
 
   /* ---------- Public GET endpoints ---------- */
-  syncProductsJsOnce();
 
   if (method === "GET" && url.pathname === "/api/products") {
     try {
@@ -1373,7 +1372,8 @@ process.on("uncaughtException", (err) => {
   console.error("Uncaught exception:", err && err.stack ? err.stack : err);
 });
 
-server.listen(PORT, () => {
+function boot() {
+  server.listen(PORT, () => {
   console.log("Giftora static site running at http://localhost:" + PORT);
   console.log("Admin dashboard:  http://localhost:" + PORT + "/admin.html");
   const cfg = readAdminConfig();
@@ -1389,12 +1389,18 @@ server.listen(PORT, () => {
   } else {
     console.warn("[PAYMENTS] Razorpay keys are NOT configured. Card/UPI payments are disabled.");
   }
-});
+  });
+}
 
 server.requestTimeout = 120 * 1000;
 server.headersTimeout = 65 * 1000;
 server.keepAliveTimeout = 72 * 1000;
 server.maxHeadersCount = 80;
+
+/* Repair js/products.js from the DB before accepting traffic, so the very first
+   visitor never gets a catalog whose image paths 404 (e.g. after a .webp
+   rewrite whose converted files were never uploaded). */
+syncProductsJsOnce().then(boot, boot);
 
 /* ---------- Graceful shutdown (avoid dropped requests on deploys) ---------- */
 let shuttingDown = false;

@@ -4,7 +4,7 @@
  * regenerates) into the repo, then regenerate every derived artifact:
  *
  *   data/products.json      (canonical seed/snapshot — commit this)
- *   js/products.js          (local working copy only; git-ignored on purpose)
+ *   js/products.js          (the catalog pages load — commit this too)
  *   js/product-pages.js     (slug index — commit this)
  *   products/*.html         (static product pages — commit these)
  *   sitemap.xml, robots.txt (rebuilt + integrity-checked — commit these)
@@ -80,9 +80,8 @@ async function main() {
   const sitemap = fs.readFileSync(path.join(ROOT, "sitemap.xml"), "utf8");
   const locs = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]);
   console.log("\nSync complete. sitemap.xml has " + locs.length + " URLs.\n" +
-    "Review `git status`, then commit js/product-pages.js, sitemap.xml, robots.txt,\n" +
-    "data/products.json and products/*.html, push, and deploy. (js/products.js is\n" +
-    "git-ignored and is NOT committed.)");
+    "Review `git status`, then commit js/products.js, js/product-pages.js, sitemap.xml,\n" +
+    "robots.txt, data/products.json and products/*.html, push, and deploy.");
 }
 
 main().catch((e) => {
