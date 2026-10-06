@@ -1259,7 +1259,7 @@ async function handleRequest(req, res) {
 
   /* Directories whose contents pass the extension allowlist but must never ship
      (.json secrets, .js dependencies). */
-  const privatePrefixes = ["/data/", "/node_modules/", "/hooks/", "/backups/", "/seo/", "/.git/", "/.opencode/", "/logs/", "/tmp/"];
+  const privatePrefixes = ["/data/", "/node_modules/", "/hooks/", "/backups/", "/seo/", "/.git/", "/.opencode/", "/logs/", "/tmp/", "/admin", "/checkout-preview"];
 
   if (
     !extAllowed ||
