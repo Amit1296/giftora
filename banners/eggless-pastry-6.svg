@@ -1,0 +1,25 @@
+﻿<svg width="1200" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4f46e5"/><stop offset="0.5" stop-color="#7c3aed"/><stop offset="1" stop-color="#ec4899"/></linearGradient>
+    <linearGradient id="btn" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffffff"/><stop offset="1" stop-color="#fdf2f8"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.35"/></filter>
+    <filter id="glow"><feDropShadow dx="0" dy="0" stdDeviation="14" flood-opacity="0.6"/></filter>
+    <clipPath id="clip1"><rect x="30" y="40" width="340" height="290" rx="16"/></clipPath>
+  </defs>
+  <rect width="1200" height="400" rx="26" fill="url(#bg)"/>
+  <g opacity="0.22">
+    <circle cx="100" cy="30" r="50" fill="#fff"/>
+    <circle cx="150" cy="70" r="35" fill="#fff"/>
+    <circle cx="1050" cy="350" r="55" fill="#fff"/>
+    <circle cx="1090" cy="380" r="40" fill="#fff"/>
+  </g>
+  <path d="M 390 25 L 445 25 Q 455 25 455 35 L 455 365 Q 455 375 445 375 L 390 375 Z" fill="#ffffff" opacity="0.14"/>
+  <image href="../uploads/img_2026_08_25_16_43_025157c5.png" x="30" y="40" width="340" height="290" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip1)"/>
+  <rect x="24" y="34" width="352" height="302" rx="18" stroke="#ffffff" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+  <image href="../logos/giftora-logo.svg" x="1020" y="25" width="88" height="88" opacity="0.98"/>
+  <text x="740" y="25%" font-size="48" font-family="Poppins,Arial,sans-serif" fill="#ffffff" text-anchor="middle" font-weight="900" filter="url(#glow)">Eggless Cakes &amp; Pastries</text>
+  <text x="740" y="43%" font-size="24" font-family="Poppins,Arial,sans-serif" fill="#ffffff" text-anchor="middle" font-weight="700" filter="url(#shadow)">Freshly Baked • Soft &amp; Delicious</text>
+  <text x="740" y="57%" font-size="22" font-family="Poppins,Arial,sans-serif" fill="#ffffff" text-anchor="middle" font-weight="800" filter="url(#shadow)">Birthday Special - 15% OFF | Use Code: BDAY15</text>
+  <rect x="560" y="284" width="360" height="74" rx="37" fill="url(#btn)" filter="url(#shadow)"/>
+  <text x="740" y="328" font-size="20" font-family="Poppins,Arial,sans-serif" fill="#7c3aed" text-anchor="middle" font-weight="900">Order Fresh Now</text>
+</svg>
