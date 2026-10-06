@@ -1397,6 +1397,24 @@ server.headersTimeout = 65 * 1000;
 server.keepAliveTimeout = 72 * 1000;
 server.maxHeadersCount = 80;
 
+/* A failed listen() (EADDRINUSE, EACCES) emits 'error' on the server. With no
+   listener Node rethrows it, and the uncaughtException handler above only logs
+   it -- which leaves PM2 holding a process it reports as "online" while every
+   connection is refused. Exit non-zero instead so the failure is visible and
+   the restart policy can act on it. */
+server.on("error", (err) => {
+  if (err && err.code === "EADDRINUSE") {
+    console.error(
+      "[FATAL] Port " + PORT + " is already in use. Stop the process holding it (or set PORT) and restart."
+    );
+  } else if (err && err.code === "EACCES") {
+    console.error("[FATAL] Not permitted to bind port " + PORT + ". Use a port above 1023 or grant the capability.");
+  } else {
+    console.error("[FATAL] Server error:", err && err.stack ? err.stack : err);
+  }
+  process.exit(1);
+});
+
 /* Repair js/products.js from the DB before accepting traffic, so the very first
    visitor never gets a catalog whose image paths 404 (e.g. after a .webp
    rewrite whose converted files were never uploaded). */

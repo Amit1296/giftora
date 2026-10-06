@@ -25,11 +25,21 @@ for (; i < src.length; i++) {
   }
 }
 const pretty = entries.map(([k, v]) => `  ${JSON.stringify(k)}: [${v[0]}, ${v[1]}]`).join(",\n");
-const rebuilt = "  const IMG_DIMS = {\n" + pretty + "\n  };\n";
-const before = src.slice(start, i + 2);
-if (before !== rebuilt) {
-  src = src.slice(0, start) + rebuilt + src.slice(i + 2);
-  fs.writeFileSync(scriptFile, src, "utf8");
+/* Replace exactly "  const IMG_DIMS = { ... };". Comparing this same span --
+   with the trailing ";" included and no trailing newline on either side -- is
+   what makes the tool idempotent. An earlier version compared
+   src.slice(start, i + 2) ("...};" with no newline) against a rebuilt string
+   ending in "\n", which could never be equal, so every single run rewrote the
+   file and appended one more blank line. The committed js/script.js had
+   accumulated seven of them. */
+const blockEnd = src[i + 1] === ";" ? i + 2 : i + 1;
+const rebuilt = "  const IMG_DIMS = {\n" + pretty + "\n  };";
+/* Collapse a run of blank lines left after the table down to a single blank
+   line, but never add one where there was none. */
+const tail = src.slice(blockEnd).replace(/^\n{2,}/, "\n\n");
+const rebuiltSrc = src.slice(0, start) + rebuilt + tail;
+if (rebuiltSrc !== src) {
+  fs.writeFileSync(scriptFile, rebuiltSrc, "utf8");
   console.log("js/script.js      updated");
 } else {
   console.log("js/script.js      already in sync");

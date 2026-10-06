@@ -10,6 +10,17 @@ const BREVO_API_KEY = process.env.BREVO_API_KEY || "";
 let transporter = null;
 let useBrevoApi = false;
 
+// Port 465 is implicit TLS; 587 and 25 are STARTTLS and need secure=false.
+// A hardcoded `true` means a port-587 config asks for SMTPS against a
+// STARTTLS submission port, the handshake never completes, every send fails,
+// and the order still reports success. So when the config is silent about
+// `secure`, infer it from the port instead of guessing.
+function resolveSecure(config) {
+  const port = config.port || 465;
+  if (config.secure === undefined || config.secure === null) return port === 465;
+  return config.secure !== false && config.secure !== "false";
+}
+
 function loadConfig() {
   const envConfig = {
     enabled: process.env.MAIL_ENABLED,
@@ -26,7 +37,7 @@ function loadConfig() {
       enabled: envConfig.enabled === undefined ? true : envConfig.enabled === "true",
       host: envConfig.host || "smtp.gmail.com",
       port: envConfig.port ? parseInt(envConfig.port, 10) : 465,
-      secure: envConfig.secure === undefined ? true : envConfig.secure === "true",
+      secure: envConfig.secure === undefined ? undefined : envConfig.secure === "true",
       user: envConfig.user,
       appPassword: envConfig.appPassword || "",
       to: envConfig.to || envConfig.user,
@@ -52,10 +63,11 @@ function init() {
     console.log("Mailer: email notifications disabled (set up mail-config.json).");
     return;
   }
+  const port = config.port || 465;
   transporter = nodemailer.createTransport({
     host: config.host || "smtp.gmail.com",
-    port: config.port || 465,
-    secure: config.secure !== false,
+    port,
+    secure: resolveSecure(config),
     auth: { user: config.user, pass: config.appPassword },
   });
   console.log("Mailer: email notifications enabled -> " + (config.to || config.user));
