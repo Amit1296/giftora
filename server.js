@@ -1,4 +1,4 @@
-const http = require("http");
+﻿const http = require("http");
 const https = require("https");
 const fs = require("fs");
 const path = require("path");
@@ -195,7 +195,7 @@ const sessions = new Map();
 const loginFails = new Map();
 
 /* "Today" for a India-based store. toISOString() is UTC, which between 00:00
-   and 05:30 IST is still yesterday — that made coupons expire 5.5h early,
+   and 05:30 IST is still yesterday â€” that made coupons expire 5.5h early,
    open 5.5h late, and zeroed out "active today" for the first 5.5 hours of
    every IST day. Sessions store local time, so compare against IST. */
 function istDate(d) {
@@ -208,7 +208,7 @@ function istDate(d) {
 }
 
 /* Order/enquiry ids embed local server time at 1-second resolution, so two
-   orders in the same second produced the same id AND the same _file — and
+   orders in the same second produced the same id AND the same _file â€” and
    db.updateOrder resolves by _file, so marking one order "Shipped" patched the
    other. Format in IST (matching how the store reads its own dates) and append
    a short random suffix so ids stay unique within a second. */
@@ -846,14 +846,14 @@ async function handleRequest(req, res) {
           slug: match.slug,
           slaText: match.slaText || "within 48 hours",
           message: match.slaText
-            ? `We deliver to ${match.city} — your gift arrives ${match.slaText}.`
-            : `Great news — we deliver to ${match.city}!`,
+            ? `We deliver to ${match.city} â€” your gift arrives ${match.slaText}.`
+            : `Great news â€” we deliver to ${match.city}!`,
         });
       }
       return sendJson(res, 200, {
         success: true,
         available: false,
-        message: "Sorry, we don't deliver to this pincode yet. Call or WhatsApp us — we may still be able to arrange it.",
+        message: "Sorry, we don't deliver to this pincode yet. Call or WhatsApp us â€” we may still be able to arrange it.",
       });
     } catch (e) {
       console.error("Pincode check error:", e.message);
@@ -1259,7 +1259,7 @@ async function handleRequest(req, res) {
 
   /* Directories whose contents pass the extension allowlist but must never ship
      (.json secrets, .js dependencies). */
-  const privatePrefixes = ["/data/", "/node_modules/", "/banners/", "/hooks/", "/backups/", "/seo/", "/logos/"];
+  const privatePrefixes = ["/data/", "/node_modules/", "", "/hooks/", "/backups/", "/seo/", "/logos/"];
 
   if (
     !extAllowed ||
@@ -1515,7 +1515,7 @@ function buildVisitorsReport(store, orders) {
 
   const today = istDate(new Date());
   // Keyed by visitor-supplied strings (page paths, product names), so these
-  // must not inherit from Object.prototype — a page path or product name of
+  // must not inherit from Object.prototype â€” a page path or product name of
   // "__proto__" / "constructor" would otherwise corrupt the prototype chain.
   const pageCounts = Object.create(null);
   const productCounts = Object.create(null);
@@ -1948,7 +1948,7 @@ function sendOrderEmail(order, orderId) {
   const lines = order.items.map((i) => `- ${i.qty} x ${i.name}${i.size ? " (" + i.size + ")" : ""} @ Rs.${i.price}`).join("\n");
   const paymentNote =
     order.payment === "UPI QR" && !order.paid
-      ? `Payment Status: PENDING — customer scanned the UPI QR. Verify payment before dispatch.`
+      ? `Payment Status: PENDING â€” customer scanned the UPI QR. Verify payment before dispatch.`
       : `Payment Status: Paid`;
   const couponLine = order.coupon
     ? `Coupon: ${order.coupon} (saved Rs.${order.couponDiscount || 0})\n`
