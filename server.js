@@ -1086,8 +1086,11 @@ async function handleRequest(req, res) {
 
   /* ---------- Static files ---------- */
   let pathname;
+  let requestedRoot = false;
   try {
-    pathname = decodeURIComponent(url.pathname === "/" ? "/index.html" : url.pathname);
+    const decoded = decodeURIComponent(url.pathname);
+    requestedRoot = decoded === "/";
+    pathname = requestedRoot ? "/index.html" : decoded;
   } catch {
     res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Bad request");
@@ -1102,6 +1105,14 @@ async function handleRequest(req, res) {
      /./server.js and /uploads/../server.js cannot slip past the checks below. */
   pathname = path.posix.normalize(pathname);
   if (!pathname.startsWith("/")) pathname = "/" + pathname;
+
+  /* /index.html is an alias of "/" (its canonical). 301 it instead of
+     serving 200, otherwise Google reports the homepage as
+     "Alternate page with proper canonical tag". */
+  if (!requestedRoot && pathname === "/index.html") {
+    res.writeHead(301, { Location: "/" + (url.search || ""), "Cache-Control": "public, max-age=86400" });
+    return res.end();
+  }
 
   /* ---------- Dynamic product pages ---------- */
   const productMatch = pathname.match(/^\/products\/([a-z0-9\-]+)\.html$/);

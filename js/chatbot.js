@@ -45,7 +45,7 @@
       label: "Products",
       keywords: ["product", "gift", "buy", "order", "category", "catalogue", "what do you sell", "clothes", "cake", "teddy", "flower", "plant", "shoe", "sunglass", "belt", "jewellery", "jewelry", "necklace", "bracelet", "ring", "earrings", "cap", "toy", "combo"],
       reply: "We offer clothes, shoes, teddy bears, sunglasses, caps, belts, jewellery for men and women, flowers, plants, cakes, toys and combo offers — most gifts under Rs 2,999 with same-day delivery in Delhi NCR.",
-      link: { url: "index.html#shop", text: "Shop Now" }
+      link: { url: "/#shop", text: "Shop Now" }
     },
     {
       label: "Prices",

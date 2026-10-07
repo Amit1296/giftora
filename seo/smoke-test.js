@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 (async () => {
   const base = (process.env.SMOKE_BASE || "http://localhost:8080").replace(/\/+$/, "");
-  const picks = ["/index.html", "/cakes.html"];
+  const picks = ["/", "/cakes.html"];
 
   const products = JSON.parse(
     fs.readFileSync(path.join(__dirname, "..", "data", "products.json"), "utf8")

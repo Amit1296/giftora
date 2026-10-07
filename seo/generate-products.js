@@ -513,7 +513,7 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/index.html` },
+        { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/` },
         { "@type": "ListItem", position: 2, name: catMeta.name, item: `${site.url}/${catMeta.file}` },
         { "@type": "ListItem", position: 3, name: pageName, item: url },
       ],
@@ -679,7 +679,7 @@ function productBody(product, slug, catMeta, site, products, faqs) {
 <section class="category-hero product-hero">
   <div class="container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="../index.html">Home</a> &rsaquo; <a href="../${catMeta.file}">${catName}</a> &rsaquo; <span>${esc(product.name)}</span>
+      <a href="/">Home</a> &rsaquo; <a href="../${catMeta.file}">${catName}</a> &rsaquo; <span>${esc(product.name)}</span>
     </nav>
     <div class="product-detail">
       <div class="product-detail-media" style="background:${product.gradient || "#f1f5f9"}">${media}</div>

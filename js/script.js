@@ -433,7 +433,7 @@
           searchQuery = q;
           dest.dispatchEvent(new Event("input", { bubbles: true }));
         } else if (q.length >= 2) {
-          location.href = "index.html?q=" + encodeURIComponent(q);
+          location.href = "/?q=" + encodeURIComponent(q);
         }
       });
       input.addEventListener("keydown", (e) => {
@@ -448,7 +448,7 @@
               document.getElementById("shop") &&
                 document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
             } else {
-              location.href = "index.html?q=" + encodeURIComponent(q);
+              location.href = "/?q=" + encodeURIComponent(q);
             }
           }
         }
@@ -507,7 +507,7 @@
     aside.innerHTML =
       '<div class="cart-header"><h3>❤️ My Wishlist</h3><button class="cart-close" id="wishClose" aria-label="Close wishlist">&times;</button></div>' +
       '<div class="cart-items" id="wishItems"></div>' +
-      '<div class="cart-footer"><a class="btn btn-primary btn-block" href="index.html#shop">Browse Gifts</a></div>';
+      '<div class="cart-footer"><a class="btn btn-primary btn-block" href="/#shop">Browse Gifts</a></div>';
     document.body.appendChild(overlay);
     document.body.appendChild(aside);
     $("#wishClose").addEventListener("click", closeWishDrawer);
@@ -1707,7 +1707,7 @@
   });
   navLinks.addEventListener("click", () => navLinks.classList.remove("open"));
 
-  const currentPage = location.pathname.split("/").pop() || "index.html";
+  const currentPage = location.pathname.split("/").pop() || "/";
   navLinks.querySelectorAll("a").forEach((a) => {
     const href = (a.getAttribute("href") || "").split("#")[0];
     if (href && href === currentPage) {
@@ -2216,8 +2216,8 @@
     const inner = document.createElement("div");
     inner.className = "mnav-inner";
     inner.innerHTML =
-      '<a class="mnav-item" href="index.html">' + HOME_ICON + "<span>Home</span></a>" +
-      '<a class="mnav-item" href="index.html#shop">' + SHOP_ICON + "<span>Shop</span></a>" +
+      '<a class="mnav-item" href="/">' + HOME_ICON + "<span>Home</span></a>" +
+      '<a class="mnav-item" href="/#shop">' + SHOP_ICON + "<span>Shop</span></a>" +
       '<a class="mnav-item mnav-cart" href="#" aria-label="Open cart">' + CART_ICON + '<span class="mnav-badge hidden" id="mNavBadge">0</span><span>Cart</span></a>';
     nav.appendChild(inner);
     document.body.appendChild(nav);
