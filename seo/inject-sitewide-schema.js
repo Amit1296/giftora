@@ -17,6 +17,7 @@ const ROOT = path.resolve(__dirname, "..");
 const cfg = apply.loadConfig();
 const site = cfg.site || { name: "Giftora", url: "https://gift-ora.online" };
 const BASE = String(site.url).replace(/\/$/, "");
+const searchURL = BASE + "/?q={search_term_string}";
 
 const WS_MARK = "<!-- SITEWIDE-WEBSITE-SCHEMA -->";
 const FAQ_MARK = "<!-- SITEWIDE-FAQ-SCHEMA -->";
@@ -29,22 +30,37 @@ const SKIP = new Set([
 ]);
 
 function websiteBlock() {
+  const webSite = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": BASE + "/#website",
+    name: site.name,
+    url: BASE + "/",
+  };
+  if (typeof searchURL === "string" && searchURL) {
+    webSite.potentialAction = {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: searchURL,
+      },
+      "query-input": {
+        "@type": "PropertyValueSpecification",
+        valueRequired: true,
+        valueName: "search_term_string",
+      },
+    };
+  }
   return (
     "\n" + WS_MARK + "\n" +
     '<script type="application/ld+json">\n' +
-    JSON.stringify(
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "@id": BASE + "/#website",
-        name: site.name,
-        url: BASE + "/",
-      },
-      null,
-      2
-    ) +
+    JSON.stringify(webSite, null, 2) +
     "\n</script>\n"
   );
+}
+
+function websiteBlockEscapedMarker() {
+  return WS_MARK.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function faqBlock(faqs) {
@@ -114,6 +130,15 @@ for (const f of fs.readdirSync(ROOT)) {
     html = html.slice(0, head) + websiteBlock() + html.slice(head);
     changed = true;
     injectedWeb++;
+  } else if (searchURL && !html.includes('"SearchAction"')) {
+    const upgradeRe = new RegExp(
+      websiteBlockEscapedMarker() + '\\s*<script type="application/ld\\+json">[\\s\\S]*?</script>'
+    );
+    if (upgradeRe.test(html)) {
+      html = html.replace(upgradeRe, websiteBlock());
+      changed = true;
+      injectedWeb++;
+    }
   }
 
   if (!html.includes(FAQ_MARK) && !html.includes('"@type": "FAQPage"')) {

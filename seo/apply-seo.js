@@ -380,7 +380,7 @@ function writeSitemap(site, pages, extraUrls = [], sitemapOnly = {}) {
     addUrl(site.url + "/" + file, c.priority, c.changefreq, file);
   }
 
-  const excluded = ["admin.html", "product.html", "checkout-preview.html", "banner-template.html", "blog-template.html", "logos/logo-concepts.html"];
+  const excluded = ["admin.html", "product.html", "checkout-preview.html", "banner-template.html", "blog-template.html", "logos/logo-concepts.html", "banner-eggless-bold.html", "banner-eggless-cakes-clean.html", "banner-eggless-cakes-pro.html", "banner-eggless-cakes.html", "banner-eggless-simple.html", "banner-eggless-strong.html", "eggless-cakes-banner.html"];
   // Only root-level *.html and the products/ directory may appear in the
   // sitemap. Any other folder (a separate project dropped into the repo,
   // uploads, previews, ...) is rejected by construction so a foreign page can

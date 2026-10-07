@@ -511,6 +511,25 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
   return [
     {
       "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": site.url.replace(/\/$/, "") + "/#website",
+      name: site.name,
+      url: site.url.replace(/\/$/, "") + "/",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: site.url.replace(/\/$/, "") + "/?q={search_term_string}",
+        },
+        "query-input": {
+          "@type": "PropertyValueSpecification",
+          valueRequired: true,
+          valueName: "search_term_string",
+        },
+      },
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: `${site.url}/` },

@@ -313,6 +313,28 @@ function sizeSelectHtml(p) {
 function buildJsonLd(product, slug, catMeta, site, description, faqs) {
   const url = `${site.url}/products/${slug}.html`;
   const pageName = product.name;
+  const reviews = reviewsFor(slug);
+  const rSum = reviewSummary(reviews);
+  const aggregateRating = rSum
+    ? {
+        "@type": "AggregateRating",
+        ratingValue: String(rSum.rating),
+        reviewCount: String(rSum.count),
+        bestRating: "5",
+        worstRating: "1",
+      }
+    : null;
+  const reviewNodes = reviews.map((r) => ({
+    "@type": "Review",
+    author: { "@type": "Person", name: String(r.name || "Anonymous") },
+    datePublished: r.date || null,
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: String(Math.max(0, Math.min(5, Number(r.rating) || 0))),
+      bestRating: "5",
+    },
+    reviewBody: String(r.comment || ""),
+  }));
   return [
     {
       "@context": "https://schema.org",
@@ -320,6 +342,18 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
       "@id": site.url.replace(/\/$/, "") + "/#website",
       name: site.name,
       url: site.url.replace(/\/$/, "") + "/",
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: site.url.replace(/\/$/, "") + "/?q={search_term_string}",
+        },
+        "query-input": {
+          "@type": "PropertyValueSpecification",
+          valueRequired: true,
+          valueName: "search_term_string",
+        },
+      },
     },
     {
       "@context": "https://schema.org",
@@ -373,6 +407,8 @@ function buildJsonLd(product, slug, catMeta, site, description, faqs) {
           url,
         };
       })(),
+      ...(aggregateRating ? { aggregateRating } : {}),
+      ...(reviewNodes.length ? { review: reviewNodes } : {}),
     },
     {
       "@context": "https://schema.org",

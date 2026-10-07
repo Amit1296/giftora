@@ -15,6 +15,29 @@ p{font-size:1.5rem;margin-bottom:30px;opacity:.98}
 .logo{position:absolute;top:30px;right:50px;width:90px;height:90px;opacity:.98}
 @media(max-width:900px){.cake-img,.logo{display:none}h1{font-size:2.5rem}p{font-size:1.3rem}}
 </style>
+
+<!-- SITEWIDE-WEBSITE-SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://gift-ora.online/#website",
+  "name": "Giftora",
+  "url": "https://gift-ora.online/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://gift-ora.online/?q={search_term_string}"
+    },
+    "query-input": {
+      "@type": "PropertyValueSpecification",
+      "valueRequired": true,
+      "valueName": "search_term_string"
+    }
+  }
+}
+</script>
 </head>
 <body>
 <div class="banner">
