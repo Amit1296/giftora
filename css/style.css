@@ -152,7 +152,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--primary); outli
 }
 .nav-container > .logo { flex: 0 0 auto; }
 /* min-width:0 lets the list shrink instead of pushing the cart out of the bar;
-   the 821â€“1500px query below then wraps it to a second row. */
+   the 821–1500px query below then wraps it to a second row. */
 .nav-container > .nav-links { flex: 1 1 auto; justify-content: center; min-width: 0; }
 .nav-container > .nav-actions { flex: 0 0 auto; justify-content: flex-end; }
 .navbar.scrolled .nav-container { height: 96px; }
@@ -161,7 +161,7 @@ body.announce-visible .navbar:not(.scrolled) {
 }
 /* Base `.logo` is shared by the header AND the footer, so its size stays at
    the original values. The larger V4 header logo is scoped to .nav-container
-   below â€” otherwise the footer wordmark would scale up too. */
+   below — otherwise the footer wordmark would scale up too. */
 .logo {
   display: inline-flex; align-items: center; gap: 10px;
   font-family: var(--font-head); font-size: 1.85rem; font-weight: 800; color: var(--text);
@@ -1144,7 +1144,7 @@ body.announce-visible .navbar:not(.scrolled) {
 .gt a { transition: color .2s, background-color .2s, border-color .2s, transform .2s, box-shadow .2s; }
 .gt :focus-visible { outline-color: var(--accent); }
 
-/* ---------- Band 1 Â· order helper ---------- */
+/* ---------- Band 1 · order helper ---------- */
 .gt-help { background: rgba(0,0,0,.22); border-bottom: 1px solid rgba(255,255,255,.1); }
 .gt-help-in { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; padding: 14px 0; }
 .gt-help-txt { display: flex; align-items: center; gap: 12px; font-size: .93rem; color: #fff; font-weight: 500; }
@@ -1163,7 +1163,7 @@ body.announce-visible .navbar:not(.scrolled) {
 .gt-chip.gold { background: linear-gradient(90deg,var(--accent),#f59e0b); border-color: transparent; color: #241a30; font-weight: 700; }
 .gt-chip.gold:hover { box-shadow: 0 10px 24px rgba(245,179,1,.38); transform: translateY(-2px); }
 
-/* ---------- Band 2 Â· promo / discount ---------- */
+/* ---------- Band 2 · promo / discount ---------- */
 .gt-promo { padding: 24px 0 0; }
 .gt-promocard {
 	display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 26px;
@@ -1203,7 +1203,7 @@ body.announce-visible .navbar:not(.scrolled) {
 .gt-contact a:hover { color: #fde68a; text-decoration: underline; text-underline-offset: 3px; }
 .gt-contact .sep { color: rgba(255,255,255,.35); }
 
-/* ---------- Band 3 Â· main grid ---------- */
+/* ---------- Band 3 · main grid ---------- */
 .gt-main { padding: 52px 0 40px; }
 .gt-grid { display: grid; grid-template-columns: 1.55fr 1fr 1fr 1.15fr; gap: 40px; }
 
@@ -1244,7 +1244,7 @@ body.announce-visible .navbar:not(.scrolled) {
 }
 .gt-social a:hover { background: var(--accent); color: #241a30; border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,.3); }
 
-/* link columns â€” CSS-only accordion on mobile, forced open on desktop */
+/* link columns — CSS-only accordion on mobile, forced open on desktop */
 .gt-acc { border-top: 1px solid rgba(255,255,255,.12); }
 .gt-acc > summary { list-style: none; cursor: pointer; padding: 16px 0; }
 .gt-acc > summary::-webkit-details-marker { display: none; }
@@ -1273,7 +1273,7 @@ body.announce-visible .navbar:not(.scrolled) {
 .gt-acc a:hover::after { width: 100%; }
 .gt-acc .gt-more { color: #fde68a; font-weight: 600; }
 
-/* ---------- Band 3 Â· city directory ---------- */
+/* ---------- Band 3 · city directory ---------- */
 .gt-citywrap { padding: 0 0 40px; }
 .gt-citycard {
 	background: rgba(255,255,255,.06);
@@ -1315,7 +1315,7 @@ body.announce-visible .navbar:not(.scrolled) {
 .gt-citygrid li.hub a::before { content: "\2726"; }
 .gt-citystatus { font-size: .8rem; color: rgba(255,255,255,.6); margin-top: 16px; }
 
-/* ---------- Band 4 Â· trust + payments ---------- */
+/* ---------- Band 4 · trust + payments ---------- */
 .gt-trust {
 	display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px;
 	padding: 26px 0; border-top: 1px solid rgba(255,255,255,.12);
@@ -1336,7 +1336,7 @@ body.announce-visible .navbar:not(.scrolled) {
 .gt-pm.cash { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); color: #fff; font-weight: 600; padding: 7px 13px; }
 .gt-pm.cash:hover { background: var(--accent); color: #241a30; border-color: var(--accent); }
 
-/* ---------- Band 5 Â· bottom ---------- */
+/* ---------- Band 5 · bottom ---------- */
 .gt-bottom { border-top: 1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.2); }
 .gt-bottom-in { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 20px 0 24px; }
 .gt-bottom p { font-size: .84rem; }
@@ -1484,7 +1484,7 @@ body.announce-visible .navbar:not(.scrolled) {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 820px) {
-  /* The bar is 148px tall (88px on small phones), not the old 84px â€” the
+  /* The bar is 148px tall (88px on small phones), not the old 84px — the
      drawer must start below it or the first links sit under the header. */
   .nav-links {
     position: fixed; top: 148px; right: 0; bottom: 0;
@@ -2216,7 +2216,7 @@ body.cookie-pending .chatbot-fab {
 
 
 /* =========================================================
-   Mobile UX â€” Android & iOS
+   Mobile UX — Android & iOS
    ========================================================= */
 :root { --mnav-h: 60px; }
 
