@@ -1,0 +1,222 @@
+=== Giftora master keyword list (deduplicated) ===
+
+  total unique keywords : 156
+  excluded              : "gift card" (conditional — add only if e-vouchers launch)
+  rule                  : every keyword appears exactly once (verified, case-insensitive)
+  status                : master reference list — not applied to any page
+
+--------------------------------------------------------------------
+TIER 1 — BLOCKBUSTERS (19)
+--------------------------------------------------------------------
+flowers | 6,120,000
+gift | 1,000,000
+gifts for men | 823,000
+flower delivery | 673,000
+Mother's Day gifts | 673,000
+flower bouquet | 450,000
+Father's Day gifts | 450,000
+gifts for women | 301,000
+gift box | 301,000
+anniversary gifts | 301,000
+Valentine's Day gifts | 301,000
+Christmas gifts | 301,000
+birthday flowers | 301,000
+birthday gifts | 246,000
+gift ideas | 246,000
+gifts for mom | 246,000
+gifts for her | 201,000
+personalized gifts | 165,000
+wedding gifts | 165,000
+
+--------------------------------------------------------------------
+TIER 2 — STRONG SECONDARY (15)
+--------------------------------------------------------------------
+rose bouquet | 135,000
+birthday gift for girlfriend | 113,000
+engagement gifts | 110,000
+birthday gifts for her | 110,000
+same day flower delivery | 90,500
+wedding flowers | 90,500
+graduation gifts | 90,500
+flower delivery near me | 74,000
+Mother's Day flowers | 74,000
+sunflower bouquet | 74,000
+red roses bouquet | 74,000
+Valentine's Day flowers | 49,500
+Diwali gifts | 42,000
+rakhi online | 40,500
+anniversary flowers | 12,100
+
+--------------------------------------------------------------------
+TIER 3 — LOCAL / CITY TEMPLATES (18)
+--------------------------------------------------------------------
+cake delivery in [city] | Delhi, Noida, Gurugram, Faridabad, Ghaziabad, Mumbai, Bangalore, Agra
+flower delivery in [city] | Delhi, Noida, Gurugram, Faridabad, Ghaziabad, Mumbai, Bengaluru, Chennai, Kolkata
+midnight cake delivery in [city] | Delhi, Noida, Gurugram, Faridabad, Ghaziabad
+birthday cake delivery in [city] | Delhi, Noida, Gurugram, Faridabad
+same day gift delivery [city] | Delhi NCR, Noida, Gurugram
+teddy bear delivery in [city] | Delhi, Noida, Gurugram
+flower bouquet delivery in [city] | Delhi, Noida, Faridabad
+anniversary gift delivery [city] | Delhi NCR cities (also runs without city)
+gift delivery in [city] | Mathura, Jaipur, Pune, Lucknow
+online gift delivery [city] | Delhi + all major metros
+same day flowers [city] | Mumbai, Bengaluru
+gift hamper delivery [city] | cross-metro
+send birthday gift to [city] | Mumbai, Bengaluru, Chennai, Hyderabad, Kolkata, Pune, Jaipur
+gift shop near me | Delhi NCR
+send gifts to Delhi | Delhi
+send gifts to Mathura | Mathura
+online gift shop India | national
+online gift shop in Jaipur | Jaipur
+
+--------------------------------------------------------------------
+TIER 4 — NRI / INTERNATIONAL (7)
+--------------------------------------------------------------------
+send gifts to India | national / NRI
+send gifts to India from USA | USA
+online gift delivery India from UK | UK
+send birthday cake to India online | NRI
+send flowers to India online | NRI
+Rakhi gift delivery India from abroad | NRI festival
+NRI gift delivery India same day | NRI
+
+--------------------------------------------------------------------
+TIER 5 — OCCASIONS (27)
+--------------------------------------------------------------------
+birthday gift delivery | occasion
+birthday cake online | occasion
+best birthday gift for boyfriend | occasion long-tail
+surprise birthday gift delivery same day | occasion long-tail
+anniversary gifts for husband/wife | occasion long-tail
+1st anniversary gifts | occasion long-tail
+anniversary flower bouquet delivery | occasion long-tail
+wedding gift ideas India | occasion
+wedding hamper delivery | occasion
+wedding return gifts | occasion
+housewarming gifts | occasion
+housewarming gift ideas India | occasion
+housewarming gifts under 2000 | occasion long-tail
+plant gifts for housewarming | occasion long-tail
+baby shower gifts | occasion
+baby shower gift ideas India | occasion
+newborn baby gift delivery | occasion
+graduation gift ideas India | occasion
+graduation flowers delivery | occasion
+engagement gift ideas | occasion
+ring ceremony gift | occasion
+congratulations gifts | occasion
+congratulations gift delivery Delhi | occasion local
+congratulations hamper | occasion
+thank you gifts | occasion
+thank you gift ideas | occasion
+thank you gift box delivery | occasion
+
+--------------------------------------------------------------------
+TIER 6 — FESTIVALS (25)
+--------------------------------------------------------------------
+rakhi gifts | festival
+send rakhi to India | festival NRI
+Raksha Bandhan gifts for brother | festival
+rakhi gift delivery Delhi | festival local
+Diwali gift hampers | festival
+customized Diwali hampers | festival
+Diwali gifts for family | festival (merged: "Diwali gifts for family in India")
+Diwali gifts for clients | festival corporate
+Valentine's Day gift delivery Delhi | festival local
+Valentine's Day cake | festival
+Holi gifts | festival
+Holi hamper delivery | festival
+Holi gift ideas India | festival
+Eid gifts India | festival
+Eid gift delivery | festival
+New Year gifts | festival
+New Year gift hampers | festival
+Christmas gift delivery India | festival
+Father's Day gift ideas | occasion
+Karva Chauth gifts | festival
+Karva Chauth gift ideas for wife | festival
+Bhai Dooj gifts | festival
+Bhai Dooj gift delivery | festival
+Dhanteras gifts | festival
+Dhanteras gift ideas | festival
+
+--------------------------------------------------------------------
+TIER 7 — CAKES (13)
+--------------------------------------------------------------------
+cake delivery | head term
+order cake online | head term
+online cake delivery India | service
+cake delivery near me | service
+same day cake delivery | service (incl. Varanasi)
+chocolate truffle cake delivery | product
+red velvet cake online | product
+photo cake delivery | product
+designer cake delivery | product
+eggless cake online | product
+best birthday cakes online | long-tail
+personalized photo cake delivery | long-tail
+1 kg cake delivery same day | long-tail
+
+--------------------------------------------------------------------
+TIER 8 — FLOWERS, ADDITIONAL (4)
+--------------------------------------------------------------------
+fresh flowers | head term
+mixed flower bouquet | bouquet type
+flower bouquet for anniversary | occasion long-tail
+fresh flower delivery same day Delhi | service local
+
+--------------------------------------------------------------------
+TIER 9 — TEDDY BEARS / SOFT TOYS (9)
+--------------------------------------------------------------------
+teddy bear gift | head term
+soft toys online India | head term
+teddy bear for girlfriend | occasion
+birthday teddy bear | occasion
+Valentine's teddy bear | occasion
+teddy bear delivery same day Delhi | service local
+buy teddy bear online India | intent
+big teddy bear gift for girlfriend | long-tail
+surprise teddy bear delivery Noida | long-tail
+
+--------------------------------------------------------------------
+TIER 10 — PLANTS (15)
+--------------------------------------------------------------------
+buy indoor plants online | head term
+plant gifts India | head term
+lucky bamboo gift | product
+peace lily plant gift | product
+snake plant online | product
+bonsai tree gift | product
+housewarming plant gift | occasion
+office plant gift | occasion
+plant gift for birthday | occasion
+low maintenance plants for office | intent
+green plants as gifts | intent
+eco-friendly gifts India | intent
+buy plants online Delhi | local
+indoor plant delivery same day | service
+plant gifting ideas India | long-tail
+
+--------------------------------------------------------------------
+TIER 11 — CORPORATE (4)
+--------------------------------------------------------------------
+corporate gifting company in Delhi | corporate local
+corporate gifting company near me | corporate near-me
+bulk gift suppliers in Noida | corporate local
+best Diwali gift vendors in Gurgaon | corporate local
+
+--------------------------------------------------------------------
+MERGE AUDIT (collapsed duplicates)
+--------------------------------------------------------------------
+exact repeats        : birthday gifts, anniversary gifts, flowers, flower bouquet,
+                       flower delivery, birthday cake online, Valentine's Day flowers,
+                       send flowers to India online
+city instances       : cake delivery in Delhi/Noida/Faridabad/Ghaziabad/Mumbai/Bangalore/Agra,
+                       birthday cake delivery in Gurugram, flower delivery Delhi + Mumbai-row
+                       cities, flower bouquet delivery Noida, online gift delivery Delhi,
+                       gift delivery in Lucknow, midnight cake delivery Delhi + Delhi NCR,
+                       same day cake delivery Varanasi, same day delivery gifts Delhi
+double-listed row    : flower delivery in [city] (two city rows merged into one entry)
+wording variants     : "Diwali gifts for family in India" -> Diwali gifts for family,
+                       anniversary gift delivery (generic = city template)
+excluded             : gift card (conditional)
