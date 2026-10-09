@@ -1317,12 +1317,21 @@ async function handleRequest(req, res) {
   ]);
   const PUBLIC_ROOT_EXTS = new Set([".html", ".svg", ".xml"]);
 
+  /* IndexNow key file (<key>.txt at the root) must stay reachable so search
+     engines accept instant crawl pings (`npm run seo:ping`). */
+  let indexNowKey = "";
+  try {
+    const keyFile = path.join(__dirname, "seo", "indexnow-key.txt");
+    if (fs.existsSync(keyFile)) indexNowKey = fs.readFileSync(keyFile, "utf8").trim();
+  } catch {}
+
   const requestExt = path.extname(lowerPath);
   const isRootFile = !lowerPath.slice(1).includes("/");
+  const isIndexNowKey = Boolean(indexNowKey) && pathname === "/" + indexNowKey + ".txt";
   const extAllowed = requestExt
     ? PUBLIC_EXTS.has(requestExt)
     : PUBLIC_ROOT_NAMES.has(path.basename(lowerPath));
-  const rootAllowed = !isRootFile || PUBLIC_ROOT_NAMES.has(path.basename(lowerPath)) || PUBLIC_ROOT_EXTS.has(requestExt);
+  const rootAllowed = !isRootFile || PUBLIC_ROOT_NAMES.has(path.basename(lowerPath)) || PUBLIC_ROOT_EXTS.has(requestExt) || isIndexNowKey;
   const hiddenSegment = lowerPath.split("/").some((seg) => seg.startsWith(".") && seg.length > 1);
 
   /* Directories whose contents pass the extension allowlist but must never ship
