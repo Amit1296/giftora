@@ -14,6 +14,11 @@
  *                              js/products.js IS tracked — see FORBIDDEN_STAGED.
  *  4. Invalid structured data  (truncated JSON-LD descriptions)       -> delegates to
  *                              seo/check-schema.js (exit != 0 fails the gate).
+ *  5. Deindexing risks          (the Sept 2026 disappearance)          -> robots.txt must
+ *                              not Disallow: /, no sitemap page may carry a
+ *                              robots "noindex" meta, server.js must not send a
+ *                              noindex X-Robots-Tag, and the sitemap may never drop a
+ *                              page that is still live on disk.
  *
  * Exit codes: 0 = OK, 1 = FAIL (block the push).
  *
@@ -263,6 +268,69 @@ function checkSchema() {
   if (r.status !== 0) fail(`seo/check-schema.js reported errors (exit ${r.status})`);
 }
 
+// ---- [5] Deindex guards ----
+// These catch the ways a site silently disappears from Google Search.
+function checkRobots() {
+  const file = path.join(ROOT, "robots.txt");
+  if (!fs.existsSync(file)) { fail("robots.txt missing"); return; }
+  const txt = fs.readFileSync(file, "utf8");
+  let currentAgent = null;
+  let blockedAll = false;
+  for (const raw of txt.split(/\r?\n/)) {
+    const line = raw.trim();
+    const ua = /^user-agent:\s*(.*)$/i.exec(line);
+    if (ua) { currentAgent = ua[1].trim().toLowerCase(); continue; }
+    const dis = /^disallow:\s*(.*)$/i.exec(line);
+    if (dis && (currentAgent === "*" || currentAgent === null)) {
+      const p = dis[1].trim();
+      if (p === "/" || p === "/*") blockedAll = true;
+    }
+  }
+  check(!blockedAll, "robots.txt blocks all crawlers (Disallow: /) — this deindexes the whole site");
+  if (!/^\s*sitemap:\s*\S+/im.test(txt)) warn("robots.txt has no Sitemap: line");
+}
+
+function checkNoindexPages(locs) {
+  if (!locs) return;
+  for (const url of locs) {
+    const file = sitemapHtmlPath(url);
+    if (!file || !fs.existsSync(file)) continue;
+    const html = fs.readFileSync(file, "utf8");
+    const metas = [...html.matchAll(/<meta\b[^>]*\bname\s*=\s*["']robots["'][^>]*>/gi)].map((m) => m[0]);
+    if (metas.some((m) => /noindex/i.test(m))) {
+      fail(`sitemap page is set to noindex: ${path.relative(ROOT, file).replace(/\\/g, "/")}`);
+    }
+  }
+}
+
+function checkServerNoindexHeader() {
+  const file = path.join(ROOT, "server.js");
+  if (!fs.existsSync(file)) return;
+  const src = fs.readFileSync(file, "utf8");
+  if (/X-Robots-Tag[^\n]*noindex/i.test(src)) {
+    fail("server.js sends an X-Robots-Tag with noindex — this deindexes every served page");
+  }
+}
+
+function checkSitemapShrink(locs) {
+  if (!locs) return;
+  const r = spawnSync("git", ["show", "HEAD:sitemap.xml"], { cwd: ROOT, encoding: "utf8" });
+  if (r.status !== 0 || !r.stdout) return;
+  const head = new Set([...r.stdout.matchAll(/<loc>\s*([^<\s]+?)\s*<\/loc>/g)].map((m) => m[1]));
+  const now = new Set(locs);
+  const removed = [...head].filter((u) => !now.has(u));
+  const stillLive = removed.filter((u) => {
+    const f = sitemapHtmlPath(u);
+    return f && fs.existsSync(f);
+  });
+  for (const u of stillLive) {
+    fail(`sitemap dropped a page that is still live on disk (silent deindex): ${u}`);
+  }
+  if (removed.length && stillLive.length !== removed.length) {
+    warn(`sitemap removed ${removed.length} URL(s) vs HEAD; ${removed.length - stillLive.length} no longer exist on disk`);
+  }
+}
+
 // ---- Run ----
 console.log("Pre-deploy check — " + SITE_URL);
 console.log("------------------------------------------------------------------");
@@ -270,31 +338,39 @@ function sectionStatus(beforeCount, note) {
   return failures.length > beforeCount ? "FAILED" + (note ? " " + note : "") : "ok";
 }
 
-console.log("  [1/5] sitemap integrity  ");
+console.log("  [1/6] sitemap integrity  ");
 let before = failures.length;
 const sitemapLocs = parseSiteMap();
 const sitemapProductLocs = checkSitemap(sitemapLocs);
 const s1 = failures.length > before;
 console.log("        " + sectionStatus(before) + (sitemapLocs ? `  (${sitemapLocs.length} URLs, ${sitemapProductLocs} products)` : ""));
 
-console.log("  [2/5] catalog sync       ");
+console.log("  [2/6] catalog sync       ");
 before = failures.length;
 checkCatalog(sitemapProductLocs);
 console.log("        " + sectionStatus(before, s1 ? "(blocked — sitemap invalid)" : "(re-run node seo/sync-from-server.js)"));
 
-console.log("  [3/5] internal links    ");
+console.log("  [3/6] internal links    ");
 before = failures.length;
 const linkStats = checkInternalLinks(sitemapLocs);
 console.log("        " + sectionStatus(before) + `  (${linkStats.linksChecked} links across ${linkStats.pagesChecked} pages, ${linkStats.orphanCount} orphans)`);
 
-console.log("  [4/5] staged/pushed files");
+console.log("  [4/6] staged/pushed files");
 before = failures.length;
 checkStagedFiles();
 console.log("        " + sectionStatus(before));
 
-console.log("  [5/5] structured data    ");
+console.log("  [5/6] structured data    ");
 before = failures.length;
 checkSchema();
+console.log("        " + sectionStatus(before));
+
+console.log("  [6/6] deindex guards     ");
+before = failures.length;
+checkRobots();
+checkNoindexPages(sitemapLocs);
+checkServerNoindexHeader();
+checkSitemapShrink(sitemapLocs);
 console.log("        " + sectionStatus(before));
 
 if (warnings.length) {
