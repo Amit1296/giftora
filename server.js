@@ -1137,6 +1137,63 @@ async function handleRequest(req, res) {
           res.writeHead(301, { Location: `${site.url}/products/${target}.html`, "Cache-Control": "no-cache" });
           return res.end();
         }
+
+        // Permanent 301s for "phantom" catalog slugs that appeared in an old
+        // sitemap and site copy but never had a real product. Send them to the
+        // closest live category page so old, indexed or backlinked URLs stop
+        // returning 404.
+        const phantomToCategory = {
+          "baby-doll-gift-set": "/toys.html",
+          "birthday-surprise-box": "/combo.html",
+          "cake-flowers-combo": "/combo.html",
+          "casual-canvas-belt": "/belts.html",
+          "chocolate-truffle-cake-1kg": "/cakes.html",
+          "classic-aviator-sunglasses": "/sunglasses.html",
+          "classic-baseball-cap": "/caps.html",
+          "classic-vanilla-birthday-cake": "/cakes.html",
+          "classic-white-dress-shirt": "/clothes.html",
+          "classic-white-sneakers": "/shoes.html",
+          "cuddly-teddy-bear-40cm": "/teddy.html",
+          "embroidered-snapback-cap": "/caps.html",
+          "floral-summer-midi-dress": "/clothes.html",
+          "formal-black-belt": "/belts.html",
+          "formal-leather-shoes": "/shoes.html",
+          "fresh-red-rose-bouquet": "/flowers.html",
+          "giant-teddy-bear-60cm": "/teddy.html",
+          "heart-teddy-bear-with-card": "/teddy.html",
+          "huggable-teddy-bear-40cm": "/teddy.html",
+          "kids-cotton-hoodie-set": "/clothes.html",
+          "kids-summer-sandals": "/shoes.html",
+          "leather-belt-brown": "/belts.html",
+          "lucky-bamboo-plant": "/plants.html",
+          "mixed-tulip-hand-tied-bouquet": "/flowers.html",
+          "money-plant-in-ceramic-pot": "/plants.html",
+          "orchid-planter-in-ceramic-pot": "/plants.html",
+          "peace-lily-in-bloom-pot": "/plants.html",
+          "perfume-flowers-combo": "/combo.html",
+          "polarized-wayfarer-sunglasses": "/sunglasses.html",
+          "premium-reversible-belt": "/belts.html",
+          "red-velvet-celebration-cake-1kg": "/cakes.html",
+          "remote-control-racing-car": "/toys.html",
+          "round-retro-sunglasses": "/sunglasses.html",
+          "saree-gift-pack-premium-silk": "/clothes.html",
+          "snake-plant-in-decor-pot": "/plants.html",
+          "sports-running-shoes": "/shoes.html",
+          "sports-uv-sunglasses": "/sunglasses.html",
+          "stem-building-blocks-set": "/toys.html",
+          "strawberry-cream-cake-1kg": "/cakes.html",
+          "summer-bucket-hat": "/caps.html",
+          "sunflower-bunch-12-stems": "/flowers.html",
+          "teddy-bear-gift-basket": "/teddy.html",
+          "teddy-chocolates-combo": "/combo.html",
+          "woolen-winter-beanie": "/caps.html",
+          "cake": "/cakes.html",
+        };
+        const phantomTarget = phantomToCategory[slug];
+        if (phantomTarget) {
+          res.writeHead(301, { Location: `${site.url}${phantomTarget}`, "Cache-Control": "no-cache" });
+          return res.end();
+        }
       }
       if (product) {
         const html = renderProduct.renderProductPage(product, products, site);
