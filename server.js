@@ -1338,6 +1338,16 @@ async function handleRequest(req, res) {
      (.json secrets, .js dependencies). */
   const privatePrefixes = ["/data/", "/node_modules/", "/hooks/", "/backups/", "/seo/", "/.git/", "/.opencode/", "/logs/", "/tmp/", "/admin/", "/checkout-preview"];
 
+  /* Bare /products/<slug> without .html: 301 to the real page so typo'd or
+     third-party links never land on a 403. Canonical stays self-referencing. */
+  if (!requestExt && lowerPath.startsWith("/products/") && pathname.length > "/products/".length) {
+    const htmlDest = pathname + ".html";
+    if (fs.existsSync(path.join(ROOT, htmlDest))) {
+      res.writeHead(301, { Location: htmlDest, "Cache-Control": "public, max-age=86400" });
+      return res.end();
+    }
+  }
+
   if (
     !extAllowed ||
     !rootAllowed ||
