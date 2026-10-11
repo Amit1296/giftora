@@ -679,5 +679,215 @@
         ]
       }
     ]
+  },
+
+  "teddy-bear-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "How to gift a teddy bear for a girlfriend or wife",
+    "paragraphs": [
+      "Some gifts you admire, some you keep. A teddy bear is the second kind - it sits on the bed or the sofa long after the occasion, and that is exactly why it is the classic romantic surprise for girlfriends and wives. It needs no size, no colour match and no returns - just the sentiment you attach to it.",
+      "The pairing matters as much as the plush. A jumbo bear alone is already a statement; a bear delivered alongside a rose bunch or a chocolate surprise turns one gift into a full romantic moment, and adding a cake makes it a celebration. Every bear ships gift-wrapped with a card, so it arrives ready to hand over."
+    ],
+    "tipsTitle": "Romantic teddy gifting that lands",
+    "tips": [
+      "Jumbo bears are the strongest romantic statement - save them for birthdays, anniversaries and apology surprises.",
+      "Pair the bear with roses or chocolates so the gesture feels complete rather than last-minute.",
+      "Write a note about the occasion in your own words; that message is what makes the teddy memorable.",
+      "Neutral cream and brown bears suit every age and room; oversized bright pinks read more teenager than partner."
+    ],
+    "faqs": [
+      { "q": "Can I send a teddy bear to mark our anniversary?", "a": "Yes. A jumbo teddy with a rose bunch is one of our most requested anniversary gestures. Add your delivery date at checkout and we will schedule it." },
+      { "q": "What should I pair with a teddy to make it more romantic?", "a": "A red rose bunch or a box of chocolates pairs beautifully with any bear. For a bigger moment, add a cake so there is something to celebrate with." },
+      { "q": "Do teddy and flower combos arrive together?", "a": "Yes. A combo ships as a single order in a single delivery slot, so the bear and the blooms arrive in one parcel." }
+    ],
+    "links": [
+      { "href": "products/sweetheart-jumbo-teddy-bear.html", "text": "jumbo teddy bears" },
+      { "href": "products/sweet-love-teddy-blossom-delight.html", "text": "teddy with blossoms" },
+      { "href": "products/luxurious-rocher-bunch-soft-teddy-bear.html", "text": "Rocher bunch with a soft teddy" },
+      { "href": "products/adorable-teddy-chocolate-surprise.html", "text": "teddy with a chocolate surprise" },
+      { "href": "flowers.html", "text": "rose bunches" },
+      { "href": "cakes.html", "text": "cakes to add" }
+    ],
+    "sections": [
+      {
+        "h3": "For a girlfriend versus for a wife",
+        "body": "The two gestures differ in scale more than in kind. For a girlfriend, a single well-chosen bear with a note and a rose bunch is a complete surprise. For a wife, the same pairing can be grander - a jumbo bear with a rose basket and a cake - because it marks a shared milestone rather than a new one. Keep the message specific either way: name the moment and the day, not just the occasion.",
+        "links": [
+          { "href": "products/charming-red-roses-basket-plush-teddy-bear-hamper.html", "text": "rose basket with a plush teddy" },
+          { "href": "products/sweet-love-teddy-blossom-delight.html", "text": "bear with blossoms" },
+          { "href": "products/scarlet-heart-black-forest-teddy-combo.html", "text": "black forest cake and teddy combo" }
+        ]
+      }
+    ]
+  },
+  "plant-gifts.html": {
+    "tag": "Gift guide",
+    "h2": "Which plant gift suits the person and the occasion",
+    "paragraphs": [
+      "A plant works as a gift because it keeps going. A money plant on a desk, a peace lily on a windowsill or a fittonia in a bright corner grows with the person you gave it to, which is why plant gifts hold their value long after fresh flowers have finished.",
+      "Match the plant to the home, not just the occasion. Snake plant and money plant forgive low light and missed watering, while aglaonema, fittonia and jade prefer brighter spots with less fuss. Every plant arrives potted in a decorative pot with care instructions, gift-ready the moment it is delivered."
+    ],
+    "tipsTitle": "Matching the plant to the moment",
+    "tips": [
+      "Housewarming: a money plant or snake plant - auspicious, easy to keep alive and immediately placeable.",
+      "Office or study desk: a compact jade, fittonia or lucky bamboo box that needs little space and attention.",
+      "Teachers and thank-yous: a peace lily or rubber plant - noticeable but never over-personal.",
+      "Check the light before ordering; a plant that struggles within a week is the only failed plant gift."
+    ],
+    "faqs": [
+      { "q": "Which plant is the safest gift for a first-time owner?", "a": "Money plant and snake plant are the most forgiving - they tolerate low light and irregular watering, which makes them the easiest plants to keep alive." },
+      { "q": "Which plant suits a housewarming best?", "a": "Money plant and snake plant are the favourites - they are auspicious, easy to keep alive and immediately placeable in a new home, which is why they lead our gifting picks." },
+      { "q": "Can I pair a plant with another gift?", "a": "Yes. A plant with a dry-fruit box is a favourite housewarming pairing, and we can combine it into a single wrapped parcel." }
+    ],
+    "links": [
+      { "href": "products/fortune-prosperity-money-plant-in-pot.html", "text": "money plant in pot" },
+      { "href": "products/prosperity-clean-air-snake-plant-in-pot.html", "text": "snake plant in pot" },
+      { "href": "products/pure-harmony-peace-lily-plant.html", "text": "peace lily" },
+      { "href": "products/mini-fittonia-green-nerve-plant.html", "text": "fittonia nerve plant" },
+      { "href": "products/triple-delight-box-lucky-bamboo-teddy-cake.html", "text": "lucky bamboo, teddy and cake gift box" },
+      { "href": "housewarming-gifts.html", "text": "housewarming gifts" }
+    ],
+    "sections": [
+      {
+        "h3": "Plants for a new home versus a long-standing one",
+        "body": "A brand-new home wants a plant that fills space immediately - a snake plant or rubber plant in a printed pot gives instant presence with almost no care. An established home or office is better served by a smaller accent: a jade on a desk, a fittonia on a shelf or a peace lily that blooms on its own schedule. Where the gift is meant to carry meaning, the auspicious pairing of a money plant with a dry-fruit box is a favourite housewarming tradition.",
+        "links": [
+          { "href": "products/royal-emerald-rubber-plant-in-decorative-pot.html", "text": "rubber plant in decorative pot" },
+          { "href": "products/jadey.html", "text": "jade plant" },
+          { "href": "products/aglaonema-red-chinese-evergreen.html", "text": "aglaonema" }
+        ]
+      }
+    ]
+  },
+  "luxury-flower-boxes.html": {
+    "tag": "Gift guide",
+    "h2": "Choosing a luxury flower box or a statement rose bouquet",
+    "paragraphs": [
+      "A luxury flower box or a high-count rose arrangement says one thing above all: this was planned. Densely packed stems in a structured box, vase or basket photograph beautifully and land hardest at milestones - proposals, anniversaries and landmark birthdays - because the presentation reads as deliberate, not last-minute.",
+      "Count is shorthand for sentiment. A 101-rose heart arrangement, a 251-mixed-rose set or a 50-rose heart basket is unmistakably a big gesture, while a single glass-vase rose arrangement keeps the same premium feel at a gentler scale. Order a day ahead so the stems are cut and arranged on the delivery morning."
+    ],
+    "tipsTitle": "Making a luxury flower gesture land",
+    "tips": [
+      "Choose a structured presentation - a box, a vase or a basket - rather than a wrapped bunch for a premium feel.",
+      "Use 100-plus stems for milestones and keep smaller arrangements for everyday gestures of affection.",
+      "Match the palette to the message: reds for romance, white and blush for elegance and milestone moments.",
+      "Add a note - with flowers, the written words are half the gift."
+    ],
+    "faqs": [
+      { "q": "What makes a flower arrangement feel luxurious?", "a": "The presentation - densely packed stems, a structured box, vase or basket and a considered colour palette. That is why the rose baskets and glass-vase arrangements on this page are our most requested premium gifts." },
+      { "q": "How many roses should I send for a milestone anniversary?", "a": "For a big statement, a 101-rose heart arrangement or a 251-mixed-rose set is the classic choice. For an everyday romantic gesture, a hand bunch is enough." },
+      { "q": "Can a luxury flower delivery arrive on a chosen date?", "a": "Yes. Choose the delivery date and, where available in Delhi NCR, a morning or midnight slot - the arrangement is prepared fresh for that day." }
+    ],
+    "links": [
+      { "href": "products/imperial-trio-251-mixed-rose-harmony.html", "text": "251 mixed rose harmony set" },
+      { "href": "products/golden-passion-101-red-yellow-rose-heart-arrangement.html", "text": "101 rose heart arrangement" },
+      { "href": "products/radiant-romance-24-red-rose-silver-basket.html", "text": "red rose silver basket" },
+      { "href": "products/eternal-love-50-red-roses-heart-basket-strawberry-cake-combo.html", "text": "50-rose heart basket with cake" },
+      { "href": "products/sweet-affection-pink-rose-glass-vase.html", "text": "roses in a glass vase" },
+      { "href": "flowers.html", "text": "all flowers" }
+    ],
+    "sections": [
+      {
+        "h3": "Box, vase or basket - reading the presentation",
+        "body": "Each presentation carries a slightly different tone. A heart arrangement is unashamedly romantic and is the go-to choice for proposals and anniversaries. A silver basket or a bloom basket feels substantial and celebratory, ideal for birthdays and congratulations. A glass vase reads elegant and modern, suited to a home or office where it becomes part of the decor. Match the vessel to where the flowers will sit, and the gesture feels considered from the first unpacking.",
+        "links": [
+          { "href": "products/majestic-scarlet-basket.html", "text": "scarlet bloom basket" },
+          { "href": "products/pink-delight-rose-basket.html", "text": "pink rose basket" },
+          { "href": "products/grand-scarlet-bloom-basket.html", "text": "grand scarlet bloom basket" }
+        ]
+      }
+    ]
+  },
+  "personalized-flowers.html": {
+    "tag": "Gift guide",
+    "h2": "How to personalise a flower gift so the feeling lands",
+    "paragraphs": [
+      "Personalising a flower gift is about the details that survive the flowers: the note, the colours and the wrapping matched to the occasion. A red-and-white rose bunch with a message about a shared memory beats a generic bouquet every time, because the flowers and the words echo each other.",
+      "Start with the words, then build the bouquet around them. Pick colours that mean something to the two of you, choose a style - a hand bunch, a glass vase or a rose-and-chocolate pair - and let the message do the rest. A written note and wrapping matched to your occasion come with the order, so the personalisation is built in rather than bolted on."
+    ],
+    "tipsTitle": "Personalising a bouquet, step by step",
+    "tips": [
+      "Write the message first and build the bouquet around what it says.",
+      "Choose colours with meaning - reds for romance, white and blush for tenderness, yellows for friendship.",
+      "Pair the bouquet with a small extra such as chocolates or a cake to make the moment bigger.",
+      "For a long-distance surprise, schedule delivery for the morning of their day."
+    ],
+    "faqs": [
+      { "q": "Is my personalised note written on the card?", "a": "Yes. Enter your message at checkout and it is written on the card that ships with the bouquet, wrapped to match your occasion." },
+      { "q": "Do personalised flower gifts cost more?", "a": "No. Your note and the wrapping are included at no extra cost - the only option that changes the price is adding chocolates or a cake." },
+      { "q": "Which bouquet suits a personalised gesture best?", "a": "A hand-tied rose bunch is the most popular and personal choice; for something grander, a rose basket or glass-vase arrangement carries your card just as well." }
+    ],
+    "links": [
+      { "href": "products/red-roses-hand-bunch.html", "text": "red roses hand bunch" },
+      { "href": "products/sweet-affection-ombr-rose-bouquet.html", "text": "ombre rose bouquet" },
+      { "href": "products/eternal-harmony-20-red-white-rose-bouquet.html", "text": "red and white rose bouquet" },
+      { "href": "products/sweet-affection-pink-rose-glass-vase.html", "text": "pink roses in a glass vase" },
+      { "href": "flowers.html", "text": "all flowers" }
+    ]
+  },
+  "dried-preserved-flowers.html": {
+    "tag": "Gift guide",
+    "h2": "Dried, preserved or fresh: choosing a flower gift that lasts",
+    "paragraphs": [
+      "The choice between fresh, dried and preserved flowers comes down to one question: what should this gift be allowed to remember? Fresh blooms are the most alive and fragrant but finish fastest, while dried and preserved flowers hold their form for months - so the decision is really about whether the gift is for the moment or for the memory.",
+      "As a fresh-cut florist our focus is same-day hand-tied bunches that typically last five to seven days with the care sachet and a fresh cut every couple of days. Where you want something that outlives the flowers themselves, a living plant or a plush keepsake carries the same sentiment for years - without the care a preserved arrangement expects."
+    ],
+    "tipsTitle": "Matching longevity to the occasion",
+    "tips": [
+      "Fresh for the moment: birthdays, apologies and same-day surprises.",
+      "Dried or preserved for lasting memories: anniversaries, long-distance gifting and keepsake gestures.",
+      "When sending far away, pick something that travels well and needs no care on arrival.",
+      "A plant or a teddy is the truest keepsake if you want the gift itself to survive for years."
+    ],
+    "faqs": [
+      { "q": "How do I keep a fresh flower gift alive the longest?", "a": "Trim the stems at an angle, change the water every two days, keep the bunch out of direct sun and use the flower sachet. That routine typically keeps our bunches fresh for five to seven days." },
+      { "q": "What lasts longest - fresh, dried, preserved or a living plant?", "a": "A living plant. A well-kept plant grows for years, while dried and preserved flowers eventually fade with time and fresh flowers finish fastest of all." },
+      { "q": "Can I pair a keepsake with fresh flowers?", "a": "Yes. A rose bunch delivered with a plush teddy or a plant gives you the fresh moment and a lasting keepsake in the same delivery." }
+    ],
+    "links": [
+      { "href": "flowers.html", "text": "fresh flower bunches" },
+      { "href": "products/red-roses-hand-bunch.html", "text": "red roses hand bunch" },
+      { "href": "plants.html", "text": "living plants" },
+      { "href": "teddy.html", "text": "plush keepsakes" }
+    ]
+  },
+  "flower-teddy-cake-combos.html": {
+    "tag": "Gift guide",
+    "h2": "When a flower, cake and teddy combo beats a single gift",
+    "paragraphs": [
+      "A flower-cake-teddy combo wins when the moment deserves more than one parcel. The flowers deliver the message, the cake turns it into a celebration, and the teddy stays behind as the keepsake - three gifts in one delivery, with something left to hold long after the evening ends.",
+      "Build the trio around the person. For a birthday or anniversary, red roses, a chocolate or black forest cake and a plush teddy cover every base. For a lighter touch, swap the cake for chocolates or drop to a rose-and-teddy pair - the combo format lets you scale the gesture without losing the surprise."
+    ],
+    "tipsTitle": "Building a combo that covers every base",
+    "tips": [
+      "Pick one hero - usually the teddy or the roses - and two supporting extras so the trio stays balanced.",
+      "Birthdays and anniversaries suit the full trio; a rose-and-teddy pair fits everyday romantic surprises.",
+      "Everything ships as one order in a single delivery slot, so nothing has to be coordinated separately.",
+      "Add a message at checkout - it ties the three gifts into one story."
+    ],
+    "faqs": [
+      { "q": "How should I decide between a trio and a single gift?", "a": "Use a single item when the thought is specific and small; use the trio when you want the delivery itself to be the moment - the flowers speak, the cake celebrates and the teddy stays." },
+      { "q": "Do all three parts of a combo arrive in one parcel?", "a": "Yes. A trio ships as a single order in a single delivery slot, so the flowers, cake and teddy arrive together in one wrapped delivery." },
+      { "q": "Which occasion suits a flower-cake-teddy trio best?", "a": "Birthdays and anniversaries - the flowers carry the feeling, the cake marks the celebration and the teddy stays behind as the keepsake." }
+    ],
+    "links": [
+      { "href": "products/classic-red-roses-black-forest-celebration-hamper.html", "text": "red roses with a black forest cake" },
+      { "href": "products/charming-red-roses-basket-plush-teddy-bear-hamper.html", "text": "rose basket with a plush teddy" },
+      { "href": "products/luxurious-rocher-bunch-soft-teddy-bear.html", "text": "Rocher bunch with a soft teddy" },
+      { "href": "products/scarlet-heart-black-forest-teddy-combo.html", "text": "black forest cake and teddy combo" },
+      { "href": "products/choco-love-teddy-treat.html", "text": "chocolate and teddy treat" },
+      { "href": "combo.html", "text": "all combos" }
+    ],
+    "sections": [
+      {
+        "h3": "The trio for birthdays versus anniversaries",
+        "body": "On a birthday the cake leads - it is the part everyone gathers around - so a chocolate or black forest cake with roses and a teddy covers the celebration and the keepsake. On an anniversary the flowers and the teddy carry the sentiment, and a cake completes the evening rather than leading it. Whichever you choose, keep the message specific to the person and the day; that is what turns a bundle of three lovely gifts into one memorable gesture.",
+        "links": [
+          { "href": "products/triple-delight-box-lucky-bamboo-teddy-cake.html", "text": "bamboo, teddy and cake gift box" },
+          { "href": "products/velvet-passion-red-roses-red-velvet-cake-hamper.html", "text": "red roses with a red velvet cake" },
+          { "href": "birthday-gifts.html", "text": "birthday gift guide" }
+        ]
+      }
+    ]
   }
 }
