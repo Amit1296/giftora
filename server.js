@@ -1116,6 +1116,14 @@ async function handleRequest(req, res) {
     return res.end();
   }
 
+  /* /products/index.html is the directory-index path of /products/ and was
+     never a real page. 301 it to the homepage instead of 404ing, so it can
+     never be reported as a dead indexed URL. */
+  if (pathname === "/products/index.html" && method === "GET") {
+    res.writeHead(301, { Location: SITE_URL + "/" + (url.search || ""), "Cache-Control": "public, max-age=86400" });
+    return res.end();
+  }
+
   /* ---------- Dynamic product pages ---------- */
   const productMatch = pathname.match(/^\/products\/([a-z0-9\-]+)\.html$/);
   if (productMatch && method === "GET") {
