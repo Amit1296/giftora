@@ -1,7 +1,7 @@
 (function () {
   "use strict";
   var NUMBER = "917088084046";
-  var BASE = "https://wa.me/" + NUMBER + "?text=";
+  var BASE = "https://api.whatsapp.com/send?phone=" + NUMBER + "&text=";
 
   var CSS = [
     ".wa-float{position:fixed;left:22px;bottom:22px;z-index:9998;display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:50%;background:#25d366;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:transform .2s ease;text-decoration:none}",

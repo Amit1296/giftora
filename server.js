@@ -2125,7 +2125,7 @@ function sendCustomerReceipt(order, orderId) {
       (order.midnightFee ? `Midnight delivery fee: Rs.${order.midnightFee}\n` : "") +
       `Total: Rs.${order.total}\n\n` +
       `Shipping Address:\n${order.address}\n\n` +
-      `Need help with this order? WhatsApp us: https://wa.me/917088084046?text=` +
+      `Need help with this order? WhatsApp us: https://api.whatsapp.com/send?phone=917088084046&text=` +
       encodeURIComponent("Hi Giftora! Please send me an update on order #" + orderId).replace(/%20/g, "%20") + "\n\n" +
       `Warm regards,\nTeam Giftora\nhttps://gift-ora.online`,
   });

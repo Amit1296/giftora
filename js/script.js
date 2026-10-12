@@ -363,7 +363,7 @@
       const price = priceEl ? priceEl.textContent.trim() : "";
       const productName = document.title.replace(/\s*[|\u2013\u2014-].*$/, "").trim() || "your order";
       const url =
-        "https://wa.me/917088084046?text=" +
+        "https://api.whatsapp.com/send?phone=917088084046&text=" +
         encodeURIComponent(`Hi Giftora! I'd like to submit a review for ${productName} (${price}): rating ${rating}/5.\n"${comment}"\n- ${name}`);
       window.open(url, "_blank", "noopener");
       form.reset();
@@ -966,7 +966,7 @@
       if (!waTrack) {
         const a = document.createElement("a");
         a.className = "btn btn-outline wa-track";
-        a.href = "https://wa.me/917088084046?text=" + encodeURIComponent("Hi Giftora! Please send me an update on order #" + res.orderId);
+        a.href = "https://api.whatsapp.com/send?phone=917088084046&text=" + encodeURIComponent("Hi Giftora! Please send me an update on order #" + res.orderId);
         a.target = "_blank";
         a.rel = "noopener";
         a.textContent = "Track on WhatsApp";
