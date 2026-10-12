@@ -1133,6 +1133,8 @@ async function handleRequest(req, res) {
           "aglaonema-red-chinese-evergreen-classic-simple-and-recognizable": "aglaonema-red-chinese-evergreen",
           "jadey-simple-sweet-and-classic": "jadey",
           "blushing-passion-highlights-the-soft-pink-tones-alongside-the-bold-red": "blushing-passion",
+          "new-productdesigner-cake-luxury-perfume-gift-set-combo": "designer-cake-luxury-perfume-gift-set-combo",
+          "new-productsweet-elegance-cadbury-vanilla-cake-pink-roses-combo": "sweet-elegance-cadbury-vanilla-cake-pink-roses-combo",
         };
         const target = renamed[slug];
         if (target) {
@@ -1316,6 +1318,15 @@ async function handleRequest(req, res) {
      closest relevant live page — per AGENTS.md rule 1. */
   if (lowerPath === "/medicine-medical-equipments" || lowerPath.startsWith("/medicine-medical-equipments/")) {
     res.writeHead(301, { Location: SITE_URL + "/", "Cache-Control": "public, max-age=86400" });
+    return res.end();
+  }
+
+  /* Old Rakhi Facebook banner pages were removed from disk (commit f2187efd)
+     after the old sitemap listed them. 301 them to the live, sitemapped
+     rakhi-gifts.html page so stale indexed/ad URLs stop 404ing, per AGENTS.md
+     rule 1. */
+  if (lowerPath === "/banners/rakhi-fb-banner.html" || lowerPath === "/banners/rakhi-fb-banner-landscape.html") {
+    res.writeHead(301, { Location: SITE_URL + "/rakhi-gifts.html", "Cache-Control": "public, max-age=86400" });
     return res.end();
   }
 
