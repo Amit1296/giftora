@@ -1108,9 +1108,11 @@ async function handleRequest(req, res) {
 
   /* /index.html is an alias of "/" (its canonical). 301 it instead of
      serving 200, otherwise Google reports the homepage as
-     "Alternate page with proper canonical tag". */
+     "Alternate page with proper canonical tag". Use an absolute Location:
+     Google recommends absolute redirect URLs so mis-hosted / proxied requests
+     cannot resolve the target relative to a wrong host. */
   if (!requestedRoot && pathname === "/index.html") {
-    res.writeHead(301, { Location: "/" + (url.search || ""), "Cache-Control": "public, max-age=86400" });
+    res.writeHead(301, { Location: SITE_URL + "/" + (url.search || ""), "Cache-Control": "public, max-age=86400" });
     return res.end();
   }
 
@@ -1339,11 +1341,12 @@ async function handleRequest(req, res) {
   const privatePrefixes = ["/data/", "/node_modules/", "/hooks/", "/backups/", "/seo/", "/.git/", "/.opencode/", "/logs/", "/tmp/", "/admin/", "/checkout-preview"];
 
   /* Bare /products/<slug> without .html: 301 to the real page so typo'd or
-     third-party links never land on a 403. Canonical stays self-referencing. */
+     third-party links never land on a 403. Canonical stays self-referencing.
+     Absolute Location so proxies/crawlers resolve it against the right host. */
   if (!requestExt && lowerPath.startsWith("/products/") && pathname.length > "/products/".length) {
     const htmlDest = pathname + ".html";
     if (fs.existsSync(path.join(ROOT, htmlDest))) {
-      res.writeHead(301, { Location: htmlDest, "Cache-Control": "public, max-age=86400" });
+      res.writeHead(301, { Location: SITE_URL + htmlDest, "Cache-Control": "public, max-age=86400" });
       return res.end();
     }
   }
@@ -1385,11 +1388,16 @@ async function handleRequest(req, res) {
         }
       }
     }
-    /* Case-mismatched .html request: 301 to the correctly-cased page (Linux is case-sensitive) */
+    /* Case-mismatched .html request: 301 to the correctly-cased page (Linux is case-sensitive).
+       /Index.html and friends jump straight to "/" (the /index.html handler would 301 again,
+       an avoidable second hop for Googlebot). Absolute Location keeps the target unambiguous. */
     if (!fs.existsSync(filePath) && /[A-Z]/.test(pathname) && /\.html$/i.test(pathname)) {
       const hit = ROOT_HTML_FILES.get(path.basename(pathname).toLowerCase());
       if (hit && hit !== path.basename(pathname)) {
-        res.writeHead(301, { Location: "/" + hit, "Cache-Control": "public, max-age=86400" });
+        const dest = hit.toLowerCase() === "index.html"
+          ? "/" + (url.search || "")
+          : "/" + hit;
+        res.writeHead(301, { Location: SITE_URL + dest, "Cache-Control": "public, max-age=86400" });
         return res.end();
       }
     }
