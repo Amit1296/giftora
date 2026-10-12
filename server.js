@@ -1300,9 +1300,13 @@ async function handleRequest(req, res) {
   }
 
   const lowerPath = pathname.toLowerCase();
+  /* The medicine-medical-equipments module was a junk experiment (not part of
+     the business) removed in commit 1c5b180f. It returned 410, which deindexes
+     any of its URLs Google still knows; 301 them all to the homepage — the
+     closest relevant live page — per AGENTS.md rule 1. */
   if (lowerPath === "/medicine-medical-equipments" || lowerPath.startsWith("/medicine-medical-equipments/")) {
-    res.writeHead(410, { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=86400" });
-    return res.end("Gone");
+    res.writeHead(301, { Location: SITE_URL + "/", "Cache-Control": "public, max-age=86400" });
+    return res.end();
   }
 
   /* Static files are served by extension allowlist, not a blocklist: any new
