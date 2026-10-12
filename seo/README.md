@@ -129,7 +129,7 @@ that have previously hit the live site:
 
 | # | Check | Catches |
 |---|-------|---------|
-| 1 | Every sitemap `<loc>` resolves to a real file in an **allowed dir** (repo root `*.html` or `products/*.html`), no duplicates | dead URLs like the `medicine-medical-equipments` 404s (stray folders outside the allow-list are rejected even if a matching file exists) |
+| 1 | Every sitemap `<loc>` resolves to a real file in an **allowed dir** (repo root `*.html` or `products/*.html`), no duplicates | dead URLs from stray folders outside the allow-list (rejected even if a matching file exists) |
 | 2 | `#products/*.html` count == `js/product-pages.js` == `data/products.json`, every slug has a page on disk | catalog drift between Postgres and the repo |
 | 3 | No forbidden files staged or in the pushed range (`data/backups/`, `previews/`, `artifacts/`, `*.exe`/`*.ps1`, credential scripts). `js/products.js` is allowed — it is intentionally tracked | committing secret/scratch files |
 | 4 | Delegates to `seo/check-schema.js` | invalid/truncated structured data |

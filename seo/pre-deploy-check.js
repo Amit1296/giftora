@@ -3,7 +3,7 @@
  *
  * Catches the bug classes that hit the live site in Sept 2026:
  *
- *  1. Dead sitemap URLs        («medicine-medical-equipments» 404s)  -> every <loc>
+ *  1. Dead sitemap URLs        (stray on-disk folders must not leak into the sitemap)  -> every <loc>
  *                              must resolve to a real file in an allowed directory
  *                              (repo root *.html OR products/*.html).
  *  2. Catalog drift            (repo 117/137 vs live Postgres 143)    -> the number of
