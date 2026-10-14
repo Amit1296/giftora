@@ -272,6 +272,7 @@ function writeRobots(site) {
     "Disallow: /seo/",
     "",
     `Sitemap: ${site.url}/sitemap.xml`,
+    `Sitemap: ${site.url}/image-sitemap.xml`,
     "",
     "User-agent: GPTBot",
     "Allow: /",

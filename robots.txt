@@ -9,6 +9,7 @@ Disallow: /data/
 Disallow: /seo/
 
 Sitemap: https://gift-ora.online/sitemap.xml
+Sitemap: https://gift-ora.online/image-sitemap.xml
 
 User-agent: GPTBot
 Allow: /
