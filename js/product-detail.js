@@ -187,6 +187,22 @@
     document.title = `${p.name} — Buy Online at Giftora`;
     const og = document.querySelector('meta[property="og:title"]');
     if (og) og.setAttribute("content", document.title);
+    const desc = document.querySelector('meta[property="og:description"], meta[name="twitter:description"], meta[name="description"]');
+    if (desc && p.description) desc.setAttribute("content", p.description.slice(0, 160));
+    const robots = document.querySelector('meta[name="robots"]');
+    if (robots) robots.parentNode.removeChild(robots);
+    const can = document.querySelector('link[rel="canonical"]');
+    if (can) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("id", p.id);
+      can.setAttribute("href", url.toString());
+    }
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("id", p.id);
+      ogUrl.setAttribute("content", url.toString());
+    }
   }
 
   function relatedHtml(list, currentId) {
