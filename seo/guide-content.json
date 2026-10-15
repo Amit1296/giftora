@@ -22,6 +22,17 @@
       { "href": "sunglasses.html", "text": "trendy sunglasses" },
       { "href": "caps.html", "text": "caps and hats" },
       { "href": "belts.html", "text": "genuine leather belts" }
+    ],
+    "sections": [
+      {
+        "h3": "Sarees and ready gift sets for festive occasions",
+        "body": "When clothing is the gift, fabric and occasion matter more than trend. A Banarasi or Kanjeevaram-style saree reads festive and works for Diwali, weddings and family functions, while a chiffon saree is lighter and easier to drape for an evening event. If you would rather not guess a size, a ready gift set such as a shirt with chinos, or a grooming-and-style combo, takes the risk out of the decision and still feels considered. Every apparel order ships with free gift wrapping and a card, and we can help arrange a size exchange after delivery.",
+        "links": [
+          { "href": "products/creamy-radiance-royal-banarasi-cotton-saree.html", "text": "Banarasi cotton saree" },
+          { "href": "products/mayura-blue-traditional-banarasi-saree.html", "text": "Banarasi saree" },
+          { "href": "products/traditional-banarasi-kanjeevaram-art-silk-saree-set.html", "text": "Banarasi Kanjeevaram saree set" }
+        ]
+      }
     ]
   },
   "shoes.html": {
@@ -46,6 +57,17 @@
       { "href": "clothes.html", "text": "clothing to match" },
       { "href": "belts.html", "text": "leather belts" },
       { "href": "sunglasses.html", "text": "sunglasses" }
+    ],
+    "sections": [
+      {
+        "h3": "Gifting shoes without getting the size wrong",
+        "body": "Shoes are a high-impact gift but they carry the one sizing risk worth planning for. If you know the size, casual sneakers and athleisure shoes are the most-worn everyday choice; if you do not, a classic white high-top sneaker or a Chelsea boot in a common size is the safer bet, and most styles can be exchanged. Match the shoe to how the person actually dresses, sporty sneakers for a casual wardrobe and boots or formal pairs for someone who dresses up, rather than to the loudest trend of the season.",
+        "links": [
+          { "href": "products/streetwear-classic-white-high-top-sneakers.html", "text": "classic white high-top sneakers" },
+          { "href": "products/nike-everyday-men-s-comfort-casual-shoes.html", "text": "Nike Everyday casual shoes" },
+          { "href": "products/t-rock-boulevard-comfort-synthetic-leather-chelsea-boots.html", "text": "Chelsea boots" }
+        ]
+      }
     ]
   },
   "teddy.html": {
@@ -70,6 +92,17 @@
       { "href": "products/sweetheart-jumbo-teddy-bear.html", "text": "Sweetheart jumbo teddy bear" },
       { "href": "cakes.html", "text": "cakes" },
       { "href": "flowers.html", "text": "fresh flowers" }
+    ],
+    "sections": [
+      {
+        "h3": "Choosing the right teddy bear size and style",
+        "body": "Teddy size is really about the moment. A 40 cm teddy is the classic birthday or Valentine's gift, easy to hold and easy to post, while a jumbo bear makes a statement for a milestone or a big apology. Theme matters too: a bear holding chocolates or paired with roses does double duty as a romantic gift, and a soft, hypoallergenic plush is the safe choice for a baby shower or a young child. All our teddies arrive gift-wrapped with a card, and the larger bears are delivered by hand.",
+        "links": [
+          { "href": "products/sweetheart-jumbo-teddy-bear.html", "text": "jumbo teddy bear" },
+          { "href": "products/teddy-roosevelt.html", "text": "Teddy Roosevelt" },
+          { "href": "products/sweet-love-teddy-blossom-delight.html", "text": "teddy and blossom set" }
+        ]
+      }
     ]
   },
   "sunglasses.html": {
@@ -164,11 +197,23 @@
       { "q": "Is jewellery a good gift for a man?", "a": "Yes, as long as you pick something understated. Sterling silver chains, steel bracelets and signet rings are the styles men tend to wear daily, and they suit both formal and casual outfits." },
       { "q": "What is the safest jewellery gift if I do not know her taste?", "a": "A heart pendant or a classic pair of studs. They are the two most-worn styles in the collection and the least dependent on trend, which makes them hard to get wrong." },
       { "q": "How should I care for sterling silver and plated jewellery?", "a": "Keep it away from perfume, spray and water, wipe it with a dry cloth after wear, and store it in the pouch provided. Sterling silver can be brought back with a polishing cloth; gold plating cannot be restored once it wears through." },
-      { "q": "Do you deliver jewellery to other cities?", "a": "Yes. Jewellery orders ship across India with scheduled delivery, and same-day delivery is available across Delhi NCR. Every order is gift-wrapped with a personalised card at no extra cost." }
+      { "q": "Do you deliver jewellery to other cities?", "a": "Yes. Jewellery orders ship across India with scheduled delivery, and same-day delivery is available across Delhi NCR. Every order is gift-wrapped with a personalised card at no extra cost." },
+      { "q": "What is a traditional Karwa Chauth jewellery gift?", "a": "A Karwa Chauth ring or a pooja thali set is the traditional choice, often paired with red roses or a sweets hamper for the morning sargi." }
     ],
     "links": [
       { "href": "sunglasses.html", "text": "sunglasses" },
       { "href": "belts.html", "text": "belts" }
+    ],
+    "sections": [
+      {
+        "h3": "Gifting jewellery for weddings, Karwa Chauth and festivals",
+        "body": "Rings and sets carry the most meaning at festivals and weddings. A Karwa Chauth ring or a pooja thali set is the traditional, expected gift for the fast, while an AD or Kundan-style chain, pendant or solitaire set reads as fine jewellery for a wedding or engagement without the price of gold. Because sizing is the main risk, choose pieces with an adjustable element such as an extender chain or slider, and check a ring the receiver already wears if you can. Every piece ships gift-wrapped with a card.",
+        "links": [
+          { "href": "products/pavitra-rishta-karwa-chauth-ring.html", "text": "Karwa Chauth ring" },
+          { "href": "products/crystal-elegance-ad-chain-pendant.html", "text": "AD chain and pendant" },
+          { "href": "products/eternal-brilliance-ad-solitaire-chain-earring.html", "text": "AD solitaire chain and earring" }
+        ]
+      }
     ]
   },
   "flowers.html": {
@@ -187,12 +232,34 @@
     ],
     "faqs": [
       { "q": "How long will the flowers stay fresh?", "a": "Our flowers are arranged on the day of delivery and typically last five to seven days with the sachet and a fresh cut stem every couple of days." },
-      { "q": "What flowers are appropriate for a condolence gift?", "a": "White lilies, white roses and simple green arrangements are the most appropriate. Avoid brightly coloured or highly scented blooms." }
+      { "q": "What flowers are appropriate for a condolence gift?", "a": "White lilies, white roses and simple green arrangements are the most appropriate. Avoid brightly coloured or highly scented blooms." },
+      { "q": "How many roses should I order?", "a": "Ten to twenty roses makes a full, generous bunch for most occasions. Twenty-five or more reads as a grand gesture, which suits anniversaries and proposals." },
+      { "q": "Do you deliver flowers and a cake together on the same day?", "a": "Yes. Flower and cake combos ship as a single order in one delivery slot, so both arrive together, freshly prepared." }
     ],
     "links": [
       { "href": "products/red-roses-hand-bunch.html", "text": "red roses hand bunch" },
       { "href": "cakes.html", "text": "cakes" },
       { "href": "plants.html", "text": "long-lasting plants" }
+    ],
+    "sections": [
+      {
+        "h3": "Roses, lilies and orchids: matching the flower to the message",
+        "body": "Roses are the default for romance, but the colour carries the meaning. Red roses say love outright; pink and ombre roses feel softer and suit a newer relationship; white roses and oriental lilies work for formal occasions and condolence, where bright colours can feel out of place. Lilies and orchids are the picks for elegance that opens over several days rather than a single bunch. If you are unsure, a mixed hand bunch in the receiver's favourite colour is never the wrong call.",
+        "links": [
+          { "href": "products/red-roses-hand-bunch.html", "text": "red roses hand bunch" },
+          { "href": "products/celestial-radiance-white-lily-bunch.html", "text": "white lily bunch" },
+          { "href": "products/orchid-grace-blush-roses.html", "text": "orchid and blush roses" }
+        ]
+      },
+      {
+        "h3": "Flower and cake pairs that arrive in one delivery",
+        "body": "Flowers make more of an impact when they arrive with something to share. A hand bunch with a cake is the classic birthday or anniversary pairing, and it means one order, one delivery slot and one wrapped parcel instead of two deliveries to coordinate. For a bigger milestone, a rose basket paired with chocolates or a cake hamper feels substantial without being impractical. Every order includes a personalised card, so the message arrives with the flowers.",
+        "links": [
+          { "href": "products/radiant-bliss-10-mixed-rose-cake-set.html", "text": "mixed rose and cake set" },
+          { "href": "products/symphony-of-smiles-cake-bouquet-set.html", "text": "cake and bouquet set" },
+          { "href": "products/velvet-passion-red-roses-red-velvet-cake-hamper.html", "text": "roses and red velvet hamper" }
+        ]
+      }
     ]
   },
   "plants.html": {
@@ -217,6 +284,17 @@
       { "href": "products/prosperity-clean-air-snake-plant-in-pot.html", "text": "snake plant in pot" },
       { "href": "products/fortune-prosperity-money-plant-in-pot.html", "text": "money plant" },
       { "href": "flowers.html", "text": "fresh flowers" }
+    ],
+    "sections": [
+      {
+        "h3": "Choosing a plant by light, care level and occasion",
+        "body": "The plant that survives is the plant that suits the room. For a low-light desk or a first-time owner, a snake plant or money plant tolerates missed watering and shade; a peace lily and fittonia want a brighter, shaded spot; and a rubber plant or aglaonema adds colour to a well-lit corner. For housewarmings and new offices, an auspicious money plant or snake plant is the traditional, safe choice, and pairing it with dry fruits turns a simple plant into a fuller gift. Each plant arrives in a decorative pot with care instructions and free wrapping.",
+        "links": [
+          { "href": "products/prosperity-clean-air-snake-plant-in-pot.html", "text": "snake plant in pot" },
+          { "href": "products/fortune-prosperity-money-plant-in-pot.html", "text": "money plant in pot" },
+          { "href": "products/pure-harmony-peace-lily-plant.html", "text": "peace lily plant" }
+        ]
+      }
     ]
   },
   "cakes.html": {
@@ -278,6 +356,17 @@
       { "href": "products/panda-paws-deluxe-musical-ride-on.html", "text": "musical ride-on" },
       { "href": "products/littleexplorer-foldable-stroller.html", "text": "foldable stroller" },
       { "href": "teddy.html", "text": "teddy bears" }
+    ],
+    "sections": [
+      {
+        "h3": "Ride-ons, cycles and play sets by age",
+        "body": "Toys work best when they match the child's stage. For toddlers, a musical ride-on or a safe-ride baby cycle builds confidence; for slightly older children, a 14T or 26T cycle and building or role-play sets reward more advanced play; and a plush toy or a celebration box is the safe bet from the first birthday. Always match the recommended age on the box, look for smooth edges and non-toxic finishes for under-threes, and prefer a shared toy such as a ride-on if there is more than one child at home.",
+        "links": [
+          { "href": "products/panda-paws-deluxe-musical-ride-on.html", "text": "musical ride-on" },
+          { "href": "products/little-adventurer-safe-ride-baby-cycle.html", "text": "safe-ride baby cycle" },
+          { "href": "products/tiny-steps-celebration-box.html", "text": "celebration box" }
+        ]
+      }
     ]
   },
   "combo.html": {
@@ -296,12 +385,24 @@
     ],
     "faqs": [
       { "q": "Can I create a custom combo?", "a": "Yes. Choose any two or three items and we will deliver them together in one wrapped parcel. Contact us if you need help combining products." },
-      { "q": "Do combos arrive in one delivery?", "a": "Yes. A combo ships as a single order and a single delivery slot, which also keeps costs down." }
+      { "q": "Do combos arrive in one delivery?", "a": "Yes. A combo ships as a single order and a single delivery slot, which also keeps costs down." },
+      { "q": "What is the most popular gift combo?", "a": "Roses with a cake is the most popular combo overall, followed by a cake-and-teddy combo for birthdays and a plant-with-dry-fruits set for housewarmings." }
     ],
     "links": [
       { "href": "products/sweet-traditions-rose-choco-combo.html", "text": "rose and chocolate combo" },
       { "href": "products/sweet-elegance-cadbury-vanilla-cake-pink-roses-combo.html", "text": "cake and roses combo" },
       { "href": "special-offers.html", "text": "current offers" }
+    ],
+    "sections": [
+      {
+        "h3": "The best gift combo for each occasion",
+        "body": "The right combo is decided by the occasion, not the budget. Birthdays work best with a cake plus a soft toy or chocolates; anniversaries call for roses and a cake; housewarmings suit a plant with dry fruits; and Rakhi, Diwali and Karwa Chauth have their own traditional hampers of sweets, dry fruits and thalis. Leading with one hero gift and one supporting extra keeps a combo feeling considered rather than random, and everything arrives in a single wrapped parcel with a card.",
+        "links": [
+          { "href": "products/sweet-harmony-white-vanilla-cake-red-roses.html", "text": "vanilla cake and red roses" },
+          { "href": "products/scarlet-heart-black-forest-teddy-combo.html", "text": "black forest and teddy combo" },
+          { "href": "products/sweet-traditions-cadbury-soan-papdi-combo.html", "text": "Cadbury and soan papdi combo" }
+        ]
+      }
     ]
   },
   "special-offers.html": {
@@ -467,12 +568,24 @@
     ],
     "faqs": [
       { "q": "Do you offer bulk corporate gifting?", "a": "Yes. We handle team and client gifting at volume with a consistent item and personalised cards. Contact us to plan quantities and dates." },
-      { "q": "What is the best corporate gift?", "a": "A premium dry-fruit box or chocolate assortment with a branded card is the safest and most appreciated corporate gift." }
+      { "q": "What is the best corporate gift?", "a": "A premium dry-fruit box or chocolate assortment with a branded card is the safest and most appreciated corporate gift." },
+      { "q": "Can you deliver the same corporate gift to many addresses?", "a": "Yes. We handle bulk orders delivered to multiple home or office addresses with a consistent item and a card from your team. Contact us with the quantity and city list." }
     ],
     "links": [
       { "href": "combo.html", "text": "gift hampers" },
       { "href": "plants.html", "text": "desk plants" },
       { "href": "special-offers.html", "text": "bulk offers" }
+    ],
+    "sections": [
+      {
+        "h3": "Running a corporate gifting order at scale",
+        "body": "Bulk gifting lives or dies on consistency and timing. Pick one premium item across the whole list so nobody feels ranked; choose a consumable such as a Rocher or chocolate hamper, a dry-fruit box or a desk plant, so it is used rather than stored; and lock the quantity early. Around Diwali and the New Year, place the order at least two weeks ahead so every recipient gets the same item in the same week. We can include a single card from the leadership team and deliver to office or home addresses so recipients do not have to carry gifts back from the office.",
+        "links": [
+          { "href": "products/gentleman-s-choice-rocher-care-hamper.html", "text": "Rocher and care hamper" },
+          { "href": "products/grand-chocolate-delight-basket-silk-assortment.html", "text": "chocolate hamper" },
+          { "href": "products/exotic-pink-orchid-choco-premium-hamper.html", "text": "orchid and chocolate hamper" }
+        ]
+      }
     ]
   },
   "congratulations-gifts.html": {
@@ -587,12 +700,24 @@
     ],
     "faqs": [
       { "q": "What is the most popular Diwali gift?", "a": "A dry-fruit and sweets hamper remains the most popular Diwali gift, with money plants and chocolate assortments close behind." },
-      { "q": "How early should I order Diwali gifts?", "a": "Place your order at least a week before Diwali for the best choice and reliable delivery, as festival week is our busiest period." }
+      { "q": "How early should I order Diwali gifts?", "a": "Place your order at least a week before Diwali for the best choice and reliable delivery, as festival week is our busiest period." },
+      { "q": "What should a Diwali hamper contain?", "a": "A traditional Diwali hamper pairs dry fruits or sweets with chocolates and diyas. A corporate one usually keeps to a single premium dry-fruit or Rocher box for consistency." }
     ],
     "links": [
       { "href": "products/grand-diwali-indulgence-ferrero-rocher-soan-papdi-diyas.html", "text": "grand Diwali hamper" },
       { "href": "plants.html", "text": "money plants" },
       { "href": "special-offers.html", "text": "festive offers" }
+    ],
+    "sections": [
+      {
+        "h3": "Diwali hampers for family, friends and clients",
+        "body": "The Diwali hamper is the safest festive gift because it is shared rather than stored. A Rocher, soan papdi and diya box suits family; a dry-fruit and sweets hamper suits clients; and a rose-and-chocolate basket turns the same gesture romantic for a partner. For homes and offices, a money plant or an auspicious plant carries the same good-fortune meaning and lasts long after the diyas are packed away. Because the fortnight around Diwali is the busiest stretch of the year, ordering a week or more ahead secures both the item you want and a dependable delivery slot.",
+        "links": [
+          { "href": "products/grand-diwali-indulgence-ferrero-rocher-soan-papdi-diyas.html", "text": "Rocher, soan papdi and diya hamper" },
+          { "href": "products/elegant-red-roses-basket-ferrero-rocher-delight.html", "text": "rose basket and Rocher" },
+          { "href": "products/golden-affection-rose-rocher-heart.html", "text": "rose and Rocher heart" }
+        ]
+      }
     ]
   },
   "karwa-chauth-gifts.html": {
@@ -611,12 +736,24 @@
     ],
     "faqs": [
       { "q": "What should a sargi hamper contain?", "a": "A typical sargi hamper includes dry fruits, sweets and small treats for the morning meal. Order for early-morning delivery on the day of the fast." },
-      { "q": "What is a good Karwa Chauth gift for a wife?", "a": "A pooja thali set, red roses or a traditional sweet hamper are all fitting, especially delivered with a handwritten note." }
+      { "q": "What is a good Karwa Chauth gift for a wife?", "a": "A pooja thali set, red roses or a traditional sweet hamper are all fitting, especially delivered with a handwritten note." },
+      { "q": "When should a Karwa Chauth sargi hamper be delivered?", "a": "Sargi should reach the recipient early on the morning of the fast, before sunrise, so choose an early delivery slot and order a day ahead." }
     ],
     "links": [
       { "href": "products/silk-sparkle-karwa-chauth-pooja-thali-set.html", "text": "Karwa Chauth pooja thali set" },
       { "href": "flowers.html", "text": "red roses" },
       { "href": "products/sweet-traditions-cadbury-soan-papdi-combo.html", "text": "sweets combos" }
+    ],
+    "sections": [
+      {
+        "h3": "Sargi, thali and gifts for the Karwa Chauth day",
+        "body": "Karwa Chauth gifting splits into two moments. The sargi is the pre-dawn meal, so a dry-fruit and sweets hamper needs to arrive early on the morning of the fast. The evening centres on the pooja thali, where a decorated thali set, often paired with chocolates or a keepsake, is the traditional gift exchanged between partners. Red roses and a rose-and-chocolate combo delivered the evening before make the gesture more romantic, and a Karwa Chauth ring or jewellery-style keepsake carries the day's meaning into something she can wear again.",
+        "links": [
+          { "href": "products/shubh-karwa-chauth-pooja-thali-gourmet-chocolate-set.html", "text": "thali and chocolate set" },
+          { "href": "products/silk-sparkle-karwa-chauth-pooja-thali-set.html", "text": "Karwa Chauth thali set" },
+          { "href": "products/pavitra-rishta-karwa-chauth-ring.html", "text": "Karwa Chauth ring" }
+        ]
+      }
     ]
   },
   "occasion-gifts.html": {
