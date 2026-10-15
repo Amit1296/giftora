@@ -40,9 +40,10 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const SITE = 'https://gift-ora.online';
 const TEMPLATE = path.join(ROOT, 'thank-you-gifts.html');
-const OG_IMAGE = SITE + '/uploads/occasion-gifts.webp';
 const OG_W = '960';
 const OG_H = '640';
+// Per-page social/hero image (a dedicated SVG under uploads/, served by git deploy).
+const imageFor = (page) => SITE + '/uploads/' + page.image;
 
 const esc = (s) =>
   String(s == null ? '' : s)
@@ -54,6 +55,7 @@ const esc = (s) =>
 const PAGES = [
   {
     slug: 'gifts-for-men',
+    image: 'occasion-gifts-for-men.svg',
     title: 'Gifts for Men — Shoes, Belts, Sunglasses & Style Gifts | Giftora',
     metaDesc:
       "Shop gifts for men at Giftora — men's shoes, genuine leather belts, sunglasses and grooming combos delivered across India, same-day in Delhi NCR.",
@@ -64,7 +66,7 @@ const PAGES = [
     collectionDesc:
       "Gifts for men with delivery across India — men's shoes, leather belts, sunglasses and grooming-and-style combos.",
     flag: '👔 Gifts for Men',
-    h1: 'Gifts for <span class="text-gradient">him</span>',
+    h1: 'Gifts for <span class="text-gradient">men</span>',
     heroSub:
       "Practical, stylish gifts for the men in your life — men's shoes, genuine leather belts, sunglasses and grooming combos, delivered across India with a personalised note.",
     popularH2: 'Popular <span class="text-gradient">gifts for men</span>',
@@ -87,6 +89,7 @@ const PAGES = [
   },
   {
     slug: 'gifts-for-women',
+    image: 'occasion-gifts-for-women.svg',
     title: 'Gifts for Women — Jewellery, Flowers & Teddies | Giftora',
     metaDesc:
       'Shop gifts for women at Giftora — jewellery, fresh flower bouquets, teddy bears and elegant gift sets delivered across India, same-day in Delhi NCR.',
@@ -97,7 +100,7 @@ const PAGES = [
     collectionDesc:
       'Gifts for women with delivery across India — jewellery, fresh flowers, teddy bears and thoughtful gift sets.',
     flag: '💐 Gifts for Women',
-    h1: 'Gifts for <span class="text-gradient">her</span>',
+    h1: 'Gifts for <span class="text-gradient">women</span>',
     heroSub:
       'Thoughtful gifts she will love — delicate jewellery, fresh flower bouquets and soft teddy bears, delivered across India with a personalised note.',
     popularH2: 'Popular <span class="text-gradient">gifts for women</span>',
@@ -120,6 +123,7 @@ const PAGES = [
   },
   {
     slug: 'gifts-for-kids',
+    image: 'occasion-gifts-for-kids.svg',
     title: 'Gifts for Kids — Toys, Ride-Ons & Teddies | Giftora',
     metaDesc:
       'Shop gifts for kids at Giftora — safe toys, ride-on cars, cycles and soft teddy bears delivered across India, same-day in Delhi NCR.',
@@ -153,6 +157,7 @@ const PAGES = [
   },
   {
     slug: 'gifts-for-girlfriend',
+    image: 'occasion-gifts-for-girlfriend.svg',
     title: 'Gifts for Girlfriend — Flowers, Cakes & Romantic Combos | Giftora',
     metaDesc:
       'Shop gifts for your girlfriend at Giftora — fresh roses, cakes and romantic gift combos delivered across India, same-day in Delhi NCR, with a personalised note.',
@@ -199,7 +204,7 @@ function buildSeoBlock(page) {
     `<meta property="og:title" content="${esc(ogTitle)}">`,
     `<meta property="og:description" content="${esc(page.metaDesc)}">`,
     `<meta property="og:url" content="${url}">`,
-    `<meta property="og:image" content="${OG_IMAGE}">`,
+    `<meta property="og:image" content="${imageFor(page)}">`,
     `<meta property="og:image:width" content="${OG_W}">`,
     `<meta property="og:image:height" content="${OG_H}">`,
     '<meta property="og:type" content="website">',
@@ -314,7 +319,7 @@ function build(page) {
   );
   h = h.replace(
     /<div class="festival-hero-media" id="festivalHeroMedia">[\s\S]*?<\/div>/,
-    `<div class="festival-hero-media" id="festivalHeroMedia">\n\t\t\t\t\t<img src="/uploads/occasion-gifts.webp" width="${OG_W}" height="${OG_H}" alt="${esc(
+    `<div class="festival-hero-media" id="festivalHeroMedia">\n\t\t\t\t\t<img src="/uploads/${page.image}" width="${OG_W}" height="${OG_H}" alt="${esc(
       page.collectionName
     )} at Giftora" loading="lazy">\n\t\t\t\t</div>`
   );
