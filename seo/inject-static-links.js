@@ -54,6 +54,14 @@ const OCCASION_FILTERS = {
   "gifts-for-girlfriend": ["flowers", "cakes", "combo", "teddy"],
 };
 
+/* Mirror of OCCASION_EXCLUDES in js/script.js: women's items that live inside
+   the men's categories (sarees in clothes, the "Lady" boot, women's
+   sunglasses). Without this the raw HTML would link products the visible
+   grid hides. */
+const OCCASION_EXCLUDES = {
+  "gifts-for-men": /(saree|lady|women|heel)/i,
+};
+
 const MARKER = "static:product-links";
 /* No cap: the previous behaviour listed the whole matching range, and trimming
    it would silently drop internal links that crawlers rely on. */
@@ -77,7 +85,7 @@ const PAGES = [
   // Jewellery ships no gender field, so the men/women split in the client drops
   // every product. List the whole (small) range in the "for her" grid.
   { file: "jewellery.html", cat: "jewellery", marker: MARKER + "-women" },
-  ...Object.keys(OCCASION_FILTERS).map((occ) => ({ file: occ + ".html", cats: OCCASION_FILTERS[occ] })),
+  ...Object.keys(OCCASION_FILTERS).map((occ) => ({ file: occ + ".html", cats: OCCASION_FILTERS[occ], exclude: OCCASION_EXCLUDES[occ] })),
   // Festival hub pages render every active festival product; mirror the
   // hamper / festive subset so the raw HTML still links to real products.
   { file: "festival.html", match: /rocher|hamper|dry.?fruit|soan|diya|diwali|rakhi|karwa|combo|chocolate|orchid|basket/i },
@@ -98,6 +106,9 @@ function selectProducts(page) {
   } else {
     pool = [];
   }
+
+  // Names banned on this page (e.g. sarees/"Lady" boots under "gifts-for-men").
+  if (page.exclude) pool = pool.filter((p) => !page.exclude.test(p.name));
 
   const clean = [];
   const seen = new Set();

@@ -262,6 +262,15 @@
   const OCCASION_CATEGORIES = PAGE_OCCASION
     ? OCCASION_FILTERS[document.body.getAttribute("data-occasion")] || null
     : null;
+  /* Product names excluded from a recipient page. The men's page pulls the whole
+     shoes/belts/sunglasses/clothes set, and those categories also hold women's
+     sarees, a "Lady" boot and a sunglasses product named "for Women". */
+  const OCCASION_EXCLUDES = {
+    "gifts-for-men": /(saree|lady|women|heel)/i
+  };
+  const OCCASION_EXCLUDE = PAGE_OCCASION
+    ? OCCASION_EXCLUDES[document.body.getAttribute("data-occasion")] || null
+    : null;
   let cart = loadCart();
   let activeFilter = "all";
   let searchQuery = "";
@@ -1398,8 +1407,9 @@
                 ? p.oldPrice > 0
                 : p.category === PAGE_CATEGORY;
       const matchCat = activeFilter === "all" || p.category === activeFilter;
+      const matchExclude = OCCASION_EXCLUDE ? !OCCASION_EXCLUDE.test(p.name) : true;
       const matchQuery = !query || p.name.toLowerCase().includes(query) || p.category.includes(query);
-      return matchPage && matchCat && matchQuery;
+      return matchPage && matchCat && matchQuery && matchExclude;
     });
 
     const token = ++renderToken;
