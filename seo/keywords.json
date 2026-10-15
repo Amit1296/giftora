@@ -523,6 +523,22 @@
     }
   },
   "sitemapOnly": {
+    "gifts-for-men.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gifts-for-women.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gifts-for-kids.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
+    "gifts-for-girlfriend.html": {
+      "priority": "0.8",
+      "changefreq": "weekly"
+    },
     "same-day-gift-delivery.html": {
       "priority": "0.9",
       "changefreq": "weekly"

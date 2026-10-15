@@ -1,0 +1,9 @@
+﻿Google Search Console - Sitemaps to resubmit
+
+1. https://gift-ora.online/sitemap.xml
+2. https://gift-ora.online/image-sitemap.xml
+
+Instructions:
+- Go to GSC > Sitemaps
+- Remove old if any and add both
+- Resubmit after deploy (already done)

@@ -13,7 +13,8 @@
     "seo:keywords": "node seo/fetch-keywords.js",
     "seo:track": "node seo/track.js",
     "seo:baseline": "node seo/aio-baseline.js --write",
-    "seo:llms": "node seo/sync-llms.js"
+    "seo:llms": "node seo/sync-llms.js",
+    "seo:index": "node seo/check-indexing.js"
   },
   "keywords": [],
   "author": "",

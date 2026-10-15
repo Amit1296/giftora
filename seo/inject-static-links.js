@@ -48,6 +48,10 @@ const OCCASION_FILTERS = {
   "engagement-gifts": ["flowers", "cakes", "combo", "teddy"],
   "graduation-gifts": ["combo", "cakes", "flowers", "toys"],
   "teachers-day-gifts": ["flowers", "cakes", "plants", "combo", "teddy"],
+  "gifts-for-men": ["shoes", "belts", "sunglasses", "clothes"],
+  "gifts-for-women": ["jewellery", "flowers", "teddy", "sunglasses"],
+  "gifts-for-kids": ["toys", "teddy"],
+  "gifts-for-girlfriend": ["flowers", "cakes", "combo", "teddy"],
 };
 
 const MARKER = "static:product-links";

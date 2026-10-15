@@ -2,8 +2,8 @@
 
 Generated from git: only files with real content changes are listed.
 
-Total changed pages: **317**
-Tier 1 + Tier 2 (do these first): **14**
+Total changed pages: **321**
+Tier 1 + Tier 2 (do these first): **18**
 
 > Search Console daily quota is roughly 10-20 URL inspections per property.
 > Prioritise Tier 1, then Tier 2. Skip Tier 5 unless quota remains.
@@ -13,9 +13,13 @@ Tier 1 + Tier 2 (do these first): **14**
 
 ## TIER 1 - Brand new page (request indexing FIRST, same day you deploy)
 
-Count: 1
+Count: 5
 
 - `https://gift-ora.online/chocolate-bouquets.html`
+- `https://gift-ora.online/gifts-for-men.html`
+- `https://gift-ora.online/gifts-for-women.html`
+- `https://gift-ora.online/gifts-for-kids.html`
+- `https://gift-ora.online/gifts-for-girlfriend.html`
 
 ## TIER 2 - Pages with new body content + new FAQ schema (highest ranking upside)
 
@@ -371,6 +375,10 @@ Count: 284
 Replace nothing - just open each, then click Request Indexing:
 
 - https://search.google.com/search-console/inspect?url=https%3A%2F%2Fgift-ora.online%2Fchocolate-bouquets.html
+- https://search.google.com/search-console/inspect?url=https%3A%2F%2Fgift-ora.online%2Fgifts-for-men.html
+- https://search.google.com/search-console/inspect?url=https%3A%2F%2Fgift-ora.online%2Fgifts-for-women.html
+- https://search.google.com/search-console/inspect?url=https%3A%2F%2Fgift-ora.online%2Fgifts-for-kids.html
+- https://search.google.com/search-console/inspect?url=https%3A%2F%2Fgift-ora.online%2Fgifts-for-girlfriend.html
 - https://search.google.com/search-console/inspect?url=https%3A%2F%2Fgift-ora.online%2Fcakes.html
 - https://search.google.com/search-console/inspect?url=https%3A%2F%2Fgift-ora.online%2Fdeepawali-gifts.html
 - https://search.google.com/search-console/inspect?url=https%3A%2F%2Fgift-ora.online%2Fdried-preserved-flowers.html

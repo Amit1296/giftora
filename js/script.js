@@ -253,7 +253,11 @@
     "thank-you-gifts": ["flowers", "cakes", "combo", "plants"],
     "engagement-gifts": ["flowers", "cakes", "combo", "teddy"],
     "graduation-gifts": ["combo", "cakes", "flowers", "toys"],
-    "teachers-day-gifts": ["flowers", "cakes", "plants", "combo", "teddy"]
+    "teachers-day-gifts": ["flowers", "cakes", "plants", "combo", "teddy"],
+    "gifts-for-men": ["shoes", "belts", "sunglasses", "clothes"],
+    "gifts-for-women": ["jewellery", "flowers", "teddy", "sunglasses"],
+    "gifts-for-kids": ["toys", "teddy"],
+    "gifts-for-girlfriend": ["flowers", "cakes", "combo", "teddy"]
   };
   const OCCASION_CATEGORIES = PAGE_OCCASION
     ? OCCASION_FILTERS[document.body.getAttribute("data-occasion")] || null

@@ -1,4 +1,168 @@
 {
+  "gifts-for-men.html": {
+    "tag": "Gift guide",
+    "h2": "Gifts for men: practical picks he will actually use",
+    "paragraphs": [
+      "The best gifts for men are the ones that slot straight into daily life - a comfortable pair of shoes, a genuine leather belt or a pair of sunglasses he will reach for every day. Practical beats novelty almost every time.",
+      "If you want it to feel like an occasion rather than an errand, add a small upgrade: a grooming-and-style combo, or a belt paired with a shirt-and-chinos set. Everything ships with free gift wrapping and a card you can write yourself."
+    ],
+    "tipsTitle": "How to choose a gift for him",
+    "tips": [
+      "Shop his most-used items first: footwear, belts and sunglasses wear out and get replaced.",
+      "Match the style he already wears rather than pushing him into something new.",
+      "For birthdays and anniversaries, pair a practical gift with a grooming or style combo.",
+      "When unsure of size, choose an accessory - a belt or a pair of sunglasses fits almost anyone."
+    ],
+    "faqs": [
+      {
+        "q": "What can I gift a man who has everything?",
+        "a": "Practical upgrades work well - a premium leather belt, a new pair of casual shoes or polarised sunglasses he can use daily."
+      },
+      {
+        "q": "Do you deliver gifts for men the same day?",
+        "a": "Yes. Giftora offers same-day delivery in Delhi NCR and major metros, with express courier to the rest of India."
+      }
+    ],
+    "links": [
+      {
+        "href": "shoes.html",
+        "text": "men's shoes"
+      },
+      {
+        "href": "belts.html",
+        "text": "leather belts"
+      },
+      {
+        "href": "sunglasses.html",
+        "text": "sunglasses"
+      },
+      {
+        "href": "clothes.html",
+        "text": "clothing"
+      }
+    ]
+  },
+  "gifts-for-women.html": {
+    "tag": "Gift guide",
+    "h2": "Gifts for women: thoughtful, not generic",
+    "paragraphs": [
+      "A good gift for her says that you noticed something - the jewellery she keeps coming back to, the flowers she loves, or the soft teddy that has lived on her desk for years. Choose one thing and do it well.",
+      "Fresh flowers and jewellery both work for birthdays, anniversaries and thank-yous, and every order arrives with a personalised card so the message lands with the gift."
+    ],
+    "tipsTitle": "How to choose a gift for her",
+    "tips": [
+      "Think about what she already uses daily - jewellery and fresh flowers rarely miss.",
+      "For colleagues and friends, a small teddy or a bouquet is warm without being too personal.",
+      "Pair a bouquet with a cake for birthdays to turn the gift into a celebration.",
+      "Always add a note; with gifts for her, the message carries half the meaning."
+    ],
+    "faqs": [
+      {
+        "q": "What is a good gift for a woman?",
+        "a": "Jewellery, fresh flowers and soft teddy bears are reliable choices, with gift combos for birthdays and anniversaries."
+      },
+      {
+        "q": "Can you deliver flowers and gifts for her the same day?",
+        "a": "Yes. Same-day delivery is available in Delhi NCR and major metros, with express courier across India."
+      }
+    ],
+    "links": [
+      {
+        "href": "jewellery.html",
+        "text": "jewellery"
+      },
+      {
+        "href": "flowers.html",
+        "text": "flowers"
+      },
+      {
+        "href": "teddy.html",
+        "text": "teddy bears"
+      },
+      {
+        "href": "sunglasses.html",
+        "text": "sunglasses"
+      }
+    ]
+  },
+  "gifts-for-kids.html": {
+    "tag": "Gift guide",
+    "h2": "Gifts for kids: safe, fun and age-right",
+    "paragraphs": [
+      "Children remember the gift that let them play. Ride-on cars, bicycles and soft teddies are the three that get used long after the wrapping comes off, and they suit everything from birthdays to a first day of school.",
+      "Pick by age and by how much space the family has: a ride-on or cycle for the garden, a plush teddy for a bedroom shelf. Every gift ships with free wrapping and a card you can write out for them."
+    ],
+    "tipsTitle": "How to choose a gift for a child",
+    "tips": [
+      "Match the gift to the child's age - ride-ons and cycles come in different sizes.",
+      "Soft teddies are the safest choice for babies and toddlers.",
+      "For older kids, a bicycle or ride-on turns into months of play.",
+      "Check with the parents about space before sending anything large."
+    ],
+    "faqs": [
+      {
+        "q": "What are the best gifts for children?",
+        "a": "Ride-on cars, children's bicycles and soft teddy bears are the most popular gifts for kids, available for different age groups."
+      },
+      {
+        "q": "Do you deliver kids' gifts across India?",
+        "a": "Yes. Giftora delivers toys and gifts for kids across India, with same-day delivery in Delhi NCR and major metros."
+      }
+    ],
+    "links": [
+      {
+        "href": "toys.html",
+        "text": "toys and ride-ons"
+      },
+      {
+        "href": "teddy.html",
+        "text": "teddy bears"
+      }
+    ]
+  },
+  "gifts-for-girlfriend.html": {
+    "tag": "Gift guide",
+    "h2": "Gifts for your girlfriend: small gestures, done well",
+    "paragraphs": [
+      "The gifts that land with a girlfriend are rarely the expensive ones - they are the ones that show you were paying attention. Fresh red roses, her favourite cake, or a romantic combo that arrives as a surprise all do the job.",
+      "Timing matters as much as the gift. A bouquet that appears on an ordinary Tuesday often means more than one sent on a set date, and every order carries a note in your own words."
+    ],
+    "tipsTitle": "How to plan a gift for her",
+    "tips": [
+      "Roses are never wrong, but mix in a cake or chocolate for a bigger moment.",
+      "For a surprise, deliver to her office or home at a time you know she is in.",
+      "Pair flowers with a teddy or a hamper to make the gift feel complete.",
+      "Write the note yourself - it is the part she will keep."
+    ],
+    "faqs": [
+      {
+        "q": "What should I gift my girlfriend?",
+        "a": "Fresh red roses, a cake or a romantic gift combo are the most popular choices, all delivered with a personalised note."
+      },
+      {
+        "q": "Can I send a surprise gift to my girlfriend the same day?",
+        "a": "Yes. Same-day delivery is available in Delhi NCR and major metros, so a surprise can arrive the day you order."
+      }
+    ],
+    "links": [
+      {
+        "href": "flowers.html",
+        "text": "roses and flowers"
+      },
+      {
+        "href": "cakes.html",
+        "text": "cakes"
+      },
+      {
+        "href": "combo.html",
+        "text": "romantic combos"
+      },
+      {
+        "href": "teddy.html",
+        "text": "teddy bears"
+      }
+    ]
+  },
   "clothes.html": {
     "tag": "Buying guide",
     "h2": "How to choose clothes as a gift and get the style right",
