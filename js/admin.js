@@ -168,7 +168,7 @@
         const badge = stockBadge(p.stock);
         return `
         <div class="product-row" data-id="${p.id}">
-          <div class="product-page-label">Appears on: <a href="${esc(p.category)}.html" target="_blank">${esc(pageName(p.category))}</a> ${badge}</div>
+          <div class="product-page-label">Appears on: <a href="${esc(pageFile(p.category))}" target="_blank">${esc(pageName(p.category))}</a> ${badge}</div>
           <div class="product-thumb" style="background:${grad}">${media}</div>
           <div class="product-fields">
             <div class="form-group field-full">
@@ -400,6 +400,16 @@
     combo: "Combo Offers",
     "dry fruit hampers": "Dry Fruit Hampers",
   };
+
+  // Categories whose page file is not simply "<category>.html".
+  const PAGE_FILES = {
+    "dry fruit hampers": "dry-fruit-hampers.html",
+  };
+
+  function pageFile(cat) {
+    if (!cat) return "";
+    return PAGE_FILES[cat] || `${cat}.html`;
+  }
 
   function pageName(cat) {
     return PAGE_NAMES[cat] || cat || "—";
