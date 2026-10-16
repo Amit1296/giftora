@@ -31,6 +31,7 @@ const CATEGORY_META = {
   caps: { name: "Caps & Hats", file: "caps.html" },
   belts: { name: "Belts", file: "belts.html" },
   jewellery: { name: "Jewellery", file: "jewellery.html" },
+  "dry fruit hampers": { name: "Dry Fruit Hampers", file: "dry-fruit-hampers.html" },
 };
 
 const PRODUCT_KEYWORDS = {

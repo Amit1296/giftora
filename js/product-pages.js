@@ -175,5 +175,11 @@ window.GIFT_PRODUCT_PAGES = [
   "sweet-traditions-cadbury-soan-papdi-combo",
   "designer-rakhis-sweets",
   "rakhi-celi",
-  "rakhi-combo-offer"
+  "rakhi-combo-offer",
+  "royal-dry-fruits-celebration-hamper",
+  "premium-kaju-cashew-gift-box",
+  "crunchy-almonds-dry-fruit-basket",
+  "festive-dry-fruit-mithai-hamper",
+  "everyday-dry-fruits-gift-box",
+  "grand-dry-fruits-chocolate-hamper"
 ];

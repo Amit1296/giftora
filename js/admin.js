@@ -398,6 +398,7 @@
     cakes: "Cakes",
     toys: "Toys",
     combo: "Combo Offers",
+    "dry fruit hampers": "Dry Fruit Hampers",
   };
 
   function pageName(cat) {

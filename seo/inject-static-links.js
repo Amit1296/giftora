@@ -75,6 +75,7 @@ const PAGES = [
   { file: "cakes.html", cat: "cakes" },
   { file: "clothes.html", cat: "clothes" },
   { file: "combo.html", cat: "combo" },
+  { file: "dry-fruit-hampers.html", cat: "dry fruit hampers" },
   { file: "flowers.html", cat: "flowers" },
   { file: "plants.html", cat: "plants" },
   { file: "shoes.html", cat: "shoes" },
