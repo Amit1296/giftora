@@ -1,0 +1,40 @@
+New products — indexing request links (Tier 1)
+
+Property: sc-domain:gift-ora.online
+Sitemap:  https://gift-ora.online/sitemap.xml   (all 4 URLs below are already in it)
+
+The 4 admin-created products that were added to the catalogue + sitemap on
+2026-10-17. Click each link, then "Request Indexing". Quota is ~10-15
+requests/day per property, so do one or two per day if you hit the limit.
+
+The Dry Fruit Hampers hub and its other 6 products are in
+seo/request-indexing-dry-fruit.txt
+
+1. Dry Fruit Hampers (the 7th product in that category)
+
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fproducts%2Fthe-signature-four-way-dry-fruit-gift-box.html
+
+2. Combo Offers
+
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fproducts%2Fcharming-pink-roses-strawberry-vanilla-indulgence.html
+
+3. Cakes
+
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fproducts%2Flittle-champion-pitch-bat-cake.html
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fproducts%2Fdesigner-white-vanilla-dark-chocolate-cake.html
+
+Plain URLs
+
+https://gift-ora.online/products/the-signature-four-way-dry-fruit-gift-box.html
+https://gift-ora.online/products/charming-pink-roses-strawberry-vanilla-indulgence.html
+https://gift-ora.online/products/little-champion-pitch-bat-cake.html
+https://gift-ora.online/products/designer-white-vanilla-dark-chocolate-cake.html
+
+Notes
+- All 4 URLs verified live: HTTP 200, self-canonical, in sitemap, no noindex.
+- Product 230's old URL (a 155-character slug, because a description had been
+  pasted into its Product Name field) now 301s to
+  /products/designer-white-vanilla-dark-chocolate-cake.html — do NOT request
+  indexing for the old URL.
+- If Google says "Discovered - currently not indexed", just wait; no action needed.
+- seo/check-indexing.js --tier 1 re-checks the technical preflight any time.
