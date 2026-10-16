@@ -1143,6 +1143,10 @@ async function handleRequest(req, res) {
           "blushing-passion-highlights-the-soft-pink-tones-alongside-the-bold-red": "blushing-passion",
           "new-productdesigner-cake-luxury-perfume-gift-set-combo": "designer-cake-luxury-perfume-gift-set-combo",
           "new-productsweet-elegance-cadbury-vanilla-cake-pink-roses-combo": "sweet-elegance-cadbury-vanilla-cake-pink-roses-combo",
+          // Product 230 had a paragraph pasted into its Product Name field, so its
+          // original slug was 155 characters. The name was corrected on 2026-10-17;
+          // keep the old URL working instead of letting it 404.
+          "layers-of-ultra-soft-white-vanilla-sponge-enveloped-in-silky-vanilla-cream-beautifully-contrasted-with-rich-dark-chocolate-drips-and-decadent-cocoa-accents": "designer-white-vanilla-dark-chocolate-cake",
         };
         const target = renamed[slug];
         if (target) {
