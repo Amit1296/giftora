@@ -1,0 +1,36 @@
+Dry Fruit Hampers — indexing request links (Tier 1)
+
+Property: sc-domain:gift-ora.online
+Sitemap:  https://gift-ora.online/sitemap.xml   (all 7 URLs below are already in it)
+
+Click each link, then "Request Indexing" (also press "Test Live URL" if you want
+to confirm the crawl). Quota is ~10-15 requests/day per property, so do the
+category first, then the 6 products on the next day if you hit the limit.
+
+1. Category hub (do this first)
+
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fdry-fruit-hampers.html
+
+2. Products
+
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fproducts%2Froyal-dry-fruits-celebration-hamper.html
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fproducts%2Fpremium-kaju-cashew-gift-box.html
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fproducts%2Fcrunchy-almonds-dry-fruit-basket.html
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fproducts%2Ffestive-dry-fruit-mithai-hamper.html
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fproducts%2Feveryday-dry-fruits-gift-box.html
+https://search.google.com/search-console/inspect?resource_id=sc-domain:gift-ora.online&id=https%3A%2F%2Fgift-ora.online%2Fproducts%2Fgrand-dry-fruits-chocolate-hamper.html
+
+Plain URLs (for pasting into the GSC search box at the top of the page)
+
+https://gift-ora.online/dry-fruit-hampers.html
+https://gift-ora.online/products/royal-dry-fruits-celebration-hamper.html
+https://gift-ora.online/products/premium-kaju-cashew-gift-box.html
+https://gift-ora.online/products/crunchy-almonds-dry-fruit-basket.html
+https://gift-ora.online/products/festive-dry-fruit-mithai-hamper.html
+https://gift-ora.online/products/everyday-dry-fruits-gift-box.html
+https://gift-ora.online/products/grand-dry-fruits-chocolate-hamper.html
+
+Notes
+- All 7 URLs verified live: HTTP 200, self-canonical, no noindex, in sitemap.
+- If Google says "Discovered - currently not indexed", just wait; no action needed.
+- seo/check-indexing.js --tier 1 re-checks the technical preflight any time.
