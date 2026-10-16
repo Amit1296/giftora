@@ -3149,7 +3149,7 @@ window.GIFT_PRODUCTS = [
     "description": "Premium set of 6 handcrafted designer Rakhis accompanied by 500g of fresh traditional Indian sweets. Perfect for celebrating Raksha Bandhan with family and loved ones."
   },
   {
-    "id": 228,
+    "id": 234,
     "sku": "",
     "name": "Royal Dry Fruits Celebration Hamper",
     "badge": "Premium",
@@ -3165,7 +3165,7 @@ window.GIFT_PRODUCTS = [
     "description": "A grand dry fruit hamper made for festive gifting — a generous assortment of premium almonds, cashews, pistachios, raisins and walnuts, packed in a gift-ready festive box with a satin ribbon and space for a personal note.\n\nProduct Details:\n\nContents: a curated mix of whole almonds, cashews, pistachios, raisins and walnuts — chosen for size, freshness and flavour.\n\nPackaging: sturdy festive gift box with carry handle, ribbon finish and a blank gift card for your message.\n\nFreshness: packed in small batches and sealed so every nut stays crisp.\n\nIdeal For:\n\nDiwali, Dhanteras, Raksha Bandhan, corporate gifting, housewarming, birthdays and thank-you gestures.\n\nEvery hamper ships with free gift wrapping and same-day delivery in Delhi NCR, with express delivery to 99+ cities across India."
   },
   {
-    "id": 229,
+    "id": 235,
     "sku": "",
     "name": "Premium Kaju Cashew Gift Box",
     "badge": null,
@@ -3181,7 +3181,7 @@ window.GIFT_PRODUCTS = [
     "description": "Premium whole cashews for the kaju lover in your life — carefully graded, gently roasted and packed in an elegant gift box that looks as good as it tastes.\n\nProduct Details:\n\nContents: premium whole cashews (kaju) with a light golden roast.\n\nPackaging: compact rigid gift box with ribbon finish and a blank gift card for your message.\n\nFreshness: sealed in small batches so every cashew stays crunchy.\n\nIdeal For:\n\nDiwali gifting, Raksha Bandhan, birthdays, thank-you gifts and a thoughtful treat for cashew lovers.\n\nShips with free gift wrapping and same-day delivery in Delhi NCR, with express delivery to 99+ cities across India."
   },
   {
-    "id": 230,
+    "id": 236,
     "sku": "",
     "name": "Crunchy Almonds & Dry Fruit Basket",
     "badge": null,
