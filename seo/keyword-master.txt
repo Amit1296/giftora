@@ -1,6 +1,6 @@
 === Giftora master keyword list (deduplicated) ===
 
-  total unique keywords : 156
+  total unique keywords : 174
   excluded              : "gift card" (conditional — add only if e-vouchers launch)
   rule                  : every keyword appears exactly once (verified, case-insensitive)
   status                : master reference list — not applied to any page
@@ -112,7 +112,7 @@ thank you gift ideas | occasion
 thank you gift box delivery | occasion
 
 --------------------------------------------------------------------
-TIER 6 — FESTIVALS (25)
+TIER 6 — FESTIVALS (26)
 --------------------------------------------------------------------
 rakhi gifts | festival
 send rakhi to India | festival NRI
@@ -122,6 +122,7 @@ Diwali gift hampers | festival
 customized Diwali hampers | festival
 Diwali gifts for family | festival (merged: "Diwali gifts for family in India")
 Diwali gifts for clients | festival corporate
+Diwali gift hampers for corporate | festival corporate long-tail
 Valentine's Day gift delivery Delhi | festival local
 Valentine's Day cake | festival
 Holi gifts | festival
@@ -158,12 +159,19 @@ personalized photo cake delivery | long-tail
 1 kg cake delivery same day | long-tail
 
 --------------------------------------------------------------------
-TIER 8 — FLOWERS, ADDITIONAL (4)
+TIER 8 — FLOWERS, ADDITIONAL (11)
 --------------------------------------------------------------------
 fresh flowers | head term
 mixed flower bouquet | bouquet type
 flower bouquet for anniversary | occasion long-tail
 fresh flower delivery same day Delhi | service local
+florist near me | local head term
+flower shop near me | local head term
+flowers near me | local head term
+flower shop | head term
+send flowers | head term
+flowers online | head term
+cheap birthday flowers delivery | long-tail
 
 --------------------------------------------------------------------
 TIER 9 — TEDDY BEARS / SOFT TOYS (9)
@@ -206,6 +214,24 @@ bulk gift suppliers in Noida | corporate local
 best Diwali gift vendors in Gurgaon | corporate local
 
 --------------------------------------------------------------------
+TIER 12 — DRY FRUITS (7)
+--------------------------------------------------------------------
+buy dry fruits online | head term
+premium nuts in India | head term
+dry fruit gift packs | product
+dry fruits online delivery | service
+affordable dry fruit gift basket | long-tail
+dry fruits delivery [City] | local template
+buy dry fruits online in [City] | local template
+
+--------------------------------------------------------------------
+TIER 13 — SHIPPING & DELIVERY (3)
+--------------------------------------------------------------------
+gifts with free shipping | service
+expedited shipping for gifts | service
+guaranteed delivery by [date] | long-tail
+
+--------------------------------------------------------------------
 MERGE AUDIT (collapsed duplicates)
 --------------------------------------------------------------------
 exact repeats        : birthday gifts, anniversary gifts, flowers, flower bouquet,
@@ -220,3 +246,8 @@ double-listed row    : flower delivery in [city] (two city rows merged into one 
 wording variants     : "Diwali gifts for family in India" -> Diwali gifts for family,
                        anniversary gift delivery (generic = city template)
 excluded             : gift card (conditional)
+skipped batch 2026-10 : flower delivery, same day flower delivery, wedding flowers
+                       (already listed); corporate Diwali gifting in India
+                       (near-dup of "corporate diwali gifting" + "corporate
+                       gifting india"); budget cake delivery [city] (near-dup
+                       of "cake delivery in [city]" template)

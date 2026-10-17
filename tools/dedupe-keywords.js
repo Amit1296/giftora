@@ -67,6 +67,22 @@ const OWNER = {
   "baby shower cake": "baby-shower-gifts.html",
   "corporate gifts": "corporate-gifts.html",
   "corporate event cakes": "corporate-gifts.html",
+  "buy dry fruits online": "dry-fruit-hampers.html",
+  "premium nuts in india": "dry-fruit-hampers.html",
+  "dry fruit gift packs": "dry-fruit-hampers.html",
+  "dry fruits online delivery": "dry-fruit-hampers.html",
+  "affordable dry fruit gift basket": "dry-fruit-hampers.html",
+  "florist near me": "flowers.html",
+  "flower shop near me": "flowers.html",
+  "flowers near me": "flowers.html",
+  "flower shop": "flowers.html",
+  "send flowers": "flowers.html",
+  "flowers online": "flowers.html",
+  "cheap birthday flowers delivery": "birthday-gifts.html",
+  "diwali gift hampers for corporate": "blog-corporate-diwali-gifting-2026.html",
+  "gifts with free shipping": "shipping-policy.html",
+  "expedited shipping for gifts": "shipping-policy.html",
+  "guaranteed delivery by date": "shipping-policy.html",
 };
 
 /* terms every city page keeps on purpose; non-city pages must drop them */
