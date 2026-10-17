@@ -396,6 +396,7 @@
     flowers: "Flowers",
     plants: "Plants",
     cakes: "Cakes",
+    "chocolate bouquets": "Chocolate Bouquets",
     toys: "Toys",
     combo: "Combo Offers",
     "dry fruit hampers": "Dry Fruit Hampers",
@@ -403,6 +404,7 @@
 
   // Categories whose page file is not simply "<category>.html".
   const PAGE_FILES = {
+    "chocolate bouquets": "chocolate-bouquets.html",
     "dry fruit hampers": "dry-fruit-hampers.html",
   };
 

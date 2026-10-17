@@ -1,0 +1,16 @@
+﻿<svg width="1200" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#059669"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+    <pattern id="img2" patternUnits="userSpaceOnUse" width="400" height="400" x="750" y="0">
+      <image href="../uploads/img_2026_08_16_40_3072e7a3.png" width="400" height="400" preserveAspectRatio="xMidYMid slice" opacity="0.95"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="400" rx="20" fill="url(#g2)"/>
+  <rect x="750" y="0" width="450" height="400" rx="20" fill="url(#img2)" opacity="0.25"/>
+  <rect x="750" y="0" width="450" height="400" rx="20" fill="rgba(5,150,105,0.15)"/>
+  <text x="400" y="30%" font-size="48" font-family="Poppins,Arial,sans-serif" fill="#fff" text-anchor="middle" font-weight="700">Eggless Cakes &amp; Pastries</text>
+  <text x="400" y="48%" font-size="24" font-family="Poppins,Arial,sans-serif" fill="#fff" text-anchor="middle" opacity=".95">Handcrafted with love | Made fresh daily</text>
+  <text x="400" y="65%" font-size="20" font-family="Poppins,Arial,sans-serif" fill="#fff" text-anchor="middle" opacity=".9">100% Eggless | Cakes, Cupcakes &amp; Pastries</text>
+  <rect x="250" y="280" width="300" height="70" rx="35" fill="#fff" opacity=".98"/>
+  <text x="400" y="325" font-size="20" font-family="Poppins,Arial,sans-serif" fill="#059669" text-anchor="middle" font-weight="700">Shop Now</text>
+</svg>
