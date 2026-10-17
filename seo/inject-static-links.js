@@ -73,6 +73,7 @@ const slugs = productSlugMap(list);
 const PAGES = [
   { file: "belts.html", cat: "belts" },
   { file: "cakes.html", cat: "cakes" },
+  { file: "chocolate-bouquets.html", cat: "chocolate bouquets" },
   { file: "clothes.html", cat: "clothes" },
   { file: "combo.html", cat: "combo" },
   { file: "dry-fruit-hampers.html", cat: "dry fruit hampers" },
