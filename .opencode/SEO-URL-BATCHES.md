@@ -1,19 +1,33 @@
-# Google Search Console — Daily URL Inspection Batches
+# Google Search Console - Daily URL Inspection Batches
 
-How to use: In GSC → **URL Inspection** → paste today's 15 URLs one by one, then **Request Indexing** on each.
+How to use: In GSC -> **URL Inspection** -> paste today's 15 URLs one by one, then **Request Indexing** on each.
 One day per day. Re-run after any future sitemap change.
 
-Generated from the live sitemap: **226 URLs** (16 days, ~15/day).
+Generated from the live sitemap (`sitemap.xml` order, via `seo/gen-gsc-lists.js`): **363 URLs** (25 days, ~15/day).
 
 ## Day 1
 - https://gift-ora.online/
+- https://gift-ora.online/chocolate-bouquets.html
+- https://gift-ora.online/deepawali-gifts.html
+- https://gift-ora.online/dried-preserved-flowers.html
+- https://gift-ora.online/eco-friendly-gifts.html
+- https://gift-ora.online/everyday-occasion-gifts.html
 - https://gift-ora.online/festival.html
+- https://gift-ora.online/flower-teddy-cake-combos.html
 - https://gift-ora.online/gift-delivery-india.html
+- https://gift-ora.online/karwa-chauth-gifts.html
+- https://gift-ora.online/luxury-flower-boxes.html
 - https://gift-ora.online/occasion-gifts.html
+- https://gift-ora.online/personalized-flowers.html
+- https://gift-ora.online/plant-gifts.html
 - https://gift-ora.online/rakhi-gifts.html
+
+## Day 2
+- https://gift-ora.online/same-day-gift-delivery.html
 - https://gift-ora.online/send-gifts-to-india.html
 - https://gift-ora.online/special-offers.html
 - https://gift-ora.online/teachers-day-gifts.html
+- https://gift-ora.online/teddy-bear-gifts.html
 - https://gift-ora.online/anniversary-gifts.html
 - https://gift-ora.online/baby-shower-gifts.html
 - https://gift-ora.online/belts.html
@@ -21,28 +35,46 @@ Generated from the live sitemap: **226 URLs** (16 days, ~15/day).
 - https://gift-ora.online/cakes.html
 - https://gift-ora.online/caps.html
 - https://gift-ora.online/clothes.html
-
-## Day 2
 - https://gift-ora.online/combo.html
 - https://gift-ora.online/corporate-gifts.html
+- https://gift-ora.online/dry-fruit-hampers.html
+
+## Day 3
 - https://gift-ora.online/flowers.html
 - https://gift-ora.online/gift-delivery-agra.html
 - https://gift-ora.online/gift-delivery-ahmedabad.html
+- https://gift-ora.online/gift-delivery-ajmer.html
 - https://gift-ora.online/gift-delivery-ambala.html
 - https://gift-ora.online/gift-delivery-amravati.html
+- https://gift-ora.online/gift-delivery-amritsar.html
+- https://gift-ora.online/gift-delivery-asansol.html
+- https://gift-ora.online/gift-delivery-aurangabad.html
+- https://gift-ora.online/gift-delivery-bareilly.html
+- https://gift-ora.online/gift-delivery-belagavi.html
 - https://gift-ora.online/gift-delivery-bengaluru.html
+- https://gift-ora.online/gift-delivery-berhampur.html
+- https://gift-ora.online/gift-delivery-bhilai.html
 - https://gift-ora.online/gift-delivery-bhopal.html
+
+## Day 4
 - https://gift-ora.online/gift-delivery-bhubaneswar.html
+- https://gift-ora.online/gift-delivery-bikaner.html
 - https://gift-ora.online/gift-delivery-chandigarh.html
 - https://gift-ora.online/gift-delivery-chennai.html
 - https://gift-ora.online/gift-delivery-coimbatore.html
 - https://gift-ora.online/gift-delivery-cuttack.html
 - https://gift-ora.online/gift-delivery-dehradun.html
-
-## Day 3
 - https://gift-ora.online/gift-delivery-delhi.html
 - https://gift-ora.online/gift-delivery-dhanbad.html
+- https://gift-ora.online/gift-delivery-durgapur.html
+- https://gift-ora.online/gift-delivery-erode.html
+- https://gift-ora.online/gift-delivery-faridabad.html
 - https://gift-ora.online/gift-delivery-gaya.html
+- https://gift-ora.online/gift-delivery-ghaziabad.html
+- https://gift-ora.online/gift-delivery-gorakhpur.html
+
+## Day 5
+- https://gift-ora.online/gift-delivery-guntur.html
 - https://gift-ora.online/gift-delivery-gurugram.html
 - https://gift-ora.online/gift-delivery-guwahati.html
 - https://gift-ora.online/gift-delivery-gwalior.html
@@ -52,201 +84,320 @@ Generated from the live sitemap: **226 URLs** (16 days, ~15/day).
 - https://gift-ora.online/gift-delivery-indore.html
 - https://gift-ora.online/gift-delivery-jabalpur.html
 - https://gift-ora.online/gift-delivery-jaipur.html
+- https://gift-ora.online/gift-delivery-jalandhar.html
 - https://gift-ora.online/gift-delivery-jammu.html
+- https://gift-ora.online/gift-delivery-jamnagar.html
 - https://gift-ora.online/gift-delivery-jamshedpur.html
-- https://gift-ora.online/gift-delivery-kanpur.html
+- https://gift-ora.online/gift-delivery-jhansi.html
 
-## Day 4
+## Day 6
+- https://gift-ora.online/gift-delivery-jodhpur.html
+- https://gift-ora.online/gift-delivery-kanpur.html
 - https://gift-ora.online/gift-delivery-kochi.html
 - https://gift-ora.online/gift-delivery-kolhapur.html
 - https://gift-ora.online/gift-delivery-kolkata.html
+- https://gift-ora.online/gift-delivery-kollam.html
+- https://gift-ora.online/gift-delivery-kota.html
 - https://gift-ora.online/gift-delivery-kozhikode.html
 - https://gift-ora.online/gift-delivery-lucknow.html
 - https://gift-ora.online/gift-delivery-ludhiana.html
 - https://gift-ora.online/gift-delivery-madurai.html
+- https://gift-ora.online/gift-delivery-mangaluru.html
 - https://gift-ora.online/gift-delivery-mathura.html
 - https://gift-ora.online/gift-delivery-meerut.html
 - https://gift-ora.online/gift-delivery-mumbai.html
+
+## Day 7
 - https://gift-ora.online/gift-delivery-mysuru.html
 - https://gift-ora.online/gift-delivery-nagpur.html
 - https://gift-ora.online/gift-delivery-nashik.html
+- https://gift-ora.online/gift-delivery-nellore.html
 - https://gift-ora.online/gift-delivery-noida.html
 - https://gift-ora.online/gift-delivery-panaji.html
-
-## Day 5
+- https://gift-ora.online/gift-delivery-panipat.html
 - https://gift-ora.online/gift-delivery-patiala.html
 - https://gift-ora.online/gift-delivery-patna.html
+- https://gift-ora.online/gift-delivery-prayagraj.html
+- https://gift-ora.online/gift-delivery-puducherry.html
 - https://gift-ora.online/gift-delivery-pune.html
 - https://gift-ora.online/gift-delivery-raipur.html
+- https://gift-ora.online/gift-delivery-rajahmundry.html
 - https://gift-ora.online/gift-delivery-rajkot.html
+
+## Day 8
 - https://gift-ora.online/gift-delivery-ranchi.html
+- https://gift-ora.online/gift-delivery-rourkela.html
 - https://gift-ora.online/gift-delivery-salem.html
+- https://gift-ora.online/gift-delivery-shahjahanpur.html
 - https://gift-ora.online/gift-delivery-shillong.html
 - https://gift-ora.online/gift-delivery-siliguri.html
+- https://gift-ora.online/gift-delivery-solapur.html
 - https://gift-ora.online/gift-delivery-srinagar.html
 - https://gift-ora.online/gift-delivery-surat.html
+- https://gift-ora.online/gift-delivery-thane.html
+- https://gift-ora.online/gift-delivery-thanjavur.html
 - https://gift-ora.online/gift-delivery-thiruvananthapuram.html
 - https://gift-ora.online/gift-delivery-thrissur.html
 - https://gift-ora.online/gift-delivery-tiruchirappalli.html
-- https://gift-ora.online/gift-delivery-tirupati.html
+- https://gift-ora.online/gift-delivery-tirunelveli.html
 
-## Day 6
+## Day 9
+- https://gift-ora.online/gift-delivery-tirupati.html
+- https://gift-ora.online/gift-delivery-tiruppur.html
+- https://gift-ora.online/gift-delivery-udaipur.html
 - https://gift-ora.online/gift-delivery-ujjain.html
+- https://gift-ora.online/gift-delivery-vadodara.html
 - https://gift-ora.online/gift-delivery-varanasi.html
+- https://gift-ora.online/gift-delivery-vellore.html
 - https://gift-ora.online/gift-delivery-vijayawada.html
 - https://gift-ora.online/gift-delivery-visakhapatnam.html
 - https://gift-ora.online/gift-delivery-warangal.html
+- https://gift-ora.online/gifts-for-girlfriend.html
+- https://gift-ora.online/gifts-for-kids.html
+- https://gift-ora.online/gifts-for-men.html
+- https://gift-ora.online/gifts-for-women.html
 - https://gift-ora.online/gifts-to-india-from-africa.html
+
+## Day 10
 - https://gift-ora.online/gifts-to-india-from-australia.html
 - https://gift-ora.online/gifts-to-india-from-canada.html
 - https://gift-ora.online/gifts-to-india-from-uk.html
 - https://gift-ora.online/gifts-to-india-from-usa.html
 - https://gift-ora.online/housewarming-gifts.html
+- https://gift-ora.online/jewellery.html
 - https://gift-ora.online/plants.html
 - https://gift-ora.online/shoes.html
 - https://gift-ora.online/sunglasses.html
+- https://gift-ora.online/surprise-entertainment.html
 - https://gift-ora.online/teddy.html
-
-## Day 7
 - https://gift-ora.online/toys.html
 - https://gift-ora.online/wedding-gifts.html
 - https://gift-ora.online/blog-best-online-gift-shop-india.html
+- https://gift-ora.online/blog-bhai-dooj-gifts.html
+
+## Day 11
 - https://gift-ora.online/blog-birthday-gifts-delhi.html
 - https://gift-ora.online/blog-cake-delivery-faridabad.html
+- https://gift-ora.online/blog-chhath-puja-gifts.html
+- https://gift-ora.online/blog-corporate-diwali-gifting-2026.html
+- https://gift-ora.online/blog-dhanteras-gifts.html
+- https://gift-ora.online/blog-diwali-gifts-nri-2026.html
+- https://gift-ora.online/blog-diwali-gifts.html
 - https://gift-ora.online/blog-festival-gifts-nri.html
 - https://gift-ora.online/blog-gifts-under-1000.html
+- https://gift-ora.online/blog-karwa-chauth-gifts.html
 - https://gift-ora.online/blog-nri-gift-guide.html
 - https://gift-ora.online/blog-rakhi-gifts-nri.html
 - https://gift-ora.online/blog-teachers-day-gifts.html
 - https://gift-ora.online/blog.html
 - https://gift-ora.online/products/adorable-teddy-chocolate-surprise.html
-- https://gift-ora.online/products/aglaonema-red-chinese-evergreen-classic-simple-and-recognizable.html
-- https://gift-ora.online/products/blueberry-cloud-chocolate-delight.html
-- https://gift-ora.online/products/blushing-blossoms-rich-chocolate-cake.html
 
-## Day 8
+## Day 12
+- https://gift-ora.online/products/aglaonema-red-chinese-evergreen.html
+- https://gift-ora.online/products/angelic-glow-25-white-rose-bunch.html
+- https://gift-ora.online/products/asian-men-streetwear-logo-print-casual-shoes.html
+- https://gift-ora.online/products/blueberry-cloud-chocolate-delight.html
+- https://gift-ora.online/products/blush-pink-floral-threads-saree.html
+- https://gift-ora.online/products/blushing-blossoms-rich-chocolate-cake.html
+- https://gift-ora.online/products/blushing-elegance-oriental-lily-bunch.html
+- https://gift-ora.online/products/blushing-passion.html
 - https://gift-ora.online/products/boundless-passion-red-white-heart-arrangement.html
 - https://gift-ora.online/products/celebration-glow-designer-chiffon-saree.html
 - https://gift-ora.online/products/celestial-berry-fruit-harmony-stand.html
 - https://gift-ora.online/products/celestial-radiance-white-lily-bunch.html
+- https://gift-ora.online/products/charming-pink-roses-strawberry-vanilla-indulgence.html
 - https://gift-ora.online/products/charming-red-roses-basket-plush-teddy-bear-hamper.html
 - https://gift-ora.online/products/choco-love-teddy-treat.html
+
+## Day 13
 - https://gift-ora.online/products/choco-swirl-celebration-roll-cake.html
 - https://gift-ora.online/products/classic-oreo-crunch-celebration-cake.html
 - https://gift-ora.online/products/classic-red-rose-indulgent-rocher-cake-set.html
 - https://gift-ora.online/products/classic-red-roses-black-forest-celebration-hamper.html
 - https://gift-ora.online/products/classic-red-roses-cadbury-celebration-bunch.html
+- https://gift-ora.online/products/classic-vanilla-memory-photo-cake.html
+- https://gift-ora.online/products/classy-distinction-men-s-grooming-style-combo.html
 - https://gift-ora.online/products/comfynest-plush-infant-support-chair.html
+- https://gift-ora.online/products/creamy-radiance-royal-banarasi-cotton-saree.html
 - https://gift-ora.online/products/crimson-delight-rose-cadbury-combo.html
 - https://gift-ora.online/products/crispy-sweetness-rakhi-festive-gift-box.html
+- https://gift-ora.online/products/crunchy-almonds-dry-fruit-basket.html
+- https://gift-ora.online/products/crystal-elegance-ad-chain-pendant.html
+- https://gift-ora.online/products/dark-cocoa-pink-rose-charm.html
 - https://gift-ora.online/products/designer-cake-luxury-perfume-gift-set-combo.html
 
-## Day 9
+## Day 14
 - https://gift-ora.online/products/designer-rakhis-sweets.html
+- https://gift-ora.online/products/designer-white-vanilla-dark-chocolate-cake.html
+- https://gift-ora.online/products/diwali-hammper.html
 - https://gift-ora.online/products/elegant-harmony-red-white-roses-with-vanilla-cake.html
 - https://gift-ora.online/products/elegant-red-roses-basket-ferrero-rocher-delight.html
+- https://gift-ora.online/products/elevate-lace-up-high-heel-casual-lady-boots.html
+- https://gift-ora.online/products/enchanted-rose-vanilla-fantasy.html
+- https://gift-ora.online/products/eternal-brilliance-ad-solitaire-chain-earring.html
+- https://gift-ora.online/products/eternal-harmony-20-red-white-rose-bouquet.html
+- https://gift-ora.online/products/eternal-love-50-red-roses-heart-basket-strawberry-cake-combo.html
+- https://gift-ora.online/products/eternal-passion-30-red-white-rose-hand-bunch.html
+- https://gift-ora.online/products/everyday-dry-fruits-gift-box.html
 - https://gift-ora.online/products/executive-craft-classic-genuine-leather-belt.html
 - https://gift-ora.online/products/exotic-berry-pineapple-fruit-harmony.html
 - https://gift-ora.online/products/exotic-pink-orchid-choco-premium-hamper.html
+
+## Day 15
 - https://gift-ora.online/products/exotic-purple-orchid-pineapple-delight.html
 - https://gift-ora.online/products/fairytale-carriage-princess-cake.html
 - https://gift-ora.online/products/ferrero-rocher-hazelnut-drizzle-cake.html
+- https://gift-ora.online/products/festive-dry-fruit-mithai-hamper.html
 - https://gift-ora.online/products/forever-entwined-red-rose-heart-basket.html
+- https://gift-ora.online/products/forever-love-chocolate-red-rose-combo.html
 - https://gift-ora.online/products/forever-love-couple-cake.html
+- https://gift-ora.online/products/forever-love-white-vanilla-heart.html
 - https://gift-ora.online/products/forever-sweet-heart-black-forest-cake.html
 - https://gift-ora.online/products/fortune-prosperity-money-plant-in-pot.html
 - https://gift-ora.online/products/fresca-berry-fruit-medley.html
 - https://gift-ora.online/products/gentleman-s-choice-rocher-care-hamper.html
-
-## Day 10
 - https://gift-ora.online/products/golden-affection-rose-rocher-heart.html
 - https://gift-ora.online/products/golden-bandhan-ferrero-silk-designer-rakhi-hamper.html
 - https://gift-ora.online/products/golden-kaju-silk-thread-rakhi-gift-box.html
+
+## Day 16
+- https://gift-ora.online/products/golden-passion-101-red-yellow-rose-heart-arrangement.html
+- https://gift-ora.online/products/grand-chocolate-delight-basket-silk-assortment.html
+- https://gift-ora.online/products/grand-diwali-indulgence-ferrero-rocher-soan-papdi-diyas.html
+- https://gift-ora.online/products/grand-dry-fruits-chocolate-hamper.html
 - https://gift-ora.online/products/grand-scarlet-bloom-basket.html
+- https://gift-ora.online/products/heartfelt-indulgence-rose-rocher-combo.html
 - https://gift-ora.online/products/heartfelt-sweetness-red-rose-combo.html
 - https://gift-ora.online/products/heavenly-touch-rose-carnation-cake-trio.html
 - https://gift-ora.online/products/heavenly-truffle-indulgence-heart-cake.html
+- https://gift-ora.online/products/heavenly-vanilla-whisper-cake.html
 - https://gift-ora.online/products/heavenly-white-forest-whisper.html
 - https://gift-ora.online/products/hero-cycles-typhoon-ibc-26t-single-speed-mountain-bike.html
 - https://gift-ora.online/products/hero-rove-sports-26t-single-speed-mtb-with-dual-disc-brakes.html
 - https://gift-ora.online/products/imperial-bliss-orchids-white-roses-truffle-feast.html
-- https://gift-ora.online/products/jadey-simple-sweet-and-classic.html
+- https://gift-ora.online/products/imperial-trio-251-mixed-rose-harmony.html
+
+## Day 17
+- https://gift-ora.online/products/jadey.html
+- https://gift-ora.online/products/juicy-pineapple-sponge-surprise.html
 - https://gift-ora.online/products/kids-cycle-14-t.html
 - https://gift-ora.online/products/little-adventurer-kids-rechargeable-ride-on-motorcycle.html
 - https://gift-ora.online/products/little-adventurer-safe-ride-baby-cycle.html
-
-## Day 11
+- https://gift-ora.online/products/little-champion-pitch-bat-cake.html
 - https://gift-ora.online/products/littleexplorer-foldable-stroller.html
 - https://gift-ora.online/products/luxurious-rocher-bunch-soft-teddy-bear.html
 - https://gift-ora.online/products/majestic-pink-bloom-truffle-celebration.html
 - https://gift-ora.online/products/majestic-scarlet-basket.html
+- https://gift-ora.online/products/mayura-blue-traditional-banarasi-saree.html
 - https://gift-ora.online/products/mekashi-turbo-black-battery-powered-ride-on-car-for-kids.html
-- https://gift-ora.online/products/mini-fittonia-green-nerve-plant-great-for-highlighting-desk-friendly-size.html
+- https://gift-ora.online/products/mini-fittonia-green-nerve-plant.html
 - https://gift-ora.online/products/modern-diva-gradient-lens-sunglasses-for-women.html
+- https://gift-ora.online/products/nike-everyday-men-s-comfort-casual-shoes.html
+
+## Day 18
+- https://gift-ora.online/products/nutty-snicker-cocoa-dream.html
 - https://gift-ora.online/products/orchid-grace-blush-roses.html
 - https://gift-ora.online/products/orchid-sparkle-mini-cake-delight.html
 - https://gift-ora.online/products/panda-paws-deluxe-musical-ride-on.html
 - https://gift-ora.online/products/passionate-blush-asiatic-lily-bunch.html
 - https://gift-ora.online/products/passionate-purple-pink-rose-charm.html
+- https://gift-ora.online/products/passionate-romance-dual-rose-bunch.html
+- https://gift-ora.online/products/pavitra-rishta-karwa-chauth-ring.html
 - https://gift-ora.online/products/petite-affection-rose-chocolate-duo.html
+- https://gift-ora.online/products/picture-perfect-dark-chocolate-delight.html
+- https://gift-ora.online/products/picture-perfect-strawberry-vanilla-bliss.html
 - https://gift-ora.online/products/pink-delight-rose-basket.html
-- https://gift-ora.online/products/prosperity-clean-air-snake-plant-in-pot.html
+- https://gift-ora.online/products/pink-petals-strawberry-treats.html
+- https://gift-ora.online/products/pink-velvet-ferrero-rocher-indulgence.html
+- https://gift-ora.online/products/premium-kaju-cashew-gift-box.html
 
-## Day 12
+## Day 19
+- https://gift-ora.online/products/prosperity-clean-air-snake-plant-in-pot.html
 - https://gift-ora.online/products/pure-friendship-chocolate-hugs-set.html
 - https://gift-ora.online/products/pure-harmony-peace-lily-plant.html
 - https://gift-ora.online/products/radiant-bliss-10-mixed-rose-cake-set.html
+- https://gift-ora.online/products/radiant-harmony-30-white-yellow-rose-bunch.html
 - https://gift-ora.online/products/radiant-heart-berry-fruit-medley.html
+- https://gift-ora.online/products/radiant-joy-25-yellow-rose-hand-bunch.html
+- https://gift-ora.online/products/radiant-joy-rose-carnation-rocher-celebration.html
+- https://gift-ora.online/products/radiant-red-rose-chocolate-hamper.html
 - https://gift-ora.online/products/radiant-romance-24-red-rose-silver-basket.html
 - https://gift-ora.online/products/rakhi-celi.html
 - https://gift-ora.online/products/rakhi-combo-offer.html
 - https://gift-ora.online/products/red-roses-hand-bunch.html
+- https://gift-ora.online/products/red-tape-men-s-off-white-forest-green-urban-casual-shoes.html
+- https://gift-ora.online/products/red-tape-rt-nimbus-urban.html
+
+## Day 20
 - https://gift-ora.online/products/red-velvet-caramel-craze-cake.html
 - https://gift-ora.online/products/rich-dark-chocolate-cream-fusion.html
+- https://gift-ora.online/products/royal-dry-fruits-celebration-hamper.html
 - https://gift-ora.online/products/royal-emerald-rubber-plant-in-decorative-pot.html
+- https://gift-ora.online/products/royal-irish-coffee-infusion-cake.html
 - https://gift-ora.online/products/royal-orchid-elegance-cocoa-delight.html
 - https://gift-ora.online/products/royal-pineapple-chocolate-harmony.html
 - https://gift-ora.online/products/royal-two-tiered-black-forest-fudge-cake.html
 - https://gift-ora.online/products/scarlet-elegance-20-red-rose-bunch.html
-
-## Day 13
 - https://gift-ora.online/products/scarlet-heart-black-forest-teddy-combo.html
+- https://gift-ora.online/products/scarlet-passion-red-roses-strawberry-vanilla-heart-photo-cake.html
+- https://gift-ora.online/products/serene-harmony-30-white-rose-bouquet.html
 - https://gift-ora.online/products/shubh-bandhan-dry-fruits-rakhi-gift-box.html
 - https://gift-ora.online/products/shubh-bandhan-sweet-duo-rakhi-hamper.html
+- https://gift-ora.online/products/shubh-karwa-chauth-pooja-thali-gourmet-chocolate-set.html
+
+## Day 21
+- https://gift-ora.online/products/silk-sparkle-karwa-chauth-pooja-thali-set.html
 - https://gift-ora.online/products/solid-oxford-cotton-shirt-slim-fit-chinos-leather-strap-watch-or-wallet.html
+- https://gift-ora.online/products/sparx-men-s-sm-9075-flexpace-lightweight-athleisure-shoes.html
+- https://gift-ora.online/products/sparx-men-s-urban-sprint-casual-sneakers-sm-1133.html
 - https://gift-ora.online/products/streetwear-classic-white-high-top-sneakers.html
 - https://gift-ora.online/products/sunny-elegance-yellow-rose-ferrero-rocher-combo.html
 - https://gift-ora.online/products/sunshine-elegance-yellow-rose-bunch.html
 - https://gift-ora.online/products/sunshine-pineapple-cream-cake.html
 - https://gift-ora.online/products/sweet-affection-10-red-rose-cellophane-wrap.html
+- https://gift-ora.online/products/sweet-affection-ombr-rose-bouquet.html
+- https://gift-ora.online/products/sweet-affection-pink-rose-glass-vase.html
 - https://gift-ora.online/products/sweet-affection-red-white-rose-trio.html
 - https://gift-ora.online/products/sweet-elegance-cadbury-vanilla-cake-pink-roses-combo.html
+- https://gift-ora.online/products/sweet-harmony-white-vanilla-cake-red-roses.html
 - https://gift-ora.online/products/sweet-love-teddy-blossom-delight.html
-- https://gift-ora.online/products/sweet-memories.html
-- https://gift-ora.online/products/sweet-passion-pink-white-bouquet.html
-- https://gift-ora.online/products/sweet-romance-pink-rose-rocher-combo.html
 
-## Day 14
+## Day 22
+- https://gift-ora.online/products/sweet-memories.html
+- https://gift-ora.online/products/sweet-memory-choco-photo-cake-balloons.html
+- https://gift-ora.online/products/sweet-passion-pink-white-bouquet.html
+- https://gift-ora.online/products/sweet-romance-15-red-roses-motichoor-ladoo-combo.html
+- https://gift-ora.online/products/sweet-romance-pink-rose-rocher-combo.html
 - https://gift-ora.online/products/sweet-traditions-cadbury-soan-papdi-combo.html
 - https://gift-ora.online/products/sweet-traditions-rose-choco-combo.html
 - https://gift-ora.online/products/sweetheart-jumbo-teddy-bear.html
 - https://gift-ora.online/products/symphony-of-smiles-cake-bouquet-set.html
+- https://gift-ora.online/products/t-rock-boulevard-comfort-synthetic-leather-chelsea-boots.html
 - https://gift-ora.online/products/teddy-roosevelt.html
+- https://gift-ora.online/products/the-signature-four-way-dry-fruit-gift-box.html
+- https://gift-ora.online/products/the-truffle-affair.html
 - https://gift-ora.online/products/the-ultimate-gentleman-s-bundle.html
 - https://gift-ora.online/products/tiny-steps-celebration-box.html
+
+## Day 23
 - https://gift-ora.online/products/traditional-banarasi-kanjeevaram-art-silk-saree-set.html
 - https://gift-ora.online/products/traditional-royal-rakhi-combo-motichoor-laddoo-crunchy-almonds.html
 - https://gift-ora.online/products/tri-delight-rose-cake-express.html
 - https://gift-ora.online/products/triple-delight-box-lucky-bamboo-teddy-cake.html
 - https://gift-ora.online/products/triple-tiered-decadent-dark-chocolate-fudge-cake.html
+- https://gift-ora.online/products/true-love-crimson-chiffon-saree.html
 - https://gift-ora.online/products/ultimate-passion-flower-rocher-celebration.html
 - https://gift-ora.online/products/urban-edge-premium-polarized-sunglasses.html
+- https://gift-ora.online/products/velvet-chocolate-walnut-truffle-cake.html
+- https://gift-ora.online/products/velvet-cocoa-frosting.html
 - https://gift-ora.online/products/velvet-passion-red-roses-red-velvet-cake-hamper.html
-
-## Day 15
+- https://gift-ora.online/products/velvet-romance-triple-tier-delight.html
 - https://gift-ora.online/products/vibrant-cheer-mixed-gerberas-red-velvet-cake-hamper.html
 - https://gift-ora.online/products/vibrant-joy-cadbury-vanilla-cake-mixed-roses-hamper.html
 - https://gift-ora.online/products/vibrant-orchid-pastel-rose-baske.html
+
+## Day 24
+- https://gift-ora.online/products/vibrant-romance-20-mixed-roses-choco-delight-cake.html
 - https://gift-ora.online/products/vibrant-sunset-lily-carnation-bunch.html
 - https://gift-ora.online/products/victorian-pink-ribbon-elegance-cake.html
 - https://gift-ora.online/products/warm-glow-rose-chocolate-basket.html
@@ -254,11 +405,15 @@ Generated from the live sitemap: **226 URLs** (16 days, ~15/day).
 - https://gift-ora.online/products/white-elegance-ferrero-rocher-combo.html
 - https://gift-ora.online/about.html
 - https://gift-ora.online/contact.html
-- https://gift-ora.online/gift-delivery-faridabad.html
-- https://gift-ora.online/gift-delivery-ghaziabad.html
+- https://gift-ora.online/congratulations-gifts.html
+- https://gift-ora.online/engagement-gifts.html
+- https://gift-ora.online/graduation-gifts.html
+- https://gift-ora.online/refund-policy.html
+- https://gift-ora.online/shipping-policy.html
+- https://gift-ora.online/thank-you-gifts.html
 - https://gift-ora.online/track-order.html
+
+## Day 25
 - https://gift-ora.online/vendors.html
 - https://gift-ora.online/privacy-policy.html
-
-## Day 16
 - https://gift-ora.online/terms.html

@@ -6,27 +6,84 @@ into files I've prepared.
 
 Total time: ~10 minutes.
 
-## Current status (last checked 2026-08-13)
+## Current status (last checked 2026-10-19)
 
 - [x] Site verified in Search Console (meta tag + `google7700e6aeefbc94c5.html`)
-- [x] `sitemap.xml` generated — **145 URLs** (44 products, 63 cities, 4 blogs + occasion/category/static)
-- [x] `robots.txt` points to the sitemap
-- [x] `lastmod` refreshed to today via `apply-seo.js` / `generate-products.js`
-- [ ] Sitemap submitted in Search Console (Google)
-- [ ] Key pages requested for indexing (Google)
+- [x] `sitemap.xml` generated — **363 URLs** (187 products, 101 city/delivery pages,
+      16 blog pages, 59 category/occasion/guide/policy pages)
+- [x] `robots.txt` points to both sitemaps (`sitemap.xml`, `image-sitemap.xml`)
+- [x] `lastmod` refreshed via `apply-seo.js` / `generate-products.js`
+- [x] Live sitemap is byte-identical in URL set to the one on disk (verified 2026-10-19)
 - [x] **Bing Webmaster Tools** — verified via `BingSiteAuth.xml`, sitemap submitted
 - [x] **IndexNow** set up — key hosted, `seo/ping-indexnow.js` pings all URLs
-- [ ] UptimeRobot pinging the site (keeps Render free tier awake)
+- [x] UptimeRobot / Render free tier — **no longer relevant**: the site is now served
+      by `nginx/1.18.0 (Ubuntu)` on our own host, so there is no cold-start 503 window
+- [ ] Sitemap submitted in Search Console (Google) — cannot be confirmed from the
+      repo; check GSC -> Sitemaps
+- [ ] Real index status for the 363 URLs — **blocked: no Google API credentials on
+      this machine** (see "Reading real index status" below)
+
+### Live technical audit — 2026-10-19
+
+`node seo/pre-deploy-check.js` returns `RESULT: OK` (363 URLs, 187 products,
+60,326 internal links, 0 orphans, schema valid, deindex guards pass), and a live
+crawl of all 363 sitemap URLs found: 363/363 HTTP 200, 0 redirects, 0 non-self
+canonicals, 0 `noindex` (meta or `X-Robots-Tag`), 0 missing titles, 0 missing or
+duplicate H1s, 0 invalid JSON-LD.
+
+That is **indexability**, not **indexing**. Whether Google has actually indexed a
+URL can only be read from Search Console — see below.
 
 ## Quick checklist (do in order)
 
-1. [ ] Keep the site awake — add an UptimeRobot monitor (Step 0 below)
-2. [ ] Open Search Console → your `https://gift-ora.online` property
-3. [ ] **Sitemaps** → submit `sitemap.xml` (expect Success, 145 URLs)
-4. [ ] **URL Inspection** → request indexing for `index.html` + 5 key pages
+1. [ ] Keep the site reachable — no longer needed (site is on nginx, not Render)
+2. [ ] Open Search Console -> your `gift-ora.online` property
+3. [ ] **Sitemaps** -> submit `sitemap.xml` (expect Success, 363 URLs)
+4. [ ] **URL Inspection** -> request indexing using the generated lists (see below)
 5. [x] Bing Webmaster Tools — verified + sitemap submitted (done)
 6. [x] IndexNow — automated pings (done)
 7. [ ] Wait 1–2 weeks, then check **Performance** report
+
+### The generated URL lists (all three cover all 363 sitemap URLs)
+
+| File | Use |
+|---|---|
+| `gsc-inspection-links.md` | Direct click-through links into GSC URL Inspection, every sitemap URL |
+| `.opencode/SEO-URL-BATCHES.md` | Same 363 URLs split into 25 days of ~15, for the daily routine |
+| `seo/url-inspection-list.txt` | Tiered input for `node seo/check-indexing.js` (TIER 1..6) |
+
+All three are regenerated from `sitemap.xml` by `node seo/gen-gsc-lists.js` — re-run
+it after any product/page addition, or the lists silently fall behind (they had
+drifted to 226, 169 and 332 URLs respectively before the 2026-10-19 refresh). The
+script is append-only for the tiered list and never writes `sitemap.xml`.
+
+## Reading real index status (needs credentials — not set up yet)
+
+`node seo/check-indexing.js` runs a live technical preflight on every URL and, if
+`seo/gsc-service-account.json` exists, **also** asks Google directly via the URL
+Inspection API whether each URL is indexed. Without that file it prints
+`GSC creds: not set up - preflight only` and every `gscCoverage`/`gscVerdict`
+stays `null` in `artifacts/indexing-status.json`.
+
+To enable it:
+
+1. Google Cloud Console -> enable the **Google Search Console API**.
+2. IAM & Admin -> Service Accounts -> create one -> **Keys -> Add key -> JSON**.
+3. Save the download as exactly `seo/gsc-service-account.json`
+   (already whitelisted in `seo/.gitignore` as `*-service-account*.json`).
+4. Search Console -> property -> *Settings -> Users and permissions -> Add user*
+   -> paste the key's `client_email` -> permission **Full**.
+
+Then `node seo/check-indexing.js --all`. Quota is 2,000 inspections/day, so all
+363 URLs fit easily. Results are written to `artifacts/indexing-status.json`
+(gitignored) so runs can be diffed day over day.
+
+**Property-type gotcha:** `seo/check-indexing.js` defaults to the *Domain*
+property `sc-domain:gift-ora.online`, and `gsc-inspection-links.md` uses the same
+`resource_id`. Steps 1-5 of this guide create a *URL prefix* property instead. If
+your property is the URL-prefix kind, pass it explicitly:
+`node seo/check-indexing.js --all --site https://gift-ora.online`, otherwise the
+API returns 403.
 
 ---
 
@@ -51,17 +108,13 @@ anything else in Bing — IndexNow covers it.
 
 ---
 
-## Step 0 — Keep the site awake (important)
+## Step 0 — Keep the site reachable (no longer needed)
 
-Giftora runs on Render's free tier, which sleeps after inactivity and returns
-503 to Googlebot. A sleeping site gets crawled very slowly.
-
-Do one of these:
-
-- Create a free account at **UptimeRobot** (uptimerobot.com) → *New monitor* →
-  URL: `https://gift-ora.online` → check every 5 minutes. Free pings keep
-  the site warm.
-- Or set **Render** to the paid tier (no sleep at all).
+This used to matter: Giftora ran on Render's free tier, which slept after
+inactivity and returned 503 to Googlebot, so crawling was slow. **The site is now
+self-hosted behind `nginx/1.18.0 (Ubuntu)` and always up**, so no UptimeRobot
+monitor is required. (Keep this note only as history — if the site ever moves
+back to a sleeping host, re-add a 5-minute uptime ping.)
 
 ---
 
@@ -69,8 +122,10 @@ Do one of these:
 
 1. Go to **search.google.com/search-console** and sign in with a Google account.
 2. Click **Add property**.
-3. Choose **URL prefix** (not "Domain").
-4. Paste: `https://gift-ora.online`
+3. Choose **Domain** (so it matches the `sc-domain:gift-ora.online` property that
+   `seo/check-indexing.js` and `gsc-inspection-links.md` expect), or **URL prefix**
+   with `https://gift-ora.online` — either works, see the gotcha above.
+4. Paste: `https://gift-ora.online` (URL prefix) or `gift-ora.online` (Domain).
 5. Click **Continue**.
 
 ## Step 2 — Verify ownership (use the meta tag)
@@ -91,7 +146,8 @@ You'll be shown verification options. Pick the one that gives you a meta tag:
    node seo/apply-seo.js
    node seo/generate-products.js
    ```
-5. Deploy to Render (push to GitHub; Render auto-deploys).
+5. Deploy (push to GitHub, then pull + restart on the nginx host — the site is
+   self-hosted, not on Render any more).
 6. Back in Search Console, click **Verify**.
 
 > Alternative (no code edits): download the `google<code>.html` verification
@@ -107,20 +163,23 @@ You'll be shown verification options. Pick the one that gives you a meta tag:
    ```
     sitemap.xml
     ```
-4. Click **Submit**. You should see *Success* with 145 URLs discovered.
+4. Click **Submit**. You should see *Success* with 363 URLs discovered.
 
 ## Step 4 — Request indexing of your best pages
 
 1. Top bar → **URL Inspection** tool.
-2. Paste `https://gift-ora.online/index.html` → press Enter.
+2. Paste `https://gift-ora.online/` → press Enter.
 3. If it shows "URL is not on Google" (or not indexed), click
    **Request Indexing**.
-4. Repeat for a few key pages, e.g.:
-   - `https://gift-ora.online/cakes.html`
-   - `https://gift-ora.online/flower-delivery-online-same-day.html` (any product page)
-   - `https://gift-ora.online/sitemap.xml`
+4. Work through the generated lists instead of hand-picking pages:
+   - `gsc-inspection-links.md` — one click per URL, all 363 sitemap URLs
+   - `.opencode/SEO-URL-BATCHES.md` — the same URLs spread over 25 days
+   - TIER 1 first (`seo/url-inspection-list.txt`): the newest pages with no
+     indexing history at all.
 
-Do not spam — a handful of requests a day is plenty.
+Do not spam — a handful of requests a day is plenty. Note the URL Inspection
+tool is a *check*, so it is also the manual fallback for everything the API-based
+`seo/check-indexing.js` does automatically once credentials exist.
 
 ---
 
