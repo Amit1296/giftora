@@ -161,7 +161,7 @@ function buildJsonLd(page, cfg, site, products) {
       const pageType = cfg.category === "Special Offers" || cfg.category === "Festival Offer" || cfg.category === "Combo Offers"
         ? "CollectionPage" : "CollectionPage";
       const matched = cfg.category
-        ? products.filter((p) => p.category.toLowerCase() === cfg.category.toLowerCase())
+        ? products.filter((p) => p.category && cfg.category.toLowerCase().includes(p.category.toLowerCase()))
         : [];
       const collection = {
         "@context": "https://schema.org",

@@ -1190,5 +1190,30 @@
         ]
       }
     ]
+  },
+  "rakhi-gifts.html": {
+    "tag": "Buying guide",
+    "h2": "How to choose the right rakhi gift this Raksha Bandhan",
+    "paragraphs": [
+      "A rakhi gift works best when it feels personal to your brother or sister. A single designer rakhi with sweets covers the classic celebration, while a dry fruit or chocolate hamper turns the festival into a proper family treat. If you are ordering from another city, pick a combo so the rakhi and the sweets arrive together instead of separately.",
+      "Think about timing as well as contents. Raksha Bandhan brings a delivery rush every year, so choosing the gift a few days early and picking same-day delivery in Delhi NCR or major metros keeps the surprise safely on schedule."
+    ],
+    "tipsTitle": "Picking the perfect rakhi combo",
+    "tips": [
+      "Silk thread and designer rakhis suit brothers who wear traditional dress; simpler bands feel right for everyday wear.",
+      "Sweets like motichoor laddoo and dry fruit hampers are the safest crowd-pleasers for a joint family celebration.",
+      "Budget combos start at Rs 449, while premium hampers with Ferrero and dry fruits run to Rs 1799.",
+      "Add a personalised card so your message reaches your brother or sister along with the gift."
+    ],
+    "faqs": [
+      { "q": "Can I send rakhi gifts to my brother in another city?", "a": "Yes. Order online and Giftora delivers rakhi gifts across India by express courier, so you can send them to any pincode you have." },
+      { "q": "Do you have rakhi gifts for sisters too?", "a": "Yes. The collection covers rakhis and hampers for sisters as well as brothers, plus combo sets the whole family can share." },
+      { "q": "Will my rakhi gift include a personalised card?", "a": "Yes. Every rakhi gift can carry a personalised message card, so your wishes travel with the gift." }
+    ],
+    "links": [
+      { "href": "products/traditional-royal-rakhi-combo-motichoor-laddoo-crunchy-almonds.html", "text": "Traditional Royal Rakhi Combo" },
+      { "href": "cakes.html", "text": "cakes" },
+      { "href": "flowers.html", "text": "fresh flowers" }
+    ]
   }
 }
