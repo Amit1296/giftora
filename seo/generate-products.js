@@ -673,7 +673,7 @@ function productBody(product, slug, catMeta, site, products, faqs) {
     ? `\n            <span class="old-price" id="detailOldPrice">${fmtPrice(product.oldPrice)}</span>`
     : "";
   const media = product.image
-    ? `<img class="product-detail-img" src="${product.image}"${dimAttr(product.image)} alt="${esc(product.name)}">`
+    ? `<img class="product-detail-img" src="${product.image}"${dimAttr(product.image)} fetchpriority="high" alt="${esc(product.name)}">`
     : `<span class="product-detail-emoji">${product.emoji || "🎁"}</span>`;
 
   const stock = typeof product.stock === "number" && product.stock >= 0 ? product.stock : Infinity;

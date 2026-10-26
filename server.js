@@ -454,7 +454,7 @@ function optimizeStaticHtml(html, fileDir) {
     return '<style data-inline-css="' + path.basename(resolved).replace(/[^a-z0-9]+/gi, "") + '">' + css + "</style>";
   });
 
-  const versionScript = (match, presrc, quote, src, closers) => {
+  const versionScript = (match, presrc, quote, src, _closingQuote, closers) => {
     const clean = src.split("?")[0];
     if (!clean.toLowerCase().endsWith(".js")) return match;
     const resolved = path.resolve(fileDir, clean);

@@ -500,7 +500,7 @@ function productBody(product, slug, catMeta, site, products, faqs) {
     ? `\n            <span class="old-price" id="detailOldPrice">${fmtPrice(product.oldPrice)}</span>`
     : "";
   const media = product.image
-    ? `<img class="product-detail-img" src="${product.image}"${dimAttr(product.image)} alt="${esc(product.name)}">`
+    ? `<img class="product-detail-img" src="${product.image}"${dimAttr(product.image)} fetchpriority="high" alt="${esc(product.name)}">`
     : `<span class="product-detail-emoji">${product.emoji || "\uD83C\uDF81"}</span>`;
 
   const stock = typeof product.stock === "number" && product.stock >= 0 ? product.stock : Infinity;
@@ -663,7 +663,7 @@ ${meta.block}
 \t<link rel="icon" href="../logo.svg">
 \t<title>${meta.title.replace(/&/g, "&amp;")}</title>
 ${FONT_PRELOADS}
-\t<style data-inline-css="fontscss">${SELF_HOSTED_FONTS_CSS}</style>
+${product.image ? `\t<link rel="preload" as="image" href="${esc(product.image)}" fetchpriority="high">\n` : ""}\t<style data-inline-css="fontscss">${SELF_HOSTED_FONTS_CSS}</style>
 \t<style data-inline-css="stylemincss">${STYLE_MIN_CSS}</style>
 <!-- SEO-JSONLD-START -->
 <script type="application/ld+json">
