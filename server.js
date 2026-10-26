@@ -480,6 +480,23 @@ function optimizeStaticHtml(html, fileDir) {
   return html;
 }
 
+function sendHtmlBody(res, html, status, cacheControl, useGzip) {
+  const buf = Buffer.from(html, "utf8");
+  const headers = { "Content-Type": "text/html; charset=utf-8", "Cache-Control": cacheControl };
+  if (useGzip && buf.length > 512) {
+    res.writeHead(status, Object.assign({}, headers, { "Content-Encoding": "gzip", "Vary": "Accept-Encoding" }));
+    return zlib.gzip(buf, (err, compressed) => {
+      if (err) {
+        res.writeHead(status, headers);
+        return res.end(buf);
+      }
+      res.end(compressed);
+    });
+  }
+  res.writeHead(status, headers);
+  return res.end(buf);
+}
+
 const server = http.createServer(async (req, res) => {
   try {
     await handleRequest(req, res);
@@ -1382,22 +1399,40 @@ async function handleRequest(req, res) {
      (.json secrets, .js dependencies). */
   const privatePrefixes = ["/data/", "/node_modules/", "/hooks/", "/backups/", "/seo/", "/.git/", "/.opencode/", "/logs/", "/tmp/", "/admin/", "/checkout-preview"];
 
-  /* Bare /products/<slug> without .html: 301 to the real page so typo'd or
-     third-party links never land on a 403. Canonical stays self-referencing.
-     Absolute Location so proxies/crawlers resolve it against the right host. */
-  if (!requestExt && lowerPath.startsWith("/products/") && pathname.length > "/products/".length) {
-    const htmlDest = pathname + ".html";
+  /* Bare HTML URLs without .html (/products/<slug>, /gift-delivery-<city>): 301
+     to the real page so typo'd or third-party links never land on a 403.
+     Canonical stays self-referencing. Absolute Location so proxies/crawlers
+     resolve it against the right host; the query string is preserved for ads. */
+  const bareHtml =
+    !requestExt &&
+    ((lowerPath.startsWith("/products/") && pathname.length > "/products/".length) ||
+      /^\/gift-delivery-[a-z-]+\/?$/.test(lowerPath));
+  if (bareHtml) {
+    const htmlDest =
+      (lowerPath.startsWith("/products/") ? pathname : lowerPath.replace(/\/$/, "")) + ".html";
     if (fs.existsSync(path.join(ROOT, htmlDest))) {
-      res.writeHead(301, { Location: SITE_URL + htmlDest, "Cache-Control": "public, max-age=86400" });
+      res.writeHead(301, {
+        Location: SITE_URL + htmlDest + (url.search || ""),
+        "Cache-Control": "public, max-age=86400",
+      });
       return res.end();
     }
   }
 
+  const privatePath = privatePrefixes.some(
+    (b) => lowerPath === b.replace(/\/$/, "") || lowerPath.startsWith(b)
+  );
+  /* A missing page-like path (/gift-delivery-atlantis, /no-such-page) is a 404,
+     not a 403; secret directories and hidden files stay forbidden. */
+  const pageLikeMiss =
+    !requestExt && !hiddenSegment && !privatePath && /^\/[a-z0-9-]+$/.test(lowerPath);
+
   if (
-    !extAllowed ||
-    !rootAllowed ||
-    hiddenSegment ||
-    privatePrefixes.some((b) => lowerPath.startsWith(b))
+    (!extAllowed ||
+      !rootAllowed ||
+      hiddenSegment ||
+      privatePath) &&
+    !pageLikeMiss
   ) {
     res.writeHead(403, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Forbidden");
@@ -1443,6 +1478,24 @@ async function handleRequest(req, res) {
         return res.end();
       }
     }
+    /* Branded 404 for page requests; missing assets keep the plain reply so a
+       broken image never returns HTML. */
+    const wantsHtml = !requestExt || requestExt === ".html";
+    const notFoundFile = path.join(ROOT, "404.html");
+    if (wantsHtml && fs.existsSync(notFoundFile)) {
+      try {
+        const page = optimizeStaticHtml(fs.readFileSync(notFoundFile, "utf8"), ROOT);
+        return sendHtmlBody(
+          res,
+          page,
+          404,
+          "no-store",
+          (req.headers["accept-encoding"] || "").includes("gzip")
+        );
+      } catch (e) {
+        console.error("404 page render error:", e.message);
+      }
+    }
     res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
     return res.end("Not found");
   }
@@ -1464,8 +1517,11 @@ async function handleRequest(req, res) {
     }
     html = optimizeStaticHtml(html, path.dirname(filePath));
     const buf = Buffer.from(html, "utf8");
+    /* The error template is never a real page: keep it at 404 even when
+       requested directly so it cannot be indexed. */
+    const htmlStatus = path.basename(filePath).toLowerCase() === "404.html" ? 404 : 200;
     if (useGzip && buf.length > 512) {
-      res.writeHead(200, {
+      res.writeHead(htmlStatus, {
         "Content-Type": type,
         "Cache-Control": cacheControl,
         "Content-Encoding": "gzip",
@@ -1473,13 +1529,13 @@ async function handleRequest(req, res) {
       });
       return zlib.gzip(buf, (err, compressed) => {
         if (err) {
-          res.writeHead(200, { "Content-Type": type, "Cache-Control": cacheControl });
+          res.writeHead(htmlStatus, { "Content-Type": type, "Cache-Control": cacheControl });
           return res.end(buf);
         }
         res.end(compressed);
       });
     }
-    res.writeHead(200, { "Content-Type": type, "Cache-Control": cacheControl });
+    res.writeHead(htmlStatus, { "Content-Type": type, "Cache-Control": cacheControl });
     return res.end(buf);
   }
 
