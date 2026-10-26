@@ -103,7 +103,7 @@ Thanks so much! 💐
 
 **Post 3 — Trust/Proof:**
 > 🚚 Delivering smiles to 62 cities across India! From Delhi to Bengaluru, Mumbai to Patiala — Giftora delivers flowers, cakes, plants & gift combos with gift wrapping and a personalised note. Celebrating birthdays, anniversaries or festivals? We're here for you.
-> 👉 https://gift-ora.online/index.html
+> 👉 https://gift-ora.online/
 
 ---
 
