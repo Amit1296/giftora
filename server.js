@@ -1270,6 +1270,11 @@ async function handleRequest(req, res) {
         console.error("Legacy product redirect error:", e.message);
       }
     }
+    /* No id, or an id we can't resolve: this is the old JS-only product shell.
+       It renders no unique content, so 301 it to the shop instead of serving a
+       thin duplicate page that Google could index under its own canonical. */
+    res.writeHead(301, { Location: SITE_URL + "/", "Cache-Control": "public, max-age=86400" });
+    return res.end();
   }
 
   /* ---------- Google Merchant Center feed ---------- */
