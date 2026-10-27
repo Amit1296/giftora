@@ -14,7 +14,8 @@
     "seo:track": "node seo/track.js",
     "seo:baseline": "node seo/aio-baseline.js --write",
     "seo:llms": "node seo/sync-llms.js",
-    "seo:index": "node seo/check-indexing.js"
+    "seo:index": "node seo/check-indexing.js",
+    "seo:ping:changed": "node seo/ping-indexnow.js --if-changed"
   },
   "keywords": [],
   "author": "",
