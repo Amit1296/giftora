@@ -1517,10 +1517,10 @@
   }
 
   function productPageUrl(p) {
-    const dynamic = "product.html?id=" + p.id;
+    const dynamic = "/product.html?id=" + p.id;
     if (!window.GIFT_PRODUCT_PAGES) return dynamic;
     const slug = slugify(p.name);
-    return window.GIFT_PRODUCT_PAGES.includes(slug) ? "products/" + slug + ".html" : dynamic;
+    return window.GIFT_PRODUCT_PAGES.includes(slug) ? "/products/" + slug + ".html" : dynamic;
   }
 
   function shortDesc(p) {
