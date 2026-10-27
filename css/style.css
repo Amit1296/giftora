@@ -2450,4 +2450,105 @@ main [id], .hero [id] { scroll-margin-top: 120px; }
     .navbar.scrolled .logo-mark { width: 62px; height: 52px; }
   }
 
+  /* ===== Diwali 2026 banner: Shubh Deepavali ===== */
+  .dwB {
+    position: relative; isolation: isolate; overflow: hidden;
+    display: flex; flex-direction: row-reverse; align-items: center; gap: 40px; flex-wrap: wrap;
+    max-width: 1200px; margin: 0 auto; min-height: 336px;
+    padding: 40px 40px 40px 54px;
+    border-radius: 26px;
+    border: 1px solid #f2d3b3;
+    background:
+      radial-gradient(120% 150% at 0% 50%, #fff6ea 0%, rgba(255, 246, 234, 0) 62%),
+      linear-gradient(112deg, #fffaf3 0%, #fff1e0 48%, #ffe0c6 100%);
+    box-shadow: 0 24px 54px rgba(120, 62, 20, .14);
+  }
+  .dwB-toran { position: absolute; z-index: 2; top: 0; left: 0; right: 0; height: 26px; display: flex; justify-content: space-between; padding: 0 26px; pointer-events: none; }
+  .dwB-toran::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #e9b25c, transparent); }
+  .dwB-toran i { display: block; flex: 0 0 auto; width: 11px; height: 11px; border-radius: 50%; margin-top: 5px; background: radial-gradient(circle at 35% 30%, #ffd27a, #f08a1c 68%, #c9631a); box-shadow: 0 2px 4px rgba(150, 80, 10, .18); }
+  .dwB-toran i:nth-child(3n) { margin-top: 11px; background: radial-gradient(circle at 35% 30%, #ffb07a, #d9442b 68%, #a92e1c); }
+  .dwB-toran i:nth-child(2n) { margin-top: 8px; }
+  .dwB-toran i:nth-child(5n) { width: 8px; height: 8px; }
+
+  .dwB-media { position: relative; z-index: 1; flex: 0 0 auto; width: 268px; height: 268px; display: grid; place-items: center; }
+  .dwB-rangoli { position: absolute; inset: -56px; z-index: 0; animation: dwB-spin 90s linear infinite; }
+  @keyframes dwB-spin { to { rotate: -360deg; } }
+  .dwB-photo {
+    position: relative; z-index: 1; width: 212px; height: 212px; border-radius: 50%;
+    overflow: hidden; border: 6px solid #fff8ee;
+    box-shadow: 0 18px 40px rgba(140, 70, 20, .22), 0 0 0 1px rgba(233, 178, 92, .5);
+    background: #fff;
+  }
+  .dwB-photo img { width: 100%; height: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
+  .dwB-flame {
+    position: absolute; z-index: 3; left: 50%; top: -3px; translate: -50% 0;
+    width: 22px; height: 30px;
+    background: radial-gradient(50% 60% at 50% 72%, #fffbe8 0%, #ffd066 40%, #ff8f37 72%, rgba(255, 143, 55, 0) 100%);
+    border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
+    filter: drop-shadow(0 0 12px rgba(255, 160, 60, .8));
+    animation: dwB-flicker 2.8s ease-in-out infinite;
+  }
+  @keyframes dwB-flicker { 0%, 100% { transform: scale(1); opacity: .95; } 50% { transform: scale(1.08, .92); opacity: 1; } }
+
+  .dwB-copy { position: relative; z-index: 1; flex: 1 1 430px; min-width: 280px; display: flex; flex-direction: column; gap: 13px; }
+  .dwB-kicker { display: flex; align-items: center; gap: 10px; font-size: .76rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #a3541f; }
+  .dwB-kicker b { color: #fff; background: linear-gradient(135deg, #e07a24, #c2561a); padding: 5px 12px; border-radius: 999px; letter-spacing: .1em; font-weight: 800; }
+  .dwB-title { margin: 0; font-family: var(--font-head); font-weight: 800; font-size: clamp(2.05rem, 3.7vw, 2.95rem); line-height: 1.04; color: #7a1220; letter-spacing: -.01em; }
+  .dwB-title em { font-style: normal; display: block; font-size: .44em; letter-spacing: .3em; text-transform: uppercase; font-weight: 600; color: #c2561a; margin-top: 10px; }
+  .dwB-sub { margin: 0; max-width: 48ch; color: #6b4a35; font-size: 1rem; line-height: 1.55; }
+  .dwB-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+
+  .dwB-ticket {
+    position: relative; display: inline-flex; align-items: center; gap: 12px;
+    padding: 10px 18px; border-radius: 10px;
+    background: linear-gradient(135deg, #fffdf8, #fff2df);
+    border: 1.5px dashed #d98a3c;
+    color: #7a1220; font-size: .84rem; font-weight: 700;
+    box-shadow: 0 6px 14px rgba(160, 90, 30, .12);
+  }
+  .dwB-ticket::before, .dwB-ticket::after {
+    content: ""; position: absolute; top: 50%; translate: 0 -50%;
+    width: 12px; height: 12px; border-radius: 50%; background: #fff1e0;
+    border: 1.5px dashed #d98a3c;
+  }
+  .dwB-ticket::before { left: -7px; }
+  .dwB-ticket::after { right: -7px; }
+  .dwB-ticket b { letter-spacing: .12em; font-size: .95rem; }
+  .dwB-ticket span { font-weight: 800; color: #b3341f; }
+
+  .dwB .dwB-count { background: none; border: 0; box-shadow: none; padding: 0; gap: 4px; color: #8a5a34; font-size: .8rem; font-weight: 600; }
+  .dwB .dwB-count .cd-label { opacity: 1; font-weight: 600; }
+  .dwB .dwB-count .cd-num { min-width: 26px; padding: 2px 5px; border-radius: 6px; background: #7a1220; color: #fff8ee; font-size: .78rem; }
+
+  .dwB-cta {
+    align-self: flex-start; margin-top: 6px;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 1rem; color: #fff8ee; text-decoration: none;
+    background: linear-gradient(135deg, #8f1a2c, #6d1020);
+    padding: 14px 30px; border-radius: 999px;
+    box-shadow: 0 14px 28px rgba(143, 26, 44, .26);
+    transition: transform .22s, box-shadow .22s;
+  }
+  .dwB-cta:hover { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(143, 26, 44, .34); }
+  .dwB-cta:focus-visible, .dwB-photo:focus-visible { outline: 3px solid #7a1220; outline-offset: 4px; }
+
+  @media (max-width: 860px) {
+    .dwB { padding: 26px 22px 28px; gap: 18px; border-radius: 20px; justify-content: center; }
+    .dwB-kicker { flex-wrap: wrap; gap: 8px; font-size: .68rem; letter-spacing: .1em; }
+    .dwB-kicker b { white-space: nowrap; }
+    .dwB-media { width: 168px; height: 168px; }
+    .dwB-photo { width: 134px; height: 134px; border-width: 5px; }
+    .dwB-rangoli { inset: -30px; }
+    .dwB-title { font-size: 1.72rem; }
+    .dwB-title em { font-size: .4em; margin-top: 6px; }
+    .dwB-sub { font-size: .93rem; }
+    .dwB-toran { gap: 10px; padding: 0 16px; }
+    .dwB-ticket { padding: 9px 14px; font-size: .78rem; }
+    .dwB-cta { padding: 13px 24px; font-size: .95rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dwB-rangoli, .dwB-flame { animation: none; }
+    .dwB-cta { transition: none; }
+  }
+
 
