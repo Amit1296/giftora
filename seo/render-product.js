@@ -176,11 +176,27 @@ function extractChrome() {
   return _chrome;
 }
 
+/* The keywords attribute is comma-delimited, so a product name such as
+   "Golden Bandhan Ferrero, Silk & Designer Rakhi Hamper" would split into two
+   terms and repeat its first half across the name/online/price variants. */
+function keywordList(list) {
+  const seen = new Set();
+  const out = [];
+  for (const raw of list) {
+    const kw = String(raw).replace(/,/g, " ").replace(/\s+/g, " ").trim();
+    const key = kw.toLowerCase();
+    if (!kw || seen.has(key)) continue;
+    seen.add(key);
+    out.push(kw);
+  }
+  return out;
+}
+
 function buildMeta(product, slug, catMeta, site, description) {
   const url = `${site.url}/products/${slug}.html`;
   const title = fit(`${product.name} \u2014 Buy Online at Giftora`, 60);
   const custom = PRODUCT_KEYWORDS[product.id];
-  const keywords = custom && custom.length
+  const keywords = keywordList(custom && custom.length
     ? custom
     : [
       product.name,
@@ -191,7 +207,7 @@ function buildMeta(product, slug, catMeta, site, description) {
       `same day ${catMeta.name} delivery`,
       "online gift shop India",
       "gift delivery India",
-    ];
+    ]);
   const lines = [
     "<!-- SEO-BLOCK-START -->",
     `<meta name="keywords" content="${esc(keywords.join(", "))}">`,
@@ -675,7 +691,7 @@ ${jsonLd}
 
 ${chrome.navbar}
 
-<main>
+<main id="main-content">
 ${body}
 </main>
 
