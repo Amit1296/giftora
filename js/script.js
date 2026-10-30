@@ -1916,6 +1916,10 @@
     .map((a) => document.getElementById(a.getAttribute("href").slice(1)))
     .filter(Boolean);
   const spyOffsets = [];
+  const spyIds = spyLinks.map((a) => a.getAttribute("href").slice(1));
+  let spyActiveId = null;
+  let navbarScrolled = false;
+  let scrollQueued = false;
   function measureSpyTargets() {
     spyOffsets.length = 0;
     spyTargets.forEach((sec) => {
@@ -1931,20 +1935,49 @@
     for (const s of spyOffsets) {
       if (y >= s.top - 140 && y < s.top + s.height - 120) currentId = s.id;
     }
-    spyLinks.forEach((a) => {
-      const on = a.getAttribute("href").slice(1) === currentId;
+    if (currentId === spyActiveId) return;
+    spyActiveId = currentId;
+    spyLinks.forEach((a, i) => {
+      const on = spyIds[i] === currentId;
       a.classList.toggle("active", on);
       if (on) a.setAttribute("aria-current", "true");
       else a.removeAttribute("aria-current");
     });
   }
 
-  window.addEventListener("scroll", () => {
-    navbar.classList.toggle("scrolled", window.scrollY > 20);
+  /* One layout-touching pass per frame at most: the scroll event fires far more
+     often than the DOM needs to change, and toggling classes on every event is
+     what forced the browser to lay the page out again mid-scroll. */
+  function onScrollFrame() {
+    scrollQueued = false;
+    const scrolled = window.scrollY > 20;
+    if (scrolled !== navbarScrolled) {
+      navbarScrolled = scrolled;
+      navbar.classList.toggle("scrolled", scrolled);
+    }
     updateScrollspy();
+  }
+  window.addEventListener("scroll", () => {
+    if (scrollQueued) return;
+    scrollQueued = true;
+    requestAnimationFrame(onScrollFrame);
   }, { passive: true });
+
+  let spyResizeTimer = null;
+  window.addEventListener("resize", () => {
+    if (spyOffsets.length === 0) return;
+    clearTimeout(spyResizeTimer);
+    spyResizeTimer = setTimeout(() => {
+      measureSpyTargets();
+      spyActiveId = null;
+      updateScrollspy();
+    }, 150);
+  }, { passive: true });
+
   const initScrollspy = () => {
     measureSpyTargets();
+    navbarScrolled = window.scrollY > 20;
+    navbar.classList.toggle("scrolled", navbarScrolled);
     updateScrollspy();
   };
   if (typeof requestIdleCallback === "function") requestIdleCallback(initScrollspy, { timeout: 1000 });

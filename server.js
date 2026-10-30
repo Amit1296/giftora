@@ -1500,8 +1500,23 @@ async function handleRequest(req, res) {
     return res.end("Not found");
   }
 
-  const ext = path.extname(filePath).toLowerCase();
-  const type = MIME[ext] || "application/octet-stream";
+  let ext = path.extname(filePath).toLowerCase();
+  let type = MIME[ext] || "application/octet-stream";
+
+  /* Photos are uploaded as PNG/JPEG, but a same-name .webp may sit next to them
+     (see tools/make-webp.sh). Serve that version to clients that advertise
+     support, so URLs, product data and social previews keep pointing at the
+     original file while browsers download a fraction of the bytes. */
+  if ((ext === ".png" || ext === ".jpg" || ext === ".jpeg") &&
+      /image\/webp/i.test(req.headers["accept"] || "")) {
+    const webpPath = filePath.replace(/\.(png|jpe?g)$/i, ".webp");
+    if (fs.existsSync(webpPath)) {
+      filePath = webpPath;
+      ext = ".webp";
+      type = MIME[".webp"];
+    }
+  }
+
   const cacheControl = cacheControlFor(filePath, CACHE_EXTENSIONS[ext] || "no-cache", url.searchParams.has("v"));
 
   const acceptEncoding = req.headers["accept-encoding"] || "";
@@ -1551,7 +1566,9 @@ async function handleRequest(req, res) {
     stream.pipe(zlib.createGzip()).pipe(res);
     stream.on("error", () => res.end());
   } else {
-    res.writeHead(200, { "Content-Type": type, "Cache-Control": cacheControl });
+    const headers = { "Content-Type": type, "Cache-Control": cacheControl };
+    if (type.startsWith("image/")) headers.Vary = "Accept";
+    res.writeHead(200, headers);
     const stream = fs.createReadStream(filePath);
     stream.pipe(res);
     stream.on("error", () => res.end());
