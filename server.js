@@ -1141,6 +1141,18 @@ async function handleRequest(req, res) {
     return res.end();
   }
 
+  /* Trailing slash after a page name (/gift-delivery-lucknow.html/): crawlers
+     and chat apps invent this variant on their own. 301 to the real page so a
+     guessed URL costs neither a dead end nor a wasted crawl. */
+  if (/\.html\/+$/i.test(pathname)) {
+    const dest = pathname.replace(/\/+$/, "").toLowerCase();
+    const destFile = dest === "/index.html" ? "/" : dest;
+    if (destFile === "/" || fs.existsSync(path.join(ROOT, dest))) {
+      res.writeHead(301, { Location: SITE_URL + destFile + (url.search || ""), "Cache-Control": "public, max-age=86400" });
+      return res.end();
+    }
+  }
+
   /* ---------- Dynamic product pages ---------- */
   const productMatch = pathname.match(/^\/products\/([a-z0-9\-]+)\.html$/);
   if (productMatch && method === "GET") {
