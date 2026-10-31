@@ -1,27 +1,27 @@
 [
   {
-    "id": "b_karwa15",
+    "id": "b_eggless15",
     "active": true,
     "sortOrder": 0,
-    "delivery": "🚚 Same-Day Delivery",
-    "eyebrow": "💐 Karwa Chauth · 29 October",
-    "title": "Celebrate the Bond You Cherish",
-    "subtitle": "Couple's combos, roses, chocolates & keepsakes — gift love on this special vrat day",
+    "delivery": "🚚 Same-Day Delhi NCR",
+    "eyebrow": "🍰 100% Eggless",
+    "title": "Eggless Cakes, Zero Compromise",
+    "subtitle": "Baked in our own eggless kitchen — birthdays, anniversaries or just because. Same taste, same-day delivery.",
     "codeLabel": "Use code",
-    "code": "KARWA15",
+    "code": "EGGLESS15",
     "discount": "15",
-    "endsText": "⏰ Ends 29 October",
-    "emoji": "🌙",
-    "imageAlt": "Karwa Chauth gifts",
-    "link": "/karwa-chauth-gifts.html",
-    "cta": "Shop Couple's Combos →",
-    "slideClass": "karwa-red-slide",
+    "endsText": "🎁 For every celebration",
+    "emoji": "🍰",
+    "imageAlt": "Eggless chocolate celebration cake",
+    "link": "/cakes.html",
+    "cta": "Shop Eggless Cakes →",
+    "slideClass": "eggless-truffle-slide",
     "logo": true,
     "countdown": {
-      "enabled": true,
-      "target": "2026-10-29T00:00:00+05:30",
-      "label": "Karwa Chauth in",
-      "done": "Happy Karwa Chauth! 🌙"
+      "enabled": false,
+      "target": "",
+      "label": "",
+      "done": ""
     }
   },
   {

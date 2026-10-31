@@ -46,5 +46,17 @@
     "maxDiscount": 300,
     "usageLimit": 0,
     "used": 0
+  },
+  {
+    "code": "EGGLESS15",
+    "type": "percent",
+    "value": 15,
+    "active": true,
+    "validFrom": "2026-10-31",
+    "validUntil": "2027-12-31",
+    "minOrder": 0,
+    "maxDiscount": 300,
+    "usageLimit": 0,
+    "used": 0
   }
 ]
