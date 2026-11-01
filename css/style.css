@@ -901,6 +901,8 @@ body.announce-visible .navbar:not(.scrolled) {
 #festivalBannerSlider .slider-viewport { height: auto; min-height: 300px; }
 #festivalBannerSlider .slider-track { height: auto; }
 .banner-slide { perspective: 1200px; }
+.slide.banner-slide { display: flex; }
+.slide.banner-slide > * { flex: 1; }
 .premium-banner {
   display: flex; align-items: center; gap: 34px; flex-wrap: wrap;
   min-height: 280px; box-sizing: border-box;
@@ -1135,8 +1137,13 @@ body.announce-visible .navbar:not(.scrolled) {
   .pb-cta { padding: 12px 22px; font-size: 0.92rem; transform: none; }
   .orb.o3 { display: none; }
   .pb-logo { top: 12px; right: 14px; width: 46px; }
-  .banner-slide.eggless-truffle-slide { display: flex; }
-  .eggless-truffle-slide .premium-banner { flex: 1; }
+}
+@media (max-width: 900px) {
+  .banner-slider .slider-arrow { display: none; }
+}
+@media (min-width: 901px) {
+  .banner-slider .premium-banner { padding-right: 72px; }
+  .banner-slider .dwB { padding-left: 76px; padding-right: 76px; }
 }
 @media (max-width: 520px) {
   .premium-banner { gap: 14px; padding: 20px 16px; }
