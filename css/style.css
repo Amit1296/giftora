@@ -1143,6 +1143,11 @@ body.announce-visible .navbar:not(.scrolled) {
 }
 @media (min-width: 901px) {
   .banner-slider .premium-banner { padding-right: 72px; }
+}
+@media (min-width: 901px) and (max-width: 1099px) {
+  .banner-slider .dwB { padding-left: 70px; padding-right: 40px; gap: 12px; }
+}
+@media (min-width: 1100px) {
   .banner-slider .dwB { padding-left: 76px; padding-right: 76px; }
 }
 @media (max-width: 520px) {
