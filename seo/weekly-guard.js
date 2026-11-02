@@ -301,7 +301,7 @@ function aiActivity() {
 
   const bots = {};
   const refs = {};
-  const botRe = /"(GPTBot|OAI-SearchBot|PerplexityBot|ClaudeBot|CCBot|Google-Extended)[^"]*"/i;
+  const botRe = /\b(GPTBot|OAI-SearchBot|PerplexityBot|ClaudeBot|CCBot|Google-Extended)\b/i;
   const refRe = /"(https?:\/\/(?:www\.)?(chatgpt\.com|perplexity\.ai|gemini\.google\.com|copilot\.microsoft\.com)[^"]*)"/i;
 
   for (const f of files) {
