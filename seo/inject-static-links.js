@@ -74,6 +74,7 @@ const PAGES = [
   { file: "belts.html", cat: "belts" },
   { file: "cakes.html", cat: "cakes" },
   { file: "chocolate-bouquets.html", cat: "chocolate bouquets" },
+  { file: "snack-bouquets.html", cat: "snack bouquets" },
   { file: "clothes.html", cat: "clothes" },
   { file: "combo.html", cat: "combo" },
   { file: "dry-fruit-hampers.html", cat: "dry fruit hampers" },

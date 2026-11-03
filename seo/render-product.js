@@ -32,6 +32,7 @@ const CATEGORY_META = {
   belts: { name: "Belts", file: "belts.html" },
   jewellery: { name: "Jewellery", file: "jewellery.html" },
   "chocolate bouquets": { name: "Chocolate Bouquets", file: "chocolate-bouquets.html" },
+  "snack bouquets": { name: "Snack Bouquets", file: "snack-bouquets.html" },
   "dry fruit hampers": { name: "Dry Fruit Hampers", file: "dry-fruit-hampers.html" },
 };
 
