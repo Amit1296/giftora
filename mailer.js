@@ -76,7 +76,7 @@ function init() {
 function sendBrevoApi({ subject, text, to, from }) {
   return new Promise((resolve) => {
     const payload = JSON.stringify({
-      sender: { name: "Giftora Store", email: from },
+      sender: { name: "Giftora", email: from },
       to: [{ email: to }],
       subject,
       textContent: text,
@@ -124,7 +124,7 @@ function send({ subject, text, to }) {
   return new Promise((resolve) => {
     transporter.sendMail(
       {
-        from: `"Giftora Store" <${from}>`,
+        from: `"Giftora" <${from}>`,
         to: toAddress,
         subject,
         text,
