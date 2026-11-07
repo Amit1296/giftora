@@ -1166,6 +1166,20 @@
         a.textContent = "Track on WhatsApp";
         checkoutSuccess.insertBefore(a, checkoutSuccess.querySelector("#successDone"));
       }
+      const reviewCta = checkoutSuccess.querySelector(".review-cta");
+      if (!reviewCta) {
+        const r = document.createElement("a");
+        r.className = "btn btn-outline review-cta";
+        r.href = "https://g.page/r/CQhpBDoWy2JREBM/review";
+        r.target = "_blank";
+        r.rel = "noopener";
+        r.textContent = "Leave a Google review";
+        r.addEventListener("click", () => {
+          try { localStorage.setItem("giftoraReviewClicked", "1"); } catch (e) {}
+          try { window.gtag && window.gtag("event", "review_prompt_click"); } catch (e) {}
+        });
+        checkoutSuccess.insertBefore(r, checkoutSuccess.querySelector("#successDone"));
+      }
       checkoutForm.style.display = "none";
       checkoutSuccess.hidden = false;
       cart = {};
